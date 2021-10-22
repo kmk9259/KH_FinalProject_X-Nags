@@ -10,9 +10,11 @@
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
+	<!-- 자바클래스 (소스) 코드 내에 있는 어노테이션을 처리하게 하는 옵션 -->
 	<annotation-driven />
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<!-- resources 경로 등록, 정적 파일 호출 -->
 	<resources mapping="/resources/**" location="/resources/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
@@ -21,8 +23,32 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<!-- bean을 조회할 범위 설정 -->
 	<context:component-scan base-package="com.kh.spring" />
 	
+	<beans:bean id="commonExceptionHandler" class="com.kh.spring.common.CommonExceptionHandler" />
+	
+	<interceptors>
+		<interceptor>
+			<mapping path="/*"/>
+			<beans:bean 
+				id="testInterceptor" class="com.kh.spring.common.interceptor.TestInterceptor">
+			</beans:bean>
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/login.me"/>
+			<beans:bean 
+				id="loginInterceptor" class="com.kh.spring.common.interceptor.LoginInterceptor">
+			</beans:bean>
+		</interceptor>
+		<interceptor>
+			<mapping path="/list.bo"/>
+			<beans:bean id="blistInterceptor" class="com.kh.spring.common.interceptor.BlistInterceptor">
+			</beans:bean>
+		</interceptor>
+		
+	</interceptors>
 	
 	
 </beans:beans>

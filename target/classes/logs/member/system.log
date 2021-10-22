@@ -1,0 +1,25 @@
+21-10-21 14:11:42 [INFO ] ContextLoader.initWebApplicationContext{271} - Root WebApplicationContext: initialization started
+21-10-21 14:11:43 [INFO ] ContextLoader.initWebApplicationContext{307} - Root WebApplicationContext initialized in 619 ms
+21-10-21 14:11:43 [INFO ] DispatcherServlet.initServletBean{525} - Initializing Servlet 'appServlet'
+21-10-21 14:11:43 [INFO ] DispatcherServlet.initServletBean{547} - Completed initialization in 624 ms
+21-10-21 14:12:40 [INFO ] ContextLoader.initWebApplicationContext{271} - Root WebApplicationContext: initialization started
+21-10-21 14:12:40 [INFO ] ContextLoader.initWebApplicationContext{307} - Root WebApplicationContext initialized in 622 ms
+21-10-21 14:12:40 [INFO ] DispatcherServlet.initServletBean{525} - Initializing Servlet 'appServlet'
+21-10-21 14:12:41 [INFO ] DispatcherServlet.initServletBean{547} - Completed initialization in 625 ms
+21-10-21 14:19:18 [INFO ] ContextLoader.initWebApplicationContext{271} - Root WebApplicationContext: initialization started
+21-10-21 14:19:18 [INFO ] ContextLoader.initWebApplicationContext{307} - Root WebApplicationContext initialized in 624 ms
+21-10-21 14:19:18 [INFO ] DispatcherServlet.initServletBean{525} - Initializing Servlet 'appServlet'
+21-10-21 14:19:19 [INFO ] DispatcherServlet.initServletBean{547} - Completed initialization in 612 ms
+21-10-21 14:19:22 [DEBUG] TestInterceptor.preHandle{27} - ============== start preHandle ===============
+21-10-21 14:19:22 [DEBUG] TestInterceptor.preHandle{28} - /spring/login.me
+21-10-21 14:19:22 [INFO ] TestInterceptor.postHandle{30} - admin 192.168.1.4
+21-10-21 14:19:22 [DEBUG] TestInterceptor.postHandle{36} - ============== postHandle ===============
+21-10-21 14:19:22 [DEBUG] TestInterceptor.afterCompletion{44} - ============== afterCompletion end ===============
+21-10-21 14:28:47 [INFO ] ContextLoader.initWebApplicationContext{271} - Root WebApplicationContext: initialization started
+21-10-21 14:28:48 [INFO ] ContextLoader.initWebApplicationContext{307} - Root WebApplicationContext initialized in 638 ms
+21-10-21 14:28:48 [INFO ] DispatcherServlet.initServletBean{525} - Initializing Servlet 'appServlet'
+21-10-21 14:28:48 [INFO ] DispatcherServlet.initServletBean{547} - Completed initialization in 629 ms
+21-10-21 14:29:31 [INFO ] ContextLoader.initWebApplicationContext{271} - Root WebApplicationContext: initialization started
+21-10-21 14:29:32 [INFO ] ContextLoader.initWebApplicationContext{307} - Root WebApplicationContext initialized in 657 ms
+21-10-21 14:29:32 [INFO ] DispatcherServlet.initServletBean{525} - Initializing Servlet 'appServlet'
+21-10-21 14:29:32 [INFO ] DispatcherServlet.initServletBean{547} - Completed initialization in 622 ms
