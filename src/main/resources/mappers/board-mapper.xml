@@ -82,7 +82,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				WHERE STATUS='Y'
 				ORDER BY COUNT DESC
 				)
-		WHERE ROWNUM <6
+		WHERE ROWNUM < 6
 		]]>
 	</select>
 
