@@ -1,5 +1,5 @@
 package com.kh.spring.holiday.controller;
 
-public class HolidayController {
+public class HolidayController {   
 
 }
