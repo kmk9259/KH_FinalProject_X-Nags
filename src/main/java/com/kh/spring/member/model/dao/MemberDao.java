@@ -10,6 +10,8 @@ public class MemberDao {
 
 	public Member loginMember(SqlSessionTemplate sqlSession, Member m) {
 		Member m1 = sqlSession.selectOne("memberMapper.loginMember",m);
+		System.out.println(m.getEmpId());
+		System.out.println("dao   "+m1);
 		return m1;
 	}
 

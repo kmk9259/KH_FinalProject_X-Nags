@@ -2,10 +2,8 @@ package com.kh.spring.member.model.service;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.spring.common.exception.CommException;
 import com.kh.spring.member.model.dao.MemberDao;
@@ -25,8 +23,9 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Member loginMember(Member m) throws Exception{
 		Member loginUser = memberDao.loginMember(sqlSession, m);
+		System.out.println("impl : "+m);
 		if(loginUser == null) {
-			throw new Exception("loginUser null");
+			throw new CommException("loginUser null@");
 		}
 		return loginUser;
 	}
@@ -39,19 +38,19 @@ public class MemberServiceImpl implements MemberService {
 		}		
 	}
 
-	@Override
-	public Member loginMember(BCryptPasswordEncoder bCryptPasswordEncoder, Member m) {
-		Member loginUser = memberDao.loginMember(sqlSession, m);
-		if(loginUser == null) {
-			throw new CommException("loginUser null");
-		}
-		//matches(평문, 암호화)->true, false 반환
-		if(!bCryptPasswordEncoder.matches(m.getUserPwd(), loginUser.getUserPwd())) {
-			//복호화랑 일치하지 않으면
-			throw new CommException("암호불일치");
-		}
-		return loginUser;
-	}
+//	@Override
+//	public Member loginMember(BCryptPasswordEncoder bCryptPasswordEncoder, Member m) {
+//		Member loginUser = memberDao.loginMember(sqlSession, m);
+//		if(loginUser == null) {
+//			throw new CommException("loginUser null@@");
+//		}
+//		//matches(평문, 암호화)->true, false 반환
+//		if(!bCryptPasswordEncoder.matches(m.getUserPwd(), loginUser.getUserPwd())) {
+//			//복호화랑 일치하지 않으면
+//			throw new CommException("암호불일치");
+//		}
+//		return loginUser;
+//	}
 
 	@Override
 	public Member updateMember(Member m) throws Exception {

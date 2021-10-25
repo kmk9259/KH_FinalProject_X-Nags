@@ -51,17 +51,17 @@
 						<div class="login-title">
 							<h2 class="text-center text-primary">Login To DeskApp</h2>
 						</div>
-						<form action="">
+						<form action="main.xnags" method="post">
 							<div class="select-role">
 								<div class="btn-group btn-group-toggle" data-toggle="buttons">
 									<label class="btn active">
-										<input type="radio" name="options" id="admin">
+										<input type="radio" name="admin" id="admin">
 										<div class="icon"><img src="${ pageContext.servletContext.contextPath }/resources/vendors/images/briefcase.svg" class="svg" alt=""></div>
 										<span>I'm</span>
 										Manager
 									</label>
 									<label class="btn">
-										<input type="radio" name="options" id="user">
+										<input type="radio" name="user" id="user">
 										<div class="icon"><img src="${ pageContext.servletContext.contextPath }/resources/vendors/images/person.svg" class="svg" alt=""></div>
 										<span>I'm</span>
 										Employee
@@ -69,13 +69,13 @@
 								</div>
 							</div>
 							<div class="input-group custom">
-								<input type="text" class="form-control form-control-lg" placeholder="Username">
+								<input type="text" name="empId" class="form-control form-control-lg" placeholder="Username">
 								<div class="input-group-append custom">
 									<span class="input-group-text"><i class="icon-copy dw dw-user1"></i></span>
 								</div>
 							</div>
 							<div class="input-group custom">
-								<input type="password" class="form-control form-control-lg" placeholder="**********">
+								<input type="password" name="userPwd" class="form-control form-control-lg" placeholder="**********">
 								<div class="input-group-append custom">
 									<span class="input-group-text"><i class="dw dw-padlock1"></i></span>
 								</div>
@@ -83,10 +83,7 @@
 							<div class="row">
 								<div class="col-sm-12">
 									<div class="input-group mb-0">
-										<!--
-											use code for form submit
-											
-										-->
+										
 										<input class="btn btn-primary btn-lg btn-block" type="submit" value="Sign In">
 										<%-- <a class="btn btn-primary btn-lg btn-block" href="${ pageContext.servletContext.contextPath }/WEB-INF/views/main.jsp">Sign In</a> --%>
 									</div>									

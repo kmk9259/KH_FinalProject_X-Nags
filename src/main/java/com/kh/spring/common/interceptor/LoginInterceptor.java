@@ -28,7 +28,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		
 		if (loginUser != null) {
 			InetAddress local = InetAddress.getLocalHost();
-			logger.info(loginUser.getUserId() + " " + local.getHostAddress());
+			logger.info(loginUser.getEmpId() + " " + local.getHostAddress());
 		}
 	}
 
