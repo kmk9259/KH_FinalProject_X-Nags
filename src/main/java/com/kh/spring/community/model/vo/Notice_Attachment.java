@@ -15,11 +15,12 @@ import lombok.ToString;
 @ToString
 public class Notice_Attachment {
 
-	private int file_no;
-	private int notice_no;
-	private String origin_file;
-	private String change_file;
-	private String file_path;
-	private Date upload_date;
+	private int fileNo;
+	private int noticeNo;
+	private String originFile;
+	private String changeFile;
+	private String filePath;
+	private Date uploadDate;
+	
 	
 }

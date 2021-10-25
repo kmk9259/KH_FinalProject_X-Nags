@@ -15,10 +15,11 @@ import lombok.ToString;
 @ToString
 public class Voting {
 
-	private int voting_no;
-	private String voting_title;
-	private String voting_content;
-	private String emp_id;
-	private Date voting_date;
+	private int votingNo;
+	private String votingTitle;
+	private String votingContent;
+	private String empId;
+	private Date votingDate;
+	
 	
 }

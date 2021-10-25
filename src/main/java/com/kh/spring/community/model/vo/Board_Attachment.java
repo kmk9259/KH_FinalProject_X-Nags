@@ -14,12 +14,13 @@ import lombok.ToString;
 @ToString
 public class Board_Attachment {
 
-	private int file_no;
-	private int board_no;
-	private String origin_file;
-	private String change_file;
-	private String file_path;
-	private Date upload_date;
+	private int fileNo;
+	private int boardNo;
+	private String originFile;
+	private String changeFile;
+	private String filePath;
+	private Date uploadDate;
+	
 	
 
 }
