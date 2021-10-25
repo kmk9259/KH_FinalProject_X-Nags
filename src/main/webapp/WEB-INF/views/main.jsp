@@ -142,7 +142,7 @@
             <jsp:include page="common/footer.jsp"/>
         </div>
     </div>
-    <!-- js -->
+    <%-- <!-- js -->
     <script src="${ pageContext.servletContext.contextPath }/resources/vendors/scripts/core.js"></script>
     <script src="${ pageContext.servletContext.contextPath }/resources/vendors/scripts/script.min.js"></script>
     <script src="${ pageContext.servletContext.contextPath }/resources/vendors/scripts/process.js"></script>
@@ -152,6 +152,6 @@
     <script src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
     <script src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/dataTables.responsive.min.js"></script>
     <script src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
-    <script src="${ pageContext.servletContext.contextPath }/resources/vendors/scripts/dashboard.js"></script>
+    <script src="${ pageContext.servletContext.contextPath }/resources/vendors/scripts/dashboard.js"></script> --%>
 </body>
 </html>
