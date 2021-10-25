@@ -10,7 +10,7 @@ public interface MemberService {
 
 	void insertMember(Member m);
 
-	Member loginMember(BCryptPasswordEncoder bCryptPasswordEncoder, Member m);
+//	Member loginMember(BCryptPasswordEncoder bCryptPasswordEncoder, Member m);
 
 	Member updateMember(Member m) throws Exception;
 

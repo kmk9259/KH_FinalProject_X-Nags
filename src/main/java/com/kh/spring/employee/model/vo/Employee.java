@@ -31,8 +31,7 @@ public class Employee {
 	private String jobCode;					
 	private String rightNo;				
 	private String deptCode;			
-	private String empName;		
-	private String empSsn;	
+	private String empName;	
 	private String salLevel;		
 	private Date hireDate;
 	private Date modifyDate;		

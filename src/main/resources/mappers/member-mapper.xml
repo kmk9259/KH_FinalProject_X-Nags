@@ -5,29 +5,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="memberMapper">
 
 	<resultMap id="memberResultSet" type="Member">
-		<id property="userId" column="user_ID"/>
-		<result property="userPwd" column="user_PWD"/>
-		<result property="userName" column="user_NAME"/>
+		<id property="userNo" column="USER_NO"/>
+		<result property="empId" column="EMP_ID"/>
+		<result property="userPwd" column="USER_PWD"/>
+		<result property="userSsn" column="USER_SSN"/>
 		<result property="email" column="EMAIL"/>
-		<result property="gender" column="GENDER"/>
-		<result property="age" column="AGE"/>
 		<result property="phone" column="PHONE"/>
 		<result property="address" column="ADDRESS"/>
-		<result property="enrollDate" column="ENROLL_DATE"/>
-		<result property="modifyDate" column="modify_DATE"/>
+		<result property="gender" column="GENDER"/>
 		<result property="status" column="STATUS"/>
 	</resultMap>
 
 	<select id="loginMember" parameterType="Member" resultMap="memberResultSet">
-		<!-- 암호화 전
-		select * from member where user_id=#{userId} and user_pwd=#{userPwd} and status='Y'-->
-		
-		<!-- 암호화 후 -->
-		select * from member where user_id=#{userId} and status='Y'
+	
+		select * from member where EMP_ID=#{empId} and USER_PWD=#{userPwd} and status='Y'
 		
 	</select>
 	
-	<insert id="insertMember" parameterType="Member">
+	<!-- <insert id="insertMember" parameterType="Member">
 	insert into member
 	values (#{userId},#{userPwd},#{userName},#{email},#{gender},#{age},#{phone},#{address},sysdate,sysdate,default)	
 	</insert>
@@ -48,7 +43,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	update member set
 	user_pwd=#{userPwd}
 	WHERE user_ID = #{userId} 	
-	</update>
+	</update> -->
 	
 	
 </mapper>
