@@ -23,8 +23,8 @@
 	<bean id="realDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
  		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
 		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
-		<property name="username" value="spring"/>
-		<property name="password" value="spring"/> <!-- 여기까지 무조건 작성 -->
+		<property name="username" value="xnags"/>
+		<property name="password" value="xnags"/> <!-- 여기까지 무조건 작성 -->
 		<property name="defaultAutoCommit" value="false"/> 
  	</bean>
  	<bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">

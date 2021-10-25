@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,10 +72,12 @@
             <div class="user-info-dropdown">
                 <div class="dropdown">
                     <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                        <c:if test="${ !empty sessionScope.loginUser }">
                         <span class="user-icon">
 							<img src="${ pageContext.servletContext.contextPath }/resources/vendors/images/photo1.jpg" alt="">
 						</span>
-                        <span class="user-name">유재석님</span>
+                        <span class="user-name">${ sessionScope.loginUser.empId }님</span>
+                         </c:if>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                         <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Profile</a>
