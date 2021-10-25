@@ -20,5 +20,6 @@ public class Board_Attachment {
 	private String change_file;
 	private String file_path;
 	private Date upload_date;
+	
 
 }

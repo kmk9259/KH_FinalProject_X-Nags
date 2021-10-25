@@ -20,4 +20,5 @@ public class Voting {
 	private String voting_content;
 	private String emp_id;
 	private Date voting_date;
+	
 }

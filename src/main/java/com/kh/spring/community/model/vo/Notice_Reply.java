@@ -20,4 +20,5 @@ public class Notice_Reply {
 	private String reply_content;
 	private String emp_id;
 	private Date reply_date;
+	
 }

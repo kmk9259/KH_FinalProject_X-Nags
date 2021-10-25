@@ -20,5 +20,6 @@ public class Board {
 	private String board_title;
 	private String board_content;
 	private Date board_date;
+	
 
 }
