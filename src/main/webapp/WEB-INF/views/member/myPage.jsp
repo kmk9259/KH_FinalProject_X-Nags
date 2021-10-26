@@ -211,8 +211,9 @@
 											                    	$(function(){
 											                    		if("${ sessionScope.loginUser.gender }" == "M"){
 											                    			$("#Male").attr("checked", true); 
-											                    			console.log("dd");
+											                    			console.log("male");
 											                    		}else if("${ sessionScope.loginUser.gender }" == "F"){
+											                    			console.log("female");
 											                    			$("#Female").attr("checked", true);
 											                    		}
 											                    		

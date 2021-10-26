@@ -44,6 +44,24 @@ public class MemberController {
 			model.addAttribute("msg","로그인 실패");
 			return "common/errorPage";
 		}		 
+	}	
+	
+	@RequestMapping("myPage.me")
+	public String myPage() {
+		return "member/myPage";
+	}
+	@RequestMapping("update.me")
+	public String updateMember(@ModelAttribute Member m, @RequestParam("post") String post,
+								 @RequestParam("address1") String address1,
+								 @RequestParam("address2") String address2,
+								 HttpSession session, Model model) throws Exception {
+		m.setAddress(post+"/"+address1+"/"+address2);
+		
+		Member userInfo = memberService.updateMember(m);
+		
+		
+		model.addAttribute("loginUser", userInfo);
+		return "member/myPage";
 	}
 	/*
 	//로그아웃 변경 (@SessionAttributes)
@@ -56,9 +74,9 @@ public class MemberController {
 	@RequestMapping("enrollForm.me")
 	public String enrollForm() {
 		return "member/memberEnrollForm";
-	}*/
+	}
 	
-	@RequestMapping("insertMember.me")
+	@RequestMapping("insert.me")
 	public String insertMember(@ModelAttribute Member m, @RequestParam("post") String post,
 														 @RequestParam("address1") String address1,
 														 @RequestParam("address2") String address2,
@@ -75,30 +93,16 @@ public class MemberController {
 		session.setAttribute("msg", "회원가입 성공");
 		return "redirect:/";
 		
-		
-		
 	}
 	
-	/*
+	
 	
 	@RequestMapping("myPage.me")
 	public String myPage() {
 		return "member/myPage";
 	}
 	
-	@RequestMapping("update.me")
-	public String updateMember(@ModelAttribute Member m, @RequestParam("post") String post,
-								 @RequestParam("address1") String address1,
-								 @RequestParam("address2") String address2,
-								 HttpSession session, Model model) throws Exception {
-		m.setAddress(post+"/"+address1+"/"+address2);
-		
-		Member userInfo = memberService.updateMember(m);
-		System.out.println("암호화전 : "+m.getUserPwd());
-		
-		model.addAttribute("loginUser", userInfo);
-		return "member/myPage";
-	}
+	
 	@RequestMapping("updatePwd.me")
 	public String updatePwd(@ModelAttribute Member m, 
 								 HttpSession session, Model model) throws Exception {
