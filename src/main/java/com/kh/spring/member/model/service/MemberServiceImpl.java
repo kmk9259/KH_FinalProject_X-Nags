@@ -29,14 +29,25 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return loginUser;
 	}
-
 	@Override
-	public void insertMember(Member m) {
-		int result = memberDao.insertMember(sqlSession, m);
-		if(result < 0) {
-			throw new CommException("회원 가입 실패");
+	public Member updateMember(Member m) throws Exception {
+		int result = memberDao.updateMember(sqlSession,m);
+		
+		if(result>0) {
+			Member loginUser = memberDao.loginMember(sqlSession, m);
+			return loginUser;
+		}else {
+			throw new Exception("회원 수정 실패");
 		}		
 	}
+
+//	@Override
+//	public void insertMember(Member m) {
+//		int result = memberDao.insertMember(sqlSession, m);
+//		if(result < 0) {
+//			throw new CommException("회원 가입 실패");
+//		}		
+//	}
 
 //	@Override
 //	public Member loginMember(BCryptPasswordEncoder bCryptPasswordEncoder, Member m) {
@@ -52,19 +63,9 @@ public class MemberServiceImpl implements MemberService {
 //		return loginUser;
 //	}
 
-	@Override
-	public Member updateMember(Member m) throws Exception {
-		int result = memberDao.updateMember(sqlSession,m);
-		
-		if(result>0) {
-			Member loginUser = memberDao.loginMember(sqlSession, m);
-			return loginUser;
-		}else {
-			throw new Exception("회원 수정 실패");
-		}		
-	}
+	
 
-	@Override
+	/*@Override
 	public void deleteMember(String userId) {
 		int result = memberDao.deleteMember(sqlSession, userId);
 		if(result < 0) {
@@ -83,7 +84,7 @@ public class MemberServiceImpl implements MemberService {
 		}else {
 			throw new CommException("비밀번호 변경 실패");
 		}	
-	}
+	}*/
 
 	
 

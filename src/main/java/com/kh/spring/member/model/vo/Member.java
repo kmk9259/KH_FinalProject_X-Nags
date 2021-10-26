@@ -19,6 +19,7 @@ public class Member {
 	private String empId;
 	private String userPwd;
 	private String userSsn;
+	private String userName;
 	private String email;
 	private String phone;
 	private String address;

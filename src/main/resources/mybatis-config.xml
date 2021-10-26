@@ -2,21 +2,27 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
 
-	<settings><!-- value 에 NULL 은 무조건 대문자로  -->
-		<setting name="jdbcTypeForNull" value="NULL"/>
-	</settings>
+   <settings><!-- value 에 NULL 은 무조건 대문자로 -->
+      <setting name="jdbcTypeForNull" value="NULL" />
+   </settings>
 
-	<typeAliases>
-		<typeAlias type="com.kh.spring.member.model.vo.Member" alias="Member"/>
-		<!-- <typeAlias type="com.kh.spring.board.model.vo.Board" alias="Board"/>
-		<typeAlias type="com.kh.spring.board.model.vo.Reply" alias="Reply"/> -->
-	</typeAliases>
+   <typeAliases>
+      <typeAlias type="com.kh.spring.member.model.vo.Member"
+         alias="Member" />
+      <typeAlias type="com.kh.spring.community.model.vo.Board"
+         alias="Board" /> 
+         <typeAlias type="com.kh.spring.mail.model.vo.Mail" alias="Mail"/>
+         <typeAlias type="com.kh.spring.employee.model.vo.Employee" alias="Employee"/>
+      <!-- <typeAlias type="com.kh.spring.board.model.vo.Reply" alias="Reply"/> -->
+   </typeAliases>
 
 
-	<mappers>
-		<mapper resource="/mappers/member-mapper.xml"/> 
-		<!-- <mapper resource="/mappers/board-mapper.xml"/>   -->
-	</mappers>
+   <mappers>
+      <mapper resource="/mappers/member-mapper.xml" />
+      <mapper resource="/mappers/mail-mapper.xml"/> 
+      <mapper resource="/mappers/employee-mapper.xml"/>
+      <mapper resource="/mappers/board-mapper.xml" />
+   </mappers>
 
 
 </configuration>
