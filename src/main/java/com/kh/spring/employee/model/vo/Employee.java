@@ -1,7 +1,11 @@
 package com.kh.spring.employee.model.vo;
 
-import java.sql.Date;
-import java.sql.Timestamp;
+
+
+
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,9 +36,16 @@ public class Employee {
 	private String rightNo;				
 	private String deptCode;			
 	private String empName;	
-	private String salLevel;		
+	private String salLevel;
+	
+	@DateTimeFormat(pattern ="yyyy-MM-dd")
 	private Date hireDate;
-	private Date modifyDate;		
+	
+	
+	
+	private Date modifyDate;
+	
+	@DateTimeFormat(pattern ="yyyy-MM-dd")
 	private Date endDate;
 	private String status;
 
