@@ -1,861 +1,298 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>X-Nomal Groupware Solution</title>
+
+
+<style type="text/css">
+#close {
+	position: absolute;
+	float: right;
+	background: red;
+	color: white;
+	width: 30px;
+	z-index: 1;
+}
+</style>
 </head>
 <body>
 
- <jsp:include page="../common/menubar.jsp"/> 
- <!-- ================================================================================= -->
+	<jsp:include page="../common/menubar.jsp" />
+	<!-- ================================================================================= -->
 
 
-	<div class="mobile-menu-overlay"></div>
+	<!-- <div class="mobile-menu-overlay"></div> -->
 
 	<div class="main-container">
 		<div class="pd-ltr-20 xs-pd-20-10">
 			<div class="min-height-200px">
-			
-				<!-- Default Basic Forms Start -->
-				<div class="pd-20 card-box mb-30">
-					<div class="clearfix">
-						<div class="pull-left">
-							<h4 class="text-blue h4">사원 등록</h4>
-							<p class="mb-30">사원의 정보를 입력해 주세요</p>
-						</div>
-						
-					</div>
-					<form>
-						<div class="form-group row">
-							<label class="col-sm-12 col-md-2 col-form-label">Text</label>
-							<div class="col-sm-12 col-md-10">
-								<input class="form-control" type="text" placeholder="Johnny Brown">
+
+				<!-- 사원정보 입력 -->
+				<form id="enrollForm" action="insertEmp.me" method="post">
+					<div class="pd-20 card-box mb-30">
+
+						<div class="clearfix">
+							<div class="pull-left">
+								<h4 class="text-blue h4">사원 등록</h4>
+								<p class="mb-30">사원의 정보를 입력해 주세요</p>
 							</div>
+
 						</div>
-						<div class="form-group row">
-							<label class="col-sm-12 col-md-2 col-form-label">Search</label>
-							<div class="col-sm-12 col-md-10">
-								<input class="form-control" placeholder="Search Here" type="search">
+
+
+						<div class="text-center">
+							<label class="title">사원 프로필 사진</label>
+							<div>
+								<a class="fileRemove1" id="close"> X </a> <img name="file"
+									id="titleImg" width="200px" height="180">
+
 							</div>
-						</div>
-						<div class="form-group row">
-							<label class="col-sm-12 col-md-2 col-form-label">Email</label>
-							<div class="col-sm-12 col-md-10">
-								<input class="form-control" value="bootstrap@example.com" type="email">
+							<br>
+
+							<div id="fileArea">
+
+								<input type="file" style="color: black;" name="file" id="file"
+									onchange="loadImg(this, 1);" required>
+
 							</div>
+
+							<script>
+								$(function() {
+									$("#fileArea").hide();
+
+									$("#titleImg").click(function() {
+										$("#file").click();
+									});
+
+								});
+
+								function loadImg(inputFile, num) {// 이미지 미리보기 
+									//inputFile : 현재 변화가 생긴 input type = "file"
+									//num : 조건문을 활용 하기 위해 전달받은 매개변수
+
+									//console.dir(inputFile);
+
+									if (inputFile.files.length == 1) {//file이 존재 할경우 
+										var reader = new FileReader();// 파일을 읽어들이 FileReader객체를 생성 
+
+										reader
+												.readAsDataURL(inputFile.files[0]);//파일을 읽어주는 메소드  --> 해당 파일을 읽어서 url을 부여 (문자열로 저장 )
+
+										reader.onload = function(e) {//파일 읽기가 다완료 되면 실행할 메소드 
+											console.log(e);
+											switch (num) {
+											case 1:
+												$("#titleImg").attr("src",
+														e.target.result);
+												break;// result :  읽어들이 파일 내용 data:URL 형식 
+
+											}
+										}
+									}
+								};
+
+								//==================사진 지우기 함수 
+
+								$("#removefile").click(function() {
+									$("#titleImg").attr("src", " ");
+
+								})
+
+								$(".fileRemove1").click(function() {
+
+									$("#titleImg").attr("src", " ");
+									$('#file1').val('');
+
+								})
+							</script>
+
+
 						</div>
+
+
 						<div class="form-group row">
-							<label class="col-sm-12 col-md-2 col-form-label">URL</label>
+							<label class="col-sm-12 col-md-2 col-form-label">직급코드</label>
 							<div class="col-sm-12 col-md-10">
-								<input class="form-control" value="https://getbootstrap.com" type="url">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label class="col-sm-12 col-md-2 col-form-label">Telephone</label>
-							<div class="col-sm-12 col-md-10">
-								<input class="form-control" value="1-(111)-111-1111" type="tel">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label class="col-sm-12 col-md-2 col-form-label">Password</label>
-							<div class="col-sm-12 col-md-10">
-								<input class="form-control" value="password" type="password">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label class="col-sm-12 col-md-2 col-form-label">Number</label>
-							<div class="col-sm-12 col-md-10">
-								<input class="form-control" value="100" type="number">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="example-datetime-local-input" class="col-sm-12 col-md-2 col-form-label">Date and time</label>
-							<div class="col-sm-12 col-md-10">
-								<input class="form-control datetimepicker" placeholder="Choose Date anf time" type="text">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label class="col-sm-12 col-md-2 col-form-label">Date</label>
-							<div class="col-sm-12 col-md-10">
-								<input class="form-control date-picker" placeholder="Select Date" type="text">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label class="col-sm-12 col-md-2 col-form-label">Month</label>
-							<div class="col-sm-12 col-md-10">
-								<input class="form-control month-picker" placeholder="Select Month" type="text">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label class="col-sm-12 col-md-2 col-form-label">Time</label>
-							<div class="col-sm-12 col-md-10">
-								<input class="form-control time-picker" placeholder="Select time" type="text">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label class="col-sm-12 col-md-2 col-form-label">Select</label>
-							<div class="col-sm-12 col-md-10">
-								<select class="custom-select col-12">
-									<option selected="">Choose...</option>
-									<option value="1">One</option>
-									<option value="2">Two</option>
-									<option value="3">Three</option>
+
+								<select class="form-control" id="jobCode" name="jobCode">
+									<option>J1</option>
+									<option>J2</option>
+									<option>J3</option>
+									<option>J4</option>
+									<option>J5</option>
+									<option>J6</option>
+									<option>J7</option>
 								</select>
 							</div>
 						</div>
 						<div class="form-group row">
-							<label class="col-sm-12 col-md-2 col-form-label">Color</label>
+							<label class="col-sm-12 col-md-2 col-form-label">권한</label>
 							<div class="col-sm-12 col-md-10">
-								<input class="form-control" value="#563d7c" type="color">
+								<!-- 	<input class="form-control" placeholder="권한" type="text"> -->
+								<select class="form-control" id="rightNo" name="rightNo">
+									<option>1</option>
+									<option>2</option>
+									<option>3</option>
+									<option>4</option>
+								</select>
 							</div>
 						</div>
 						<div class="form-group row">
-							<label class="col-sm-12 col-md-2 col-form-label">Input Range</label>
+							<label class="col-sm-12 col-md-2 col-form-label">부서코드</label>
 							<div class="col-sm-12 col-md-10">
-								<input class="form-control" value="50" type="range">
+								<!-- <input class="form-control" placeholder="부서코드" type="text"> -->
+								<select class="form-control" id="deptCode" name="deptCode">
+									<option>D1</option>
+									<option>D2</option>
+									<option>D3</option>
+									<option>D4</option>
+									<option>D5</option>
+									<option>D6</option>
+									<option>D7</option>
+								</select>
 							</div>
-						</div>
-					</form>
-					<div class="collapse collapse-box" id="basic-form1" >
-						<div class="code-box">
-							<div class="clearfix">
-								<a href="javascript:;" class="btn btn-primary btn-sm code-copy pull-left"  data-clipboard-target="#copy-pre"><i class="fa fa-clipboard"></i> Copy Code</a>
-								<a href="#basic-form1" class="btn btn-primary btn-sm pull-right" rel="content-y"  data-toggle="collapse" role="button"><i class="fa fa-eye-slash"></i> Hide Code</a>
-							</div>
-							<pre><code class="xml copy-pre" id="copy-pre">
-<form>
-	<div class="form-group row">
-		<label class="col-sm-12 col-md-2 col-form-label">Text</label>
-		<div class="col-sm-12 col-md-10">
-			<input class="form-control" type="text" placeholder="Johnny Brown">
-		</div>
-	</div>
-	<div class="form-group row">
-		<label class="col-sm-12 col-md-2 col-form-label">Search</label>
-		<div class="col-sm-12 col-md-10">
-			<input class="form-control" placeholder="Search Here" type="search">
-		</div>
-	</div>
-	<div class="form-group row">
-		<label class="col-sm-12 col-md-2 col-form-label">Email</label>
-		<div class="col-sm-12 col-md-10">
-			<input class="form-control" value="bootstrap@example.com" type="email">
-		</div>
-	</div>
-	<div class="form-group row">
-		<label class="col-sm-12 col-md-2 col-form-label">URL</label>
-		<div class="col-sm-12 col-md-10">
-			<input class="form-control" value="https://getbootstrap.com" type="url">
-		</div>
-	</div>
-	<div class="form-group row">
-		<label class="col-sm-12 col-md-2 col-form-label">Telephone</label>
-		<div class="col-sm-12 col-md-10">
-			<input class="form-control" value="1-(111)-111-1111" type="tel">
-		</div>
-	</div>
-	<div class="form-group row">
-		<label class="col-sm-12 col-md-2 col-form-label">Password</label>
-		<div class="col-sm-12 col-md-10">
-			<input class="form-control" value="password" type="password">
-		</div>
-	</div>
-	<div class="form-group row">
-		<label class="col-sm-12 col-md-2 col-form-label">Number</label>
-		<div class="col-sm-12 col-md-10">
-			<input class="form-control" value="100" type="number">
-		</div>
-	</div>
-	<div class="form-group row">
-		<label for="example-datetime-local-input" class="col-sm-12 col-md-2 col-form-label">Date and time</label>
-		<div class="col-sm-12 col-md-10">
-			<input class="form-control datetimepicker" placeholder="Choose Date anf time" type="text">
-		</div>
-	</div>
-	<div class="form-group row">
-		<label class="col-sm-12 col-md-2 col-form-label">Date</label>
-		<div class="col-sm-12 col-md-10">
-			<input class="form-control date-picker" placeholder="Select Date" type="text">
-		</div>
-	</div>
-	<div class="form-group row">
-		<label class="col-sm-12 col-md-2 col-form-label">Month</label>
-		<div class="col-sm-12 col-md-10">
-			<input class="form-control month-picker" placeholder="Select Month" type="text">
-		</div>
-	</div>
-	<div class="form-group row">
-		<label class="col-sm-12 col-md-2 col-form-label">Time</label>
-		<div class="col-sm-12 col-md-10">
-			<input class="form-control time-picker" placeholder="Select time" type="text">
-		</div>
-	</div>
-	<div class="form-group row">
-		<label class="col-sm-12 col-md-2 col-form-label">Select</label>
-		<div class="col-sm-12 col-md-10">
-			<select class="custom-select col-12">
-				<option selected="">Choose...</option>
-				<option value="1">One</option>
-				<option value="2">Two</option>
-				<option value="3">Three</option>
-			</select>
-		</div>
-	</div>
-	<div class="form-group row">
-		<label class="col-sm-12 col-md-2 col-form-label">Color</label>
-		<div class="col-sm-12 col-md-10">
-			<input class="form-control" value="#563d7c" type="color">
-		</div>
-	</div>
-	<div class="form-group row">
-		<label class="col-sm-12 col-md-2 col-form-label">Input Range</label>
-		<div class="col-sm-12 col-md-10">
-			<input class="form-control" value="50" type="range">
-		</div>
-	</div>
-</form>
-							</code></pre>
-						</div>
-					</div>
-				</div>
-				<!-- Default Basic Forms End -->
 
-				<!-- horizontal Basic Forms Start -->
-				<div class="pd-20 card-box mb-30">
-					<div class="clearfix">
-						<div class="pull-left">
-							<h4 class="text-blue h4">horizontal Basic Forms</h4>
-							<p class="mb-30">All bootstrap element classies</p>
 						</div>
-						<div class="pull-right">
-							<a href="#horizontal-basic-form1" class="btn btn-primary btn-sm scroll-click" rel="content-y"  data-toggle="collapse" role="button"><i class="fa fa-code"></i> Source Code</a>
-						</div>
-					</div>
-					<form>
-						<div class="form-group">
-							<label>Text</label>
-							<input class="form-control" type="text" placeholder="Johnny Brown">
-						</div>
-						<div class="form-group">
-							<label>Email</label>
-							<input class="form-control" value="bootstrap@example.com" type="email">
-						</div>
-						<div class="form-group">
-							<label>URL</label>
-							<input class="form-control" value="https://getbootstrap.com" type="url">
-						</div>
-						<div class="form-group">
-							<label>Telephone</label>
-							<input class="form-control" value="1-(111)-111-1111" type="tel">
-						</div>
-						<div class="form-group">
-							<label>Password</label>
-							<input class="form-control" value="password" type="password">
-						</div>
-						<div class="form-group">
-							<label>Readonly input</label>
-							<input class="form-control" type="text" placeholder="Readonly input here…" readonly>
-						</div>
-						<div class="form-group">
-							<label>Disabled input</label>
-							<input type="text" class="form-control" placeholder="Disabled input" disabled="">
-						</div>
-						<div class="form-group">
-							<div class="row">
-								<div class="col-md-6 col-sm-12">
-									<label class="weight-600">Custom Checkbox</label>
-									<div class="custom-control custom-checkbox mb-5">
-										<input type="checkbox" class="custom-control-input" id="customCheck1">
-										<label class="custom-control-label" for="customCheck1">Check this custom checkbox</label>
-									</div>
-									<div class="custom-control custom-checkbox mb-5">
-										<input type="checkbox" class="custom-control-input" id="customCheck2">
-										<label class="custom-control-label" for="customCheck2">Check this custom checkbox</label>
-									</div>
-									<div class="custom-control custom-checkbox mb-5">
-										<input type="checkbox" class="custom-control-input" id="customCheck3">
-										<label class="custom-control-label" for="customCheck3">Check this custom checkbox</label>
-									</div>
-									<div class="custom-control custom-checkbox mb-5">
-										<input type="checkbox" class="custom-control-input" id="customCheck4">
-										<label class="custom-control-label" for="customCheck4">Check this custom checkbox</label>
-									</div>
-								</div>
-								<div class="col-md-6 col-sm-12">
-									<label class="weight-600">Custom Radio</label>
-									<div class="custom-control custom-radio mb-5">
-										<input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
-										<label class="custom-control-label" for="customRadio1">Toggle this custom radio</label>
-									</div>
-									<div class="custom-control custom-radio mb-5">
-										<input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
-										<label class="custom-control-label" for="customRadio2">Or toggle this other custom radio</label>
-									</div>
-									<div class="custom-control custom-radio mb-5">
-										<input type="radio" id="customRadio3" name="customRadio" class="custom-control-input">
-										<label class="custom-control-label" for="customRadio3">Or toggle this other custom radio</label>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="form-group">
-							<label>Disabled select menu</label>
-							<select class="form-control" disabled="">
-								<option>Disabled select</option>
-							</select>
-						</div>
-						<div class="form-group">
-							<label>input plaintext</label>
-							<input type="text" readonly class="form-control-plaintext" value="email@example.com">
-						</div>
-						<div class="form-group">
-							<label>Textarea</label>
-							<textarea class="form-control"></textarea>
-						</div>
-						<div class="form-group">
-							<label>Help text</label>
-							<input type="text" class="form-control">
-							<small class="form-text text-muted">
-							  Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
-							</small>
-						</div>
-						<div class="form-group">
-							<label>Example file input</label>
-							<input type="file" class="form-control-file form-control height-auto">
-						</div>
-						<div class="form-group">
-							<label>Custom file input</label>
-							<div class="custom-file">
-								<input type="file" class="custom-file-input">
-								<label class="custom-file-label">Choose file</label>
-							</div>
-						</div>
-					</form>
-					<div class="collapse collapse-box" id="horizontal-basic-form1" >
-						<div class="code-box">
-							
-<form>
-	<div class="form-group">
-		<label>Text</label>
-		<input class="form-control" type="text" placeholder="Johnny Brown">
-	</div>
-	<div class="form-group">
-		<label>Email</label>
-		<input class="form-control" value="bootstrap@example.com" type="email">
-	</div>
-	<div class="form-group">
-		<label>URL</label>
-		<input class="form-control" value="https://getbootstrap.com" type="url">
-	</div>
-	<div class="form-group">
-		<label>Telephone</label>
-		<input class="form-control" value="1-(111)-111-1111" type="tel">
-	</div>
-	<div class="form-group">
-		<label>Password</label>
-		<input class="form-control" value="password" type="password">
-	</div>
-	<div class="form-group">
-		<label>Readonly input</label>
-		<input class="form-control" type="text" placeholder="Readonly input here…" readonly>
-	</div>
-	<div class="form-group">
-		<label>Disabled input</label>
-		<input type="text" class="form-control" placeholder="Disabled input" disabled="">
-	</div>
-	<div class="form-group">
-		<div class="row">
-			<div class="col-md-6 col-sm-12">
-				<label class="weight-600">Custom Checkbox</label>
-				<div class="custom-control custom-checkbox mb-5">
-					<input type="checkbox" class="custom-control-input" id="customCheck1-1">
-					<label class="custom-control-label" for="customCheck1-1">Check this custom checkbox</label>
-				</div>
-				<div class="custom-control custom-checkbox mb-5">
-					<input type="checkbox" class="custom-control-input" id="customCheck2-1">
-					<label class="custom-control-label" for="customCheck2-1">Check this custom checkbox</label>
-				</div>
-				<div class="custom-control custom-checkbox mb-5">
-					<input type="checkbox" class="custom-control-input" id="customCheck3-1">
-					<label class="custom-control-label" for="customCheck3-1">Check this custom checkbox</label>
-				</div>
-				<div class="custom-control custom-checkbox mb-5">
-					<input type="checkbox" class="custom-control-input" id="customCheck4-1">
-					<label class="custom-control-label" for="customCheck4-1">Check this custom checkbox</label>
-				</div>
-			</div>
-			<div class="col-md-6 col-sm-12">
-				<label class="weight-600">Custom Radio</label>
-				<div class="custom-control custom-radio mb-5">
-					<input type="radio" id="customRadio4" name="customRadio" class="custom-control-input">
-					<label class="custom-control-label" for="customRadio4">Toggle this custom radio</label>
-				</div>
-				<div class="custom-control custom-radio mb-5">
-					<input type="radio" id="customRadio5" name="customRadio" class="custom-control-input">
-					<label class="custom-control-label" for="customRadio5">Or toggle this other custom radio</label>
-				</div>
-				<div class="custom-control custom-radio mb-5">
-					<input type="radio" id="customRadio6" name="customRadio" class="custom-control-input">
-					<label class="custom-control-label" for="customRadio6">Or toggle this other custom radio</label>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="form-group">
-		<label>Disabled select menu</label>
-		<select class="form-control" disabled="">
-			<option>Disabled select</option>
-		</select>
-	</div>
-	<div class="form-group">
-		<label>input plaintext</label>
-		<input type="text" readonly class="form-control-plaintext" value="email@example.com">
-	</div>
-	<div class="form-group">
-		<label>Textarea</label>
-		<textarea class="form-control"></textarea>
-	</div>
-	<div class="form-group">
-		<label>Help text</label>
-		<input type="text" class="form-control">
-		<small class="form-text text-muted">
-		  Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
-		</small>
-	</div>
-	<div class="form-group">
-		<label>Example file input</label>
-		<input type="file" class="form-control-file form-control height-auto">
-	</div>
-	<div class="form-group">
-		<label>Custom file input</label>
-		<div class="custom-file">
-			<input type="file" class="custom-file-input">
-			<label class="custom-file-label">Choose file</label>
-		</div>
-	</div>
-</form>
+				
+						<div class="form-group row">
+							<label class="col-sm-12 col-md-2 col-form-label">급여 등급</label>
+							<div class="col-sm-12 col-md-10">
 
-</code></pre>
-						</div>
-					</div>
-				</div>
-				<!-- horizontal Basic Forms End -->
+								<select class="form-control" id="salLevel" name="salLevel">
+									<option>S1</option>
+									<option>S2</option>
+									<option>S3</option>
+									<option>S4</option>
+									<option>S5</option>
+									<option>S6</option>
 
-				<!-- Form grid Start -->
-				<div class="pd-20 card-box mb-30">
-					<div class="clearfix">
-						<div class="pull-left">
-							<h4 class="text-blue h4">Form grid</h4>
-							<p class="mb-30">All bootstrap element classies</p>
-						</div>
-						<div class="pull-right">
-							<a href="#form-grid-form" class="btn btn-primary btn-sm scroll-click" rel="content-y"  data-toggle="collapse" role="button"><i class="fa fa-code"></i> Source Code</a>
-						</div>
-					</div>
-					<form>
-						<div class="row">
-							<div class="col-md-4 col-sm-12">
-								<div class="form-group">
-									<label>col-md-4</label>
-									<input type="text" class="form-control">
-								</div>
-							</div>
-							<div class="col-md-4 col-sm-12">
-								<div class="form-group">
-									<label>col-md-4</label>
-									<input type="text" class="form-control">
-								</div>
-							</div>
-							<div class="col-md-4 col-sm-12">
-								<div class="form-group">
-									<label>col-md-4</label>
-									<input type="text" class="form-control">
-								</div>
+								</select>
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-md-3 col-sm-12">
-								<div class="form-group">
-									<label>col-md-3</label>
-									<input type="text" class="form-control">
-								</div>
-							</div>
-							<div class="col-md-3 col-sm-12">
-								<div class="form-group">
-									<label>col-md-3</label>
-									<input type="text" class="form-control">
-								</div>
-							</div>
-							<div class="col-md-3 col-sm-12">
-								<div class="form-group">
-									<label>col-md-3</label>
-									<input type="text" class="form-control">
-								</div>
-							</div>
-							<div class="col-md-3 col-sm-12">
-								<div class="form-group">
-									<label>col-md-3</label>
-									<input type="text" class="form-control">
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6 col-sm-12">
-								<div class="form-group">
-									<label>col-md-6</label>
-									<input type="text" class="form-control">
-								</div>
-							</div>
-							<div class="col-md-6 col-sm-12">
-								<div class="form-group">
-									<label>col-md-6</label>
-									<input type="text" class="form-control">
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6 col-sm-12">
-								<div class="form-group">
-									<label>col-md-6</label>
-									<input type="text" class="form-control">
-								</div>
-							</div>
-							<div class="col-md-3 col-sm-12">
-								<div class="form-group">
-									<label>col-md-3</label>
-									<input type="text" class="form-control">
-								</div>
-							</div>
-							<div class="col-md-3 col-sm-12">
-								<div class="form-group">
-									<label>col-md-3</label>
-									<input type="text" class="form-control">
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12 col-sm-12">
-								<div class="form-group">
-									<label>col-md-12</label>
-									<input type="text" class="form-control">
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-2 col-sm-12">
-								<div class="form-group">
-									<label>col-md-2</label>
-									<input type="text" class="form-control">
-								</div>
-							</div>
-							<div class="col-md-2 col-sm-12">
-								<div class="form-group">
-									<label>col-md-2</label>
-									<input type="text" class="form-control">
-								</div>
-							</div>
-							<div class="col-md-2 col-sm-12">
-								<div class="form-group">
-									<label>col-md-2</label>
-									<input type="text" class="form-control">
-								</div>
-							</div>
-							<div class="col-md-2 col-sm-12">
-								<div class="form-group">
-									<label>col-md-2</label>
-									<input type="text" class="form-control">
-								</div>
-							</div>
-							<div class="col-md-2 col-sm-12">
-								<div class="form-group">
-									<label>col-md-2</label>
-									<input type="text" class="form-control">
-								</div>
-							</div>
-							<div class="col-md-2 col-sm-12">
-								<div class="form-group">
-									<label>col-md-2</label>
-									<input type="text" class="form-control">
-								</div>
-							</div>
-						</div>
-					</form>
-					<div class="collapse collapse-box" id="form-grid-form" >
-						<div class="code-box">
-							<div class="clearfix">
-								<a href="javascript:;" class="btn btn-primary btn-sm code-copy pull-left"  data-clipboard-target="#form-grid"><i class="fa fa-clipboard"></i> Copy Code</a>
-								<a href="#form-grid-form" class="btn btn-primary btn-sm pull-right" rel="content-y"  data-toggle="collapse" role="button"><i class="fa fa-eye-slash"></i> Hide Code</a>
-							</div>
-							<pre><code class="xml copy-pre" id="form-grid">
-<form>
-	<div class="row">
-		<div class="col-md-4 col-sm-12">
-			<div class="form-group">
-				<label>col-md-4</label>
-				<input type="text" class="form-control">
-			</div>
-		</div>
-		<div class="col-md-4 col-sm-12">
-			<div class="form-group">
-				<label>col-md-4</label>
-				<input type="text" class="form-control">
-			</div>
-		</div>
-		<div class="col-md-4 col-sm-12">
-			<div class="form-group">
-				<label>col-md-4</label>
-				<input type="text" class="form-control">
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-3 col-sm-12">
-			<div class="form-group">
-				<label>col-md-3</label>
-				<input type="text" class="form-control">
-			</div>
-		</div>
-		<div class="col-md-3 col-sm-12">
-			<div class="form-group">
-				<label>col-md-3</label>
-				<input type="text" class="form-control">
-			</div>
-		</div>
-		<div class="col-md-3 col-sm-12">
-			<div class="form-group">
-				<label>col-md-3</label>
-				<input type="text" class="form-control">
-			</div>
-		</div>
-		<div class="col-md-3 col-sm-12">
-			<div class="form-group">
-				<label>col-md-3</label>
-				<input type="text" class="form-control">
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-6 col-sm-12">
-			<div class="form-group">
-				<label>col-md-6</label>
-				<input type="text" class="form-control">
-			</div>
-		</div>
-		<div class="col-md-6 col-sm-12">
-			<div class="form-group">
-				<label>col-md-6</label>
-				<input type="text" class="form-control">
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-6 col-sm-12">
-			<div class="form-group">
-				<label>col-md-6</label>
-				<input type="text" class="form-control">
-			</div>
-		</div>
-		<div class="col-md-3 col-sm-12">
-			<div class="form-group">
-				<label>col-md-3</label>
-				<input type="text" class="form-control">
-			</div>
-		</div>
-		<div class="col-md-3 col-sm-12">
-			<div class="form-group">
-				<label>col-md-3</label>
-				<input type="text" class="form-control">
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-12 col-sm-12">
-			<div class="form-group">
-				<label>col-md-12</label>
-				<input type="text" class="form-control">
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-2 col-sm-12">
-			<div class="form-group">
-				<label>col-md-2</label>
-				<input type="text" class="form-control">
-			</div>
-		</div>
-		<div class="col-md-2 col-sm-12">
-			<div class="form-group">
-				<label>col-md-2</label>
-				<input type="text" class="form-control">
-			</div>
-		</div>
-		<div class="col-md-2 col-sm-12">
-			<div class="form-group">
-				<label>col-md-2</label>
-				<input type="text" class="form-control">
-			</div>
-		</div>
-		<div class="col-md-2 col-sm-12">
-			<div class="form-group">
-				<label>col-md-2</label>
-				<input type="text" class="form-control">
-			</div>
-		</div>
-		<div class="col-md-2 col-sm-12">
-			<div class="form-group">
-				<label>col-md-2</label>
-				<input type="text" class="form-control">
-			</div>
-		</div>
-		<div class="col-md-2 col-sm-12">
-			<div class="form-group">
-				<label>col-md-2</label>
-				<input type="text" class="form-control">
-			</div>
-		</div>
-	</div>
-</form>
-							</code></pre>
-						</div>
-					</div>
-				</div>
-				<!-- Form grid End -->
+						
+					
 
-				<!-- Input Validation Start -->
-				<div class="pd-20 card-box mb-30">
-					<div class="clearfix">
-						<div class="pull-left">
-							<h4 class="text-blue h4">Input Validation</h4>
-							<p class="mb-30">Validation styles for error, warning, and success</p>
-						</div>
-						<div class="pull-right">
-							<a href="#input-validation-form" class="btn btn-primary btn-sm scroll-click" rel="content-y"  data-toggle="collapse" role="button"><i class="fa fa-code"></i> Source Code</a>
+						<div class="btns" align="center">
+							<button type="submit" id="enrollBtn" class="btn btn-primary collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">사원등록</button>
+							<!-- disabled  중복처리하고나서-->
+							<button type="reset" class="btn btn-danger">초기화</button>
 						</div>
 					</div>
-					<form>
-						<div class="row">
-							<div class="col-md-6 col-sm-12">
-								<div class="form-group has-success">
-									<label class="form-control-label">Input with success</label>
-									<input type="text" class="form-control form-control-success">
-									<div class="form-control-feedback">Success! You've done it.</div>
-									<small class="form-text text-muted">Example help text that remains unchanged.</small>
-								</div>
-								<div class="form-group has-warning">
-									<label class="form-control-label">Input with warning</label>
-									<input type="text" class="form-control form-control-warning">
-									<div class="form-control-feedback">Shucks, check the formatting of that and try again.</div>
-									<small class="form-text text-muted">Example help text that remains unchanged.</small>
-								</div>
-								<div class="form-group has-danger">
-									<label class="form-control-label">Input with danger</label>
-									<input type="text" class="form-control form-control-danger">
-									<div class="form-control-feedback">Sorry, that username's taken. Try another?</div>
-									<small class="form-text text-muted">Example help text that remains unchanged.</small>
-								</div>
-							</div>
-							<div class="col-md-6 col-sm-12">
-								<div class="form-group has-success row">
-									<label class="form-control-label col-sm-12 col-md-3 col-form-label">Input with success</label>
-									<div class="col-sm-12 col-md-9">
-										<input type="text" class="form-control form-control-success">
-										<div class="form-control-feedback">Success! You've done it.</div>
-										<small class="form-text text-muted">Example help text that remains unchanged.</small>
-									</div>
-								</div>
-								<div class="form-group has-warning row">
-									<label class="form-control-label col-sm-12 col-md-3 col-form-label">Input with warning</label>
-									<div class="col-sm-12 col-md-9">
-										<input type="text" class="form-control form-control-warning">
-										<div class="form-control-feedback">Shucks, check the formatting of that and try again.</div>
-										<small class="form-text text-muted">Example help text that remains unchanged.</small>
-									</div>
-								</div>
-								<div class="form-group has-danger row">
-									<label class="form-control-label col-sm-12 col-md-3 col-form-label">Input with danger</label>
-									<div class="col-sm-12 col-md-9">
-										<input type="text" class="form-control form-control-danger">
-										<div class="form-control-feedback">Sorry, that username's taken. Try another?</div>
-										<small class="form-text text-muted">Example help text that remains unchanged.</small>
-									</div>
-								</div>
-							</div>
-						</div>
-					</form>
-					<div class="collapse collapse-box" id="input-validation-form" >
-						<div class="code-box">
-							<div class="clearfix">
-								<a href="javascript:;" class="btn btn-primary btn-sm code-copy pull-left"  data-clipboard-target="#input-validation"><i class="fa fa-clipboard"></i> Copy Code</a>
-								<a href="#input-validation-form" class="btn btn-primary btn-sm pull-right" rel="content-y"  data-toggle="collapse" role="button"><i class="fa fa-eye-slash"></i> Hide Code</a>
-							</div>
-							<pre><code class="xml copy-pre" id="input-validation">
-<form>
-	<div class="row">
-		<div class="col-md-6 col-sm-12">
-			<div class="form-group has-success">
-				<label class="form-control-label">Input with success</label>
-				<input type="text" class="form-control form-control-success">
-				<div class="form-control-feedback">Success! You've done it.</div>
-				<small class="form-text text-muted">Example help text that remains unchanged.</small>
-			</div>
-			<div class="form-group has-warning">
-				<label class="form-control-label">Input with warning</label>
-				<input type="text" class="form-control form-control-warning">
-				<div class="form-control-feedback">Shucks, check the formatting of that and try again.</div>
-				<small class="form-text text-muted">Example help text that remains unchanged.</small>
-			</div>
-			<div class="form-group has-danger">
-				<label class="form-control-label">Input with danger</label>
-				<input type="text" class="form-control form-control-danger">
-				<div class="form-control-feedback">Sorry, that username's taken. Try another?</div>
-				<small class="form-text text-muted">Example help text that remains unchanged.</small>
+					<br> <br> <br>
+				</form>
 			</div>
 		</div>
-		<div class="col-md-6 col-sm-12">
-			<div class="form-group has-success row">
-				<label class="form-control-label col-sm-12 col-md-2 col-form-label">Input with success</label>
-				<div class="col-sm-12 col-md-10">
-					<input type="text" class="form-control form-control-success">
-					<div class="form-control-feedback">Success! You've done it.</div>
-					<small class="form-text text-muted">Example help text that remains unchanged.</small>
-				</div>
-			</div>
-			<div class="form-group has-warning row">
-				<label class="form-control-label col-sm-12 col-md-2 col-form-label">Input with warning</label>
-				<div class="col-sm-12 col-md-10">
-					<input type="text" class="form-control form-control-warning">
-					<div class="form-control-feedback">Shucks, check the formatting of that and try again.</div>
-					<small class="form-text text-muted">Example help text that remains unchanged.</small>
-				</div>
-			</div>
-			<div class="form-group has-danger row">
-				<label class="form-control-label col-sm-12 col-md-2 col-form-label">Input with danger</label>
-				<div class="col-sm-12 col-md-10">
-					<input type="text" class="form-control form-control-danger">
-					<div class="form-control-feedback">Sorry, that username's taken. Try another?</div>
-					<small class="form-text text-muted">Example help text that remains unchanged.</small>
-				</div>
-			</div>
-		</div>
-	</div>
-</form>
-							</code></pre>
-						</div>
-					</div>
-				</div>
-				<!-- Input Validation End -->
+</div>
 
-			</div>
-			<div class="footer-wrap pd-20 mb-20 card-box">
-				DeskApp - Bootstrap 4 Admin Template By <a href="https://github.com/dropways" target="_blank">Ankit Hingarajiya</a>
-			</div>
-		</div>
-	</div>
-	
-	<!-- ======================================================================= -->
 		
-		<jsp:include page="../common/footer.jsp"/>	 				
+<!-- ===================개인정보 입력=============== -->
+
+<div class="main-container collapse" id="collapseOne"  aria-labelledby="headingOne" >
+		<div class="pd-ltr-20 xs-pd-20-10">
+			<div class="min-height-200px">
+
+				<!-- 개인정보 입력 -->
+				<form id="enrollForm" action="insertMember.me" method="post">
+					<div class="pd-20 card-box mb-30">
+
+						<div class="clearfix">
+							<div class="pull-left">
+								<h4 class="text-blue h4">개인정보 입력</h4>
+								<p class="mb-30">개인 정보입력해 주세요.</p>
+							</div>
+
+						</div>
+						
+						<div class="form-group row">
+							<label class="col-sm-12 col-md-2 col-form-label">직원 이름</label>
+							<div class="col-sm-12 col-md-10">
+								<input class="form-control" placeholder="직원 이름" type="text"
+									id="userName" name="userName">
+							</div>
+						</div>
+
+
+						 <div class="form-group">
+							<label>비밀번호</label> <input class="form-control" type="password"
+								placeholder="password" id="userPwd" name="userPwd">
+						</div>
+						<div class="form-group">
+							<label>주민등록번호</label> <input class="form-control" type="text"
+								id="userSsn" name="userSsn">
+						</div>
+						<div class="form-group">
+							<label>이메일</label> <input class="form-control"
+								placeholder="email" type="email" id="email" name="email">
+						</div>
+						<div class="form-group">
+							<label>전화번호</label> <input class="form-control"
+								placeholder="000-0000-0000" type="tel" id="phone" name="phone">
+						</div>
+
+
+						<!-- 주소입력  -->
+
+						<label for="address"> &nbsp; 주소 입력 :</label><br>
+
+						<div class="form-inline">
+							<label> &nbsp; 우편번호 : &nbsp;</label> <input type="text"
+								name="post" class="form-control mr-2 postcodify_postcode5"
+								size="6">
+							<button type="button" class="btn btn-primary"
+								id="postcodify_search_button">검색</button>
+						</div>
+						<br> <label> &nbsp; 도로명주소 : </label> <input type="text"
+							name="address1" class="form-control postcodify_address" size="30">
+						<br> <label> &nbsp; 상세주소 : </label> <input type="text"
+							name="address2" class="form-control postcodify_extra_info"
+							size="30"> <br>
+
+
+						<!-- jQuery와 Postcodify를 로딩한다. -->
+						<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+						<script>
+							// 검색 단추를 누르면 팝업 레이어가 열리도록 설정한다.
+							$(function() {
+								$("#postcodify_search_button")
+										.postcodifyPopUp();
+							});
+						</script>
+
+						<!-- 주소입력   끝-->
+
+						<!-- 성별 입력 -->
+						<br><br>
+						<label for=""> &nbsp; Gender : </label>&nbsp;&nbsp;
+						<input type="radio" name="gender" id="Male" value="M">
+						<label for="Male">남자</label> &nbsp;&nbsp; <input type="radio"
+							name="gender" id="Female" value="F"> <label for="Female">여자</label><br>
+
+						<!-- 성별 입력 끝 -->
+
+
+
+						<div class="btns" align="center">
+							<button type="submit" id="enrollBtn" class="btn btn-primary">사원등록</button>
+							<!-- disabled  중복처리하고나서-->
+							<button type="reset" class="btn btn-danger">초기화</button>
+						</div>
+
+                    </div>
+
+
+					<br> <br> <br>
+				</form>
+			</div>
+		</div>
+
+</div>
+
+	<!-- ======================================================================= -->
+
+	<jsp:include page="../common/footer.jsp" />
 </body>
 </html>
