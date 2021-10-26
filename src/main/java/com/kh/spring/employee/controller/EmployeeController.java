@@ -36,7 +36,7 @@ public class EmployeeController {
 	public String insertEmp(@ModelAttribute Employee emp, HttpSession session) {
 		
 
-		
+
 	
 		try {
 			

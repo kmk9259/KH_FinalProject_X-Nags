@@ -13,7 +13,6 @@ import com.kh.spring.employee.model.vo.Employee;
 public class EmployeeServiceImpl implements EmployeeService {
 
 	
-	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	

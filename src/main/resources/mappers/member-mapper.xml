@@ -16,7 +16,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="gender" column="GENDER"/>
 		<result property="status" column="STATUS"/>
 	</resultMap>
-	
 
 	<select id="loginMember" parameterType="Member" resultMap="memberResultSet">
 	

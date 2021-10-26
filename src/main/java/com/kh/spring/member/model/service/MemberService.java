@@ -19,6 +19,5 @@ public interface MemberService {
 	Member updatePwd(Member m) throws Exception;
 
 	
-
 	
 }

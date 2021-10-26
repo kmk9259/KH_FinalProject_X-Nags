@@ -25,5 +25,4 @@ public class Member {
 	private String address;
 	private String gender;
 	private String status;
-	
 }
