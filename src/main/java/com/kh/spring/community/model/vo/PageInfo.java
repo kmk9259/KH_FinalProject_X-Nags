@@ -1,4 +1,4 @@
-package com.kh.spring.board.model.vo;
+package com.kh.spring.community.model.vo;
 
 public class PageInfo {
 	private int currentPage;

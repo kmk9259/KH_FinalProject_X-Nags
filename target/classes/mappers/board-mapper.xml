@@ -3,17 +3,15 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="boardMapper">
+
 	<resultMap id="boardResultSet" type="Board">
 		<id column="board_no" property="boardNo"/>
+		<result column="emp_id" property="empId"/>
 		<result column="board_title" property="boardTitle"/>
-		<result column="board_writer" property="boardWriter"/>
 		<result column="board_content" property="boardContent"/>
-		<result column="origin_name" property="originName"/>
-		<result column="change_name" property="changeName"/>
-		<result column="count" property="count"/>
-		<result column="create_date" property="createDate"/>
-		<result column="status" property="status"/>
+		<result column="board_date" property="boardDate"/>
 	</resultMap>
+<!-- 
 	<resultMap id="replyResultSet" type="Reply">
 		<id column="reply_no" property="replyNo"/>
 		<result column="reply_content" property="replyContent"/>
@@ -22,23 +20,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="create_date" property="createDate"/>
 		<result column="status" property="status"/>
 	</resultMap>
-	
+ -->
 
-
-	<select id="selectListCount" resultType="_int">
+ <select id="selectListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM BOARD
-		WHERE STATUS='Y'
 	</select>
-	<select id="selectList" resultMap="boardResultSet">
-		SELECT * 
-		FROM BOARD
-		WHERE STATUS='Y'
+
+	<select id="selectList"  resultMap="boardResultSet">
+		SELECT *
+		FROM BOARD 
 		ORDER BY BOARD_NO DESC
 	</select>
+	<!-- 
 	<insert id="insertBoard" parameterType="Board">
-		insert into board
-		values(seq_bno.nextval, #{boardTitle}, #{boardContent}, #{boardWriter}, #{originName}, #{changeName}, default, sysdate, default)
+		INSERT INTO BOARD
+		values(BOARD_NO.NEXTVAL, #{boardTitle}, #{boardContent}, #{boardWriter}, #{originName}, #{changeName}, default, sysdate, default)
 	</insert>
 	<update id = "increaseCount" parameterType="_int">
 		UPDATE BOARD
@@ -47,9 +44,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<select id="selectBoard" parameterType="_int" resultMap="boardResultSet">
-		SELECT * 
-		FROM BOARD
-		WHERE BOARD_NO=#{bno} AND STATUS='Y'	
+		SELECT B.boardNo, B.boardTtile, b.boardContent, boardDate, A.originFile
+		FROM BOARD B
+		JOIN BOARD_ATTACHMENT A ON B.BOARD_NO = A.BOARD_NO
+		WHERE BOARD_NO=#{bno} 	
 	</select>
 
 	<update id="deleteBoard" parameterType="_int">
@@ -63,7 +61,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    origin_name=#{originName}, change_name=#{changeName}
 		where board_no=#{boardNo}
 	</update>
-	<!-- ======================Reply====================== -->
+	 -->
+	<!-- ======================Reply====================== 
 	<select id="selectReplyList" parameterType="_int" resultMap="replyResultSet">
 		SELECT REPLY_NO, REPLY_CONTENT, REPLY_WRITER, CREATE_DATE
 		FROM REPLY
@@ -86,6 +85,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		]]>
 	</select>
 
-	
+	-->
 	
 </mapper>
