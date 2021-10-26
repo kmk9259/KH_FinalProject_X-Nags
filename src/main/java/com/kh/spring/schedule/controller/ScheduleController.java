@@ -5,16 +5,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.kh.spring.member.model.service.MemberService;
+import com.kh.spring.schedule.model.service.ScheduleService;
 
 @SessionAttributes("loginUser")
 @Controller
 public class ScheduleController {
-	@Autowired 
-	private MemberService ScheduleService;
+//	@Autowired 
+//	private ScheduleService scheduleService;
 
 	
-	@RequestMapping("scheduleMain.jsp")
+	@RequestMapping("main.sc")
 	public String checkPwd1() {
 		return "schedule/scheduleMain";
 	}
