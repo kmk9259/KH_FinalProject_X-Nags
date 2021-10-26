@@ -3,7 +3,7 @@
 <head>
 	<!-- Basic Page Info -->
 	<meta charset="utf-8">
-	<title>X-Nags</title>
+	<title>X-Nomal Groupware Solution</title>
 
 	<!-- Site favicon -->
 	<link rel="apple-touch-icon" sizes="180x180" href="${ pageContext.servletContext.contextPath }/resources/vendors/images/apple-touch-icon.png">
@@ -29,13 +29,22 @@
 
 		gtag('config', 'UA-119386393-1');
 	</script>
+	<style>
+	.logo>a>img{
+	width: 170px;
+	height:80px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: 50px
+	}
+	</style>
 </head>
 <body class="login-page">
 	<div class="login-header box-shadow">
 		<div class="container-fluid d-flex justify-content-between align-items-center">
-			<div class="brand-logo">
-				<a href="login.html">
-					<img src="${ pageContext.servletContext.contextPath }/resources/vendors/images/deskapp-logo.svg" alt="">
+			<div class="logo">
+				<a href="">
+					<img src="${ pageContext.servletContext.contextPath }/resources/images/logo/logoblack.png" alt="">
 				</a>
 			</div>			
 		</div>

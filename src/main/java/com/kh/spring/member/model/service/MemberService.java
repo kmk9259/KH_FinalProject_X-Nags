@@ -8,16 +8,16 @@ public interface MemberService {
 
 	Member loginMember(Member m) throws Exception;
 
-	void insertMember(Member m);
+	//void insertMember(Member m);
 
 //	Member loginMember(BCryptPasswordEncoder bCryptPasswordEncoder, Member m);
 
 	Member updateMember(Member m) throws Exception;
 
-	void deleteMember(String userId);
+	//void deleteMember(String userId);
 
-	Member updatePwd(Member m) throws Exception;
+	//Member updatePwd(Member m) throws Exception;
 
 	
-	
+
 }

@@ -23,7 +23,7 @@ public class Employee {
 		직급코드
 		급여
 		부서코드
-		사원 이름
+		
 		주민번호
 		급여등급
 		권한번호
@@ -34,8 +34,7 @@ public class Employee {
 	private int empId;				
 	private String jobCode;					
 	private String rightNo;				
-	private String deptCode;			
-	private String empName;	
+	private String deptCode;
 	private String salLevel;
 	
 	@DateTimeFormat(pattern ="yyyy-MM-dd")
