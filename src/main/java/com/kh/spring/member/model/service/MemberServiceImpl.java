@@ -29,6 +29,8 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return loginUser;
 	}
+	
+	
 
 	@Override
 	public void insertMember(Member m) {

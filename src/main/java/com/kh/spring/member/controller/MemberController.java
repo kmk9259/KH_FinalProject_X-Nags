@@ -56,9 +56,9 @@ public class MemberController {
 	@RequestMapping("enrollForm.me")
 	public String enrollForm() {
 		return "member/memberEnrollForm";
-	}
+	}*/
 	
-	@RequestMapping("insert.me")
+	@RequestMapping("insertMember.me")
 	public String insertMember(@ModelAttribute Member m, @RequestParam("post") String post,
 														 @RequestParam("address1") String address1,
 														 @RequestParam("address2") String address2,
@@ -75,9 +75,11 @@ public class MemberController {
 		session.setAttribute("msg", "회원가입 성공");
 		return "redirect:/";
 		
+		
+		
 	}
 	
-	
+	/*
 	
 	@RequestMapping("myPage.me")
 	public String myPage() {

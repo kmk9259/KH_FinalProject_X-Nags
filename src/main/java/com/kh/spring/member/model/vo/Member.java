@@ -18,6 +18,7 @@ public class Member {
 	private int userNo;
 	private String empId;
 	private String userPwd;
+	private String userName;
 	private String userSsn;
 	private String email;
 	private String phone;
