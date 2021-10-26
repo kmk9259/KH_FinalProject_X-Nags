@@ -1,86 +1,106 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
-	<title>X-Nags 알잘딱깔센 </title>
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<!-- Site favicon -->
-	<link rel="apple-touch-icon" sizes="180x180" href="${ pageContext.servletContext.contextPath }/resources/vendors/images/apple-touch-icon.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="${ pageContext.servletContext.contextPath }/resources/vendors/images/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="${ pageContext.servletContext.contextPath }/resources/vendors/images/favicon-16x16.png">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>X-Nomal Groupware Solution</title>
 
-	<!-- Mobile Specific Metas -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-	<!-- Google Font -->
-	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-	<!-- CSS -->
-	<link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/resources/vendors/styles/core.css">
-    <link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/resources/vendors/styles/icon-font.min.css">
-    <link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/resources/vendors/styles/style.css">
-
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
-
-		gtag('config', 'UA-119386393-1');
-	</script>
 </head>
 <body>
-	
-	<jsp:include page="../common/menubar.jsp"/>
-	
-				<div class="html-editor pd-20 card-box mb-30">
-					<h4 class="h4 text-blue">bootstrap wysihtml5</h4>
-					<p>Simple, beautiful wysiwyg editors</p>
-					<textarea class="textarea_editor form-control border-radius-0" placeholder="Enter text ..."></textarea>
+
+	<jsp:include page="../common/menubar.jsp" />
+
+	<div class="main-container">
+		<div class="pd-ltr-20 xs-pd-20-10">
+			<div class="min-height-200px">
+				<div class="page-header">
+					<div class="row">
+						<div class="col-md-6 col-sm-12">
+							<div class="title">
+								<h4>전자 메일</h4>
+							</div>
+							<nav aria-label="breadcrumb" role="navigation">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="">홈</a></li>
+									<li class="breadcrumb-item active" aria-current="page">메일 작성</li>
+								</ol>
+							</nav>
+						</div>
+					</div>
 				</div>
-		
-		
-<script type="text/javascript">
-	// <![CDATA[  <-- For SVG support
-	if ('WebSocket' in window) {
-		(function () {
-			function refreshCSS() {
-				var sheets = [].slice.call(document.getElementsByTagName("link"));
-				var head = document.getElementsByTagName("head")[0];
-				for (var i = 0; i < sheets.length; ++i) {
-					var elem = sheets[i];
-					var parent = elem.parentElement || head;
-					parent.removeChild(elem);
-					var rel = elem.rel;
-					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-					}
-					parent.appendChild(elem);
-				}
-			}
-			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-			var address = protocol + window.location.host + window.location.pathname + '/ws';
-			var socket = new WebSocket(address);
-			socket.onmessage = function (msg) {
-				if (msg.data == 'reload') window.location.reload();
-				else if (msg.data == 'refreshcss') refreshCSS();
-			};
-			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-				console.log('Live reload enabled.');
-				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-			}
-		})();
-	}
-	else {
-		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-	}
-	// ]]>
-</script>
-	
-	<jsp:include page="../common/footer.jsp"/>
+				
+
+				<!-- 메일 폼 시작 -->
+				<div class="pd-20 card-box mb-30">
+					<div class="clearfix">
+						<div class="pull-left">
+							<h4 class="text-blue h4">사내 메일 작성</h4>
+							<p class="mb-30">메일 작성에 대한 안내사항 적기</p>
+						</div>
+					</div>
+					<form action="insert.ml" method="post" enctype="multipart/form-data">
+						<div class="form-group">
+							<label>보내는 사람</label>
+							<input type="text" readonly class="form-control-plaintext" name="empId" value="${ sessionScope.loginUser.empId }">
+						</div>
+						
+							<div class="form-group">
+								<label>받는 사람</label>
+								<input class="form-control" value="" type="text" name="receiver">
+							</div>
+						
+						
+						<div class="form-group">
+							<label>제목</label>
+							<input class="form-control" value="" type="text" name="title">
+						</div>
+						<div class="form-group">
+							<label>파일 첨부</label>
+							<input type="file" class="form-control-file form-control height-auto" name="uploadFile">
+						</div>
+						<div class="form-group">
+							<div class="row">
+								<div class="col-md-6 col-sm-12">
+									<label class="weight-600"></label>
+									<div class="custom-control custom-checkbox mb-5">
+										<input type="checkbox" class="custom-control-input" id="customCheck1" name="importantFlag" value="1">
+										<label class="custom-control-label" for="customCheck1">중요 메일</label>
+									</div>
+									
+								</div>
+								
+							</div>
+						</div>
+						
+						
+						<div class="form-group">
+							<label>내용</label>
+							<textarea class="form-control" name="content"></textarea>
+						</div>
+						<div class="clearfix">
+							<div class="pull-right">
+								<button type="reset" class="btn btn-outline-danger">취소</button>
+								<button type="submit" class="btn btn-primary">메일 전송</button>
+							</div>
+						</div>
+					</form>
+									</div>
+				<!-- 메일 폼 끝 -->
+
+				
+			</div>
+		</div>
+	</div>
+
+
+
+	<jsp:include page="../common/footer.jsp" />
+
 
 
 </body>
