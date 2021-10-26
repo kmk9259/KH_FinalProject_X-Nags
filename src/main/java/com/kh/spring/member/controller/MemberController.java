@@ -75,6 +75,7 @@ public class MemberController {
 		session.setAttribute("msg", "회원가입 성공");
 		return "redirect:/";
 		
+		
 	}
 	
 	/*

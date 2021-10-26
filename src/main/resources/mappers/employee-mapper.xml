@@ -23,6 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 	</select> -->
 	
+	
 	 <insert id="insertEmployee" parameterType="Employee">
 	insert into employee
 	values (RPAD(to_number(to_char(SYSDATE, 'yymmdd')),9,SEQ_EMP_ID.NEXTVAL), #{jobCode},#{rightNo},#{deptCode},#{salLevel},sysdate,#{modifyDate},#{endDate},default)	

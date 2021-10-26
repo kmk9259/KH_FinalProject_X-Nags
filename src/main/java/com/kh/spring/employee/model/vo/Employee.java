@@ -38,9 +38,10 @@ public class Employee {
 	private String empName;	
 	private String salLevel;
 	
+	@DateTimeFormat(pattern ="yyyy-MM-dd")
 	private Date hireDate;
 	
-	@DateTimeFormat(pattern ="yyyy-MM-dd")
+	
 	private Date modifyDate;
 	
 	@DateTimeFormat(pattern ="yyyy-MM-dd")
