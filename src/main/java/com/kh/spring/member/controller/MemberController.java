@@ -36,7 +36,7 @@ public class MemberController {
 		Member loginUser;
 		try {
 			loginUser = memberService.loginMember(m);
-			System.out.println(loginUser);
+			System.out.println("loginUser"+loginUser);
 			model.addAttribute("loginUser", loginUser);	//model의 스코프는 request
 			return "main";
 		} catch (Exception e) {

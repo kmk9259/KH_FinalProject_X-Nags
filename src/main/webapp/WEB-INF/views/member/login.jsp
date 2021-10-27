@@ -1,8 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<!-- Basic Page Info -->
-	<meta charset="utf-8">
+	<meta charset="UTF-8">
 	<title>X-Nomal Groupware Solution</title>
 
 	<!-- Site favicon -->
@@ -19,16 +22,9 @@
 	<link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/resources/vendors/styles/core.css">
 	<link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/resources/vendors/styles/icon-font.min.css">
 	<link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/resources/vendors/styles/style.css">
+	<link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/resources/plugins/sweetalert2/sweetalert2.css">
 
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
-
-		gtag('config', 'UA-119386393-1');
-	</script>
+	
 	<style>
 	.logo>a>img{
 	width: 170px;
@@ -92,9 +88,16 @@
 							<div class="row">
 								<div class="col-sm-12">
 									<div class="input-group mb-0">
+										<input class="btn btn-primary btn-lg btn-block" type="submit" value="Sign In" >
 										
-										<input class="btn btn-primary btn-lg btn-block" type="submit" value="Sign In">
-										<%-- <a class="btn btn-primary btn-lg btn-block" href="${ pageContext.servletContext.contextPath }/WEB-INF/views/main.jsp">Sign In</a> --%>
+										<!-- <div class="col-lg-4 col-md-6 col-sm-12 mb-30">
+					                        <div class="pd-20 card-box text-center height-100-p">
+					                            <h5 class="pt-20 h5 mb-30">A message with custom width, padding and background</h5>
+					                            <div class="max-width-200 mx-auto">
+					                                
+					                            </div>
+					                        </div>
+					                    </div>	 -->									
 									</div>									
 								</div>
 							</div>
@@ -110,5 +113,8 @@
     <script src="${ pageContext.servletContext.contextPath }/resources/vendors/scripts/script.min.js"></script>
     <script src="${ pageContext.servletContext.contextPath }/resources/vendors/scripts/process.js"></script>
     <script src="${ pageContext.servletContext.contextPath }/resources/vendors/scripts/layout-settings.js"></script>
+       <!-- add sweet alert js & css in footer -->
+    <script src="${ pageContext.servletContext.contextPath }/resources/plugins/sweetalert2/sweetalert2.all.js"></script>
+    <script src="${ pageContext.servletContext.contextPath }/resources/plugins/sweetalert2/sweet-alert.init.js"></script>
 </body>
 </html>
