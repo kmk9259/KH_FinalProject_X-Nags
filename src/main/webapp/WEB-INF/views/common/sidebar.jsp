@@ -21,7 +21,7 @@
    
     <div class="left-side-bar">
         <div class="logo">
-            <a href="">
+            <a href="main">
                 <img src="${ pageContext.servletContext.contextPath }/resources/images/logo/logowhite.png" alt="" class="light-logo">
             </a>
             <div class="close-sidebar" data-toggle="left-sidebar-close">

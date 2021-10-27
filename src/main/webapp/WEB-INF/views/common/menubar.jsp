@@ -99,15 +99,15 @@
                     <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                         
                         <span class="user-icon">
-							<img src="${ pageContext.servletContext.contextPath }/resources/vendors/images/photo1.jpg" alt="">
+							<img src="${ pageContext.servletContext.contextPath }/resources/profile_files/${ sessionScope.loginUser.changeName }" alt="">
 						</span>
                         <span class="user-name">${ sessionScope.loginUser.userName }님</span>
                          
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                         <a class="dropdown-item" href="myPage.me"><i class="dw dw-user1"></i> Mypage</a>
-                        <a class="dropdown-item" href="profile.html"><i class="dw dw-settings2"></i> Setting</a>
-                        <a class="dropdown-item" href="login.html"><i class="dw dw-logout"></i> Log Out</a>
+                        <a class="dropdown-item" href="selectEmployee.me"><i class="dw dw-settings2"></i> Setting</a>
+                        <a class="dropdown-item" href="logout.me"><i class="dw dw-logout"></i> Log Out</a>
                     </div>
                 </div>
             </div>

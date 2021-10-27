@@ -5,17 +5,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="memberMapper">
 
 	<resultMap id="memberResultSet" type="Member">
-		<id property="userNo" column="USER_NO"/>
-		<result property="empId" column="EMP_ID"/>
-		<result property="userPwd" column="USER_PWD"/>
-		<result property="userName" column="USER_NAME"/>
-		<result property="userSsn" column="USER_SSN"/>
-		<result property="email" column="EMAIL"/>
-		<result property="phone" column="PHONE"/>
-		<result property="address" column="ADDRESS"/>
-		<result property="gender" column="GENDER"/>
-		<result property="status" column="STATUS"/>
-	</resultMap>
+      <id property="userNo" column="USER_NO"/>
+      <result property="empId" column="EMP_ID"/>
+      <result property="userPwd" column="USER_PWD"/>
+      <result property="userName" column="USER_NAME"/>
+      <result property="userSsn" column="USER_SSN"/>
+      <result property="email" column="EMAIL"/>
+      <result property="phone" column="PHONE"/>
+      <result property="address" column="ADDRESS"/>
+      <result property="gender" column="GENDER"/>
+      <result property="originName" column="ORIGIN_NAME"/>
+      <result property="changeName" column="CHANGE_NAME"/>
+      <result property="status" column="STATUS"/>
+   </resultMap>
 
 	<select id="loginMember" parameterType="Member" resultMap="memberResultSet">
 	
@@ -29,10 +31,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	 <insert id="insertMember" parameterType="Member">
-	insert into member
-	values (SEQ_UNO.NEXTVAL, RPAD(to_number(to_char(SYSDATE, 'yymmdd')),9,SEQ_EMP_ID.CURRVAL),#{userPwd},#{userName},#{userSsn},#{email},#{phone},#{address},#{gender},default
-	,#{originName}, #{changeName})	
-	</insert>
+   insert into member
+   values (SEQ_UNO.NEXTVAL, RPAD(to_number(to_char(SYSDATE, 'yymmdd')),9,SEQ_EMP_ID.CURRVAL),#{userPwd},#{userName},#{userSsn},#{email},#{phone},#{address},#{gender},
+   #{originName}, #{changeName},default)   
+   </insert>
 	
 	<!--  
 	<update id="updateMember" parameterType="Member">

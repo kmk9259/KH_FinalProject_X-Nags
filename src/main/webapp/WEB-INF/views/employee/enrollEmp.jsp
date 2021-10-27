@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,11 +54,11 @@
 							<div class="col-sm-12 col-md-10">
 
 								<select class="form-control" id="jobCode" name="jobCode">
-									<option>J1</option>
+									<option></option>
 									<option>J2</option>
 									<option>J3</option>
 									<option>J4</option>
-									<option>J5</option>
+									<option>J5</J1option>
 									<option>J6</option>
 									<option>J7</option>
 								</select>
@@ -95,7 +96,7 @@
 							<div class="col-sm-12 col-md-10">
 
 								<select class="form-control" id="salLevel" name="salLevel">
-									<option>S1</option>
+									<option >S1</option>
 									<option>S2</option>
 									<option>S3</option>
 									<option>S4</option>

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.kh.spring.common.exception.CommException;
 import com.kh.spring.employee.model.dao.EmployeeDao;
 import com.kh.spring.employee.model.vo.Employee;
+import com.kh.spring.member.model.vo.Member;
 
 
 @Service
@@ -27,5 +28,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}
 		
 	}
+
+
+
+	
 
 }

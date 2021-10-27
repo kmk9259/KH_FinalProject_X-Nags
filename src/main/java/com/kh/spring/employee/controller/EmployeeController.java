@@ -15,6 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.spring.common.exception.CommException;
@@ -43,10 +45,7 @@ public class EmployeeController {
 	
 	@RequestMapping("insertEmp.me")
 	public String insertEmp(@ModelAttribute Employee emp, HttpSession session) {
-		
-	
-		
-	
+
 		employeeService.insertEmployee(emp);
 		
 		
@@ -81,10 +80,7 @@ public class EmployeeController {
 		
 		return changeName;
 	}
-	
 
-	
-	
 	@RequestMapping("insertMember.me")
 	public String insertMember(@ModelAttribute Member m, @RequestParam("post") String post,
 														 @RequestParam("address1") String address1,
@@ -120,8 +116,9 @@ public class EmployeeController {
 		
 		session.setAttribute("msg", "회원가입 성공");
 		return "employee/listEmp";
-		
 	}
+	
+	
 	
 	
 }
