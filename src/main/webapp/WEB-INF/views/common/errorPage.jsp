@@ -13,9 +13,9 @@
 	<div align="center">	
 	
 		<img src="${ pageContext.servletContext.contextPath }/resources/images/error.png" width="300">
-		<br><br>
-		<h1 style="font-weight:bold">${ msg }</h1>
-		<h1 style="font-weight:bold">${ ref_form }</h1>
+		<br><br><br><br>
+		<h3 style="font-weight:bold">${ msg }</h1>
+		<h3 style="font-weight:bold">${ ref_form }</h1>
 		<h5 style="color: red;"> ${ requestScope['javax.servlet.error.message'] }</h2>
 	
 		<!-- 

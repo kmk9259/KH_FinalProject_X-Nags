@@ -76,7 +76,7 @@
                             <span class="micon dw dw-house-1"></span><span class="mtext">근태 관리</span>
                         </a>
                         <ul class="submenu">
-                            <li><a href="">내 근태 현황</a></li>
+                            <li><a href="attendanceMy.att">내 근태 현황</a></li>
                             <li><a href="index2.html">일별 근태 현황</a></li>
                             <li><a href="index2.html">월별 근태 현황</a></li>
                         </ul>
