@@ -37,15 +37,14 @@ public class Employee {
 	private String deptCode;
 	private String salLevel;
 	
-	@DateTimeFormat(pattern ="yyyy-MM-dd")
+	/* @DateTimeFormat(pattern ="yyyy-MM-dd") */
 	private Date hireDate;
 	
-	
-	
+
 	private Date modifyDate;
-	
-	@DateTimeFormat(pattern ="yyyy-MM-dd")
 	private Date endDate;
 	private String status;
+	
+	
 
 }

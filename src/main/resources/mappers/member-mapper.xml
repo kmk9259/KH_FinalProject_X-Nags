@@ -30,7 +30,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	 <insert id="insertMember" parameterType="Member">
 	insert into member
-	values (SEQ_UNO.nextval,SEQ_EMP_ID.CURRVAL,#{userPwd},#{userName},#{userSsn},#{email},#{phone},#{address},#{gender},default)	
+	values (SEQ_UNO.NEXTVAL, RPAD(to_number(to_char(SYSDATE, 'yymmdd')),9,SEQ_EMP_ID.CURRVAL),#{userPwd},#{userName},#{userSsn},#{email},#{phone},#{address},#{gender},default
+	,#{originName}, #{changeName})	
 	</insert>
 	
 	<!--  

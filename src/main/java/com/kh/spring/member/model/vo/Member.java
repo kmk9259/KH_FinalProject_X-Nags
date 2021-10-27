@@ -25,4 +25,6 @@ public class Member {
 	private String address;
 	private String gender;
 	private String status;
+	private String originName;
+	private String changeName;
 }
