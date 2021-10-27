@@ -4,12 +4,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="boardMapper">
 
+
 	<resultMap id="boardResultSet" type="Board">
 		<id column="board_no" property="boardNo"/>
 		<result column="emp_id" property="empId"/>
 		<result column="board_title" property="boardTitle"/>
 		<result column="board_content" property="boardContent"/>
 		<result column="board_date" property="boardDate"/>
+		<result column="ORIGIN_FILE" property="originFile"/>
+		<result column="CHANGE_FILE" property="changeFile"/>
+		<result column="FILE_PATH" property="filePath"/>
+		<result column="UPLOAD_DATE" property="uploadDate"/>
+		<result column="FILE_NO" property="fileNo"/>
 	</resultMap>
 <!-- 
 	<resultMap id="replyResultSet" type="Reply">
@@ -29,39 +35,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectList"  resultMap="boardResultSet">
 		SELECT *
-		FROM BOARD 
-		ORDER BY BOARD_NO DESC
+		FROM BOARD B
+		JOIN BOARD_ATTACHMENT A ON B.BOARD_NO = A.BOARD_NO
+		ORDER BY B.BOARD_NO DESC
 	</select>
 	<!-- 
 	<insert id="insertBoard" parameterType="Board">
 		INSERT INTO BOARD
 		values(BOARD_NO.NEXTVAL, #{boardTitle}, #{boardContent}, #{boardWriter}, #{originName}, #{changeName}, default, sysdate, default)
 	</insert>
+	
 	<update id = "increaseCount" parameterType="_int">
 		UPDATE BOARD
 		SET COUNT= COUNT+1
 		WHERE BOARD_NO=#{bno} AND STATUS='Y'	
 	</update>
-	
+	 -->
 	<select id="selectBoard" parameterType="_int" resultMap="boardResultSet">
-		SELECT B.boardNo, B.boardTtile, b.boardContent, boardDate, A.originFile
-		FROM BOARD B
-		JOIN BOARD_ATTACHMENT A ON B.BOARD_NO = A.BOARD_NO
+		SELECT *
+		FROM BOARD 
 		WHERE BOARD_NO=#{bno} 	
 	</select>
-
+<!-- 
 	<update id="deleteBoard" parameterType="_int">
 		UPDATE BOARD
 		SET STATUS='N'
 		WHERE BOARD_NO=#{bno}
 	</update>
-	<update id = "updateBoard" parameterType="Board">
+	 -->
+	<update id = "updateBoard" parameterType="Board_Attachment">
 		update board
 		set board_title=#{boardTitle}, board_content=#{boardContent},
-		    origin_name=#{originName}, change_name=#{changeName}
+		    origin_file=#{originFILE}, change_file=#{changeFile}
 		where board_no=#{boardNo}
 	</update>
-	 -->
+
 	<!-- ======================Reply====================== 
 	<select id="selectReplyList" parameterType="_int" resultMap="replyResultSet">
 		SELECT REPLY_NO, REPLY_CONTENT, REPLY_WRITER, CREATE_DATE

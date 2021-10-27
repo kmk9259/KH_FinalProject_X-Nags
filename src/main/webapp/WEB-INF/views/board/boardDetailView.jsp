@@ -8,12 +8,14 @@
 <title>Insert title here</title>
 <style>
 	#contentArea{width:100%}
-	#contentArea *{margin:5px}
+	#contentArea *{margin:5px }
 </style>
 </head>
 <body>
     <jsp:include page="../common/menubar.jsp"/>
+	<div class="mobile-menu-overlay"></div>
 
+	<div class="main-container">
     <div class="content">
         <br><br>
         <div class="innerOuter">
@@ -27,22 +29,10 @@
                     <td colspan="3">${ b.boardTitle }</td>
                 </tr>
                 <tr>
-                    <th>작성자</th>
-                    <td>${ b.boardWriter }</td>
                     <th>작성일</th>
-                    <td>${ b.createDate }</td>
+                    <td>${ b.boardDate }</td>
                 </tr>
-                <tr>
-                    <th>첨부파일</th>
-                    <td colspan="3">
-                    	<c:if test="${ !empty b.originName }">
-                        	<a href="${ pageContext.servletContext.contextPath }/resources/upload_files/${b.changeName}" download="${ b.originName }">${ b.originName }</a>
-                        </c:if>
-                        <c:if test="${ empty b.originName }">
-                        	첨부파일이 없습니다.
-                        </c:if>
-                    </td>
-                </tr>
+             
                 <tr>
                     <th>내용</th>
                     <td colspan="3"></td>
@@ -52,8 +42,8 @@
                 </tr>
             </table>
             <br>
-	
-			<c:if test="${ loginUser.userId eq b.boardWriter }">
+			<%-- 
+			<c:if test="${ loginUser.empId eq b.boardWriter }">
 	            <div align="center">
 	                <button class="btn btn-primary" onclick="postFormSubmit(1);">수정하기</button>
 	                <button class="btn btn-danger" onclick="postFormSubmit(2);">삭제하기</button>
@@ -61,7 +51,7 @@
 	            
 	            <form id="postForm" action="" method="post">
 					<input type="hidden" name="bno" value="${ b.boardNo }">
-					<input type="hidden" name="fileName" value="${ b.changeName }"> 
+				<!-- <input type="hidden" name="fileName" value="${ b.changeName }">  -->
 				</form>
 				<script>
 					function postFormSubmit(num){
@@ -75,7 +65,8 @@
 						postForm.submit();
 					}
 				</script>
-            </c:if>
+            </c:if> 
+             --%>
             <br><br>
 
             <table id="replyArea" class="table" align="center">
@@ -83,13 +74,13 @@
                     <tr>
                     	<c:if test="${ !empty loginUser }">
 	                        <th colspan="2" style="width:75%">
-	                            <textarea class="form-control" id="replyContent" rows="2" style="resize:none; width:100%"></textarea>
+	                            <textarea class="form-control" id="replyContent" rows="2" style="resize:none; width:100%" placeholder="댓글을 입력해주세요"></textarea>
 	                        </th>
 	                        <th style="vertical-align: middle"><button class="btn btn-secondary" id="addReply">등록하기</button></th>
                         </c:if>
                         <c:if test="${ empty loginUser }">
                         	<th colspan="2" style="width:75%">
-	                            <textarea class="form-control" readonly rows="2" style="resize:none; width:100%">로그인한 사용자만 사용가능한 서비스입니다. 로그인 후 이용해주세요.</textarea>
+	                            <textarea class="form-control" readonly rows="2" style="resize:none; width:100%" >로그인한 사용자만 사용가능한 서비스입니다. 로그인 후 이용해주세요.</textarea>
 	                        </th>
 	                        <th style="vertical-align: middle"><button class="btn btn-secondary" disabled>등록하기</button></th>
                         </c:if>
@@ -103,8 +94,10 @@
                 </tbody>
             </table>
         </div>
+        </div>
         <br><br>
     </div>
+    <%--
      <script>
  	$(function(){
 		selectReplyList();
@@ -173,7 +166,7 @@
      
      
     </script>
-
+ --%>
     <jsp:include page="../common/footer.jsp"/>
 </body>
 </html>

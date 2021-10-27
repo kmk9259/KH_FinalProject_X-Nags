@@ -80,11 +80,33 @@ public class MailController {
 	@RequestMapping("sendList.ml")
 	public String selectSendMailList(@RequestParam(value = "currentPage", required = false, defaultValue="1") int currentPage, Model model) {
 		
-		int listCount = mailService.selectSendMailListCount();
+		//int listCount = mailService.selectSendMailListCount();
 		
 		
 		
 		return "mail/sendMailListView";
+	}
+	
+	@RequestMapping("sendDetail.ml")
+	public String selectSendMail() {
+		return "mail/sendMailDetailView";
+	}
+	
+	//받은 메일함
+	@RequestMapping("receiveList.ml")
+	public String selectReceiveMailList() {
+		return "mail/receiveMailListView";
+	}
+	//받은 메일함
+	@RequestMapping("receiveDetail.ml")
+	public String selectReceiveMail() {
+		return "mail/receiveMailDetailView";
+	}
+	
+	//휴지통
+	@RequestMapping("waste.ml")
+	public String selectWasteMailList() {
+		return "mail/wasteMailListView";
 	}
 	
 
