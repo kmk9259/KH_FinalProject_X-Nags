@@ -31,10 +31,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	 <insert id="insertMember" parameterType="Member">
+
    insert into member
    values (SEQ_UNO.NEXTVAL, RPAD(to_number(to_char(SYSDATE, 'yymmdd')),9,SEQ_EMP_ID.CURRVAL),#{userPwd},#{userName},#{userSsn},#{email},#{phone},#{address},#{gender},
    #{originName}, #{changeName},default)   
    </insert>
+
 	
 	<!--  
 	<update id="updateMember" parameterType="Member">
