@@ -6,6 +6,8 @@
 	<meta charset="utf-8">
 	<title>X-Nomal Groupware Solution</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<!-- The main CSS file -->
+	<link href="${ pageContext.servletContext.contextPath }/resources/assets/css/style2.css" rel="stylesheet" />
 	
 </head>
 <body>
@@ -34,12 +36,20 @@
                         <img src="${ pageContext.servletContext.contextPath }/resources/vendors/images/banner-img.png" alt="">
                     </div>
                     <div class="col-md-8">
+	                     <div id="clock" class="light3">
+	                    		<div class="display3">
+									<div class="ampm"></div>
+									<div class="alarm"></div>
+									<div class="digits"></div>
+						 		</div>
+							</div> 
                         <h4 class="font-20 weight-500 mb-10 text-capitalize">
                             
                             <div class="weight-600 font-30 text-blue">${ sessionScope.loginUser.userName }님</div>
                         </h4>
+                        
                         <div class="table-responsive">
-							<table class="table table-striped table-bordered" style="text-align: center;">				
+							<table class="table table-striped table-bordered employee" style="text-align: center;">				
 							  <thead>							    
 								<tr class="table-warning">
 								<th scope="col" width="80px">부서</th>
@@ -51,35 +61,18 @@
 								</tr>								
 							  </thead>
 							  <tbody>
-							    <tr  class="table-light">
-							      <th scope="row">총무과</th>
+							    
+							      <!-- <th scope="row">총무과</th>
 							      <th scope="row">대리</th>
 							      <th scope="row">2021년 10월 26일 09:00</th>
 							      <th scope="row">아직 퇴근 전입니다.</th>
 							      <th scope="row">D + 100 </th>
-							      <th scope="row">10회</th>
+							      <th scope="row">10회</th> -->
 							    </tr>
 							  </tbody>
 							</table>
 						</div>
-						<!-- <table class="table table-bordered">
-						  <thead>
-						    <tr>
-						      <th scope="col" width="80px">부서</th>
-						      <th scope="col">ㅇㅇㅇ부서</th>
-						      <th scope="col" width="80px">출근 : </th>
-						      <th scope="col">21.10.12 09: 00</th>
-						    </tr>
-						  </thead>
-						  <tbody>
-						    <tr>
-						      <th scope="row">총무과</th>
-						      <th scope="col">대리</th>
-						      <th scope="col">퇴근 : </th>
-						      <th scope="col">아직 퇴근 전입니다.</th>
-						    </tr>
-						  </tbody>
-						</table> -->
+						
 							
                     </div>
                 </div>
@@ -158,6 +151,7 @@
     </div>
     <script src="${ pageContext.servletContext.contextPath }/resources/plugins/apexcharts/apexcharts.min.js"></script>
     <script src="${ pageContext.servletContext.contextPath }/resources/vendors/scripts/dashboard.js"></script>
-    
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
+	<script src="${ pageContext.servletContext.contextPath }/resources/assets/js/script.js"></script>
 </body>
 </html>

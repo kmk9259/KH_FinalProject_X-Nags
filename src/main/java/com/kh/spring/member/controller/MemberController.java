@@ -45,7 +45,10 @@ public class MemberController {
 			return "common/errorPage";
 		}		 
 	}	
-	
+	@RequestMapping("main")
+	public String main() {
+		return "main";
+	}
 	@RequestMapping("myPage.me")
 	public String myPage() {
 		return "member/myPage";
@@ -63,13 +66,13 @@ public class MemberController {
 		model.addAttribute("loginUser", userInfo);
 		return "member/myPage";
 	}
-	/*
+	
 	//로그아웃 변경 (@SessionAttributes)
 	@RequestMapping("logout.me")
 	public String logoutMember(SessionStatus status) {
 		status.setComplete(); //현재 컨트롤러에 @SessionAttributes 에 의해 저장된 Object를 제거
 		return "redirect:/";
-	}
+	}/*
 	
 	@RequestMapping("enrollForm.me")
 	public String enrollForm() {
