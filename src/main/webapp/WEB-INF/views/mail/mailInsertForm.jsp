@@ -77,9 +77,8 @@ label {
 									<input class="form-control" value="" type="text"
 										name="receiver" required="required">
 								</div>
-
 								<div class="form-group">
-									<button type="button" class="btn btn-primary">주소록</button>
+									<button type="button" class="btn btn-primary" data-backdrop="static" data-toggle="modal" data-target="#member-modal">주소록</button>
 								</div>
 							</div>
 						</div>
@@ -102,13 +101,9 @@ label {
 											id="customCheck1" name="importantFlag" value="1"> <label
 											class="custom-control-label" for="customCheck1">중요 메일</label>
 									</div>
-
 								</div>
-
 							</div>
 						</div>
-
-
 						<div class="form-group">
 							<label id="title">내용</label>
 							<textarea class="form-control" name="content" required="required"></textarea>
@@ -122,12 +117,58 @@ label {
 					</form>
 				</div>
 				<!-- 메일 폼 끝 -->
-
-
 			</div>
 		</div>
 	</div>
-
+	
+	
+			
+			
+			<div class="modal fade" id="member-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+						<div class="login-box bg-white box-shadow border-radius-10">
+							<div class="login-title">
+								<h2 class="text-center text-primary">받는 사람 선택</h2>
+							</div>
+							<form>
+								
+								<div class="input-group custom">
+									
+									<select class="form-control form-control-lg">
+										<option>부서선택</option>
+										<option>2</option>
+										<option>3</option>
+										<option>4</option>
+									</select>
+									
+								</div>
+								<div class="input-group custom">
+								
+									<select class="form-control form-control-lg">
+										<option>이름선택</option>
+										<option>2</option>
+										<option>3</option>
+										<option>4</option>
+									</select>
+								
+								</div>
+								
+								<div class="row">
+									<div class="col-sm-12">
+										<div class="input-group mb-0">
+											
+											<input class="btn btn-primary btn-lg btn-block" type="submit" value="선택">
+											
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+	
 
 
 	<jsp:include page="../common/footer.jsp" />

@@ -46,9 +46,10 @@
                         </a>
                         <ul class="submenu">
                      <li><a href="insertForm.ml">메일 작성</a></li>
-                            <li><a href="">받은 메일함</a></li>
-                            <li><a href="">보낸 메일함</a></li>
-                            <li><a href="">휴지통</a></li>
+                            <li><a href="receiveList.ml">받은 메일함</a></li>
+                            <li><a href="sendList.ml">보낸 메일함</a></li>
+                            <li><a href="waste.ml">휴지통</a></li>
+               
                         </ul>
                     </li>
                     <li class="dropdown">
