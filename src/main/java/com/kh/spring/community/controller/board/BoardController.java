@@ -1,7 +1,10 @@
 package com.kh.spring.community.controller.board;
 
 import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,8 +17,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.spring.common.Pagination;
+import com.kh.spring.common.exception.CommException;
 import com.kh.spring.community.model.service.board.BoardService;
 import com.kh.spring.community.model.vo.Board;
+import com.kh.spring.community.model.vo.Board_Attachment;
 import com.kh.spring.community.model.vo.PageInfo;
 
 
@@ -39,6 +44,7 @@ public class BoardController {
 		//, boardAttachment.getOriginFile(),boardAttachment.getChangeFile()
 		ArrayList<Board> list = boardService.selectList(pi);
 
+		System.out.println(list + " 리스트");
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		return "board/boardListView";
@@ -48,13 +54,13 @@ public class BoardController {
 	public String enrollForm() {
 		return "board/boardEnrollForm";
 	}
-/*
+
 	@RequestMapping("insert.bo")
 	public String insertBoard(Board b, HttpServletRequest request, Model model,
 			@RequestParam(name = "uploadFile", required = false) MultipartFile file) {
-		System.out.println(b);
-		System.out.println(file.getOriginalFilename());
-
+	//	System.out.println(b);
+	//	System.out.println(file.getOriginalFilename());
+		/*
 		if (!file.getOriginalFilename().equals("")) { // 전달되는 파일이 있으면
 			String changeName = saveFile(file, request);
 
@@ -63,11 +69,12 @@ public class BoardController {
 				b.setChangeName(changeName);
 			}
 		}
+		*/
 		boardService.insertBoard(b);
 		return "redirect:list.bo";
 	}
-	*/
-/*
+
+
 	private String saveFile(MultipartFile file, HttpServletRequest request) {
 		String resources = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = resources + "\\upload_files\\";
@@ -89,12 +96,12 @@ public class BoardController {
 		}
 		return changeName;
 	}
-	*/
+
 
 	@RequestMapping("detail.bo")
 	public ModelAndView selectBoard(int bno, ModelAndView mv) {
 		Board b = boardService.selectBoard(bno);
-
+	
 		mv.addObject("b", b).setViewName("board/boardDetailView");
 
 		return mv;
@@ -126,20 +133,29 @@ public class BoardController {
 	}
 
 	@RequestMapping("update.bo")
-	public ModelAndView updateBoard(Board b, ModelAndView mv, HttpServletRequest request,
+	public ModelAndView updateBoard(Board_Attachment ba, ModelAndView mv, HttpServletRequest request,
 			@RequestParam(name = "reUploadFile", required = false) MultipartFile file) {
 /*
 		if (!file.getOriginalFilename().equals("")) {
-			if (b.getChangeName() != null) {
+			if (ba.getChangeName() != null) {
 				deleteFile(b.getChangeName(), request);
 			}
 			String changeName = saveFile(file, request);
 			b.setOriginName(file.getOriginalFilename());
 			b.setChangeName(changeName);
 		}
-		*/
-		boardService.updateBoard(b);
-		mv.addObject("bno", b.getBoardNo()).setViewName("redirect:detail.bo");
+	
+	 */
+		if (!file.getOriginalFilename().equals("")) {
+			if (ba.getChangeFile() != null) {
+				deleteFile(ba.getChangeFile(), request);
+			}
+			String changeName = saveFile(file, request);
+			ba.setOriginFile(file.getOriginalFilename());
+			ba.setChangeFile(changeName);
+		}
+		boardService.updateBoard(ba);
+		mv.addObject("bno", ba.getBoardNo()).setViewName("redirect:detail.bo");
 
 		return mv;
 	}
