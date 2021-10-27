@@ -20,7 +20,9 @@ public class Board {
 	private String boardTitle;
 	private String boardContent;
 	private Date boardDate;
-	
-	
-
+	private String originFile;	
+	private int fileNo;
+	private String changeFile;
+	private String filePath;
+	private Date uploadDate;
 }

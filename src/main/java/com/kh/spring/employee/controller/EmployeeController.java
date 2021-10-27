@@ -6,7 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
+
 
 import com.kh.spring.employee.model.service.EmployeeService;
 import com.kh.spring.employee.model.vo.Employee;
@@ -26,10 +31,7 @@ public class EmployeeController {
 	
 	@RequestMapping("insertEmp.me")
 	public String insertEmp(@ModelAttribute Employee emp, HttpSession session) {
-		
-	
-		
-	
+
 		employeeService.insertEmployee(emp);
 		
 		
@@ -37,12 +39,6 @@ public class EmployeeController {
 		System.out.println(emp);
 		return "employee/enrollMem";
 	}
-	
-
-	
-	
-
-	
 	
 	
 	
