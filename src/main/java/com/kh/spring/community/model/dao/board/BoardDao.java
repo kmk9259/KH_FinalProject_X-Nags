@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.spring.community.model.vo.Board;
+import com.kh.spring.community.model.vo.Board_Attachment;
 import com.kh.spring.community.model.vo.PageInfo;
 @Repository
 public class BoardDao {
@@ -37,8 +38,8 @@ public class BoardDao {
 		return sqlSession.update("boardMapper.deleteBoard",bno);
 	}
 
-	public int updateBoard(SqlSessionTemplate sqlSession, Board b) {
-		return sqlSession.update("boardMapper.updateBoard",b);
+	public int updateBoard(SqlSessionTemplate sqlSession, Board_Attachment ba) {
+		return sqlSession.update("boardMapper.updateBoard",ba);
 	}
 /*
 	public ArrayList<Reply> selectReplyList(SqlSessionTemplate sqlSession, int bno) {
