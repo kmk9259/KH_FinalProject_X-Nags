@@ -1,9 +1,13 @@
 package com.kh.spring.employee.model.dao;
 
+import java.util.ArrayList;
+
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.spring.employee.model.vo.Employee;
+import com.kh.spring.employee.model.vo.PageInfo;
 import com.kh.spring.member.model.vo.Member;
 
 @Repository
@@ -12,6 +16,19 @@ public class EmployeeDao {
 	public int insertEmployee(SqlSessionTemplate sqlSession, Employee emp) {
 		// TODO Auto-generated method stub
 		return sqlSession.insert("employeeMapper.insertEmployee",emp);
+	}
+
+	public int selectListCount(SqlSessionTemplate sqlSession) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("employeeMapper.selectListCount");
+	}
+
+	public ArrayList<Employee> selectList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		// TODO Auto-generated method stub
+		int offset = (pi.getCurrentPage() -1)*pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("employeeMapper.selectList", null, rowBounds);
 	}
 
 
