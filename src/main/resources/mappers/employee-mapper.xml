@@ -29,6 +29,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 
 	
+	<select id="selectListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM EMPLOYEE
+		WHERE STATUS = 'Y'		
+	</select>
+	
+	
+	
+	<select id="selectList" resultMap="employeeResultSet">
+		SELECT *
+		FROM EMPLOYEE
+		WHERE STATUS = 'Y'
+		ORDER BY EMP_ID DESC		
+	</select>
 	
 	<!--  
 	<update id="updateMember" parameterType="Member">
