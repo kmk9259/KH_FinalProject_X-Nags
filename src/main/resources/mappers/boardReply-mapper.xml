@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="boardReplyMapper">
+
+
+
+	<resultMap id="boardReplyResultSet" type="Board_Reply">
+		<id column="REPLY_NO" property="replyNo" />
+		<result column="BOARD_NO" property="boardNo" />
+		<result column="REPLY_CONTENT" property="replyContent" />
+		<result column="EMP_ID" property="empId" />
+		<result column="REPLY_DATE" property="replyDate" />
+	</resultMap>
+
+	<insert id="insertReply" parameterType="Board_Reply">
+		INSERT INTO BOARD_REPLY
+		values(REPLY_NO.NEXTVAL,  #{boardNo},
+		#{replyContent},#{empId}, sysdate)
+
+	</insert>
+	
+	<select id="selectReplyList" parameterType="_int"
+		resultMap="boardReplyResultSet">
+		SELECT *
+		FROM BOARD_REPLY
+		WHERE BOARD_NO=#{bno}
+		ORDER BY REPLY_NO DESC
+		<!-- 
+		SELECT *
+		FROM BOARD_REPLY
+		WHERE BOARD_NO = '6'
+		ORDER BY REPLY_NO DESC
+		 -->
+	</select>
+</mapper>

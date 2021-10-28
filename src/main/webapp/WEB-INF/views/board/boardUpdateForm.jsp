@@ -13,7 +13,9 @@
 </head>
 <body>
     <jsp:include page="../common/menubar.jsp"/>
+<div class="mobile-menu-overlay"></div>
 
+	<div class="main-container">
     <div class="content">
         <br><br>
         <div class="innerOuter">
@@ -28,17 +30,17 @@
                         <td><input type="text" id="title" class="form-control" name="boardTitle" value="${ b.boardTitle }" required></td>
                     </tr>
                     <tr>
-                        <th><label for="writer">작성자</label></th>
-                        <td><input type="text" id="writer" class="form-control" value="${ b.boardWriter }" readonly></td>
+                     <input type = "hidden" name = "empId" value = "${loginUser.empId }">
+                      
                     </tr>
                     <tr>
                         <th><label for="upfile">첨부파일</label></th>
                         <td>
                             <input type="file" id="upfile" class="form-control-file border" name="reUploadFile">
-                            <c:if test="${ !empty b.originName }">
-	                                                               현재 업로드된 파일 : ${ b.originName } <br>
-	                            <input type="hidden" name="changeName" value="${ b.changeName }">
-	                            <input type="hidden" name="originName" value="${ b.originName }">
+                            <c:if test="${ !empty b.originFile }">
+	                                                               현재 업로드된 파일 : ${ b.originFile } <br>
+	                            <input type="hidden" name="changeName" value="${ b.changeFile }">
+	                            <input type="hidden" name="originName" value="${ b.originFile }">
                             </c:if>
                         </td>
                     </tr>
@@ -56,6 +58,7 @@
                     <button type="button" class="btn btn-danger" onclick="javascript:history.go(-1);">이전으로</button>
                 </div>
             </form>
+        </div>
         </div>
         <br><br>
     </div>

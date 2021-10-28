@@ -12,7 +12,9 @@
 </head>
 <body>
     <jsp:include page="../common/menubar.jsp"/>
+<div class="mobile-menu-overlay"></div>
 
+	<div class="main-container">
     <div class="content">
         <br><br>
         <div class="innerOuter">
@@ -21,15 +23,13 @@
 			
 			<!-- 첨부파일도 등록할꺼니깐 Multipart/form-data encType 지정!! -->
             <form id="enrollForm" method="post" action="insert.bo" enctype="multipart/form-data">
-                <table align="center">
+             <input type = "hidden" name = "empId" value = "${loginUser.empId }">
+                <table style = "text-align: center">             
                     <tr>
                         <th><label for="title">제목</label></th>
                         <td><input type="text" id="title" class="form-control" name="boardTitle" required></td>
                     </tr>
-                    <tr>
-                        <th><label for="writer">작성자</label></th>
-                        <td><input type="text" id="writer" class="form-control" value="${ loginUser.userId }" name="boardWriter" readonly></td>
-                    </tr>
+
                     <tr>
                         <th><label for="upfile">첨부파일</label></th>
                         <td><input type="file" id="upfile" class="form-control-file border" name="uploadFile"></td>
@@ -51,6 +51,7 @@
         </div>
         <br><br>
     </div>
+</div>
 
     <jsp:include page="../common/footer.jsp"/>
 </body>

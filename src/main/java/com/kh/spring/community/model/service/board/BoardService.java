@@ -3,7 +3,7 @@ package com.kh.spring.community.model.service.board;
 import java.util.ArrayList;
 
 import com.kh.spring.community.model.vo.Board;
-import com.kh.spring.community.model.vo.Board_Attachment;
+import com.kh.spring.community.model.vo.Board_Reply;
 import com.kh.spring.community.model.vo.PageInfo;
 
 public interface BoardService {
@@ -19,7 +19,11 @@ public interface BoardService {
 
 	void deleteBoard(int bno);
 
-	void updateBoard(Board_Attachment ba);
+	void updateBoard(Board b);
+
+
+
+
 /*
 	ArrayList<Reply> selectReplyList(int bno);
 
