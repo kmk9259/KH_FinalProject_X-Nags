@@ -23,6 +23,7 @@ public class Approval {
 	private int status;
 	private String title;
 	private String content;
+	private Date writeDate;
 	private Date appDate;
 	private String midReply;
 	private String finReply;

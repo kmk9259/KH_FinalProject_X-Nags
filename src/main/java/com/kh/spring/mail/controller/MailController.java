@@ -87,6 +87,7 @@ public class MailController {
 		return "mail/sendMailListView";
 	}
 	
+	//보낸 메일 보기
 	@RequestMapping("sendDetail.ml")
 	public String selectSendMail() {
 		return "mail/sendMailDetailView";
@@ -97,7 +98,7 @@ public class MailController {
 	public String selectReceiveMailList() {
 		return "mail/receiveMailListView";
 	}
-	//받은 메일함
+	//받은 메일 보기
 	@RequestMapping("receiveDetail.ml")
 	public String selectReceiveMail() {
 		return "mail/receiveMailDetailView";
