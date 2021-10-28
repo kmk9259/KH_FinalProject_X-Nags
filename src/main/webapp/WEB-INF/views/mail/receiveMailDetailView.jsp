@@ -19,12 +19,12 @@
 					<div class="row">
 						<div class="col-md-6 col-sm-12">
 							<div class="title">
-								<h4>보낸 메일함</h4>
+								<h4>받은 메일함</h4>
 							</div>
 							<nav aria-label="breadcrumb" role="navigation">
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="">홈</a></li>
-									<li class="breadcrumb-item active" aria-current="page">보낸 메일함</li>
+									<li class="breadcrumb-item active" aria-current="page">받은 메일함</li>
 								</ol>
 							</nav>
 						</div>
@@ -35,13 +35,13 @@
 				<div class="pd-20 card-box mb-30">
 					<div class="clearfix mb-20">
 		            <div class="card-header">
-		              <h3 class="card-title">보낸 메일</h3>
+		              <h3 class="card-title">받은 메일</h3>
 		            </div>
 				
 				<div class="card-body p-0">
               <div class="mailbox-read-info">
                 <h5>제목</h5>
-                <h6>받는사람
+                <h6>보낸사람
                   <span class="mailbox-read-time float-right">날짜</span></h6>
               </div>
               <!-- /.mailbox-read-info -->
