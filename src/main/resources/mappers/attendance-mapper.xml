@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="attendanceMapper">
+
+	<resultMap id="attendanceResultSet" type="Attendance">
+		<id column="ATT_NO" property="attendanceNo"/>
+		<result column="EMP_ID" property="empId"/>
+		<result column="ATT_STATUS_NO" property="attStatusNo"/>
+		<result column="ATT_DATE" property="attendanceDate"/>
+		<result column="ATT_INTIME" property="attendanceInTime"/>
+		<result column="ATT_OUTTIME" property="attendanceOutTime"/>		
+	</resultMap>
+
+	
+	<resultMap id="attStatusResultSet" type="AttStatus">
+		<id column="ATT_STATUS_NO" property="attStatusNo"/>
+		<result column="ATT_STATUS_NAME" property="attStatusName"/>			
+	</resultMap>
+
+	<select id="selectAttStatus" resultMap="attStatusResultSet">
+	SELECT * FROM ATT_STATUS	
+	</select>
+</mapper>

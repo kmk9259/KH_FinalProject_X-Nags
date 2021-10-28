@@ -32,23 +32,20 @@
         <div class="pd-ltr-20">
             <div class="card-box pd-20 height-100-p mb-30">
                 <div class="row align-items-center">
-                    <div class="col-md-4">
-                        <img src="${ pageContext.servletContext.contextPath }/resources/vendors/images/banner-img.png" alt="">
-                    </div>
-                    <div class="col-md-8">
-	                     <div id="clock" class="light3">
-	                    		<div class="display3">
-									<div class="ampm"></div>
-									<div class="alarm"></div>
-									<div class="digits"></div>
-						 		</div>
-							</div> 
-                        <h4 class="font-20 weight-500 mb-10 text-capitalize">
-                            
-                            <div class="weight-600 font-30 text-blue">${ sessionScope.loginUser.userName }님</div>
-                        </h4>
-                        
-                        <div class="table-responsive">
+	                <div id="clock" class="light3">
+	           			<div class="display3">
+							<div class="ampm"></div>
+							<div class="alarm"></div>
+							<div class="digits"></div>
+				 		</div>
+					</div> <br><br>
+                </div> 
+                <div class="row align-items-center">
+                	<div class="col-md-9">
+		                <h4 class="font-20 weight-500 mb-10 text-capitalize">                    
+		                    <div class="weight-600 font-30 text-blue">${ sessionScope.loginUser.userName }님</div>
+		                </h4>
+		                <div class="table-responsive">
 							<table class="table table-striped table-bordered employee" style="text-align: center;">				
 							  <thead>							    
 								<tr class="table-warning">
@@ -62,20 +59,24 @@
 							  </thead>
 							  <tbody>
 							    
-							      <!-- <th scope="row">총무과</th>
+							      <th scope="row">총무과</th>
 							      <th scope="row">대리</th>
 							      <th scope="row">2021년 10월 26일 09:00</th>
 							      <th scope="row">아직 퇴근 전입니다.</th>
 							      <th scope="row">D + 100 </th>
-							      <th scope="row">10회</th> -->
+							      <th scope="row">10회</th>
 							    </tr>
 							  </tbody>
-							</table>
+							</table>							
 						</div>
 						
-							
-                    </div>
-                </div>
+                	</div>
+                	<div class="col-md-3">
+                    	<img src="${ pageContext.servletContext.contextPath }/resources/vendors/images/banner-img.png" alt="" >
+                	</div>
+               	</div>
+               	
+                
             </div>
             <div class="row">
                 <div class="col-xl-3 mb-30">

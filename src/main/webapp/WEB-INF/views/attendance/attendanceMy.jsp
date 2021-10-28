@@ -11,6 +11,34 @@
 	.info{
 	margin-left: 300px;
 	}
+	.scrolltbody {
+    display: block;
+    width: 1715px;
+    border-collapse: collapse;
+    border: 1px solid #000;
+    position:relative;
+	}
+	.scrolltbody th { border: 1px solid #000; background: white; }
+	.scrolltbody td { border: 1px solid #000; border-top: 0; }
+	.scrolltbody tbody {
+	    display: block;
+	    height: 280px;
+	    overflow: auto;
+	}
+	.scrolltbody > thead > tr>th{
+	font-size: 15px;
+	height: 47.33px;
+	}
+	.scrolltbody > tbody > tr>th{
+	font-size: 15px;
+	height: 47.33px;
+	width: 500px;
+	}
+	.scrolltbody th:nth-of-type(1), .scrolltbody td:nth-of-type(1) { width: 428px; }
+	.scrolltbody th:nth-of-type(2), .scrolltbody td:nth-of-type(2) { width: 428px; }
+	.scrolltbody th:nth-of-type(3), .scrolltbody td:nth-of-type(3) { width: 428px; }
+	.scrolltbody th:last-child { width: 428px; }
+	 .scrolltbody td:last-child { width: calc( 420px - 19px );  } 
 	</style>
 	<!-- The main CSS file -->
 	<link href="${ pageContext.servletContext.contextPath }/resources/assets/css/style.css" rel="stylesheet" />
@@ -23,8 +51,6 @@
     
     <div class="mobile-menu-overlay"></div>
     
-
-
     <div class="main-container">
         <div class="pd-ltr-20">
             <div class="card-box pd-20 height-100-p mb-30">
@@ -53,9 +79,9 @@
                     </div>
                 </div>
             </div>
-            <div class="card-box pd-20 height-100-p mb-30">
+            <div class="card-box pd-20 mb-30" >
             	<h3>내 근태 현황</h3><br>
-             
+             	
                 <table class="table table-bordered" style="text-align: center; ">
 				  <thead >
 				    <tr class="table-info">
@@ -74,27 +100,170 @@
 				    </tr>
 				  </tbody>
 				</table>
-				<table class="table table-bordered" style="text-align: center; ">
+				<table class="table scrolltbody" style="text-align: center; ">
 				  <thead>
 				    <tr class="table-danger">
-				      <th scope="col" width="430px">날짜</th>
-				      <th scope="col" width="430px">출근</th>
-				      <th scope="col" width="430px">퇴근</th>
-				      <th scope="col" width="430px">현황 상태</th>
+				      <th scope="col" >날짜</th>
+				      <th scope="col" >출근</th>
+				      <th scope="col" >퇴근</th>
+				      <th scope="col" >현황 상태</th>
 				    </tr>
 				  </thead>
 				  <tbody>
-				    <tr >
-				      <th scope="row">2021.10.26</th>
+				    <tr>
+				      <th scope="row">2021.10.01</th>
 				      <th scope="row">09:00</th>
 				      <th scope="row">18:00</th>
 				      <th scope="row">정상</th>
 				    </tr>
+				    <tr>
+				      <th scope="row">2021.10.02</th>
+				      <th scope="row">09:00</th>
+				      <th scope="row">18:00</th>
+				      <th scope="row">정상</th>
+				    </tr>
+				    <tr>
+				      <th scope="row">2021.10.03</th>
+				      <th scope="row">09:00</th>
+				      <th scope="row">18:00</th>
+				      <th scope="row">정상</th>
+				    </tr>
+				    <tr>
+				      <th scope="row">2021.10.04</th>
+				      <th scope="row">09:00</th>
+				      <th scope="row">18:00</th>
+				      <th scope="row">정상</th>
+				    </tr>
+				    <tr>
+				      <th scope="row">2021.10.04</th>
+				      <th scope="row">09:00</th>
+				      <th scope="row">18:00</th>
+				      <th scope="row">정상</th>
+				    </tr>
+				    <tr>
+				      <th scope="row">2021.10.04</th>
+				      <th scope="row">09:00</th>
+				      <th scope="row">18:00</th>
+				      <th scope="row">정상</th>
+				    </tr>
+				    <tr>
+				      <th scope="row">2021.10.04</th>
+				      <th scope="row">09:00</th>
+				      <th scope="row">18:00</th>
+				      <th scope="row">정상</th>
+				    </tr>
+				    <tr>
+				      <th scope="row">2021.10.04</th>
+				      <th scope="row">09:00</th>
+				      <th scope="row">18:00</th>
+				      <th scope="row">정상</th>
+				    </tr>
+				    <tr>
+				      <th scope="row">2021.10.04</th>
+				      <th scope="row">09:00</th>
+				      <th scope="row">18:00</th>
+				      <th scope="row">정상</th>
+				    </tr>
+				    <tr>
+				      <th scope="row">2021.10.04</th>
+				      <th scope="row">09:00</th>
+				      <th scope="row">18:00</th>
+				      <th scope="row">정상</th>
+				    </tr>
+				    <tr>
+				      <th scope="row">2021.10.04</th>
+				      <th scope="row">09:00</th>
+				      <th scope="row">18:00</th>
+				      <th scope="row">정상</th>
+				    </tr>
+				    <tr>
+				      <th scope="row">2021.10.04</th>
+				      <th scope="row">09:00</th>
+				      <th scope="row">18:00</th>
+				      <th scope="row">정상</th>
+				    </tr>
+				    <tr>
+				      <th scope="row">2021.10.04</th>
+				      <th scope="row">09:00</th>
+				      <th scope="row">18:00</th>
+				      <th scope="row">정상</th>
+				    </tr>
+				    <tr>
+				      <th scope="row">2021.10.04</th>
+				      <th scope="row">09:00</th>
+				      <th scope="row">18:00</th>
+				      <th scope="row">정상</th>
+				    </tr>
+				    <tr>
+				      <th scope="row">2021.10.04</th>
+				      <th scope="row">09:00</th>
+				      <th scope="row">18:00</th>
+				      <th scope="row">정상</th>
+				    </tr>
+				    <tr>
+				      <th scope="row">2021.10.04</th>
+				      <th scope="row">09:00</th>
+				      <th scope="row">18:00</th>
+				      <th scope="row">정상</th>
+				    </tr>
+				    <tr>
+				      <th scope="row">2021.10.04</th>
+				      <th scope="row">09:00</th>
+				      <th scope="row">18:00</th>
+				      <th scope="row">정상</th>
+				    </tr>
+				    <tr>
+				      <th scope="row">2021.10.04</th>
+				      <th scope="row">09:00</th>
+				      <th scope="row">18:00</th>
+				      <th scope="row">정상</th>
+				    </tr>
+				    <tr>
+				      <th scope="row">2021.10.04</th>
+				      <th scope="row">09:00</th>
+				      <th scope="row">18:00</th>
+				      <th scope="row">정상</th>
+				    </tr>
+				    <tr>
+				      <th scope="row">2021.10.04</th>
+				      <th scope="row">09:00</th>
+				      <th scope="row">18:00</th>
+				      <th scope="row">정상</th>
+				    </tr>
+				    <tr>
+				      <th scope="row">2021.10.04</th>
+				      <th scope="row">09:00</th>
+				      <th scope="row">18:00</th>
+				      <th scope="row">정상</th>
+				    </tr>
+				    <tr>
+				      <th scope="row">2021.10.04</th>
+				      <th scope="row">09:00</th>
+				      <th scope="row">18:00</th>
+				      <th scope="row">정상</th>
+				    </tr>
+				    <tr>
+				      <th scope="row">2021.10.04</th>
+				      <th scope="row">09:00</th>
+				      <th scope="row">18:00</th>
+				      <th scope="row">정상</th>
+				    </tr>
+				    <tr>
+				      <th scope="row">2021.10.04</th>
+				      <th scope="row">09:00</th>
+				      <th scope="row">18:00</th>
+				      <th scope="row">정상</th>
+				    </tr>
+				    
 				  </tbody>
 				</table>
-                
+
+
+
+
+
             </div>
-            <div class="card-box pd-20 height-100-p mb-30">
+            <!-- <div class="card-box pd-20 height-100-p mb-30">
             	<h3>내 근로 시간</h3><p style="margin-left: 180px; margin-top: -25px;">주 25시간 30분 / 52시간</p><br>
             	<h4 class="h4 text-blue">Week</h4>
                      <div id="chart8"></div>
@@ -105,13 +274,11 @@
                     <h4 class="h4 text-blue">Month</h4>
                     <div id="chart3"></div>
                 </div>
-            </div>
-            
-            
-            
+            </div> -->
             
             <jsp:include page="../common/footer.jsp"/>
         </div>
+       
     </div>
 	<!-- JavaScript Includes -->
 		

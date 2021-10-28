@@ -56,10 +56,20 @@
                             <span class="micon dw dw-house-1"></span><span class="mtext">전자 결재</span>
                         </a>
                         <ul class="submenu">
-                     <li><a href="">결재 서류 작성</a></li>
+                           <li class="dropdown">
+                                <a href="javascript:;" class="dropdown-toggle">
+                                    <span class="micon dw dw-house-1"></span><span class="mtext">결재 서류 작성</span>
+                                </a>
+                                <ul class="submenu child">
+                                    <li><a href="certificateForm.ap">증명서 신청</a></li>
+                                    <li><a href="holidayForm.ap">휴가 신청</a></li>
+                                    <li><a href="overtimeForm.ap">연장근무 신청</a></li>
+                                </ul>
+                            </li>
                             <li><a href="">진행중 결재함</a></li>
                             <li><a href="">완료 결재함</a></li>
                         </ul>
+                        
                     </li>
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
@@ -77,8 +87,8 @@
                         </a>
                         <ul class="submenu">
                             <li><a href="attendanceMy.att">내 근태 현황</a></li>
-                            <li><a href="index2.html">일별 근태 현황</a></li>
-                            <li><a href="index2.html">월별 근태 현황</a></li>
+                            <li><a href="attendanceDay.att">일별 근태 현황</a></li>
+                            <li><a href="attendanceMonth.att">월별 근태 현황</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
