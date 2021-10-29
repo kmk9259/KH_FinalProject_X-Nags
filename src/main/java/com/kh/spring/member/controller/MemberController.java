@@ -10,48 +10,70 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.spring.common.PaginationEmp;
 import com.kh.spring.common.exception.CommException;
 import com.kh.spring.employee.model.service.EmployeeService;
-import com.kh.spring.employee.model.vo.Employee;
+
+
 import com.kh.spring.employee.model.vo.PageInfo;
+
+import com.kh.spring.employee.model.vo.Department;
+import com.kh.spring.employee.model.vo.Employee;
+import com.kh.spring.employee.model.vo.Job;
+
 import com.kh.spring.member.model.service.MemberService;
 import com.kh.spring.member.model.vo.Member;
 
-@SessionAttributes("loginUser")	//model 객체에 loginUser 라는 key 값으로 객체가 추가되면 자동으로 세션에 추가해주는 어노테이션
+@SessionAttributes("loginUser")	
+
 @Controller	//bean scan을 통해서 자동으로 컨트롤러 타입으로 등록
 public class MemberController {
-	
-	@Autowired
-	private EmployeeService employeeService;
-	
-	@Autowired //빈 스캐닝을 통해 인터페이스(memberService)를 구현한 클래스(구현체) 중에 @Service로 등록되어 있는 빈(MemberServiceImpl)을 찾아서 자동으로 주입
+
+	@Autowired 
 	private MemberService memberService;
-	
+	@Autowired 
+	private EmployeeService employeeService;
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
+	@RequestMapping("loginerror")
+	public String loginerror() {
+		return "redirect:/";
+	}
 	@RequestMapping("main.xnags")
 	public String loginMember(Member m, Model model) {
 		
 		Member loginUser;
+		Employee loginEmp;
+		Job job;
+		Department dept;
 		try {
 			loginUser = memberService.loginMember(m);
+			loginEmp = employeeService.loginEmployee(m);
+			
+			job = employeeService.selectJob(loginEmp);
+			dept = employeeService.selectdept(loginEmp);
+			
 			System.out.println("loginUser"+loginUser);
-			model.addAttribute("loginUser", loginUser);	//model의 스코프는 request
+			System.out.println("loginEmp "+loginEmp);
+			System.out.println("job"+job);
+			System.out.println("dept "+dept);
+			
+			model.addAttribute("loginUser", loginUser);	
+			model.addAttribute("loginEmp", loginEmp);	
+			model.addAttribute("job", job);	
+			model.addAttribute("dept", dept);
+			
 			return "main";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -59,10 +81,7 @@ public class MemberController {
 			return "common/errorPage";
 		}		 
 	}	
-	@RequestMapping("main")
-	public String main() {
-		return "main";
-	}
+
 	@RequestMapping("myPage.me")
 	public String myPage() {
 		return "member/myPage";

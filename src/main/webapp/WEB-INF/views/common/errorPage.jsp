@@ -11,12 +11,15 @@
 	
 	<br>
 	<div align="center">	
-	
+		<br><br><br>
 		<img src="${ pageContext.servletContext.contextPath }/resources/images/error.png" width="300">
 		<br><br><br><br>
-		<h3 style="font-weight:bold">${ msg }</h1>
-		<h3 style="font-weight:bold">${ ref_form }</h1>
-		<h5 style="color: red;"> ${ requestScope['javax.servlet.error.message'] }</h2>
+		<h3 style="font-weight:bold">${ msg }</h3>
+		<h3 style="font-weight:bold">${ ref_form }</h3>
+		<h5 style="color: red;"> ${ requestScope['javax.servlet.error.message'] }</h5>
+		<form action="loginerror" method="post">
+			<input class="btn btn-primary btn-lg btn-block" type="submit" value="이전으로" style="width: 300px">							
+		</form>
 	
 		<!-- 
 		  - javax.servlet.error.status_code (오류 상태 코드)

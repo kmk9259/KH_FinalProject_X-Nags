@@ -45,6 +45,7 @@
 		                <h4 class="font-20 weight-500 mb-10 text-capitalize">                    
 		                    <div class="weight-600 font-30 text-blue">${ sessionScope.loginUser.userName }님</div>
 		                </h4>
+		                
 		                <div class="table-responsive">
 							<table class="table table-striped table-bordered employee" style="text-align: center;">				
 							  <thead>							    
@@ -59,8 +60,8 @@
 							  </thead>
 							  <tbody>
 							    
-							      <th scope="row">총무과</th>
-							      <th scope="row">대리</th>
+							      <th scope="row">${dept.deptName}</th>
+							      <th scope="row">${job.jobName}</th>
 							      <th scope="row">2021년 10월 26일 09:00</th>
 							      <th scope="row">아직 퇴근 전입니다.</th>
 							      <th scope="row">D + 100 </th>
