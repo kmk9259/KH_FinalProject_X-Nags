@@ -113,7 +113,7 @@
             </tr>
             </thead>
             <tbody >
-            
+
             </tbody>
             </table>
         </div>
@@ -127,7 +127,7 @@
 		
 		$("#addReply").click(function(){
     		var bno = ${b.boardNo};
-			alert(bno);
+			
 			if($("#replyContent").val().trim().length != 0){
 				
 				$.ajax({
@@ -177,7 +177,7 @@
 					value += 	"<td style = 'text-align : center'> 익명 </td>" 
 								 +"<td style = 'text-align : center'>" + obj.replyContent + "</td>" + 
 								 "<td style = 'text-align : center'>" + obj.replyDate + "</td>" +
-						 "</tr>";
+						  "</tr>"; 
 				});
 				$("#replyArea1 tbody").html(value);
 			},error:function(){
