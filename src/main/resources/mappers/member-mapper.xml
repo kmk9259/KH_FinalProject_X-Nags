@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="loginMember" parameterType="Member" resultMap="memberResultSet">
 	
-		select * from member where EMP_ID=#{empId} USER_PWD=#{userPwd} and status='Y'
+		select * from member where EMP_ID=#{empId} and USER_PWD=#{userPwd} and status='Y'
 		
 	</select>
 	<update id="updateMember" parameterType="Member">
