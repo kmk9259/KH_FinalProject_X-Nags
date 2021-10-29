@@ -6,7 +6,7 @@
 <head>
 <!-- Basic Page Info -->
 <meta charset="utf-8">
-<title>DeskApp - Bootstrap Admin Dashboard HTML Template</title>
+<title>X-Nomal Groupware Solution</title>
 
 
 <!-- Mobile Specific Metas -->
@@ -25,6 +25,7 @@
 	<div class="main-container">
 		<div class="pd-ltr-20 xs-pd-20-10">
 			<div class="min-height-200px">
+<!-- 
 				<div class="page-header">
 					<div class="row">
 						<div class="col-md-12 col-sm-12">
@@ -40,11 +41,13 @@
 						</div>
 					</div>
 				</div>
-
+-->
 				<div class="pd-20 card-box mb-30">
 					<h4>Today</h4>
+					
+					
 				</div>
-				
+			
 				
 				<div class="pd-20 card-box mb-30">
 					<div class="calendar-wrap">
@@ -137,10 +140,7 @@
 									</div>
 									
 								</div>
-											<div class="form-group">
-											<label>알림 여부</label> <input type="text"
-												class="form-control" name="eplace">
-										</div>
+										
 									</div>
 
 								</form>
