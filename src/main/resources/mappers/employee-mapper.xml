@@ -9,19 +9,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="jobCode" column="JOB_CODE"/>
 		<result property="rightNo" column="RIGHT_NO"/>
 		<result property="deptCode" column="DEPT_CODE"/>
-		<result property="empName" column="EMP_NAME"/>
 		<result property="salLevel" column="SAL_LEVEL"/>
 		<result property="hireDate" column="HIRE_DATE"/>
 		<result property="modifyDate" column="MODIFIY_DATE"/>
 		<result property="endDate" column="END_DATE"/>
 		<result property="status" column="STATUS"/>
 	</resultMap>
-
-	<!-- <select id="loginMember" parameterType="Member" resultMap="memberResultSet">
 	
-		select * from member where EMP_ID=#{empId} and USER_PWD=#{userPwd} and status='Y'
-		
-	</select> -->
+	<resultMap id="jobResultSet" type="Job">
+		<id property="jobCode" column="JOB_CODE"/>
+		<result property="jobName" column="JOB_NAME"/>
+	</resultMap>
+	
+	<resultMap id="deptResultSet" type="Department">
+		<id property="deptCode" column="DEPT_CODE"/>
+		<result property="deptName" column="DEPT_NAME"/>
+	</resultMap>
+
+
 	
 	 <insert id="insertEmployee" parameterType="Employee" >
 	insert into employee
@@ -34,14 +39,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM EMPLOYEE
 		WHERE STATUS = 'Y'		
 	</select>
-	
-	
-	
+
 	<select id="selectList" resultMap="employeeResultSet">
 		SELECT *
 		FROM EMPLOYEE
 		WHERE STATUS = 'Y'
 		ORDER BY EMP_ID DESC		
+	</select>
+	
+	<select id="loginEmployee" parameterType="Member" resultMap="employeeResultSet">
+	SELECT A.* FROM EMPLOYEE A
+	JOIN MEMBER B ON A.EMP_ID = B.EMP_ID
+	WHERE A.EMP_ID=#{empId}	
+	</select>
+	
+	<select id="selectJob" parameterType="Employee" resultMap="jobResultSet">
+	SELECT * FROM JOB WHERE JOB_CODE=#{jobCode}
+	</select>
+	
+	<select id="selectdept" parameterType="Employee" resultMap="deptResultSet">
+	SELECT * FROM DEPARTMENT WHERE DEPT_CODE=#{deptCode}
 	</select>
 	
 	<!--  

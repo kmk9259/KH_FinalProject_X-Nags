@@ -2,8 +2,11 @@ package com.kh.spring.employee.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.spring.employee.model.vo.Department;
 import com.kh.spring.employee.model.vo.Employee;
+import com.kh.spring.employee.model.vo.Job;
 import com.kh.spring.employee.model.vo.PageInfo;
+import com.kh.spring.member.model.vo.Member;
 
 
 public interface EmployeeService {
@@ -13,6 +16,12 @@ public interface EmployeeService {
 	int selectListCount();
 
 	ArrayList<Employee> selectList(PageInfo pi);
+
+	Employee loginEmployee(Member m);
+
+	Job selectJob(Employee loginEmp);
+
+	Department selectdept(Employee loginEmp);
 
 	
 
