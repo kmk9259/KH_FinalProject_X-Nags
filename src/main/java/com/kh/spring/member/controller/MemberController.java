@@ -58,7 +58,7 @@ public class MemberController {
 		Job job;
 		Department dept;
 		try {
-			loginUser = memberService.loginMember(m);
+			loginUser = memberService.loginMember(bCryptPasswordEncoder,m);
 			loginEmp = employeeService.loginEmployee(m);
 			
 			job = employeeService.selectJob(loginEmp);
