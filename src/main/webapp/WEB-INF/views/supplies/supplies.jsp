@@ -5,7 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>X-Nomal Groupware Solution</title>
+<style>
+.btn-success {
+    
+    margin-bottom: 50px;
+}
 
+</style>
 
 </head>
 <body>
@@ -29,42 +35,81 @@
 					</div>
 					<div class="row">
 						<div class="col-md-4 col-sm-12">
-							<form>
-								<div class="form-group">
-									<label>예약 날짜</label> <input
-										class="form-control date-picker" placeholder="Select Date"
-										type="text">
+							
+								<div class="form-group ">
+									<label>예약 날짜</label> <input class="form-control date-picker"
+										placeholder="Select Date" type="text">
 								</div>
-								
+
 								<div class="form-group">
-									<label>반납 날짜</label> <input
-										class="form-control date-picker" placeholder="Select Date"
-										type="text">
+									<label>반납 날짜</label> <input class="form-control date-picker"
+										placeholder="Select Date" type="text">
 								</div>
-								
-							</form>
+								<button type="button" class="btn btn-success btn-lg btn-block">대여 기간 등록</button>
 						</div>
-						<div class="col-md-4 col-sm-12 text-center">
-							<div class="mb-20">
-								<label>Datedpicker Inline</label>
-								<div class="datepicker-here" data-timepicker="true"
-									data-language='en'></div>
+
+ 						<div class="col-md-4 col-sm-12">
+								<div class="custom-control custom-radio mb-4 ">
+									<input type="radio" name="status" id="status2" value="status2" class="custom-control-input">
+									<label class="custom-control-label " for="status2">모니터</label>
+									&nbsp;&nbsp;&nbsp;&nbsp;<input type="number" style="width : 80px; "/>
+								</div>
+								
+								<div class="custom-control custom-radio mb-4 ">
+									<input type="radio" name="status" id="status2" value="status2" class="custom-control-input">
+									<label class="custom-control-label " for="status2">프린터</label>
+									&nbsp;&nbsp;&nbsp;&nbsp;<input type="number" style="width : 80px;"/>
+								</div>
+									
+								<div class="custom-control custom-radio mb-4 ">
+									<input type="radio" name="status" id="status2" value="status2" class="custom-control-input">
+									<label class="custom-control-label " for="status2">책상</label>
+									&nbsp;&nbsp;&nbsp;&nbsp;<input type="number" style="width : 80px;"/>
+								</div>
+								
+								<div class="custom-control custom-radio mb-4 ">
+									<input type="radio" name="status" id="status2" value="status2" class="custom-control-input">
+									<label class="custom-control-label " for="status2">케비넷</label>
+									&nbsp;&nbsp;&nbsp;&nbsp;<input type="number" style="width : 80px;"/>
+								</div>
+								
+								
+								<div class="custom-control custom-radio mb-4 ">
+									<input type="radio" name="status" id="status2" value="status2" class="custom-control-input">
+									<label class="custom-control-label " for="status2">책 수납장</label>
+									&nbsp;&nbsp;&nbsp;&nbsp;<input type="number" style="width : 80px;"/>
+								</div>
+								
+								
+								<div class="custom-control custom-radio mb-4 ">
+									<input type="radio" name="status" id="status2" value="status2" class="custom-control-input">
+									<label class="custom-control-label " for="status2">카메라</label>
+									&nbsp;&nbsp;&nbsp;&nbsp;<input type="number" style="width : 80px;"/>
+								</div>
+								
+								
+								<div class="custom-control custom-radio mb-4 ">
+									<input type="radio" name="status" id="status2" value="status2" class="custom-control-input">
+									<label class="custom-control-label " for="status2">조명</label>
+									&nbsp;&nbsp;&nbsp;&nbsp;<input type="number" style="width : 80px;"/>
+								</div>
+								
+								
+								<div class="custom-control custom-radio mb-4 ">
+									<input type="radio" name="status" id="status2" value="status2" class="custom-control-input">
+									<label class="custom-control-label " for="status2">사다라</label>
+									&nbsp;&nbsp;&nbsp;&nbsp;<input type="number" style="width : 80px;"/>
+								</div>
+								
+
+
 							</div>
-						</div>
-						<div class="col-md-4 col-sm-12">
-							<form>
-								<div class="form-group">
-									<label>Datedpicker Month View</label> <input
-										class="form-control month-picker" placeholder="Select Month"
-										type="text">
-								</div>
-								<div class="form-group">
-									<label>Datedpicker Range View</label> <input
-										class="form-control datetimepicker-range"
-										placeholder="Select Month" type="text">
-								</div>
-							</form>
-						</div>
+							
+							
+										
+							</div>
+
+
 					</div>
 				</div>
 				<!-- ======================================================================= -->
@@ -73,5 +118,7 @@
 		</div>
 	</div>
 	<jsp:include page="../common/footer.jsp" />
+	
+	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
 </body>
 </html>
