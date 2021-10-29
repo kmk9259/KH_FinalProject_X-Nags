@@ -61,7 +61,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-4 col-sm-12">
-                            <form>
+                            <form action="" method="post">
                                 <div class="form-group">
                                     <label>날짜</label>
                                     <input class="form-control date-picker" placeholder="Click" type="text">
@@ -70,46 +70,24 @@
 	                                <label>항목</label>
 	                                <div class="d-flex">
 	                                    <div class="custom-control custom-radio mb-5 ">
-	                                        <input type="radio" name="choice" id="dept" value="M" class="custom-control-input">
+	                                        <input type="radio" name="code" id="dept" value="DEPT_CODE" class="custom-control-input">
 	                                        <label class="custom-control-label weight-400" for="dept">부서&nbsp&nbsp</label>
 	                                    </div>
 	                                    <div class="custom-control custom-radio mb-5">
-	                                        <input type="radio" name="choice" id="job" value="F" class="custom-control-input">
-	                                        <label class="custom-control-label weight-400" for="job">직급</label>
+	                                        <input type="radio" name="code" id="job" value="JOB_CODE" class="custom-control-input">
+	                                        <label class="custom-control-label weight-400" for="job">직급&nbsp&nbsp</label>
 	                                    </div>
 	                                </div>	                                
                                	</div>
                                	<div class="form-group">
 	                                <label>상태</label>
-	                                <div class="d-flex">
-	                                    <div class="custom-control custom-radio mb-5 ">
-	                                        <input type="radio" name="status" id="status1" value="status1" class="custom-control-input">
-	                                        <label class="custom-control-label " for="status1">정상&nbsp&nbsp</label>
+	                                <div class="d-flex">	                                	
+	                                	<c:forEach var="attList" items="${ attList }" varStatus="at">											
+											<div class="custom-control custom-radio mb-5 ">
+	                                        <input type="radio" name="attList" id="${ at.index }" value="${ attList.attStatusNo }" class="custom-control-input">
+	                                        <label class="custom-control-label " for="${ at.index }">${ attList.attStatusName }&nbsp&nbsp</label>
 	                                    </div>
-	                                    <div class="custom-control custom-radio mb-5 ">
-	                                        <input type="radio" name="status" id="status2" value="status2" class="custom-control-input">
-	                                        <label class="custom-control-label " for="status2">지각&nbsp&nbsp</label>
-	                                    </div>
-	                                    <div class="custom-control custom-radio mb-5 ">
-	                                        <input type="radio" name="status" id="status3" value="status3" class="custom-control-input">
-	                                        <label class="custom-control-label " for="status3">조퇴&nbsp&nbsp</label>
-	                                    </div>
-	                                    <div class="custom-control custom-radio mb-5 ">
-	                                        <input type="radio" name="status" id="status4" value="status4" class="custom-control-input">
-	                                        <label class="custom-control-label " for="status4">결근&nbsp&nbsp</label>
-	                                    </div>
-	                                    <div class="custom-control custom-radio mb-5 ">
-	                                        <input type="radio" name="status" id="status5" value="status5" class="custom-control-input">
-	                                        <label class="custom-control-label " for="status5">외근&nbsp&nbsp</label>
-	                                    </div>
-	                                    <div class="custom-control custom-radio mb-5 ">
-	                                        <input type="radio" name="status" id="status6" value="status6" class="custom-control-input">
-	                                        <label class="custom-control-label " for="status6">야근&nbsp&nbsp</label>
-	                                    </div>
-	                                    <div class="custom-control custom-radio mb-5 ">
-	                                        <input type="radio" name="status" id="status7" value="status7" class="custom-control-input">
-	                                        <label class="custom-control-label " for="status7">연차&nbsp&nbsp</label>
-	                                    </div>
+										</c:forEach>										
 	                                </div>	                                
                                	</div>
                                 <div class="form-group mb-0">

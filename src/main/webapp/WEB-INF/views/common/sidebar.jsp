@@ -21,9 +21,11 @@
    
     <div class="left-side-bar">
         <div class="logo">
-            <a href="main">
+           <a href="#"> 
                 <img src="${ pageContext.servletContext.contextPath }/resources/images/logo/logowhite.png" alt="" class="light-logo">
+                <input type="hidden" value="${ sessionScope.loginUser.empId }">
             </a>
+            
             <div class="close-sidebar" data-toggle="left-sidebar-close">
                 <i class="ion-close-round"></i>
             </div>
@@ -113,6 +115,13 @@
         	 </div>
       	</div>
    </div> 
+   <script>
+    	$(function(){
+    		$(".left-side-bar div img").click(function(){
+    			location.href="main.xnags?empId=" + ${ sessionScope.loginUser.empId };
+    		});
+    	});
+    </script>
 
 
 

@@ -6,7 +6,9 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.spring.employee.model.vo.Department;
 import com.kh.spring.employee.model.vo.Employee;
+import com.kh.spring.employee.model.vo.Job;
 import com.kh.spring.employee.model.vo.PageInfo;
 import com.kh.spring.member.model.vo.Member;
 
@@ -30,6 +32,20 @@ public class EmployeeDao {
 		
 		return (ArrayList)sqlSession.selectList("employeeMapper.selectList", null, rowBounds);
 	}
+
+	public Employee loginEmployee(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectOne("employeeMapper.loginEmployee",m);
+	}
+
+	public Job selectJob(SqlSessionTemplate sqlSession, Employee loginEmp) {
+		return sqlSession.selectOne("employeeMapper.selectJob",loginEmp);
+	}
+
+	public Department selectdept(SqlSessionTemplate sqlSession, Employee loginEmp) {
+		return sqlSession.selectOne("employeeMapper.selectdept",loginEmp);
+	}
+
+
 
 
 }
