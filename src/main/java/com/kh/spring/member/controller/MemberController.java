@@ -3,6 +3,7 @@ package com.kh.spring.member.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,11 +20,17 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.spring.common.PaginationEmp;
 import com.kh.spring.common.exception.CommException;
 import com.kh.spring.employee.model.service.EmployeeService;
+
+
+import com.kh.spring.employee.model.vo.PageInfo;
+
 import com.kh.spring.employee.model.vo.Department;
 import com.kh.spring.employee.model.vo.Employee;
 import com.kh.spring.employee.model.vo.Job;
+
 import com.kh.spring.member.model.service.MemberService;
 import com.kh.spring.member.model.vo.Member;
 
@@ -31,12 +38,11 @@ import com.kh.spring.member.model.vo.Member;
 
 @Controller	//bean scan을 통해서 자동으로 컨트롤러 타입으로 등록
 public class MemberController {
-	
+
 	@Autowired 
 	private MemberService memberService;
 	@Autowired 
 	private EmployeeService employeeService;
-	
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
@@ -162,11 +168,16 @@ public class MemberController {
 														 @RequestParam("address2") String address2,
 														 HttpSession session,
 														 HttpServletRequest request, Model model,
-														 @RequestParam(name="uploadFile", required=false) MultipartFile file) {
+														 @RequestParam(name="uploadFile", required=false) MultipartFile file,
+														 @RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
 		
 		
 		System.out.println(m);
 		System.out.println(file.getOriginalFilename());
+		
+		int listCount = employeeService.selectListCount();
+		System.out.println(listCount);
+		
 		
 		if(!file.getOriginalFilename().equals("")) {
 			
@@ -188,6 +199,14 @@ public class MemberController {
 		m.setUserPwd(encPwd);
 		memberService.insertMember(m);
 		System.out.println(m);
+		
+		PageInfo pi = PaginationEmp.getPageInfo(listCount, currentPage, 10, 10);
+		
+		ArrayList<Employee> list = employeeService.selectList(pi);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("pi",pi);
+		
 		
 		session.setAttribute("msg", "회원가입 성공");
 		return "employee/listEmp";
