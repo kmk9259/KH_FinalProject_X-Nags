@@ -21,11 +21,15 @@ public class MemberServiceImpl implements MemberService {
 	private MemberDao memberDao;
 	
 	@Override
-	public Member loginMember(Member m) throws Exception{
+	public Member loginMember(BCryptPasswordEncoder bCryptPasswordEncoder, Member m) {
 		Member loginUser = memberDao.loginMember(sqlSession, m);
-		System.out.println("impl : "+m);
 		if(loginUser == null) {
-			throw new CommException("loginUser null@");
+			throw new CommException("loginUser null");
+		}
+		//matches(평문, 암호화)->true, false 반환
+		if(!bCryptPasswordEncoder.matches(m.getUserPwd(), loginUser.getUserPwd())) {
+			//복호화랑 일치하지 않으면
+			throw new CommException("암호불일치"); 
 		}
 		return loginUser;
 	}
