@@ -71,6 +71,8 @@ public class EmployeeController {
 		
 		ArrayList<Employee> list = employeeService.selectList(pi);
 		
+		System.out.println(list);
+		
 		model.addAttribute("list", list);
 		model.addAttribute("pi",pi);
 		return "employee/listEmp";
