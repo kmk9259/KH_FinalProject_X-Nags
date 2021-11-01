@@ -50,21 +50,21 @@
 							<table class="table table-striped table-bordered employee" style="text-align: center;">				
 							  <thead>							    
 								<tr class="table-warning">
-								<th scope="col" width="80px">부서</th>
-								<th scope="col" width="80px">직급</th>
-								<th scope="col" width="80px">출근</th>
-								<th scope="col" width="80px">퇴근</th>
-								<th scope="col" width="80px">근무일</th>
-								<th scope="col" width="80px">잔여 연차</th>
+								<th scope="col" width="60px">부서</th>
+								<th scope="col" width="60px">직급</th>
+								<th scope="col" width="100px">출근</th>
+								<th scope="col" width="100px">퇴근</th>
+								<th scope="col" width="60px">근무일</th>
+								<th scope="col" width="60px">잔여 연차</th>
 								</tr>								
 							  </thead>
 							  <tbody>
 							    
-							      <th scope="row">${dept.deptName}</th>
-							      <th scope="row">${job.jobName}</th>
-							      <th scope="row">2021년 10월 26일 09:00</th>
-							      <th scope="row">아직 퇴근 전입니다.</th>
-							      <th scope="row">D + 100 </th>
+							      <th scope="row">${loginEmp.deptName}</th>
+							      <th scope="row">${loginEmp.jobName}</th>
+							      <th scope="row" id="inTime"></th>
+							      <th scope="row" id="outTime">아직 퇴근 전입니다.</th>
+							      <th scope="row">${dDay} </th>
 							      <th scope="row">10회</th>
 							    </tr>
 							  </tbody>
@@ -76,6 +76,22 @@
                     	<img src="${ pageContext.servletContext.contextPath }/resources/vendors/images/banner-img.png" alt="" >
                 	</div>
                	</div>
+               	<script>
+               	$(function () {
+					$.ajax({
+						url:"attInTime.att",
+						type:"post",
+						data :{
+							empId:"${loginEmp.empId}"
+						},
+						success:function(att){
+							console.log("성공");
+							console.log(att);
+							$("#inTime").html(att.attendanceInTime); 
+						}
+					});
+				})
+               	</script>
                	
                 
             </div>

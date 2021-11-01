@@ -6,9 +6,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<resultMap id="employeeResultSet" type="Employee">
 		<id property="empId" column="EMP_ID"/>
-		<result property="jobCode" column="JOB_CODE"/>
-		<result property="rightNo" column="RIGHT_NO"/>
-		<result property="deptCode" column="DEPT_CODE"/>
+		<result property="jobName" column="JOB_NAME"/>
+		<result property="rightName" column="RIGHT_NAME"/>
+		<result property="deptName" column="DEPT_NAME"/>
 		<result property="salLevel" column="SAL_LEVEL"/>
 		<result property="hireDate" column="HIRE_DATE"/>
 		<result property="modifyDate" column="MODIFIY_DATE"/>
@@ -40,17 +40,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE STATUS = 'Y'		
 	</select>
 
+
 	<select id="selectList" resultMap="employeeResultSet">
-		SELECT *
-		FROM EMPLOYEE
+		SELECT EMP_ID, JOB_NAME, RIGHT_NAME, DEPT_NAME, SAL_LEVEL, HIRE_DATE, MODIFIY_DATE, END_DATE
+		FROM EMPLOYEE 
+        JOIN JOB USING (JOB_CODE)
+        JOIN DEPARTMENT USING (DEPT_CODE) 
+        JOIN RIGHT USING (RIGHT_NO)
 		WHERE STATUS = 'Y'
 		ORDER BY EMP_ID DESC		
 	</select>
 	
 	<select id="loginEmployee" parameterType="Member" resultMap="employeeResultSet">
-	SELECT A.* FROM EMPLOYEE A
-	JOIN MEMBER B ON A.EMP_ID = B.EMP_ID
-	WHERE A.EMP_ID=#{empId}	
+	SELECT EMP_ID, JOB_NAME, RIGHT_NAME, DEPT_NAME, SAL_LEVEL, HIRE_DATE, MODIFIY_DATE, END_DATE
+	FROM EMPLOYEE 
+	JOIN JOB USING (JOB_CODE)
+	JOIN DEPARTMENT USING (DEPT_CODE) 
+	JOIN RIGHT USING (RIGHT_NO)
+	WHERE EMP_ID = #{empId} AND STATUS = 'Y'
 	</select>
 	
 	<select id="selectJob" parameterType="Employee" resultMap="jobResultSet">

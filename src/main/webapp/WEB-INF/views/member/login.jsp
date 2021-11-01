@@ -89,15 +89,7 @@
 								<div class="col-sm-12">
 									<div class="input-group mb-0">
 										<input class="btn btn-primary btn-lg btn-block" type="submit" value="Sign In" >
-										
-										<!-- <div class="col-lg-4 col-md-6 col-sm-12 mb-30">
-					                        <div class="pd-20 card-box text-center height-100-p">
-					                            <h5 class="pt-20 h5 mb-30">A message with custom width, padding and background</h5>
-					                            <div class="max-width-200 mx-auto">
-					                                
-					                            </div>
-					                        </div>
-					                    </div>	 -->									
+																			
 									</div>									
 								</div>
 							</div>
@@ -107,6 +99,7 @@
 			</div>
 		</div>
 	</div>
+	
 	
 	<!-- js -->
     <script src="${ pageContext.servletContext.contextPath }/resources/vendors/scripts/core.js"></script>

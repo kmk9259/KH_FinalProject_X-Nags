@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,7 +55,7 @@
         <div class="pd-ltr-20">
             <div class="card-box pd-20 height-100-p mb-30">
                 <div class="row align-items-center">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                     	<div id="clock" class="light3">
                     		<div class="display3">
                     			<div class="weekdays"></div>
@@ -66,19 +66,35 @@
 						</div>
                     </div>
                     
-                    <div class="col-md-6">
+                    <div class="col-md-9">
                         <h4 class="font-20 weight-500 mb-10 text-capitalize info">                            
                             <div class="weight-600 font-30 text-blue">${ sessionScope.loginUser.userName }님</div>
                         </h4>
                         <div class="info">
-                        <label>출근 시간</label><br>
-                        <label>퇴근 시간</label><br>
-                        <label>주간 누적 근무시간</label><br>
-                        <label>남은 연차</label>
+                        <table class="table table-striped table-bordered " style="text-align: center; width: 100%">				
+							  <thead>							    
+								<tr class="table-warning">
+								<th scope="col" width="120px">출근 시간</th>
+								<th scope="col" width="120px">퇴근 시간</th>
+								<th scope="col" width="80px">주간 누적 근무시간</th>
+								<th scope="col" width="80px">남은 연차</th>
+								</tr>								
+							  </thead>
+							  <tbody>
+							    <tr>
+							      <th scope="row" id="inTime"></th>
+							      <th scope="row" id="outTime">아직 퇴근 전입니다.</th>
+							      <th scope="row">25 </th>
+							      <th scope="row">10회</th>
+							    </tr>
+							  </tbody>
+							</table>
+                        
                         </div>
                     </div>
                 </div>
             </div>
+            
             <div class="card-box pd-20 mb-30" >
             	<h3>내 근태 현황</h3><br>
              	
@@ -100,6 +116,7 @@
 				    </tr>
 				  </tbody>
 				</table>
+				
 				<table class="table scrolltbody" style="text-align: center; ">
 				  <thead>
 				    <tr class="table-danger">
@@ -109,172 +126,51 @@
 				      <th scope="col" >현황 상태</th>
 				    </tr>
 				  </thead>
-				  <tbody>
-				    <tr>
-				      <th scope="row">2021.10.01</th>
-				      <th scope="row">09:00</th>
-				      <th scope="row">18:00</th>
-				      <th scope="row">정상</th>
-				    </tr>
-				    <tr>
-				      <th scope="row">2021.10.02</th>
-				      <th scope="row">09:00</th>
-				      <th scope="row">18:00</th>
-				      <th scope="row">정상</th>
-				    </tr>
-				    <tr>
-				      <th scope="row">2021.10.03</th>
-				      <th scope="row">09:00</th>
-				      <th scope="row">18:00</th>
-				      <th scope="row">정상</th>
-				    </tr>
-				    <tr>
-				      <th scope="row">2021.10.04</th>
-				      <th scope="row">09:00</th>
-				      <th scope="row">18:00</th>
-				      <th scope="row">정상</th>
-				    </tr>
-				    <tr>
-				      <th scope="row">2021.10.04</th>
-				      <th scope="row">09:00</th>
-				      <th scope="row">18:00</th>
-				      <th scope="row">정상</th>
-				    </tr>
-				    <tr>
-				      <th scope="row">2021.10.04</th>
-				      <th scope="row">09:00</th>
-				      <th scope="row">18:00</th>
-				      <th scope="row">정상</th>
-				    </tr>
-				    <tr>
-				      <th scope="row">2021.10.04</th>
-				      <th scope="row">09:00</th>
-				      <th scope="row">18:00</th>
-				      <th scope="row">정상</th>
-				    </tr>
-				    <tr>
-				      <th scope="row">2021.10.04</th>
-				      <th scope="row">09:00</th>
-				      <th scope="row">18:00</th>
-				      <th scope="row">정상</th>
-				    </tr>
-				    <tr>
-				      <th scope="row">2021.10.04</th>
-				      <th scope="row">09:00</th>
-				      <th scope="row">18:00</th>
-				      <th scope="row">정상</th>
-				    </tr>
-				    <tr>
-				      <th scope="row">2021.10.04</th>
-				      <th scope="row">09:00</th>
-				      <th scope="row">18:00</th>
-				      <th scope="row">정상</th>
-				    </tr>
-				    <tr>
-				      <th scope="row">2021.10.04</th>
-				      <th scope="row">09:00</th>
-				      <th scope="row">18:00</th>
-				      <th scope="row">정상</th>
-				    </tr>
-				    <tr>
-				      <th scope="row">2021.10.04</th>
-				      <th scope="row">09:00</th>
-				      <th scope="row">18:00</th>
-				      <th scope="row">정상</th>
-				    </tr>
-				    <tr>
-				      <th scope="row">2021.10.04</th>
-				      <th scope="row">09:00</th>
-				      <th scope="row">18:00</th>
-				      <th scope="row">정상</th>
-				    </tr>
-				    <tr>
-				      <th scope="row">2021.10.04</th>
-				      <th scope="row">09:00</th>
-				      <th scope="row">18:00</th>
-				      <th scope="row">정상</th>
-				    </tr>
-				    <tr>
-				      <th scope="row">2021.10.04</th>
-				      <th scope="row">09:00</th>
-				      <th scope="row">18:00</th>
-				      <th scope="row">정상</th>
-				    </tr>
-				    <tr>
-				      <th scope="row">2021.10.04</th>
-				      <th scope="row">09:00</th>
-				      <th scope="row">18:00</th>
-				      <th scope="row">정상</th>
-				    </tr>
-				    <tr>
-				      <th scope="row">2021.10.04</th>
-				      <th scope="row">09:00</th>
-				      <th scope="row">18:00</th>
-				      <th scope="row">정상</th>
-				    </tr>
-				    <tr>
-				      <th scope="row">2021.10.04</th>
-				      <th scope="row">09:00</th>
-				      <th scope="row">18:00</th>
-				      <th scope="row">정상</th>
-				    </tr>
-				    <tr>
-				      <th scope="row">2021.10.04</th>
-				      <th scope="row">09:00</th>
-				      <th scope="row">18:00</th>
-				      <th scope="row">정상</th>
-				    </tr>
-				    <tr>
-				      <th scope="row">2021.10.04</th>
-				      <th scope="row">09:00</th>
-				      <th scope="row">18:00</th>
-				      <th scope="row">정상</th>
-				    </tr>
-				    <tr>
-				      <th scope="row">2021.10.04</th>
-				      <th scope="row">09:00</th>
-				      <th scope="row">18:00</th>
-				      <th scope="row">정상</th>
-				    </tr>
-				    <tr>
-				      <th scope="row">2021.10.04</th>
-				      <th scope="row">09:00</th>
-				      <th scope="row">18:00</th>
-				      <th scope="row">정상</th>
-				    </tr>
-				    <tr>
-				      <th scope="row">2021.10.04</th>
-				      <th scope="row">09:00</th>
-				      <th scope="row">18:00</th>
-				      <th scope="row">정상</th>
-				    </tr>
-				    <tr>
-				      <th scope="row">2021.10.04</th>
-				      <th scope="row">09:00</th>
-				      <th scope="row">18:00</th>
-				      <th scope="row">정상</th>
-				    </tr>
-				    
+				  
+				  <tbody>				    
+				    <c:forEach items="${ attMyList }" var="att">
+	                    <tr>
+	                        <td>${ att.attendanceDate }</td>
+	                        <td>${ att.attendanceInTime }</td>
+	                        <td>${ att.attendanceOutTime }</td>
+	                        <td>${ att.attStatusNo }</td>
+	                        
+	                    </tr>
+                    </c:forEach>				    
 				  </tbody>
 				</table>
-
-
-
-
-
             </div>
-            <!-- <div class="card-box pd-20 height-100-p mb-30">
-            	<h3>내 근로 시간</h3><p style="margin-left: 180px; margin-top: -25px;">주 25시간 30분 / 52시간</p><br>
-            	<h4 class="h4 text-blue">Week</h4>
-                     <div id="chart8"></div>
-            </div>
-            <div class="card-box pd-20 height-100-p mb-30">
-            	
-            	<div class="bg-white pd-20 card-box mb-30">
-                    <h4 class="h4 text-blue">Month</h4>
-                    <div id="chart3"></div>
-                </div>
-            </div> -->
+            <script>
+               	$(function () {
+					$.ajax({
+						url:"attInTime.att",
+						type:"post",
+						data :{
+							empId:"${sessionScope.loginUser.empId}"
+						},
+						success:function(att){
+							console.log("성공");
+							console.log(att);
+							$("#inTime").html(att.attendanceInTime); 
+						}
+					});
+				})
+				/* $(function () {
+					$.ajax({
+						url:"selectAllMy.att",
+						type:"post",
+						data :{
+							empId:"${sessionScope.loginUser.empId}"
+						},
+						success:function(att){
+							console.log("성공");
+							console.log(att);
+							$("#inTime").html(att.attendanceInTime); 
+						}
+					});
+				}) */
+           	</script>
+            
             
             <jsp:include page="../common/footer.jsp"/>
         </div>
@@ -284,7 +180,6 @@
 		
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
 	<script src="${ pageContext.servletContext.contextPath }/resources/assets/js/script.js"></script>
-    <script src="${ pageContext.servletContext.contextPath }/resources/plugins/apexcharts/apexcharts.min.js"></script>
-    <script src="${ pageContext.servletContext.contextPath }/resources/vendors/scripts/apexcharts-setting.js"></script>
+    
 </body>
 </html>

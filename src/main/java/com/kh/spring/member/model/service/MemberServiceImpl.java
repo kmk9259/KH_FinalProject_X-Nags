@@ -29,12 +29,11 @@ public class MemberServiceImpl implements MemberService {
 		//matches(평문, 암호화)->true, false 반환
 		if(!bCryptPasswordEncoder.matches(m.getUserPwd(), loginUser.getUserPwd())) {
 			//복호화랑 일치하지 않으면
-			throw new CommException("암호불일치"); 
+			throw new CommException("암호불일치");
+						
 		}
 		return loginUser;
 	}
-	
-	
 
 	@Override
 	public void insertMember(Member m) {
