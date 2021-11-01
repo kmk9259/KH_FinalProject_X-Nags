@@ -20,5 +20,10 @@ public class Board_ReplyDao {
 		return (ArrayList)sqlSession.selectList("boardReplyMapper.selectReplyList",bno);
 	}
 
+	public int updateReply(SqlSessionTemplate sqlSession, Board_Reply br) {
+	
+		return sqlSession.update("boardReplyMapper.updateReply",br);
+	}
+
 	
 }

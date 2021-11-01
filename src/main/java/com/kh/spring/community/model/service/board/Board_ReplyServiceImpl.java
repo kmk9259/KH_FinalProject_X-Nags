@@ -33,4 +33,10 @@ public class Board_ReplyServiceImpl implements Board_ReplyService {
 		return board_ReplyDao.selectReplyList(sqlSession, bno);
 	}
 
+	@Override
+	public int updateReply(Board_Reply br) {
+		int result = board_ReplyDao.updateReply(sqlSession, br);
+		return result;
+	}
+
 }
