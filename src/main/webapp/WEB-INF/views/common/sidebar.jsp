@@ -21,9 +21,12 @@
    
     <div class="left-side-bar">
         <div class="logo">
-           <a href="#"> 
+        
+           <a href=""> 
                 <img src="${ pageContext.servletContext.contextPath }/resources/images/logo/logowhite.png" alt="" class="light-logo">
-                <input type="hidden" value="${ sessionScope.loginUser.empId }">
+                <input type="hidden" name="empId" value="${ sessionScope.loginUser.empId }">
+                <input type="hidden" name="userPwd" value="${ sessionScope.loginUser.userPwd }"> 
+                
             </a>
             
             <div class="close-sidebar" data-toggle="left-sidebar-close">
@@ -38,7 +41,7 @@
                             <span class="micon dw dw-house-1"></span><span class="mtext">홈</span>
                         </a>
                         <ul class="submenu">
-                            <li><a href="index.jsp">로그인 후 메인화면</a></li>
+                            <li><a href="datePicker">로그인 후 메인화면</a></li>
                         </ul>
                     </li>
                     
@@ -80,7 +83,7 @@
                         <ul class="submenu">
                             <li><a href="">투표 게시판</a></li>
                             <li><a href="list.bo">익명 게시판</a></li>
-                            <li><a href="">공지 사항</a></li>
+                            <li><a href="notice.bo">공지 사항</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -107,22 +110,24 @@
                         </a>
                         <ul class="submenu">
 							<li><a href="enrollEmp.me">사원 등록</a></li>
-                      		<li><a href="listEmp.me">사원 조회 </a></li>
-                      		<li><a href="supplies.me">비품 반납 </a></li>
+                            <li><a href="listEmp.me">사원 조회 </a></li>
+                            <li><a href="supplies.me">비품 예약 </a></li>
+                            <li><a href="return.me">비품 반납 </a></li>
+                            <li><a href="meetingRoom.me">회의실 예약 </a></li>
                         </ul>
                     </li>
                   </ul>
         	 </div>
       	</div>
    </div> 
-   <script>
+<!--    <script>
     	$(function(){
     		$(".left-side-bar div img").click(function(){
-    			location.href="main.xnags?empId=" + ${ sessionScope.loginUser.empId };
+    			location.href="main.xnags?empId=" + ${ sessionScope.loginUser.empId }+"userPwd="+${ sessionScope.loginUser.userPwd };
     		});
     	});
-    </script>
-
+    </script> -->
+ 
 
 
 </body>

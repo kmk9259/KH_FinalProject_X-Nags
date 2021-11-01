@@ -16,21 +16,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.GsonBuilder;
+import com.kh.spring.attendance.model.service.AttendanceService;
+import com.kh.spring.attendance.model.vo.Attendance;
 import com.kh.spring.common.PaginationEmp;
 import com.kh.spring.common.exception.CommException;
 import com.kh.spring.employee.model.service.EmployeeService;
-
-
-import com.kh.spring.employee.model.vo.PageInfo;
-
-import com.kh.spring.employee.model.vo.Department;
 import com.kh.spring.employee.model.vo.Employee;
-import com.kh.spring.employee.model.vo.Job;
-
+import com.kh.spring.employee.model.vo.PageInfo;
 import com.kh.spring.member.model.service.MemberService;
 import com.kh.spring.member.model.vo.Member;
 
@@ -43,6 +41,8 @@ public class MemberController {
 	private MemberService memberService;
 	@Autowired 
 	private EmployeeService employeeService;
+	@Autowired 
+	private AttendanceService attendanceService;
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
@@ -50,29 +50,26 @@ public class MemberController {
 	public String loginerror() {
 		return "redirect:/";
 	}
+
 	@RequestMapping("main.xnags")
 	public String loginMember(Member m, Model model) {
 		
 		Member loginUser;
 		Employee loginEmp;
-		Job job;
-		Department dept;
+		
+		
 		try {
 			loginUser = memberService.loginMember(bCryptPasswordEncoder,m);
-			loginEmp = employeeService.loginEmployee(m);
-			
-			job = employeeService.selectJob(loginEmp);
-			dept = employeeService.selectdept(loginEmp);
-			
-			System.out.println("loginUser"+loginUser);
-			System.out.println("loginEmp "+loginEmp);
-			System.out.println("job"+job);
-			System.out.println("dept "+dept);
+			loginEmp = employeeService.loginEmployee(m);	
+
+			String dDay = dDAY(loginEmp);
+			System.out.println("loginUser: "+loginUser);
+			System.out.println("loginEmp : "+loginEmp);
 			
 			model.addAttribute("loginUser", loginUser);	
 			model.addAttribute("loginEmp", loginEmp);	
-			model.addAttribute("job", job);	
-			model.addAttribute("dept", dept);
+			
+			model.addAttribute("dDay", dDay);
 			
 			return "main";
 		} catch (Exception e) {
@@ -80,8 +77,27 @@ public class MemberController {
 			model.addAttribute("msg","로그인 실패");
 			return "common/errorPage";
 		}		 
-	}	
-
+	}
+	
+	public String dDAY(Employee emp) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		Date targetDate = emp.getHireDate();
+		
+		Date todayDate = new Date();
+		String todayDay = sdf.format(todayDate);
+		
+		long gap = targetDate.getTime() - todayDate.getTime();
+		String dDay = "D + "+(-(gap / (24 * 60 * 60 * 1000)));
+		System.out.println() ;
+		return dDay;
+		
+	}
+	@RequestMapping("logout.me")
+	public String logoutMember(SessionStatus status) {
+	
+		status.setComplete(); 
+		return "redirect:/";
+	}
 	@RequestMapping("myPage.me")
 	public String myPage() {
 		return "member/myPage";
@@ -100,67 +116,6 @@ public class MemberController {
 		return "member/myPage";
 	}
 	
-	//로그아웃 변경 (@SessionAttributes)
-	@RequestMapping("logout.me")
-	public String logoutMember(SessionStatus status) {
-		status.setComplete(); //현재 컨트롤러에 @SessionAttributes 에 의해 저장된 Object를 제거
-		return "redirect:/";
-	}/*
-	
-	@RequestMapping("enrollForm.me")
-	public String enrollForm() {
-		return "member/memberEnrollForm";
-	}
-	
-	@RequestMapping("insert.me")
-	public String insertMember(@ModelAttribute Member m, @RequestParam("post") String post,
-														 @RequestParam("address1") String address1,
-														 @RequestParam("address2") String address2,
-														 HttpSession session) {
-		m.setAddress(post+"/"+address1+"/"+address2);
-		//솔팅기법
-		System.out.println("암호화전 : "+m.getUserPwd());
-		String encPwd = bCryptPasswordEncoder.encode(m.getUserPwd());
-		System.out.println("암호화후 : "+encPwd);
-		m.setUserPwd(encPwd);
-		memberService.insertMember(m);
-		System.out.println(m);
-		
-		session.setAttribute("msg", "회원가입 성공");
-		return "redirect:/";
-		
-	}
-	
-	
-	
-	@RequestMapping("myPage.me")
-	public String myPage() {
-		return "member/myPage";
-	}
-	
-	
-	@RequestMapping("updatePwd.me")
-	public String updatePwd(@ModelAttribute Member m, 
-								 HttpSession session, Model model) throws Exception {
-		
-		System.out.println("암호화전 : "+m.getUserPwd());
-		String encPwd = bCryptPasswordEncoder.encode(m.getUserPwd());
-		System.out.println("암호화후 : "+encPwd);
-		m.setUserPwd(encPwd);
-		
-		Member userInfo = memberService.updatePwd(m);
-		System.out.println("변경 : "+m.getUserPwd());
-		
-		model.addAttribute("loginUser", userInfo);
-		
-		return "redirect:/";
-	}
-	
-	@RequestMapping("delete.me")
-	public String deleteMember(String userId) {
-		memberService.deleteMember(userId);
-		return "redirect:logout.me";
-	}*/
 	
 	@RequestMapping("insertMember.me")
 	public String insertMember(@ModelAttribute Member m, @RequestParam("post") String post,

@@ -15,17 +15,23 @@
     <typeAlias type="com.kh.spring.employee.model.vo.Department" alias="Department"/>
     <typeAlias type="com.kh.spring.attendance.model.vo.Attendance" alias="Attendance"/>
     <typeAlias type="com.kh.spring.attendance.model.vo.AttStatus" alias="AttStatus"/>
-    <typeAlias type="com.kh.spring.community.model.vo.Board_Reply" alias="Board_Reply" />       
+    <typeAlias type="com.kh.spring.community.model.vo.Board_Reply" alias="Board_Reply" /> 
+    <typeAlias type="com.kh.spring.approval.model.vo.Approval" alias="Approval" /> 
+    <typeAlias type="com.kh.spring.community.model.vo.Notice" alias="Notice" /> 
+	<typeAlias type="com.kh.spring.community.model.vo.Notice_Reply" alias="Notice_Reply" />       
    </typeAliases>
 
 
    <mappers>
-      <mapper resource="/mappers/member-mapper.xml" />
-      <mapper resource="/mappers/mail-mapper.xml"/> 
-      <mapper resource="/mappers/employee-mapper.xml"/>
-      <mapper resource="/mappers/board-mapper.xml" />
-      <mapper resource="/mappers/attendance-mapper.xml" />
-      <mapper resource="/mappers/boardReply-mapper.xml" />
+   	<mapper resource="/mappers/member-mapper.xml" />
+    <mapper resource="/mappers/mail-mapper.xml"/> 
+    <mapper resource="/mappers/employee-mapper.xml"/>
+    <mapper resource="/mappers/board-mapper.xml" />
+    <mapper resource="/mappers/attendance-mapper.xml" />
+    <mapper resource="/mappers/boardReply-mapper.xml" />
+    <mapper resource="/mappers/approval-mapper.xml" />
+    <mapper resource="/mappers/notice-mapper.xml" />
+	<mapper resource="/mappers/noticeReply-mapper.xml" />
    </mappers>
 
 

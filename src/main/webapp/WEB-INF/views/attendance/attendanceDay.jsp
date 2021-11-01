@@ -60,22 +60,22 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4 col-sm-12">
-                            <form action="" method="post">
-                                <div class="form-group">
-                                    <label>날짜</label>
-                                    <input class="form-control date-picker" placeholder="Click" type="text">
+                        <div class="col-md-5 col-sm-12">
+                            <form>
+                                <div class="form-group"> 
+                                	<label>날짜</label>
+                                    <input class="form-control date-picker" placeholder="Click" type="text">                                
                                 </div>
                                 <div class="form-group">
 	                                <label>항목</label>
 	                                <div class="d-flex">
 	                                    <div class="custom-control custom-radio mb-5 ">
-	                                        <input type="radio" name="code" id="dept" value="DEPT_CODE" class="custom-control-input">
+	                                        <input type="radio" name="choice" id="dept" value="M" class="custom-control-input">
 	                                        <label class="custom-control-label weight-400" for="dept">부서&nbsp&nbsp</label>
 	                                    </div>
 	                                    <div class="custom-control custom-radio mb-5">
-	                                        <input type="radio" name="code" id="job" value="JOB_CODE" class="custom-control-input">
-	                                        <label class="custom-control-label weight-400" for="job">직급&nbsp&nbsp</label>
+	                                        <input type="radio" name="choice" id="job" value="F" class="custom-control-input">
+	                                        <label class="custom-control-label weight-400" for="job">직급</label>
 	                                    </div>
 	                                </div>	                                
                                	</div>

@@ -22,4 +22,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectAttStatus" resultMap="attStatusResultSet">
 	SELECT * FROM ATT_STATUS	
 	</select>
+	
+	<insert id="insertIntime" parameterType="Employee">
+		insert into attendance (ATT_NO,EMP_ID,ATT_DATE,ATT_INTIME)
+		values(SEQ_ATNO.nextval,#{empId},sysdate,sysdate)
+	</insert>
+	
+	<select id="selectIntime" parameterType="Employee" resultMap="attendanceResultSet">
+	SELECT * FROM ATTENDANCE 
+	WHERE EMP_ID=#{empId} and TO_CHAR(SYSDATE, 'YY/MM/DD') = TO_CHAR(ATT_DATE, 'YY/MM/DD')
+	</select>
+	
+	<select id="selectAttMy" parameterType="Member" resultMap="attendanceResultSet">
+	SELECT * FROM ATTENDANCE 
+	WHERE EMP_ID=#{empId}
+	ORDER BY ATT_DATE 
+	</select>
 </mapper>
