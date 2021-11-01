@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="approvalMapper">
 
-	
+	  
 	<resultMap type="approval" id="appResultSet">
 		<id column="APP_NO" property="appNo"/>
 		<result column="EMP_ID" property="empId"/>
