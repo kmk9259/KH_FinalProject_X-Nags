@@ -13,7 +13,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Approval {
+public class Approval { 
 	
 	private int appNo;
 	private String empId;

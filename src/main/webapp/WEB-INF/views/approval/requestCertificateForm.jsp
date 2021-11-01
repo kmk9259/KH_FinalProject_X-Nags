@@ -70,7 +70,7 @@ label {
 						</div>
 					</div>
 				</div>
-				<div class="page-header">
+				<div class="page-header"> 
 					<div class="row">
 						<div class="col-md-6 col-sm-12">
 							<div class="title">

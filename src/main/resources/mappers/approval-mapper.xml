@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<id column="APP_NO" property="appNo"/>
 		<result column="EMP_ID" property="empId"/>
 		<result column="CATEGORY" property="category"/>
-		<result column="APP_MID" property="appMid"/>
+		<result column="APP_MID" property="appMid"/> 
 		<result column="APP_FIN" property="appFin"/>
 		<result column="APP_STATUS" property="status"/>
 		<result column="APP_TITLE" property="title"/>
