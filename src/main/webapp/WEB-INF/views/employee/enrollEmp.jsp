@@ -68,7 +68,8 @@
 							<label class="col-sm-12 col-md-2 col-form-label">권한</label>
 							<div class="col-sm-12 col-md-10">
 								<select class="form-control" id="rightNo" name="rightNo">
-									<option value="" selected disabled hidden="hidden">권한을 선택하세요</option>
+									<!-- <option value="" selected disabled hidden="hidden">권한을 선택하세요</option> -->
+									<option value="0">권한없음</option>
 									<option value="1">인사관리자</option>
 									<option value="2">근태관리자</option>
 									<option value="3">공지사항관리자</option>
@@ -146,7 +147,7 @@
 				return false;
 			}
 			
-		})
+		}
 	
 		
 		
