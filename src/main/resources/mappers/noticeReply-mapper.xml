@@ -2,11 +2,11 @@
 <!DOCTYPE mapper 
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="boardReplyMapper">
+<mapper namespace="noticeReplyMapper">
 
 
 
-	<resultMap id="boardReplyResultSet" type="Board_Reply">
+	<resultMap id="noticeReplyResultSet" type="Notice_Reply">
 		<id column="REPLY_NO" property="replyNo" />
 		<result column="BOARD_NO" property="boardNo" />
 		<result column="REPLY_CONTENT" property="replyContent" />
@@ -14,25 +14,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="REPLY_DATE" property="replyDate" />
 	</resultMap>
 
-	<insert id="insertReply" parameterType="Board_Reply">
-		INSERT INTO BOARD_REPLY
-		values(REPLY_NO.NEXTVAL,  #{boardNo},
+	<insert id="insertNoticeReply" parameterType="Notice_Reply">
+		INSERT INTO NOTICE_REPLY
+		values(NREPLY_NO.NEXTVAL, #{noticeNo},
 		#{replyContent},#{empId}, sysdate)
 
 	</insert>
 	
-	<select id="selectReplyList" parameterType="_int"
-		resultMap="boardReplyResultSet">
+	<select id="selectNoticeReplyList" parameterType="_int"
+		resultMap="noticeReplyResultSet">
 		SELECT *
-		FROM BOARD_REPLY
-		WHERE BOARD_NO=#{bno}
+		FROM NOTICE_REPLY
+		WHERE NOTICE_NO=#{bno}
 		ORDER BY REPLY_NO DESC
 	
 	</select>
-	
+		<!-- 
 	<update id = "updateReply" parameterType="Board_Reply">
 	UPDATE BOARD_REPLY
 	SET REPLY_CONTENT= #{replyContent},REPLY_DATE = sysdate
 	WHERE REPLY_NO =#{replyNo} 
 	</update>
+	 -->
 </mapper>

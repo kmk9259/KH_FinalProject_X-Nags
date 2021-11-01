@@ -19,7 +19,10 @@ public class Notice {
 	private String empId;
 	private String noticeTitle;
 	private String noticeContent;
-	private Date noticeDate;
-	
-	
+	private String originFile;	
+	private String changeFile;
+	private String filePath;
+	private int count;
+	private Date uploadDate;
+
 }

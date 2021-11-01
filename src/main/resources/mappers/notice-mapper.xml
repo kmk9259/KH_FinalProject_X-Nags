@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="noticeMapper">
+<resultMap id="noticeResultSet" type="Notice">
+		<id column="NOTICE_NO" property="noticeNo"/>
+		<result column="EMP_ID" property="empId"/>
+		<result column="NOTICE_TITLE" property="noticeTitle"/>
+		<result column="NOTICE_CONTENT" property="noticeContent"/>
+		<result column="ORIGIN_FILE" property="originFile"/>
+		<result column="CHANGE_FILE" property="changeFile"/>
+		<result column="COUNT" property="count"/>
+		<result column="FILE_PATH" property="filePath"/>	
+		<result column="UPLOAD_DATE" property="uploadDate"/>
+</resultMap>
+
+ <select id="selectListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM NOTICE
+	</select>
+
+	<select id="selectList"  resultMap="noticeResultSet">
+		SELECT *
+		FROM NOTICE 
+		ORDER BY NOTICE_NO DESC
+	</select>
+	
+	<update id = "increaseCount" parameterType="_int">
+		UPDATE NOTICE
+		SET COUNT= COUNT+1
+		WHERE NOTICE_NO=#{bno}
+	</update>
+	
+	<select id="selectNotice" parameterType="_int" resultMap="noticeResultSet">
+		SELECT *
+		FROM NOTICE 
+		WHERE NOTICE_NO=#{bno} 	
+	</select>
+	
+	<insert id="insertNotice" parameterType="Notice">
+		INSERT INTO NOTICE
+		values(NOTICE_NO.NEXTVAL, #{empId}, #{noticeTitle}, #{noticeContent}, #{originFile}, #{changeFile}, default, sysdate, default)
+	</insert>
+	
+	
+	<update id = "updateNotice" parameterType="Notice">
+		update notice
+		set notice_title=#{noticeTitle}, notice_content=#{noticeContent},
+		    origin_file=#{originFile}, change_file=#{changeFile}
+		where notice_no=#{noticeNo}
+	</update>
+
+
+	<delete id="deleteNotice" parameterType="_int">
+		DELETE FROM NOTICE
+		WHERE NOTICE_NO=#{bno}
+	</delete>
+
+
+</mapper>

@@ -11,7 +11,7 @@
 	#contentArea *{margin:5px }
 </style>
 </head>
-<body>
+<body style = "background : white">
     <jsp:include page="../common/menubar.jsp"/>
 	<div class="mobile-menu-overlay"></div>
 
@@ -19,26 +19,30 @@
     <div class="content">
         <br><br>
         <div class="innerOuter">
-            <h2>게시글 상세보기</h2>
+            <h2>공지사항 상세보기</h2>
             <br>
             
             <br><br>
             <table id="contentArea" align="center" class="table">
+             <tr>
+                    <th width="100">작성자</th>
+                    <td colspan="3">${ n.empId }</td>
+                </tr>
                 <tr>
                     <th width="100">제목</th>
-                    <td colspan="3">${ b.boardTitle }</td>
+                    <td colspan="3">${ n.noticeTitle }</td>
                 </tr>
                 <tr>
                     <th>작성일</th>
-                    <td>${ b.uploadDate }</td>
+                    <td>${ n.uploadDate }</td>
                 </tr>
                 <tr>
                     <th>첨부파일</th>
                     <td colspan="3">
-                    	<c:if test="${ !empty b.originFile }">
-                        	<a href="${ pageContext.servletContext.contextPath }/resources/upload_files/${b.changeFile}" download="${ b.originFile }">${ b.originFile }</a>
+                    	<c:if test="${ !empty n.originFile }">
+                        	<a href="${ pageContext.servletContext.contextPath }/resources/upload_files/${n.changeFile}" download="${ n.originFile }">${ n.originFile }</a>
                         </c:if>
-                        <c:if test="${ empty b.originFile }">
+                        <c:if test="${ empty n.originFile }">
                         	첨부파일이 없습니다.
                         </c:if>
                     </td>
@@ -48,29 +52,29 @@
                     <td colspan="3"></td>
                 </tr>
                 <tr>
-                    <td colspan="4"><p style="height:150px">${ b.boardContent }</p></td>
+                    <td  colspan="4"><p style="height:150px">${ n.noticeContent }</p></td>
                 </tr>
             </table>
             <br>
 		
-			<c:if test="${ loginUser.empId eq b.empId }">
+			<c:if test="${ loginUser.empId eq n.empId }">
 	            <div align="center">
 	                <button class="btn btn-primary" onclick="postFormSubmit(1);">수정하기</button>
 	                <button class="btn btn-danger" onclick="postFormSubmit(2);">삭제하기</button>
 	            </div>
 	            
 	            <form id="postForm" action="" method="post">
-					<input type="hidden" name="bno" value="${ b.boardNo }">
-				<input type="hidden" name="fileName" value="${ b.changeFile }">  
+					<input type="hidden" name="bno" value="${ n.noticeNo }">
+				<input type="hidden" name="fileName" value="${ n.changeFile }">  
 				</form>
 				<script>
 				function postFormSubmit(num){
 					var postForm = $("#postForm");
 					
 					if(num == 1){
-						postForm.attr("action", "updateForm.bo");
+						postForm.attr("action", "noticeUpdateForm.bo");
 					}else{
-						postForm.attr("action", "delete.bo");
+						postForm.attr("action", "noticeDelete.bo");
 					}
 					postForm.submit();
 					
@@ -99,17 +103,17 @@
                 
                 </tbody>
             </table>
-            <table id="replyArea1" class="table" style ="width:75% ; background :white">
-            <thead >
+            <table id="replyArea1" class="table" style ="width:75%;  background :white"">
+            <thead>
             <tr style = "background : yellow">
             <th style ="width:10% ;text-align : center" >작성자</th>
-            <th style ="width:40% ; text-align : center">내용</th>
-            <th style ="width:35%; text-align : center">작성일</th>
-       		<th style ="width:15%"></th>
+            <th style ="width:60% ; text-align : center">내용</th>
+            <th style ="width:15%; text-align : center">작성일</th>
+       		<th style ="width:15%"></th> 
             </tr>
             </thead>
             <tbody >
-
+		
             </tbody>
             </table>
         </div>
@@ -122,15 +126,15 @@
 		selectReplyList();
 		
 		$("#addReply").click(function(){
-    		var bno = ${b.boardNo};
+    		var bno = ${n.noticeNo};
 			
 			if($("#replyContent").val().trim().length != 0){
 				
 				$.ajax({
-					url:"rinsert.bo",
+					url:"nrinsert.bo",
 					type:"post",
 					data:{replyContent:$("#replyContent").val(),
-						boardNo:bno,
+						noticeNo:bno,
 						  empId:"${loginUser.empId}"},
 						  
 					success:function(result){
@@ -154,9 +158,9 @@
 	});
 	
 	function selectReplyList(){
-		var bno = ${b.boardNo};
+		var bno = ${n.noticeNo};
 		$.ajax({
-			url:"rlist.bo",
+			url:"nrlist.bo",
 			data:{bno:bno},
 			type:"get",
 			success:function(list){
@@ -164,61 +168,35 @@
 				
 				var value="";
 				$.each(list, function(i, obj){
-					
+						value += "<tr style='background:white; '>"
+								+"<td style = 'text-align : center'>"  + obj.empId + "</td>" 
+								 +"<td id = "+obj.replyNo+" style = 'text-align : center'>" + obj.replyContent + "</td>" 
+								+ "<td style = 'text-align : center'>" + obj.replyDate + "</td>"; 
+								 							 
 					if("${loginUser.empId}" == obj.empId){
-						value += "<tr style='background:white; '>";
+						value += "<td style = 'text-align : center'><button onclick ='replyUpdate("+obj.replyNo+");'>수정하기 </button>"
+						+ "</td></tr>"; 
 					}else{
-						value += "<tr>";
+						value += "</tr>";
 					}					
-					value += 	"<td style = 'text-align : center'> 익명 </td>" 
-								 +"<td style = 'text-align : center'>" + obj.replyContent + "</td>" + 
-								 "<td style = 'text-align : center'>" + obj.replyDate + "</td>" +
-								 "<td><button id = 'updateReply'>수정하기</button>" + "</td>"
-						  "</tr>"; 
 				});
 				$("#replyArea1 tbody").html(value);
 			},error:function(){
 				console.log("댓글 리스트조회용 ajax 통신 실패");
 			}
 		});
-	}
-	<%--
-	$(function(){
-		selectReplyList();
 		
-		$("#updateReply").click(function(){
-    		var bno = ${b.boardNo};
-			
-			if($("#replyContent").val().trim().length != 0){
-				
-				$.ajax({
-					url:"rupdate.bo",
-					type:"post",
-					data:{replyContent:$("#replyContent").val(),
-						boardNo:bno,
-						  empId:"${loginUser.empId}"},
-						  
-					success:function(result){
-						if(result > 0){
-							$("#replyContent").val("");
-							selectReplyList();
-							
-						}else{
-							alert("댓글수정실패");
-						}
-					},error:function(){
-						console.log("댓글 작성 ajax 통신 실패");
-					}
-				});
-				
-			}else{
-				alert("댓글등록하셈");
-			}
-			
-		});
-	});
-     
-	--%>
+		
+	}
+
+	function replyUpdate(replyNo){
+		alert("kkkkkkkkkp");
+		var value = "";
+		value += "<textarea style ='width:80%' value ='"+$("#"+replyNo+"").val()+"'placeholder='수정할 내용을 입력해주세요'> </textarea>"
+		$("#"+replyNo+"").html(value);
+	}
+	
+	
     </script>
 
     <jsp:include page="../common/footer.jsp"/>
