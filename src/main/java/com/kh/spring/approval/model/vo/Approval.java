@@ -14,7 +14,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class Approval { 
-	 
+	  
 	private int appNo;
 	private String empId;
 	private int category;
