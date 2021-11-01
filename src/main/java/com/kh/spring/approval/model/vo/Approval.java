@@ -24,7 +24,7 @@ public class Approval {
 	private String title;
 	private String content;
 	private Date writeDate;
-	private Date appDate;
+	private String appDate;
 	private String midReply;
 	private String finReply;
 	
