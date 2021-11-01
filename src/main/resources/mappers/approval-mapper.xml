@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ 
+<mapper namespace="approvalMapper">
+
+	   
+	<resultMap type="approval" id="appResultSet">
+		<id column="APP_NO" property="appNo"/>
+		<result column="EMP_ID" property="empId"/>
+		<result column="CATEGORY" property="category"/>
+		<result column="APP_MID" property="appMid"/> 
+		<result column="APP_FIN" property="appFin"/>
+		<result column="APP_STATUS" property="status"/>
+		<result column="APP_TITLE" property="title"/>
+		<result column="APP_CONTENT" property="content"/>
+		<result column="WRITE_DATE" property="writeDate"/>
+		<result column="APP_DATE" property="appDate"/>
+		<result column="MID_REPLY" property="midReply"/>
+		<result column="FIN_REPLY" property="finReply"/>
+		<result column="ORIGIN_NAME" property="originName"/>
+		<result column="CHANGE_NAME" property="changeName"/>
+	</resultMap>
+	
+	<insert id="insertApproval">
+		INSERT INTO APPROVAL
+		VALUES
+		(SEQ_ANO.NEXTVAL, #{empId}, #{category}, #{appMid}, #{appFin}, #{appMid}, default,
+		 #{title}, #{content}, sysdate, #{appDate}, null,  null, #{originName}, #{changeName})
+	</insert>
+
+	
+</mapper>

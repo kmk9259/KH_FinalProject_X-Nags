@@ -19,7 +19,7 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Autowired
 	private MemberDao memberDao;
-	
+	 
 	@Override
 	public Member loginMember(BCryptPasswordEncoder bCryptPasswordEncoder, Member m) {
 		Member loginUser = memberDao.loginMember(sqlSession, m);

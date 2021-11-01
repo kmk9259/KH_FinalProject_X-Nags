@@ -21,10 +21,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="change_name" property="changeName"/>
 	</resultMap>
 	
+	<resultMap id="employeeResultSet" type="Employee">
+		<id property="empId" column="EMP_ID"/>
+		<result property="jobCode" column="JOB_CODE"/>
+		<result property="rightNo" column="RIGHT_NO"/>
+		<result property="deptCode" column="DEPT_CODE"/>
+		<result property="salLevel" column="SAL_LEVEL"/>
+		<result property="hireDate" column="HIRE_DATE"/>
+		<result property="modifyDate" column="MODIFIY_DATE"/>
+		<result property="endDate" column="END_DATE"/>
+		<result property="status" column="STATUS"/>
+	</resultMap>
+	
 	<insert id="insertMail" parameterType="Mail">
 		insert into mail
 		values(seq_mno.nextval, #{empId}, #{receiver}, #{title}, #{content}, sysdate, default,
 				#{importantFlag},  default, default, #{originName}, #{changeName})
 	</insert>
+	
+	<select id="selectEmpList"  parameterType="Employee">
+		select empId
+		from employee
+	</select>
 	
 </mapper>

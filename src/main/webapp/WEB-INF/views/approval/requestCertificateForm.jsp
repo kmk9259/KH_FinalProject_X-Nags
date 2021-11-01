@@ -61,13 +61,15 @@ label {
 							<div class="form-group">
 							
 							<input type="text" readonly
-								class="form-control-plaintext" name="empId"
+								class="form-control-plaintext"
 								value="${ sessionScope.loginUser.userName }">
+								<input type="hidden" readonly
+								class="form-control-plaintext" name="empId"
+								value="${ sessionScope.loginUser.empId }">
 						</div>
 						</div>
 					</div>
 				</div>
-				<div class="page-header">
 					<div class="row">
 						<div class="col-md-6 col-sm-12">
 							<div class="title">
@@ -75,11 +77,13 @@ label {
 							</div>
 							<div class="form-group">
 							<label id="title">중간 결재자</label> <input class="form-control" value=""
-								type="text" name="title" required="required">
+								type="text" name="appMin" required="required">
+								<input class="form-control" value=""
+								type="hidden" name="appMin" required="required">
 							</div>
 							<div class="form-group">
 								<label id="title">최종 결재자</label> <input class="form-control" value=""
-									type="text" name="title" required="required">
+									type="text" name="appFin" required="required">
 							</div>
 						</div>
 					</div>
@@ -97,20 +101,20 @@ label {
 					
 						<div class="form-group">
 							<select>
-								<option>재직증명서</option>
-								<option>월급명세서</option>
-								<option>기타</option>
+								<option name="category" value="4">재직증명서</option>
+								<option name="category" value="5">급여명세서</option>
+								<option name="category" value="6">기타</option>
 							</select>
 						</div>
 						
 						<div class="form-group">
 							<label>기안일</label>
-							<input class="form-control date-picker" placeholder="기안일 지정" type="text">
+							<input class="form-control date-picker" name="appDate" placeholder="기안일 지정" type="text">
 						</div>
 						
 
 						<div class="form-group">
-							<label id="title">제목</label> <input class="form-control" value=""
+							<label id="title">제목</label> <input class="form-control"
 								type="text" name="title" required="required">
 						</div>
 						<div class="form-group">

@@ -1,10 +1,13 @@
 package com.kh.spring.mail.model.service;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.spring.common.exception.CommException;
+import com.kh.spring.employee.model.vo.Employee;
 import com.kh.spring.mail.model.dao.MailDao;
 import com.kh.spring.mail.model.vo.Mail;
 
@@ -32,6 +35,12 @@ public class MailServiceImpl implements MailService {
 	public int selectSendMailListCount() {
 		
 		return mailDao.selectSendMailListCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Employee> selectEmpList() {
+		
+		return mailDao.selectEmpList(sqlSession);
 	}
 	
 }

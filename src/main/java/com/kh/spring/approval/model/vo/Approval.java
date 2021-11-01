@@ -13,8 +13,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Approval {
-	
+public class Approval { 
+	  
 	private int appNo;
 	private String empId;
 	private int category;
@@ -24,7 +24,7 @@ public class Approval {
 	private String title;
 	private String content;
 	private Date writeDate;
-	private Date appDate;
+	private String appDate;
 	private String midReply;
 	private String finReply;
 	
