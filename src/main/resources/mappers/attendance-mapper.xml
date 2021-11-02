@@ -7,10 +7,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<resultMap id="attendanceResultSet" type="Attendance">
 		<id column="ATT_NO" property="attendanceNo"/>
 		<result column="EMP_ID" property="empId"/>
-		<result column="ATT_STATUS_NO" property="attStatusNo"/>
+		<result column="ATT_STATUS_NO" property="attStatusNo"/> 
+		<result column="ATT_STATUS_NAME" property="attStatusName"/>
 		<result column="ATT_DATE" property="attendanceDate"/>
 		<result column="ATT_INTIME" property="attendanceInTime"/>
-		<result column="ATT_OUTTIME" property="attendanceOutTime"/>		
+		<result column="ATT_OUTTIME" property="attendanceOutTime"/>	
+			
 	</resultMap>
 
 	
@@ -37,5 +39,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	SELECT * FROM ATTENDANCE 
 	WHERE EMP_ID=#{empId}
 	ORDER BY ATT_DATE 
+	</select>
+	
+	<select id="selectAttDay" parameterType="Attendance" resultMap="attendanceResultSet">
+	SELECT ATT_DATE, ATT_INTIME, ATT_OUTTIME,  ATT_STATUS_NAME 
+	FROM ATTENDANCE
+	JOIN ATT_STATUS USING (ATT_STATUS_NO)
+	WHERE ATT_STATUS_NO =#{attStatusNo} 
+	AND TO_CHAR(ATT_DATE, 'YYYY-MM-dd') = #{attendanceDate}
+	
 	</select>
 </mapper>

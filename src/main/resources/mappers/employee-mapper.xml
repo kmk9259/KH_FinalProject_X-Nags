@@ -68,24 +68,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	SELECT * FROM DEPARTMENT WHERE DEPT_CODE=#{deptCode}
 	</select>
 	
-	<!--  
-	<update id="updateMember" parameterType="Member">
-	update member set
-	EMAIL = #{email}, GENDER = #{gender}, AGE = #{age}, PHONE = #{phone}, ADDRESS = #{address}, modify_DATE = sysdate
-	WHERE user_ID = #{userId} 	
-	</update>
+	<select id="attOrderByDept" resultMap="employeeResultSet">
 	
-	<delete id="deleteMember" parameterType="string">
-		update member set
-		STATUS = 'N'
-		WHERE user_ID = #{userId}
-	</delete>
-	
-	<update id="updatePwd" parameterType="Member">
-	update member set
-	user_pwd=#{userPwd}
-	WHERE user_ID = #{userId} 	
-	</update> -->
+	</select>
 	
 	
 </mapper>

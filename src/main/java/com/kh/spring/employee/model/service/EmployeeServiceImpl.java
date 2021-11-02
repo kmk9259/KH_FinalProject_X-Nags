@@ -66,6 +66,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeDao.selectList(sqlSession, pi);
 	}
 
+	@Override
+	public ArrayList<Employee> selectAttDay(String selectItem) {
+		return employeeDao.selectAttDay(sqlSession, selectItem);
+	}
+
+
+
 	
 
 
