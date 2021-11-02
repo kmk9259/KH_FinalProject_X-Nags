@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +9,7 @@
 <style>
 .btn-success {
     
-    margin-bottom: 50px;
+    margin-bottom: 0px;
 }
 .outer {
 	border : 1px solid black;
@@ -164,7 +165,7 @@ height: 40px;
 				<button type="button" class="btn btn-success btn-lg btn-block" id="btn1" onclick="input1()">회의실 예약 시간 등록</button>
 						
 						
-						
+						<br><br>
 						
 						
 								
@@ -194,32 +195,54 @@ height: 40px;
 						
 						
 						
-
- 						      <div class="col-md-8 col-md-6">
+						
+ 						 
  						
 			 						                              	
 				                                												
-									<div class="col-md-6 col-sm-12 mb-30">
-										<h4 class="mb-15 text-blue h4">회의실 1번</h4>
-										<p>3인 이상</p>
-										<div class="btn-list">
-											<input type="checkbox" checked data-toggle="toggle" data-size="xs">
-										</div>
+									<div class="col-md-4 col-sm-12">
+									<c:forEach items="${mrooms }" var="mr" varStatus="status">
+									    <div class="col-sm-12" >
+										<h4 class="text-gray h5 roomName${status.index }" style="display: inline-block; margin-right: 30px;" >   ${mr.roomName}</h4>
+										 <button type="button"  id="unavailable${status.index }" class="btn btn-success btn-opt" style="magrin-bottom: auto; display: none;">선택 됨</button>
+										 
+										 <button type="button" id="use${status.index }" class="btn btn-outline-success">사용 가능</button>
+										</div> <br>
+										
+										
+												<script>
+												$(document).ready(function(){
+													
+													
+													$("#use${status.index }").click(function(){
+														$("#unavailable${status.index }").show();
+														$("#use${status.index }").hide();
+														var result = $(".roomName${status.index }").text();
+														 
+														 console.log(result);
+														 
+													})
+													
+													$("#unavailable${status.index }").click(function(){
+														$("#use${status.index }").show();
+														$("#unavailable${status.index }").hide();
+													})
+												})
+												
+												</script>
+										
+		
+										
+										
+									</c:forEach>									
+										
 									
 							        </div>
 												
 												
 												
 												
-								
-									
-							
-								
-								
-								</div>
-								
-								
-								<script>
+						<script>
 								
 								function input2(){
 									
@@ -313,45 +336,11 @@ height: 40px;
 
 	<jsp:include page="../common/footer.jsp" />
 	
-	<!-- js -->
-	
-	<script src="${ pageContext.servletContext.contextPath }/resources/vendors/scripts/process.js"></script>
-	<script src="${ pageContext.servletContext.contextPath }/resources/vendors/scripts/layout-settings.js"></script>
 
 	
 <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 	
 	
-	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/slick/slick.min.js"></script>
-	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
-	<script src="${ pageContext.servletContext.contextPath }/resources/assets/js/momnet-locale-ko.js"></script>
 	
-	<script>
-		jQuery(document).ready(function() {
-			jQuery('.product-slider').slick({
-				slidesToShow: 1,
-				slidesToScroll: 1,
-				arrows: true,
-				infinite: true,
-				speed: 1000,
-				fade: true,
-				asNavFor: '.product-slider-nav'
-			});
-			jQuery('.product-slider-nav').slick({
-				slidesToShow: 3,
-				slidesToScroll: 1,
-				asNavFor: '.product-slider',
-				dots: false,
-				infinite: true,
-				arrows: false,
-				speed: 1000,
-				centerMode: true,
-				focusOnSelect: true
-			});
-			$("input[name='demo3_22']").TouchSpin({
-				initval: 1
-			});
-		});
-	</script>
 </body>
 </html>

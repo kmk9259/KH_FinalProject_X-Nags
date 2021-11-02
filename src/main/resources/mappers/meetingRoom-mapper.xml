@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mRoomsMapper">
+
+	<resultMap id="mRoomsResultSet" type="mRooms">
+		<id property="roomNo" column="MR_NO"/>
+		<result property="roomName" column="MR_NAME"/>
+	</resultMap>
+	
+
+
+	
+	<select id="selectRooms" parameterType="mRooms" resultMap="mRoomsResultSet">
+	SELECT * FROM MROOMS
+	</select>
+	
+<!-- 	<select id="selectdept" parameterType="Employee" resultMap="deptResultSet">
+	SELECT * FROM DEPARTMENT WHERE DEPT_CODE=#{deptCode}
+	</select> -->
+	
+	<!--  
+	<update id="updateMember" parameterType="Member">
+	update member set
+	EMAIL = #{email}, GENDER = #{gender}, AGE = #{age}, PHONE = #{phone}, ADDRESS = #{address}, modify_DATE = sysdate
+	WHERE user_ID = #{userId} 	
+	</update>
+	
+	<delete id="deleteMember" parameterType="string">
+		update member set
+		STATUS = 'N'
+		WHERE user_ID = #{userId}
+	</delete>
+	
+	<update id="updatePwd" parameterType="Member">
+	update member set
+	user_pwd=#{userPwd}
+	WHERE user_ID = #{userId} 	
+	</update> -->
+	
+	
+</mapper>
