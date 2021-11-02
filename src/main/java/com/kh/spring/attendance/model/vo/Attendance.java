@@ -22,4 +22,6 @@ public class Attendance {
 	private Date attendanceDate;			//날짜
 	private Timestamp attendanceInTime;		//출근 시간
 	private Timestamp attendanceOutTime;	//퇴근 시간
+	
+	private String attStatusName;
 }

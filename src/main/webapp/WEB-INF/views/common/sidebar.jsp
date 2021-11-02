@@ -120,13 +120,13 @@
         	 </div>
       	</div>
    </div> 
-<!--    <script>
+<!--     <script>
     	$(function(){
     		$(".left-side-bar div img").click(function(){
     			location.href="main.xnags?empId=" + ${ sessionScope.loginUser.empId }+"userPwd="+${ sessionScope.loginUser.userPwd };
     		});
     	});
-    </script> -->
+    </script>  -->
  
 
 

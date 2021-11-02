@@ -40,7 +40,8 @@
 	.scrolltbody th:last-child { width: 428px; }
 	 .scrolltbody td:last-child { width: calc( 420px - 19px );  } 
 	</style>
-	<link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/resources/plugins/jquery-asColorPicker/dist/css/asColorPicker.css">
+	
+	
 
 	
 </head>
@@ -60,21 +61,19 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-5 col-sm-12">
-                            <form>
+                        <div class="col-md-5 col-sm-12">                            
                                 <div class="form-group"> 
                                 	<label>날짜</label>
-                                    <input class="form-control date-picker" placeholder="Click" type="text">                                
-                                </div>
+                                    <input  class="form-control date-picker"  name="date" placeholder="Click" type="text">                                
                                 <div class="form-group">
 	                                <label>항목</label>
 	                                <div class="d-flex">
 	                                    <div class="custom-control custom-radio mb-5 ">
-	                                        <input type="radio" name="choice" id="dept" value="M" class="custom-control-input">
+	                                        <input type="radio" name="item" id="dept" value="dept_code" class="custom-control-input">
 	                                        <label class="custom-control-label weight-400" for="dept">부서&nbsp&nbsp</label>
 	                                    </div>
 	                                    <div class="custom-control custom-radio mb-5">
-	                                        <input type="radio" name="choice" id="job" value="F" class="custom-control-input">
+	                                        <input type="radio" name="item" id="job" value="job_code" class="custom-control-input">
 	                                        <label class="custom-control-label weight-400" for="job">직급</label>
 	                                    </div>
 	                                </div>	                                
@@ -91,12 +90,48 @@
 	                                </div>	                                
                                	</div>
                                 <div class="form-group mb-0">
-                                    <input type="submit" class="btn btn-primary" value="&nbsp&nbsp&nbsp&nbsp조회&nbsp&nbsp&nbsp&nbsp">
+                                    <input type="button" class="btn btn-primary" id="btn" value="&nbsp&nbsp&nbsp&nbsp조회&nbsp&nbsp&nbsp&nbsp">
                                 </div>
-                            </form>
                         </div>
                     </div>
                 </div>
+                <script>
+                
+                $(function(){
+                	var attendanceDate ="";
+                	$( ".date-picker" ).datepicker({
+                    		dateFormat: "yyyy-mm-dd",
+                    		language:"ko",
+                    		onSelect: function(dateText) {
+                    			attendanceDate = dateText
+                    	    }
+                    		
+                    });  
+            		$("#btn").click(function(){
+            			console.log("attendanceDate: " + attendanceDate);
+            			var selectItem = $('input[name="item"]:checked').val();
+            			console.log("selectItem : "+selectItem);
+            			var attStatusNo = $('input[name="attList"]:checked').val();
+            			console.log("attStatusNo : "+attStatusNo);
+            			$.ajax({
+        					url:"selectAttDay.att",
+        					type:"post",
+        					data:{
+        						attendanceDate : attendanceDate,
+        						selectItem : selectItem,
+        						attStatusNo : attStatusNo
+        					},
+        					success:function(map){
+        						
+        					},error:function(){
+        						console.log("일별 근태 현황 ajax 통신 실패");
+        					}
+        				});
+            		});
+            			 
+            			
+            	});
+                </script>
                 <jsp:include page="../common/footer.jsp"/>
                 
                 
@@ -106,11 +141,6 @@
         </div>
     </div>
     
-    
-	<!-- JavaScript Includes -->
-	
-    <script src="${ pageContext.servletContext.contextPath }/resources/plugins/jquery-asGradient/dist/jquery-asGradient.js"></script>
-    	
-	
+  
 </body>
 </html>

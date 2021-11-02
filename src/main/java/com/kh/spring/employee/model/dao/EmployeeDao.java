@@ -45,6 +45,15 @@ public class EmployeeDao {
 		return sqlSession.selectOne("employeeMapper.selectdept",loginEmp);
 	}
 
+	public ArrayList<Employee> selectAttDay(SqlSessionTemplate sqlSession, String selectItem) {
+		if(selectItem.equals("dept_code")) {
+			return (ArrayList)sqlSession.selectList("employeeMapper.attOrderByDept");
+		}else {
+			return (ArrayList)sqlSession.selectList("employeeMapper.attOrderByJob");
+		}
+		
+	}
+
 
 
 
