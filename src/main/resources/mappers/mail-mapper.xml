@@ -21,6 +21,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="change_name" property="changeName"/>
 	</resultMap>
 	
+	<resultMap type="Mail" id="sendResultSet">
+		<id column="mail_no" property="mailNo"/>
+		<result column="emp_id" property="empId"/>
+		<result column="user_name" property="receiver"/>
+		<result column="mail_title" property="title"/>
+		<result column="mail_content" property="content"/>
+		<result column="mail_date" property="date"/>
+		<result column="read_count" property="readCount"/>
+		<result column="inportant_flag" property="importantFlag"/>
+		<result column="writer_status" property="writerStatus"/>
+		<result column="receiver_status" property="receiverStatus"/>
+		<result column="origin_name" property="originName"/>
+		<result column="change_name" property="changeName"/>
+	</resultMap>
+	
 	<resultMap id="employeeResultSet" type="Employee">
 		<id property="empId" column="EMP_ID"/>
 		<result property="jobCode" column="JOB_CODE"/>
@@ -33,15 +48,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="status" column="STATUS"/>
 	</resultMap>
 	
+	<!-- 메일 작성 -->
 	<insert id="insertMail" parameterType="Mail">
 		insert into mail
 		values(seq_mno.nextval, #{empId}, #{receiver}, #{title}, #{content}, sysdate, default,
 				#{importantFlag},  default, default, #{originName}, #{changeName})
 	</insert>
 	
-	<select id="selectEmpList"  parameterType="Employee">
+	<!-- 보낸 메일함 갯수 -->
+	<select id="selectSendMailListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM MAIL
+		WHERE EMP_ID=#{empId}
+		AND WRITER_STATUS=1 
+	</select>
+	
+	<!-- 보낸메일함 리스트 받아오기 -->
+	<select id="selectSendMailList" resultMap="sendResultSet">
+		SELECT
+		    *
+		FROM MAIL A
+		JOIN MEMBER B ON A.MAIL_RECEIVER=B.EMP_ID
+		WHERE A.WRITER_STATUS=1
+		AND A.EMP_ID=#{empId}
+		ORDER BY A.MAIL_NO DESC
+	</select>
+	
+	
+	<!--
+	<select id="selectEmpList" parameterType="Employee">
 		select empId
 		from employee
 	</select>
-	
+	  -->
 </mapper>

@@ -66,10 +66,11 @@ label {
 								<input type="hidden" readonly
 								class="form-control-plaintext" name="empId"
 								value="${ sessionScope.loginUser.empId }">
-						</div>
+							</div>
 						</div>
 					</div>
 				</div>
+				<div class="page-header">
 					<div class="row">
 						<div class="col-md-6 col-sm-12">
 							<div class="title">
@@ -134,8 +135,8 @@ label {
 							</div>
 						</div>
 						</div>
-					</form>
 					
+					</form>
 				</div>
 				
 				

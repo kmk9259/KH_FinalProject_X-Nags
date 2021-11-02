@@ -63,7 +63,7 @@ label {
 							<input type="text" readonly
 								class="form-control-plaintext" name="empId"
 								value="${ sessionScope.loginUser.userName }">
-						</div>
+							</div>
 						</div>
 					</div>
 				</div>

@@ -3,6 +3,7 @@ package com.kh.spring.mail.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,12 +13,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.kh.spring.common.Pagination;
+import com.kh.spring.common.PaginationMail;
 import com.kh.spring.common.exception.CommException;
 import com.kh.spring.mail.model.service.MailService;
 import com.kh.spring.mail.model.vo.Mail;
+import com.kh.spring.mail.model.vo.PageInfo;
+import com.kh.spring.member.model.vo.Member;
+
 @Controller
 public class MailController {
 	
@@ -78,11 +83,18 @@ public class MailController {
 	
 	//보낸메일함 
 	@RequestMapping("sendList.ml")
-	public String selectSendMailList(@RequestParam(value = "currentPage", required = false, defaultValue="1") int currentPage, Model model) {
+	public String selectSendMailList(@RequestParam(value = "currentPage", required = false, defaultValue="1") int currentPage, Model model, HttpServletRequest request) {
 		
-		//int listCount = mailService.selectSendMailListCount();
+		Member mem = (Member) request.getSession().getAttribute("loginUser");
 		
+		int listCount = mailService.selectSendMailListCount(mem.getEmpId());
 		
+		PageInfo pi = PaginationMail.getPageInfo(listCount, currentPage, 10, 5);
+		
+		ArrayList<Mail> sendList = mailService.selectSendMailList(pi, mem.getEmpId());
+		
+		model.addAttribute("sendList", sendList);
+		model.addAttribute("pi", pi);
 		
 		return "mail/sendMailListView";
 	}
