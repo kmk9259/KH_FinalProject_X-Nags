@@ -103,7 +103,7 @@
                 
                 </tbody>
             </table>
-            <table id="replyArea1" class="table" style ="width:75%;  background :white"">
+            <table id="replyArea1" class="table" style ="width:75%;  background :white">
             <thead>
             <tr style = "background : yellow">
             <th style ="width:10% ;text-align : center" >작성자</th>
@@ -151,54 +151,55 @@
 				});
 				
 			}else{
-				alert("댓글등록하셈");
+				alert("오류남");
 			}
 			
 		});
 	});
-	
-	function selectReplyList(){
-		var bno = ${n.noticeNo};
-		$.ajax({
-			url:"nrlist.bo",
-			data:{bno:bno},
-			type:"get",
-			success:function(list){
-				$("#rcount").text(list.length);
-				
-				var value="";
-				$.each(list, function(i, obj){
-						value += "<tr style='background:white; '>"
-								+"<td style = 'text-align : center'>"  + obj.empId + "</td>" 
-								 +"<td id = "+obj.replyNo+" style = 'text-align : center'>" + obj.replyContent + "</td>" 
-								+ "<td style = 'text-align : center'>" + obj.replyDate + "</td>"; 
-								 							 
-					if("${loginUser.empId}" == obj.empId){
-						value += "<td style = 'text-align : center'><button onclick ='replyUpdate("+obj.replyNo+");'>수정하기 </button>"
-						+ "</td></tr>"; 
-					}else{
-						value += "</tr>";
-					}					
-				});
-				$("#replyArea1 tbody").html(value);
-			},error:function(){
-				console.log("댓글 리스트조회용 ajax 통신 실패");
-			}
-		});
-		
-		
-	}
+ 	function selectReplyList(){
+ 	      var bno = ${n.noticeNo};
+ 	      $.ajax({
+ 	         url:"nrlist.bo",
+ 	         data:{bno:bno},
+ 	         type:"get",
+ 	         success:function(list){
+ 	            $("#rcount").text(list.length);
+ 	            
+ 	            var value="";
+ 	            $.each(list, function(i, obj){
+ 	                  value += "<tr style='background:white; '>"
+ 	                        +"<td style = 'text-align : center'>"  + obj.empId + "</td>" 
+ 	                         +"<td id = "+obj.replyNo+" style = 'text-align : center'>" + obj.replyContent + "</td>" 
+ 	                        + "<td style = 'text-align : center'>" + obj.replyDate + "</td>"; 
+ 	                                               
+ 	               if("${loginUser.empId}" == obj.empId){
+ 	                  value += "<td style = 'text-align : center'><button onclick ='replyUpdate("+obj.replyNo+");'>수정하기 </button>"
+ 	                  + "</td></tr>"; 
+ 	               }else{
+ 	                  value += "</tr>";
+ 	               }               
+ 	            });
+ 	            $("#replyArea1 tbody").html(value);
+ 	         },error:function(){
+ 	            console.log("댓글 리스트조회용 ajax 통신 실패");
+ 	         }
+ 	      }); 	      	      
+ 	   }
+ 	
+ 	   function replyUpdate(replyNo){
+ 	      alert("kkkkkkkkkp");
+ 	     var bno = ${n.noticeNo};	    
+ 	      console.log(replyNo);
+ 	      var value = "";
+ 	      value += "<textarea  style ='width:80%' 'placeholder='수정할 내용을 입력해주세요'></textarea>"
+ 	    	 $("#"+replyNo+"").html(value); 
 
-	function replyUpdate(replyNo){
-		alert("kkkkkkkkkp");
-		var value = "";
-		value += "<textarea style ='width:80%' value ='"+$("#"+replyNo+"").val()+"'placeholder='수정할 내용을 입력해주세요'> </textarea>"
-		$("#"+replyNo+"").html(value);
-	}
-	
-	
+ 	      
+ 	   }
+ 	   
+ 	   
     </script>
-
+	
     <jsp:include page="../common/footer.jsp"/>
 </body>
 </html>

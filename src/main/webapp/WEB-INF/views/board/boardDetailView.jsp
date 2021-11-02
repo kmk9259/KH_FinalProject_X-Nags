@@ -79,6 +79,8 @@
             </c:if> 
       
             <br><br>
+            
+            
 
             <table id="replyArea" class="table"  >
                 <thead>
@@ -101,11 +103,16 @@
             </table>
             <table id="replyArea1" class="table" style ="width:75% ; background :white">
             <thead >
+            
+
             <tr style = "background : yellow">
+            <th style ="width:10%; text-align : center">댓글번호</th>
             <th style ="width:10% ;text-align : center" >작성자</th>
-            <th style ="width:40% ; text-align : center">내용</th>
-            <th style ="width:35%; text-align : center">작성일</th>
-       		<th style ="width:15%"></th>
+            <th style ="width:50% ; text-align : center">내용</th>
+            <th style ="width:25%; text-align : center">작성일</th>
+       		<th style ="width:10%"></th>
+       		
+       		
             </tr>
             </thead>
             <tbody >
@@ -116,8 +123,42 @@
         </div>
         <br><br>
     </div>
+<div class="modal fade" id="modifyModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">댓글 수정창</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="reply_no">댓글 번호</label> <input class="form-control"
+							id="replyNo" name="replyNo"  readonly>
+					</div>
+					<div class="form-group">
+						<label for="reply_text">댓글 내용</label> <input class="form-control"
+							id="replyContent" name="replyContent" placeholder="댓글 내용을 입력해주세요">
+					</div>
+					<div class="form-group">
+						<label for="reply_writer">댓글 작성자</label> <input
+							class="form-control" id="empId" name="empId"
+							readonly>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default pull-left"
+						data-dismiss="modal">닫기</button>
+					<button type="button" class="btn btn-success modalModBtn">수정</button>
+					<button type="button" class="btn btn-danger modalDelBtn">삭제</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 
      <script>
+     var obj2 = "";
+     
  	$(function(){
 		selectReplyList();
 		
@@ -152,37 +193,67 @@
 			
 		});
 	});
+ 	function selectReplyList(){
+ 	      var bno = ${b.boardNo};
+ 	      $.ajax({
+ 	         url:"rlist.bo",
+ 	         data:{bno:bno},
+ 	         type:"get",
+ 	         success:function(list){
+ 	            $("#rcount").text(list.length);
+ 	            
+ 	            var value="";
+ 	            $.each(list, function(i, obj){
+ 	            	obj2 = obj;
+ 	                  value += "<tr style='background:white; '>"
+ 	                		 +"<td style = 'text-align : center'>"  + obj.replyNo + "</td>" 
+ 	                        +"<td style = 'text-align : center'>"  + obj.empId + "</td>" 
+ 	                         +"<td class = 'replyContent' style = 'text-align : center'>" + obj.replyContent + "</td>" 
+ 	                        + "<td style = 'text-align : center'>" + obj.replyDate + "</td>"; 
+ 	                                               
+ 	               if("${loginUser.empId}" == obj.empId){
+ 	                  value += "<td style = 'text-align : center'><button onclick = 'test();'type='button' class='btn btn-xs btn-success' data-toggle='modal' data-target='#modifyModal'>수정 </button>"
+ 	                  + "</td></tr>"; 
+ 	               }else{
+ 	                  value += "</tr>";
+ 	               }               
+ 	            });
+ 	            $("#replyArea1 tbody").html(value);
+ 	         },error:function(){
+ 	            console.log("댓글 리스트조회용 ajax 통신 실패");
+ 	         }
+ 	      });      
+ 	   }
+ 	
+ 	
+ 	function test(){
+ 	console.log(obj2);	
+ 	
+ 	}
+ 	<%--
+ 	
+ 	$("#replyArea1 tbody").on("click", ".replyLi button", function() {
+		var reply = $(this).parent();
+		var replyNo = reply.attr("data-replyNo");
+		var replyContent = reply.find(".replyContent").text();
+		var empId = reply.find(".empId").text();
+		$("#replyNo").val(replyNo);
+		$("#replyContent").val(replyContent);
+		$("#empId").val(empId);
+	});
+
+ 	
+
+
+ 	   function replyUpdate(replyNo){
+ 	      alert("kkkkkkkkkp");
+ 	      var value = "";
+ 	      value += "<textarea style ='width:80%'placeholder='수정할 내용을 입력해주세요'> </textarea>"
+ 	      $("#"+replyNo+"").html(value);
+ 	   }
+
+ 	
 	
-	function selectReplyList(){
-		var bno = ${b.boardNo};
-		$.ajax({
-			url:"rlist.bo",
-			data:{bno:bno},
-			type:"get",
-			success:function(list){
-				$("#rcount").text(list.length);
-				
-				var value="";
-				$.each(list, function(i, obj){
-					
-					if("${loginUser.empId}" == obj.empId){
-						value += "<tr style='background:white; '>";
-					}else{
-						value += "<tr>";
-					}					
-					value += 	"<td style = 'text-align : center'> 익명 </td>" 
-								 +"<td style = 'text-align : center'>" + obj.replyContent + "</td>" + 
-								 "<td style = 'text-align : center'>" + obj.replyDate + "</td>" +
-								 "<td><button id = 'updateReply'>수정하기</button>" + "</td>"
-						  "</tr>"; 
-				});
-				$("#replyArea1 tbody").html(value);
-			},error:function(){
-				console.log("댓글 리스트조회용 ajax 통신 실패");
-			}
-		});
-	}
-	<%--
 	$(function(){
 		selectReplyList();
 		

@@ -29,10 +29,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ORDER BY REPLY_NO DESC
 	
 	</select>
-	
+	<!-- 
 	<update id = "updateReply" parameterType="Board_Reply">
 	UPDATE BOARD_REPLY
 	SET REPLY_CONTENT= #{replyContent},REPLY_DATE = sysdate
 	WHERE REPLY_NO =#{replyNo} 
 	</update>
+	 -->
 </mapper>
