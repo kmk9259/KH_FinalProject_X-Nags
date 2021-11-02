@@ -10,6 +10,7 @@ import com.kh.spring.common.exception.CommException;
 import com.kh.spring.employee.model.vo.Employee;
 import com.kh.spring.mail.model.dao.MailDao;
 import com.kh.spring.mail.model.vo.Mail;
+import com.kh.spring.mail.model.vo.PageInfo;
 
 @Service
 public class MailServiceImpl implements MailService {
@@ -31,16 +32,21 @@ public class MailServiceImpl implements MailService {
 		
 	}
 
+	
 	@Override
-	public int selectSendMailListCount() {
-		
-		return mailDao.selectSendMailListCount(sqlSession);
+	public int selectSendMailListCount(String empId) {
+		// TODO Auto-generated method stub
+		return mailDao.selectSendMailListCount(sqlSession, empId);
 	}
 
+
+
 	@Override
-	public ArrayList<Employee> selectEmpList() {
-		
-		return mailDao.selectEmpList(sqlSession);
+	public ArrayList<Mail> selectSendMailList(PageInfo pi, String empId) {
+	
+		return mailDao.selectSendMailList(sqlSession, pi, empId);
 	}
+	
+
 	
 }

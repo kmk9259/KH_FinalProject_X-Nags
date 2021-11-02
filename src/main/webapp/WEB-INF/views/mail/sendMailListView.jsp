@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,20 +49,23 @@
 								<th scope="col"></th>
 								<th scope="col"><i class="icon-copy ion-star"></i></th>
 								<th scope="col"><i class="icon-copy ion-ios-email"></i></th>
-								<th scope="col">보낸사람</th>
+								<th scope="col">받는 사람</th>
 								<th scope="col">제목</th>
 								<th scope="col">날짜</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<th scope="row">1</th>
-								<td>Mark</td>
-								<td>Otto</td>
-								<td>@mdo</td>
-								<td><span class="badge badge-primary">Primary</span></td>
-								<td><span class="badge badge-primary">Primary</span></td>
-							</tr>
+							<c:forEach items="${ sendList }" var="s">
+								<tr>
+									<td scope="row">${ s.mailNo }</td>
+									<td>${s.importantFlag }</td>
+									<td>${s.readCount }</td>
+									<td>${s.receiver }</td>
+									<td>${s.title }</td>
+									<td>${s.date }</td>
+								</tr>
+							</c:forEach>
+							
 							
 						</tbody>
 					</table>

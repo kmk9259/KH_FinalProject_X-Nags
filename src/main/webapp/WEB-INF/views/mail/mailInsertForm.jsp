@@ -64,8 +64,11 @@ label {
 						enctype="multipart/form-data">
 						<div class="form-group">
 							<label id="title">보내는 사람</label> <input type="text" readonly
-								class="form-control-plaintext" name="empId"
+								class="form-control-plaintext" 
 								value="${ sessionScope.loginUser.userName }">
+								<input type="hidden" readonly
+								class="form-control-plaintext" name="empId"
+								value="${ sessionScope.loginUser.empId }">
 						</div>
 
 
