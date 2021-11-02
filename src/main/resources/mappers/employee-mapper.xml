@@ -68,9 +68,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	SELECT * FROM DEPARTMENT WHERE DEPT_CODE=#{deptCode}
 	</select>
 	
-	<select id="attOrderByDept" resultMap="employeeResultSet">
+	<!-- <select id="attOrderByDept" resultMap="employeeResultSet">
 	
-	</select>
+	</select> -->
 	
 	
 </mapper>
