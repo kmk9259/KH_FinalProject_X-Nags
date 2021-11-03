@@ -14,8 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.kh.spring.common.Pagination;
 import com.kh.spring.common.PaginationEmp;
 import com.kh.spring.employee.model.service.EmployeeService;
+import com.kh.spring.employee.model.vo.Department;
 import com.kh.spring.employee.model.vo.Employee;
+import com.kh.spring.employee.model.vo.Job;
 import com.kh.spring.employee.model.vo.PageInfo;
+import com.kh.spring.employee.model.vo.Right;
+import com.kh.spring.employee.model.vo.SalGrade;
 
 
 @Controller
@@ -26,20 +30,32 @@ public class EmployeeController {
 	
 	
 	@RequestMapping("enrollEmp.me")
-	public String enrollForm() {
+	public String enrollForm(Model model) {
+		
+		
+		ArrayList<Job> jlist = employeeService.selectJlist();
+		ArrayList<Department> dlist = employeeService.selectDlist();
+		ArrayList<Right> rlist = employeeService.selectRlist();
+		ArrayList<SalGrade> slist = employeeService.selectSlist();
+		
+		model.addAttribute("jlist", jlist);
+		model.addAttribute("dlist", dlist);
+		model.addAttribute("rlist", rlist);
+		model.addAttribute("slist", slist);
+		
 		return "employee/enrollEmp";
 	}
 	
-//	@RequestMapping("listEmp.me")
-//	public String listEmp() {
-//		return "employee/listEmp";
-//	}
+	
+	
 	
 	
 	@RequestMapping("insertEmp.me")
 	public String insertEmp(@ModelAttribute Employee emp, HttpSession session) {
 
 		employeeService.insertEmployee(emp);
+		
+		
 		
 		
 		session.setAttribute("msg","직원 등록 성공");
