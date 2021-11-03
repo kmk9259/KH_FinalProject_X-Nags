@@ -29,9 +29,11 @@ public class AttendanceDao {
 		return (ArrayList)sqlSession.selectList("attendanceMapper.selectAttMy",mem);
 	}
 
-	public ArrayList<Attendance> selectAttDay(SqlSessionTemplate sqlSession, Attendance att) {
+	public ArrayList<Employee> selectAttDay(SqlSessionTemplate sqlSession, Attendance att) {
 		return (ArrayList)sqlSession.selectList("attendanceMapper.selectAttDay",att);
 	}
+
+	
 
 
 	
