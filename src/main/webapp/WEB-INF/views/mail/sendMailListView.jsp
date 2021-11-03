@@ -76,9 +76,8 @@
 								<a href="#basic-table" class="btn btn-primary btn-sm pull-right" rel="content-y"  data-toggle="collapse" role="button"><i class="fa fa-eye-slash"></i> Hide Code</a>
 							</div>
 							<pre>
-							<code class="xml copy-pre" id="basic-table-code">
-					
-												</code></pre>
+								<code class="xml copy-pre" id="basic-table-code"></code>
+							</pre>
 											</div>
 										</div>
 									</div>
@@ -128,8 +127,8 @@
             </div>
             
             <ul>
-	            <li><a href="receiveDetail.ml">보낸메일보기</a></li>
-	            <li><a href="sendDetail.ml">받은메일보기</a></li>
+	            <li><a href="sendDetail.ml">보낸메일보기</a></li>
+	            <li><a href="receiveDetail.ml">받은메일보기</a></li>
 			</ul>
 <jsp:include page="../common/footer.jsp" />
 
