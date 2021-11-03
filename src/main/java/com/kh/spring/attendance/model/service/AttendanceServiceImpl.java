@@ -47,10 +47,9 @@ public class AttendanceServiceImpl implements AttendanceService {
 	}
 
 	@Override
-	public ArrayList<Employee> selectAttDay(Attendance att) {
+	public ArrayList<Attendance> selectAttDay(Attendance att) {
 		return attendanceDao.selectAttDay(sqlSession, att);
 	}
-
 
 	
 

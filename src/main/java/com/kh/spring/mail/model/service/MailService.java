@@ -13,6 +13,4 @@ public interface MailService {
 
 	ArrayList<Mail> selectSendMailList(PageInfo pi, String empId);
 
-	Mail selectSendMail(int mno);
-
 }

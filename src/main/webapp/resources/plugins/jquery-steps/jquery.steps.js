@@ -2016,7 +2016,7 @@ var defaults = $.fn.steps.defaults = {
          * @default "Next"
          * @for defaults
          **/
-        next: "다음",
+        next: "Next",
 
         /**
          * Label for the previous button.
@@ -2026,7 +2026,7 @@ var defaults = $.fn.steps.defaults = {
          * @default "Previous"
          * @for defaults
          **/
-        previous: "이전",
+        previous: "Previous",
 
         /**
          * Label for the loading animation.

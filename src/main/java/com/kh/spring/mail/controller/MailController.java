@@ -13,8 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.spring.common.PaginationMail;
 import com.kh.spring.common.exception.CommException;
@@ -101,13 +101,8 @@ public class MailController {
 	
 	//보낸 메일 보기
 	@RequestMapping("sendDetail.ml")
-	public ModelAndView selectSendMail(int mno, ModelAndView mv) {
-		
-		Mail m = mailService.selectSendMail(mno);
-		
-		mv.addObject("m", m).setViewName("mail/sendMailDetailView");
-		
-		return mv;
+	public String selectSendMail() {
+		return "mail/sendMailDetailView";
 	}
 	
 	//받은 메일함
@@ -128,5 +123,4 @@ public class MailController {
 	}
 	
 
-	
 }

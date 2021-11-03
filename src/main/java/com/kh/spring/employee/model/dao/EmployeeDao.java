@@ -10,8 +10,6 @@ import com.kh.spring.employee.model.vo.Department;
 import com.kh.spring.employee.model.vo.Employee;
 import com.kh.spring.employee.model.vo.Job;
 import com.kh.spring.employee.model.vo.PageInfo;
-import com.kh.spring.employee.model.vo.Right;
-import com.kh.spring.employee.model.vo.SalGrade;
 import com.kh.spring.member.model.vo.Member;
 
 @Repository
@@ -54,26 +52,6 @@ public class EmployeeDao {
 			return (ArrayList)sqlSession.selectList("employeeMapper.attOrderByJob");
 		}
 		
-	}
-
-	public ArrayList<Job> selectJlist(SqlSessionTemplate sqlSession) {
-		// TODO Auto-generated method stub
-		return (ArrayList)sqlSession.selectList("employeeMapper.selectJlist");
-	}
-
-	public ArrayList<Department> selectDlist(SqlSessionTemplate sqlSession) {
-		// TODO Auto-generated method stub
-		return (ArrayList)sqlSession.selectList("employeeMapper.selectDlist");
-	}
-
-	public ArrayList<Right> selectRlist(SqlSessionTemplate sqlSession) {
-		// TODO Auto-generated method stub
-		return (ArrayList)sqlSession.selectList("employeeMapper.selectRlist");
-	}
-
-	public ArrayList<SalGrade> selectSlist(SqlSessionTemplate sqlSession) {
-		// TODO Auto-generated method stub
-		return (ArrayList)sqlSession.selectList("employeeMapper.selectSlist");
 	}
 
 

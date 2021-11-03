@@ -12,17 +12,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="ATT_DATE" property="attendanceDate"/>
 		<result column="ATT_INTIME" property="attendanceInTime"/>
 		<result column="ATT_OUTTIME" property="attendanceOutTime"/>	
+			
 	</resultMap>
-	<resultMap id="attDayResultSet" type="Employee">
-		<id property="empId" column="EMP_ID"/>
-		<result column="DEPT_NAME" property="deptName"/>
-		<result column="JOB_NAME" property="jobName"/> 
-		<result column="USER_NAME" property="userName"/>
-		<result column="ATT_DATE" property="attDate"/>
-		<result column="ATT_INTIME" property="attInTime"/>
-		<result column="ATT_OUTTIME" property="attOutTime"/>	
-	</resultMap>
-	
 
 	
 	<resultMap id="attStatusResultSet" type="AttStatus">
@@ -49,17 +40,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	WHERE EMP_ID=#{empId}
 	ORDER BY ATT_DATE 
 	</select>
-
-	<select id="selectAttDay" parameterType="Attendance" resultMap="attDayResultSet">
-	SELECT DEPT_NAME, JOB_NAME, USER_NAME, ATT_DATE, ATT_INTIME, ATT_OUTTIME
-	FROM EMPLOYEE 
-	JOIN JOB USING (JOB_CODE)
-	JOIN DEPARTMENT USING (DEPT_CODE)
-    JOIN MEMBER USING (EMP_ID)
-    JOIN ATTENDANCE USING (EMP_ID)
-	WHERE TO_CHAR(ATT_DATE, 'YYYY-MM-dd') = TO_CHAR(#{attendanceDate}, 'YYYY-MM-dd')
-    AND ATT_STATUS_NO =#{attStatusNo} 
-    ORDER BY #{orderBy}, ATT_DATE
 	
-	</select> 
+	<select id="selectAttDay" parameterType="Attendance" resultMap="attendanceResultSet">
+	SELECT ATT_DATE, ATT_INTIME, ATT_OUTTIME,  ATT_STATUS_NAME 
+	FROM ATTENDANCE
+	JOIN ATT_STATUS USING (ATT_STATUS_NO)
+	WHERE ATT_STATUS_NO =#{attStatusNo} 
+	AND TO_CHAR(ATT_DATE, 'YYYY-MM-dd') = #{attendanceDate}
+	
+	</select>
 </mapper>

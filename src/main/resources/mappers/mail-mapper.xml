@@ -14,7 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="mail_content" property="content"/>
 		<result column="mail_date" property="date"/>
 		<result column="read_count" property="readCount"/>
-		<result column="important_flag" property="importantFlag"/>
+		<result column="inportant_flag" property="importantFlag"/>
 		<result column="writer_status" property="writerStatus"/>
 		<result column="receiver_status" property="receiverStatus"/>
 		<result column="origin_name" property="originName"/>
@@ -29,7 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="mail_content" property="content"/>
 		<result column="mail_date" property="date"/>
 		<result column="read_count" property="readCount"/>
-		<result column="important_flag" property="importantFlag"/>
+		<result column="inportant_flag" property="importantFlag"/>
 		<result column="writer_status" property="writerStatus"/>
 		<result column="receiver_status" property="receiverStatus"/>
 		<result column="origin_name" property="originName"/>
@@ -72,15 +72,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE A.WRITER_STATUS=1
 		AND A.EMP_ID=#{empId}
 		ORDER BY A.MAIL_NO DESC
-	</select>
-	
-	<select id="selectSendMail" parameterType="_int" resultMap="sendResultSet">
-		SELECT
-		    *
-		FROM MAIL A
-		JOIN MEMBER B ON A.MAIL_RECEIVER=B.EMP_ID
-		WHERE A.WRITER_STATUS=1
-		AND A.MAIL_NO=#{mno}
 	</select>
 	
 	

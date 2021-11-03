@@ -13,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -67,18 +66,40 @@ public class AttendanceController {
 		if(att==null) {
 			attendanceService.insertIntime(emp);
 			att = attendanceService.selectIntime(emp);			
-			return new GsonBuilder().setDateFormat("yyyy년 MM월 dd일  HH시 mm분 ss초").create().toJson(att);			
+			return new GsonBuilder().setDateFormat("yyyy년 MM월 dd일     HH시 mm분 ss초").create().toJson(att);			
 		}else {
 			att = attendanceService.selectIntime(emp);
-			return new GsonBuilder().setDateFormat("yyyy년 MM월 dd일   HH시 mm분 ss초").create().toJson(att);
+			return new GsonBuilder().setDateFormat("yyyy년 MM월 dd일     HH시 mm분 ss초").create().toJson(att);
 		}		
 	}
 	@ResponseBody
-	@RequestMapping(value="selectAttDay.att", produces = "application/json; charset=utf-8")
-	public String selectAttDay(Attendance att) {
+	@RequestMapping(value="selectAttDay.att")
+	public JsonObject selectAttDay(Attendance att, String selectItem) {
 		
-		ArrayList<Employee> attlist = attendanceService.selectAttDay(att);
-			
-		return new GsonBuilder().setDateFormat("yyyy년 MM월 dd일 HH시 mm분").create().toJson(attlist);
+		System.out.println("atttttttttt: "+att);
+		System.out.println("selectItem : "+selectItem);
+		
+		ArrayList<Employee> empList = employeeService.selectAttDay(selectItem);
+		ArrayList<Attendance> attList = attendanceService.selectAttDay(att);
+		
+//		System.out.println("empList : "+empList);
+		System.out.println("attList : "+attList);
+		
+		
+		
+		//0. 두개의 리스트를 담기위한 JSONObject 생성하기
+		JsonObject map = new JsonObject();
+		
+		//1. emp 객체 리스트만 담아오기
+		JsonObject jsonEmp = null;
+		JsonArray eArr = new JsonArray();
+		
+		//2. att 객체 리스트만 담아오기
+		JsonObject jsonAtt = null;
+		JsonArray aArr = new JsonArray();
+		
+		
+		
+		return null;
 	}
 }

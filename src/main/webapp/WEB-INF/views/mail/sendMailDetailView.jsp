@@ -40,12 +40,11 @@
 				
 				<div class="card-body p-0">
               <div class="mailbox-read-info">
-                <label>메일 제목 </label><h5>${m.title }</h5>
-                <label>받는 사람 </label><h6>${m.receiver }
-                  <span class="mailbox-read-time float-right">${m.date }</span></h6>
+                <h5>제목</h5>
+                <h6>받는사람
+                  <span class="mailbox-read-time float-right">날짜</span></h6>
               </div>
               <!-- /.mailbox-read-info -->
-              
               <div class="mailbox-controls with-border text-center">
                 <div class="btn-group">
                   <button type="button" class="btn btn-default btn-sm" data-container="body" title="Delete">
@@ -65,7 +64,7 @@
               </div>
               <!-- /.mailbox-controls -->
               <div class="mailbox-read-message">
-                <P>${m.content }</P>
+                <P>메일내용</P>
               </div>
               <!-- /.mailbox-read-message -->
             </div>
@@ -123,11 +122,11 @@
             </div>
             <div class="card-footer">
               <div class="float-right">
-                <button type="button" onclick="" class="btn btn-default"><i class="icon-copy ion-paper-airplane"></i> 답장</button>
-                <button type="button" class="btn btn-default"><i class="icon-copy ion-share"></i> 전달</button>
+                <button type="button" class="btn btn-default"><i class="icon-copy ion-paper-airplane"></i> Reply</button>
+                <button type="button" class="btn btn-default"><i class="icon-copy ion-share"></i> Forward</button>
               </div>
-              <button type="button" class="btn btn-default"><i class="icon-copy ion-trash-a"></i> 삭제</button>
-              <button type="button" class="btn btn-default"><i class="icon-copy ion-printer"></i> 인쇄</button>
+              <button type="button" class="btn btn-default"><i class="icon-copy ion-trash-a"></i> Delete</button>
+              <button type="button" class="btn btn-default"><i class="icon-copy ion-printer"></i> Print</button>
             </div>
 				
 				<!-- 중간내용 끝 -->

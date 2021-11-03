@@ -92,36 +92,12 @@
                                 <div class="form-group mb-0">
                                     <input type="button" class="btn btn-primary" id="btn" value="&nbsp&nbsp&nbsp&nbsp조회&nbsp&nbsp&nbsp&nbsp">
                                 </div>
-                        		</div>
-                    	</div>
-                	</div>	                
-            	</div>
-            	<div class="pd-20 card-box mb-30">
-                    <div class="clearfix mb-20">
-                        <div class="pull-left">
-                            <h4 class="text-blue h4">조회 결과</h4>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12 col-sm-12">                            
-                        	<table id="attDayList" class="table table-striped table-bordered" style="text-align: center;">
-								<thead>
-									<tr>
-										<th>부서명</th>
-										<th>직급명</th>
-										<th>사원명</th>
-										<th>날짜</th>
-										<th>출근 시간</th>
-										<th>퇴근 시간</th>
-									</tr>
-								</thead>
-								<tbody></tbody>
-							</table>
-                    	</div>
-                	</div>
-            	</div>
-            	<script>
-            	$(function(){
+                </div>
+                <script>
+                
+                $(function(){
                 	var attendanceDate ="";
                 	$( ".date-picker" ).datepicker({
                     		dateFormat: "yyyy-mm-dd",
@@ -132,55 +108,39 @@
                     		
                     });  
             		$("#btn").click(function(){
-            			var orderBy = $('input[name="item"]:checked').val();
+            			console.log("attendanceDate: " + attendanceDate);
+            			var selectItem = $('input[name="item"]:checked').val();
+            			console.log("selectItem : "+selectItem);
             			var attStatusNo = $('input[name="attList"]:checked').val();
-            			
+            			console.log("attStatusNo : "+attStatusNo);
             			$.ajax({
         					url:"selectAttDay.att",
         					type:"post",
         					data:{
         						attendanceDate : attendanceDate,
-        						orderBy : orderBy,
+        						selectItem : selectItem,
         						attStatusNo : attStatusNo
         					},
-        					dataType:"json",
-        					success:function(list){
-        						 $tableBody = $('#attDayList tbody');
-        						$tableBody.html('');
-        						
-        						$.each(list, function(i, obj){
-        							var $tr = $('<tr>');
-        							var $deptName = $('<td>').text(obj.deptName);
-        							var $jobName = $('<td>').text(obj.jobName);
-        							var $userName = $('<td>').text(obj.userName);
-        							var $attDate = $('<td>').text(obj.attDate);
-        							var $attInTime = $('<td>').text(obj.attInTime);
-        							var $attOutTime = $('<td>').text(obj.attOutTime);
-        							
-        						
-        							
-        							$tr.append($deptName);
-        							$tr.append($jobName);
-        							$tr.append($userName);
-        							$tr.append($attDate);
-        							$tr.append($attInTime);
-        							$tr.append($attOutTime);
-        							$tableBody.append($tr);
-        						}); 
+        					success:function(map){
         						
         					},error:function(){
         						console.log("일별 근태 현황 ajax 통신 실패");
         					}
         				});
-            		});   			 
-        		});
-            	</script>
-            	<jsp:include page="../common/footer.jsp"/>
-        	</div>
-    	</div>    	
-	</div>  
-	
-	
+            		});
+            			 
+            			
+            	});
+                </script>
+                <jsp:include page="../common/footer.jsp"/>
+                
+                
+
+            </div>
+
+        </div>
+    </div>
+    
   
 </body>
 </html>

@@ -24,5 +24,4 @@ public class Attendance {
 	private Timestamp attendanceOutTime;	//퇴근 시간
 	
 	private String attStatusName;
-	private String orderBy;
 }
