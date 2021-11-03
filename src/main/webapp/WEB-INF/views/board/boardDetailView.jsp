@@ -137,7 +137,7 @@
 					</div>
 					<div class="form-group">
 						<label for="reply_text">댓글 내용</label> <input class="form-control"
-							id="replyContent" name="replyContent" placeholder="댓글 내용을 입력해주세요">
+							id="updateContent" name="replyContent" placeholder="댓글 내용을 입력해주세요">
 					</div>
 					<div class="form-group">
 						<label for="reply_writer">댓글 작성자</label> <input
@@ -158,8 +158,9 @@
 
      <script>
      var obj2 = "";
-     
+     var rlist = [];
  	$(function(){
+ 		
 		selectReplyList();
 		
 		$("#addReply").click(function(){
@@ -195,30 +196,42 @@
 	});
  	function selectReplyList(){
  	      var bno = ${b.boardNo};
+ 	    
+ 	    
  	      $.ajax({
  	         url:"rlist.bo",
  	         data:{bno:bno},
  	         type:"get",
  	         success:function(list){
  	            $("#rcount").text(list.length);
- 	            
+ 	           
  	            var value="";
+ 	           
+ 	           console.log(rlist);
  	            $.each(list, function(i, obj){
- 	            	obj2 = obj;
- 	                  value += "<tr style='background:white; '>"
+ 	            	rlist.push(obj);
+ 	            	
+ 	            	/* rlist.forEach(function(item){
+ 	            		console.log(i,item);
+ 	            	}); */
+ 	            	
+                  value += "<tr style='background:white;'>"
  	                		 +"<td style = 'text-align : center'>"  + obj.replyNo + "</td>" 
- 	                        +"<td style = 'text-align : center'>"  + obj.empId + "</td>" 
- 	                         +"<td class = 'replyContent' style = 'text-align : center'>" + obj.replyContent + "</td>" 
+ 	                        +"<td style = 'text-align : center'> 익명 </td>" 
+ 	                         +"<td  style = 'text-align : center'>" + obj.replyContent + "</td>" 
  	                        + "<td style = 'text-align : center'>" + obj.replyDate + "</td>"; 
  	                                               
  	               if("${loginUser.empId}" == obj.empId){
- 	                  value += "<td style = 'text-align : center'><button onclick = 'test();'type='button' class='btn btn-xs btn-success' data-toggle='modal' data-target='#modifyModal'>수정 </button>"
+ 	            	  
+ 	                  value += "<td style = 'text-align : center '><button style ='width:80px' onclick = 'test("+obj.replyNo+");'type='button' class='btn btn-xs btn-success' data-toggle='modal' data-target='#modifyModal'>수정 </button>"
  	                  + "</td></tr>"; 
  	               }else{
- 	                  value += "</tr>";
- 	               }               
+ 	                  value += "</tr>";	                  
+ 	               }  
+ 	             
  	            });
  	            $("#replyArea1 tbody").html(value);
+ 	          
  	         },error:function(){
  	            console.log("댓글 리스트조회용 ajax 통신 실패");
  	         }
@@ -226,24 +239,16 @@
  	   }
  	
  	
- 	function test(){
- 	console.log(obj2);	
- 	
+ 	function test(replyNo){	 	 
+ 		for(var i = 0; i< rlist.length; i++){
+ 			if(replyNo == rlist[i].replyNo){
+ 				$("#replyNo").val(rlist[i].replyNo);
+ 				$("#updateContent").val(rlist[i].replyContent);
+ 				$("#empId").val("익명"); 	
+ 			}
+ 		}
  	}
- 	<%--
- 	
- 	$("#replyArea1 tbody").on("click", ".replyLi button", function() {
-		var reply = $(this).parent();
-		var replyNo = reply.attr("data-replyNo");
-		var replyContent = reply.find(".replyContent").text();
-		var empId = reply.find(".empId").text();
-		$("#replyNo").val(replyNo);
-		$("#replyContent").val(replyContent);
-		$("#empId").val(empId);
-	});
-
- 	
-
+ <%--
 
  	   function replyUpdate(replyNo){
  	      alert("kkkkkkkkkp");
@@ -253,41 +258,6 @@
  	   }
 
  	
-	
-	$(function(){
-		selectReplyList();
-		
-		$("#updateReply").click(function(){
-    		var bno = ${b.boardNo};
-			
-			if($("#replyContent").val().trim().length != 0){
-				
-				$.ajax({
-					url:"rupdate.bo",
-					type:"post",
-					data:{replyContent:$("#replyContent").val(),
-						boardNo:bno,
-						  empId:"${loginUser.empId}"},
-						  
-					success:function(result){
-						if(result > 0){
-							$("#replyContent").val("");
-							selectReplyList();
-							
-						}else{
-							alert("댓글수정실패");
-						}
-					},error:function(){
-						console.log("댓글 작성 ajax 통신 실패");
-					}
-				});
-				
-			}else{
-				alert("댓글등록하셈");
-			}
-			
-		});
-	});
      
 	--%>
     </script>

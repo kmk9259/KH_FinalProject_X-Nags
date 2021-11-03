@@ -46,6 +46,13 @@ public class MailServiceImpl implements MailService {
 	
 		return mailDao.selectSendMailList(sqlSession, pi, empId);
 	}
+
+
+	@Override
+	public Mail selectSendMail(int mno) {
+		
+		return mailDao.selectSendMail(sqlSession, mno);
+	}
 	
 
 	

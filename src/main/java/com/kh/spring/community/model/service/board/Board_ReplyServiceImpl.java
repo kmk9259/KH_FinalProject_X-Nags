@@ -30,7 +30,7 @@ public class Board_ReplyServiceImpl implements Board_ReplyService {
 
 	@Override
 	public ArrayList<Board_Reply> selectReplyList(int bno) {
-		return board_ReplyDao.selectReplyList(sqlSession, bno);
+		return board_ReplyDao.selectReplyList(sqlSession, bno); 
 	}
 /*
 	@Override

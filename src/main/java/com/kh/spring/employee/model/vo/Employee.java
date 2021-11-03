@@ -1,5 +1,6 @@
 package com.kh.spring.employee.model.vo;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -30,6 +31,12 @@ public class Employee {
 	private Date modifyDate;
 	private Date endDate;
 	private String status;
+	
+	//Attendance 관련 속성
+	private String userName;
+	private Date attDate;
+	private Timestamp attInTime;
+	private Timestamp attOutTime;
 	
 	
 	
