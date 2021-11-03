@@ -184,9 +184,9 @@ slotMinTime: '08:00', // Day 캘린더에서 시작 시간
 slotMaxTime: '20:00', // Day 캘린더에서 종료 시간
 // 해더에 표시할 툴바
 headerToolbar: {
-left: 'prev,next today',
-center: 'title',
-right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+left: 'listWeek',
+center: 'prev,title,today,next',
+right: 'dayGridMonth,timeGridWeek,timeGridDay'
 },
 initialView: 'dayGridMonth', // 초기 로드 될때 보이는 캘린더 화면(기본 설정: 달)
 
