@@ -243,8 +243,6 @@
 	});
 
  	
-
-
  	   function replyUpdate(replyNo){
  	      alert("kkkkkkkkkp");
  	      var value = "";
