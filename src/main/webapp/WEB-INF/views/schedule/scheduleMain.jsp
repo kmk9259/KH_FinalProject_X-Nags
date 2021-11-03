@@ -25,7 +25,7 @@ html, body {
 overflow: hidden;
 font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
 font-size: 14px;
-} 
+}
 /* 캘린더 위의 해더 스타일(날짜가 있는 부분) */
 .fc-header-toolbar {
 padding-top: 1em;
@@ -184,9 +184,9 @@ slotMinTime: '08:00', // Day 캘린더에서 시작 시간
 slotMaxTime: '20:00', // Day 캘린더에서 종료 시간
 // 해더에 표시할 툴바
 headerToolbar: {
-left: 'prev,next today',
-center: 'title',
-right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+left: 'listWeek',
+center: 'prev,title,today,next',
+right: 'dayGridMonth,timeGridWeek,timeGridDay'
 },
 initialView: 'dayGridMonth', // 초기 로드 될때 보이는 캘린더 화면(기본 설정: 달)
 
@@ -198,10 +198,7 @@ dayMaxEvents: true, // 이벤트가 오버되면 높이 제한 (+ 몇 개식으�
 locale: 'ko', // 한국어 설정
 eventAdd: function(obj) { // 이벤트가 추가되면 발생하는 이벤트
 console.log(obj);
-var calendar = new FullCalendar.Calendar(calendarEl, {
-	  initialView: 'dayGridMonth',
-	  selectable: true
-	});
+
 },
 eventChange: function(obj) { // 이벤트가 수정되면 발생하는 이벤트
 console.log(obj);
@@ -217,11 +214,10 @@ eventClick: function(event, jsEvent, view) {
 	jQuery('#modal-view-event').modal();
 },
 
-
 select: function(arg) { // 캘린더에서 드래그로 이벤트를 생성할 수 있다.
 
 
-var title =  prompt();
+var title =  prompt('','.calendar-modal');
 if (title) {
 calendar.addEvent({
 title: title,
@@ -234,7 +230,6 @@ calendar.unselect()
 
 
 },
-
 // 이벤트
 events: [
 
