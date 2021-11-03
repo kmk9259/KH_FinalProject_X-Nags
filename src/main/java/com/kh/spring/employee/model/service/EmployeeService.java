@@ -6,6 +6,8 @@ import com.kh.spring.employee.model.vo.Department;
 import com.kh.spring.employee.model.vo.Employee;
 import com.kh.spring.employee.model.vo.Job;
 import com.kh.spring.employee.model.vo.PageInfo;
+import com.kh.spring.employee.model.vo.Right;
+import com.kh.spring.employee.model.vo.SalGrade;
 import com.kh.spring.member.model.vo.Member;
 
 
@@ -24,6 +26,14 @@ public interface EmployeeService {
 	Department selectdept(Employee loginEmp);
 
 	ArrayList<Employee> selectAttDay(String selectItem);
+
+	ArrayList<Job> selectJlist();
+
+	ArrayList<Department> selectDlist();
+
+	ArrayList<Right> selectRlist();
+
+	ArrayList<SalGrade> selectSlist();
 
 
 
