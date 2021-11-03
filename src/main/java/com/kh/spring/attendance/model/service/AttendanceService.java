@@ -17,7 +17,9 @@ public interface AttendanceService {
 
 	ArrayList<Attendance> selectAttMy(Member mem);
 
-	ArrayList<Attendance> selectAttDay(Attendance att);
+	ArrayList<Employee> selectAttDay(Attendance att);
+
+
 
 
 	
