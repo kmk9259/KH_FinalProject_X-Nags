@@ -110,7 +110,7 @@ label {
 						
 						<div class="form-group">
 							<label>기안일</label>
-							<input class="form-control date-picker" name="appDate" placeholder="기안일 지정" type="text">
+							<input class="form-control date-picker1" name="appDate" placeholder="기안일 지정" type="text">
 						</div>
 						
 
@@ -192,6 +192,21 @@ label {
 				</div>
 			</div>
 			
+			 <script>
+                
+                $(function(){
+                	var attendanceDate ="";
+                	$( ".date-picker1" ).datepicker({
+                    		dateFormat: "yyyy-mm-dd",
+                    		language:"ru",
+                    		onSelect: function(dateText) {
+                    			attendanceDate = dateText
+                    	    }
+                    		
+                    });  	 
+            			
+            	});
+                </script>
 		
 
 	<jsp:include page="../common/footer.jsp" />
