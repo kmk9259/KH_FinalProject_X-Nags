@@ -248,22 +248,18 @@
  			}
  		}
  	}
+ <%--
 
- 	<%--
- 	
- 	$("#replyArea1 tbody").on("click", ".replyLi button", function() {
-		var reply = $(this).parent();
-		var replyNo = reply.attr("data-replyNo");
-		var replyContent = reply.find(".replyContent").text();
-		var empId = reply.find(".empId").text();
-		$("#replyNo").val(replyNo);
-		$("#replyContent").val(replyContent);
-		$("#empId").val(empId);
-	});
+ 	   function replyUpdate(replyNo){
+ 	      alert("kkkkkkkkkp");
+ 	      var value = "";
+ 	      value += "<textarea style ='width:80%'placeholder='수정할 내용을 입력해주세요'> </textarea>"
+ 	      $("#"+replyNo+"").html(value);
+ 	   }
 
  	
-=======
---%>
+     
+	--%>
     </script>
 
     <jsp:include page="../common/footer.jsp"/>

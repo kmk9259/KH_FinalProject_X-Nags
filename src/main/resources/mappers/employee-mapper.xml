@@ -25,6 +25,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<id property="deptCode" column="DEPT_CODE"/>
 		<result property="deptName" column="DEPT_NAME"/>
 	</resultMap>
+	
+	<resultMap id="rightResultSet" type="Right">
+		<id property="rightNo" column="RIGHT_NO"/>
+		<result property="rightName" column="RIGHT_NAME"/>
+	</resultMap>
+	
+	<resultMap id="salGradeResultSet" type="SalGrade">
+		<id property="salLevel" column="SAL_LEVEL"/>
+		<result property="minSal" column="MIN_SAL"/>
+		<result property="maxSal" column="MAX_SAL"/>
+	</resultMap>
 
 
 	
@@ -71,6 +82,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- <select id="attOrderByDept" resultMap="employeeResultSet">
 	
 	</select> -->
+	
+	<select id="selectJlist" parameterType="Job" resultMap="jobResultSet">
+	SELECT * FROM JOB
+	</select>
+	
+	<select id="selectDlist" parameterType="Department" resultMap="deptResultSet">
+	SELECT * FROM Department
+	</select>
+	
+	<select id="selectRlist" parameterType="Right" resultMap="rightResultSet">
+	SELECT * FROM Right
+	</select>
+	
+	<select id="selectSlist" parameterType="SalGrade" resultMap="salGradeResultSet">
+	SELECT * FROM Sal_Grade
+	</select>
 	
 	
 </mapper>

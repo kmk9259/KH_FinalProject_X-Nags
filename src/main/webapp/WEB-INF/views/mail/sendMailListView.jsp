@@ -9,6 +9,13 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>X-Nomal Groupware Solution</title>
+<style type="text/css">
+#pagingArea{width:fit-content;margin:auto;}
+#mailList>tbody>tr:hover {
+	cursor: pointer;
+}
+</style>
+
 </head>
 <body>
 
@@ -40,12 +47,14 @@
 							
 						</div>
 						<div class="pull-right">
-							<i class="icon-copy ion-ios-trash"></i>
+							<button type="button" onclick="" class="btn btn-default"><i class="icon-copy ion-ios-trash"></i></button>
 						</div>
 					</div>
-					<table class="table">
+					<div id="mailList">
+					<table class="table mailList" id="mailList">
 						<thead>
 							<tr>
+								<th scope="col"></th>
 								<th scope="col"></th>
 								<th scope="col"><i class="icon-copy ion-star"></i></th>
 								<th scope="col"><i class="icon-copy ion-ios-email"></i></th>
@@ -57,49 +66,49 @@
 						<tbody>
 							<c:forEach items="${ sendList }" var="s">
 								<tr>
+									<td><input type="checkbox"></td>
 									<td scope="row">${ s.mailNo }</td>
-									<td>${s.importantFlag }</td>
-									<td>${s.readCount }</td>
+									
+									<c:choose>
+										<c:when test="${s.importantFlag == '1'}">
+											<td><i class="icon-copy ion-star"></i></td>
+										</c:when>
+										<c:otherwise>
+											<td></td>
+										</c:otherwise>
+									</c:choose>
+									
+									<c:choose>
+										<c:when test="${s.readCount == '0'}">
+											<td><i class="icon-copy ion-ios-email"></i></td>
+										</c:when>
+										<c:otherwise>
+											<td><i class="icon-copy ion-ios-email-outline"></i></td>
+										</c:otherwise>
+									</c:choose>
+									
 									<td>${s.receiver }</td>
 									<td>${s.title }</td>
 									<td>${s.date }</td>
 								</tr>
 							</c:forEach>
-							
+							 
 							
 						</tbody>
 					</table>
-					<div class="collapse collapse-box" id="basic-table" >
-						<div class="code-box">
-							<div class="clearfix">
-								<a href="javascript:;" class="btn btn-primary btn-sm code-copy pull-left"  data-clipboard-target="#basic-table-code"><i class="fa fa-clipboard"></i> Copy Code</a>
-								<a href="#basic-table" class="btn btn-primary btn-sm pull-right" rel="content-y"  data-toggle="collapse" role="button"><i class="fa fa-eye-slash"></i> Hide Code</a>
-							</div>
-							<pre>
-								<code class="xml copy-pre" id="basic-table-code"></code>
-							</pre>
-											</div>
-										</div>
-									</div>
-				<!-- basic table  End -->
-				
-				<ul>
-		            <li><a href="receiveDetail.ml">보낸메일보기</a></li>
-		            <li><a href="sendDetail.ml">받은메일보기</a></li>
-				</ul>
-				
-				</div>
-				</div>
-				</div>
-				
+					</div>
+					
+					
+										
+				<!-- 페이징 시작 -->							
 				 <div id="pagingArea">
                 <ul class="pagination">
                 	<c:choose>
                 		<c:when test="${ pi.currentPage ne 1 }">
-                			<li class="page-item"><a class="page-link" href="list.bo?currentPage=${ pi.currentPage-1 }">Previous</a></li>
+                			<li class="page-item"><a class="page-link" href="list.bo?currentPage=${ pi.currentPage-1 }">이전</a></li>
                 		</c:when>
                 		<c:otherwise>
-                			<li class="page-item disabled"><a class="page-link" href="">Previous</a></li>
+                			<li class="page-item disabled"><a class="page-link" href="">이전</a></li>
                 		</c:otherwise>
                 	</c:choose>
                 	
@@ -117,19 +126,46 @@
                     
                     <c:choose>
                 		<c:when test="${ pi.currentPage ne pi.maxPage }">
-                			<li class="page-item"><a class="page-link" href="list.bo?currentPage=${ pi.currentPage+1 }">Next</a></li>
+                			<li class="page-item"><a class="page-link" href="list.bo?currentPage=${ pi.currentPage+1 }">다음</a></li>
                 		</c:when>
                 		<c:otherwise>
-                			<li class="page-item disabled"><a class="page-link" href="list.bo?currentPage=${ pi.currentPage+1 }">Next</a></li>
+                			<li class="page-item disabled"><a class="page-link" href="list.bo?currentPage=${ pi.currentPage+1 }">다음</a></li>
                 		</c:otherwise>
                 	</c:choose>
                 </ul>
+            <!-- 페이징끝 -->
+            
             </div>
+									</div>
+									
+									
+				<!-- basic table  End -->
+				
+				<ul>
+		            <li><a href="receiveDetail.ml">보낸메일보기</a></li>
+		            <li><a href="sendDetail.ml">받은메일보기</a></li>
+				</ul>
+				
+				</div>
+				</div>
+				</div>
+				
+				
             
             <ul>
 	            <li><a href="sendDetail.ml">보낸메일보기</a></li>
 	            <li><a href="receiveDetail.ml">받은메일보기</a></li>
 			</ul>
+			
+			<script>
+				$(function(){
+					$(".mailList tbody tr").click(function(){
+						location.href="sendDetail.ml?mno=" + $(this).children().eq(1).text();
+					});
+				});
+			</script>
+			
+			
 <jsp:include page="../common/footer.jsp" />
 
 </body>

@@ -33,4 +33,8 @@ public class MailDao {
 		return (ArrayList)sqlSession.selectList("mailMapper.selectSendMailList", empId, rowBounds);
 	}
 
+	public Mail selectSendMail(SqlSessionTemplate sqlSession, int mno) {
+		return sqlSession.selectOne("mailMapper.selectSendMail", mno);
+	}
+
 }
