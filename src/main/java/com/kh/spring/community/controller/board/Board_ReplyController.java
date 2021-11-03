@@ -33,7 +33,7 @@ public class Board_ReplyController {
 		
 		return new GsonBuilder().setDateFormat("yyyy년 MM월 dd일 HH:mm").create().toJson(list);
 	}
-	
+	/*
 	@RequestMapping(value = "rupdate.bo")
 	@ResponseBody
 	public String updateReply(Board_Reply br) {
@@ -41,4 +41,5 @@ public class Board_ReplyController {
 		System.out.println(br.getBoardNo() + "bdn");
 		return String.valueOf(result);
 	}
+	*/
 }
