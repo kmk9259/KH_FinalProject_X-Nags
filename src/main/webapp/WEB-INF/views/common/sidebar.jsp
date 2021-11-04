@@ -106,7 +106,7 @@
                     </li>
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
-                            <span class="micon dw dw-house-1"></span><span class="mtext">시스템 관리</span>
+                            <span class="micon dw dw-apartment"></span><span class="mtext">시스템 관리</span>
                         </a>
                         <ul class="submenu">
 							<li><a href="enrollEmp.me">사원 등록</a></li>
@@ -114,6 +114,7 @@
                             <li><a href="supplies.me">비품 예약 </a></li>
                             <li><a href="return.me">비품 반납 </a></li>
                             <li><a href="meetingRoom.me">회의실 예약 </a></li>
+                            <li><a href="enrollEmpT.me">사원 등록2 </a></li>
                         </ul>
                     </li>
                   </ul>

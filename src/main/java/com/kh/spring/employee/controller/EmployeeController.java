@@ -96,4 +96,23 @@ public class EmployeeController {
 	
 	}
 	
+	
+	@RequestMapping("enrollEmpT.me")
+	public String enrollFormT(Model model) {
+		
+		
+		ArrayList<Job> jlist = employeeService.selectJlist();
+		ArrayList<Department> dlist = employeeService.selectDlist();
+		ArrayList<Right> rlist = employeeService.selectRlist();
+		ArrayList<SalGrade> slist = employeeService.selectSlist();
+		
+		model.addAttribute("jlist", jlist);
+		model.addAttribute("dlist", dlist);
+		model.addAttribute("rlist", rlist);
+		model.addAttribute("slist", slist);
+		
+		return "employee/enrollEmpT";
+	}
+	
+	
 }

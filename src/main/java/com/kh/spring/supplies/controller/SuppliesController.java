@@ -16,4 +16,9 @@ public class SuppliesController {
 	public String rentalSup() {
 		return "supplies/supplies";
 	}
+	
+	@RequestMapping("return.me")
+	public String returnSup() {
+		return "supplies/return";
+	}
 }
