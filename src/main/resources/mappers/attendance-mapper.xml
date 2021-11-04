@@ -12,6 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="ATT_DATE" property="attendanceDate"/>
 		<result column="ATT_INTIME" property="attendanceInTime"/>
 		<result column="ATT_OUTTIME" property="attendanceOutTime"/>	
+		
 	</resultMap>
 	<resultMap id="attDayResultSet" type="Employee">
 		<id property="empId" column="EMP_ID"/>
@@ -22,8 +23,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="ATT_INTIME" property="attInTime"/>
 		<result column="ATT_OUTTIME" property="attOutTime"/>	
 	</resultMap>
-	
-
 	
 	<resultMap id="attStatusResultSet" type="AttStatus">
 		<id column="ATT_STATUS_NO" property="attStatusNo"/>
@@ -39,13 +38,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		values(SEQ_ATNO.nextval,#{empId},sysdate,sysdate)
 	</insert>
 	
-	<select id="selectIntime" parameterType="Employee" resultMap="attendanceResultSet">
+	<update id="insertOuttime" parameterType="Employee">
+		update attendance set
+		ATT_OUTTIME = SYSDATE
+		WHERE EMP_ID= #{empId} and TO_CHAR(SYSDATE, 'YY/MM/DD') = TO_CHAR(ATT_INTIME, 'YY/MM/DD')
+	</update>
+	
+	<select id="selectTime" parameterType="Employee" resultMap="attendanceResultSet">
 	SELECT * FROM ATTENDANCE 
-	WHERE EMP_ID=#{empId} and TO_CHAR(SYSDATE, 'YY/MM/DD') = TO_CHAR(ATT_DATE, 'YY/MM/DD')
+	WHERE EMP_ID=#{empId} and TO_CHAR(SYSDATE, 'YY/MM/DD') = TO_CHAR(ATT_INTIME, 'YY/MM/DD')
 	</select>
 	
 	<select id="selectAttMy" parameterType="Member" resultMap="attendanceResultSet">
-	SELECT * FROM ATTENDANCE 
+	SELECT EMP_ID, ATT_STATUS_NAME, ATT_DATE, ATT_INTIME, ATT_OUTTIME
+	FROM ATTENDANCE 
+	JOIN ATT_STATUS USING (ATT_STATUS_NO)
 	WHERE EMP_ID=#{empId}
 	ORDER BY ATT_DATE 
 	</select>
@@ -59,7 +66,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     JOIN ATTENDANCE USING (EMP_ID)
 	WHERE TO_CHAR(ATT_DATE, 'YYYY-MM-dd') = TO_CHAR(#{attendanceDate}, 'YYYY-MM-dd')
     AND ATT_STATUS_NO =#{attStatusNo} 
-    ORDER BY #{orderBy}, ATT_DATE
+    <if test="orderBy.equals('dept_code')">
+    	ORDER BY DEPT_CODE, ATT_DATE
+    </if>
+    <if test="orderBy.equals('job_code')">
+    	ORDER BY JOB_CODE, ATT_DATE
+    </if>
+    
 	
 	</select> 
 </mapper>

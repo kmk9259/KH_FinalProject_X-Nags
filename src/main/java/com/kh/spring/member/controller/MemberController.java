@@ -21,6 +21,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.spring.attendance.model.service.AttendanceService;
+import com.kh.spring.attendance.model.vo.Attendance;
 import com.kh.spring.common.PaginationEmp;
 import com.kh.spring.common.exception.CommException;
 import com.kh.spring.employee.model.service.EmployeeService;
@@ -43,6 +44,8 @@ public class MemberController {
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
+	private Employee loginEmp;
+	
 	@RequestMapping("loginerror")
 	public String loginerror() {
 		return "redirect:/";
@@ -52,7 +55,6 @@ public class MemberController {
 	public String loginMember(Member m, Model model) {
 		
 		Member loginUser;
-		Employee loginEmp;
 		
 		
 		try {
@@ -90,8 +92,13 @@ public class MemberController {
 		
 	}
 	@RequestMapping("logout.me")
-	public String logoutMember(SessionStatus status) {
-	
+	public String logoutMember(SessionStatus status) {	
+		Attendance att = attendanceService.selectTime(loginEmp);
+		
+		if(att.getAttendanceOutTime() == null) {
+			attendanceService.insertOuttime(loginEmp);
+		}
+		
 		status.setComplete(); 
 		return "redirect:/";
 	}

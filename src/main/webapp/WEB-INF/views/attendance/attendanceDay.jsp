@@ -157,8 +157,6 @@
         							var $attInTime = $('<td>').text(obj.attInTime);
         							var $attOutTime = $('<td>').text(obj.attOutTime);
         							
-        						
-        							
         							$tr.append($deptName);
         							$tr.append($jobName);
         							$tr.append($userName);

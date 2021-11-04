@@ -63,7 +63,7 @@
 							      <th scope="row">${loginEmp.deptName}</th>
 							      <th scope="row">${loginEmp.jobName}</th>
 							      <th scope="row" id="inTime"></th>
-							      <th scope="row" id="outTime">아직 퇴근 전입니다.</th>
+							      <th scope="row" id="outTime"></th>
 							      <th scope="row">${dDay} </th>
 							      <th scope="row">10회</th>
 							    </tr>
@@ -79,7 +79,7 @@
                	<script>
                	$(function () {
 					$.ajax({
-						url:"attInTime.att",
+						url:"attTime.att",
 						type:"post",
 						data :{
 							empId:"${loginEmp.empId}"
@@ -88,8 +88,10 @@
 							console.log("성공");
 							console.log(att);
 							$("#inTime").html(att.attendanceInTime); 
+							$("#outTime").html(att.attendanceOutTime);
 						}
 					});
+					
 				})
                	</script>
                	

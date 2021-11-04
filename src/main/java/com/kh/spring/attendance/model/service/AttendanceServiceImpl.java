@@ -35,12 +35,26 @@ public class AttendanceServiceImpl implements AttendanceService {
 			throw new CommException("출석 실패");
 		}
 	}
-
 	@Override
-	public Attendance selectIntime(Employee emp) {
-		return attendanceDao.selectIntime(sqlSession, emp);
+	public void insertOuttime(Employee loginEmp) {
+		int result= attendanceDao.insertOuttime(sqlSession, loginEmp);
+		
+		if(result <0) {
+			throw new CommException("퇴근 실패");
+		}
+		
 	}
 
+	@Override
+	public Attendance selectTime(Employee emp) {
+		return attendanceDao.selectTime(sqlSession, emp);
+	}
+
+	/*
+	 * @Override public Attendance selectOuttime(Employee emp) { return
+	 * attendanceDao.selectOuttime(sqlSession, emp); }
+	 */
+	
 	@Override
 	public ArrayList<Attendance> selectAttMy(Member mem) {
 		return attendanceDao.selectAttMy(sqlSession, mem);
@@ -50,6 +64,10 @@ public class AttendanceServiceImpl implements AttendanceService {
 	public ArrayList<Employee> selectAttDay(Attendance att) {
 		return attendanceDao.selectAttDay(sqlSession, att);
 	}
+
+	
+
+	
 
 
 	
