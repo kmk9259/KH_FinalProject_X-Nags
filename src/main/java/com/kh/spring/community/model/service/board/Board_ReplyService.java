@@ -10,7 +10,9 @@ public interface Board_ReplyService {
 
 	ArrayList<Board_Reply> selectReplyList(int bno);
 
-//	int updateReply(Board_Reply br);
+	int updateReply(Board_Reply br);
+
+	int deleteReply(Board_Reply br);
 
 	
 }

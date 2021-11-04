@@ -13,26 +13,26 @@ import com.kh.spring.community.model.vo.PageInfo;
 public class NoticeDao {
 
 	public int selectListCount(SqlSessionTemplate sqlSession) {
-		
+
 		return sqlSession.selectOne("noticeMapper.selectListCount");
 	}
 
 	public ArrayList<Notice> selectList(SqlSessionTemplate sqlSession, PageInfo pi) {
-		int offset = (pi.getCurrentPage() -1)*pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("noticeMapper.selectList",null,rowBounds);
+		return (ArrayList) sqlSession.selectList("noticeMapper.selectList", null, rowBounds);
 	}
 
 	public int increaseCount(SqlSessionTemplate sqlSession, int bno) {
-		return sqlSession.update("noticeMapper.increaseCount",bno);
+		return sqlSession.update("noticeMapper.increaseCount", bno);
 	}
 
 	public Notice selectNotice(SqlSessionTemplate sqlSession, int bno) {
-		return sqlSession.selectOne("noticeMapper.selectNotice",bno);
+		return sqlSession.selectOne("noticeMapper.selectNotice", bno);
 	}
 
 	public int insertNotice(SqlSessionTemplate sqlSession, Notice n) {
-		return sqlSession.insert("noticeMapper.insertNotice",n);
+		return sqlSession.insert("noticeMapper.insertNotice", n);
 	}
 
 	public int updateNotice(SqlSessionTemplate sqlSession, Notice n) {
@@ -40,8 +40,11 @@ public class NoticeDao {
 	}
 
 	public int deleteNotice(SqlSessionTemplate sqlSession, int bno) {
-		return sqlSession.delete("noticeMapper.deleteNotice",bno);
+		return sqlSession.delete("noticeMapper.deleteNotice", bno);
 	}
 
-	
+	public ArrayList<Notice> noticeWriter(SqlSessionTemplate sqlSession, Notice writer) {
+		return (ArrayList)sqlSession.selectList("noticeMapper.noticeWriter",writer);
+	}
+
 }

@@ -19,11 +19,15 @@ public class Board_ReplyDao {
 		
 		return (ArrayList)sqlSession.selectList("boardReplyMapper.selectReplyList",bno);
 	}
-/*
+
 	public int updateReply(SqlSessionTemplate sqlSession, Board_Reply br) {
 	
 		return sqlSession.update("boardReplyMapper.updateReply",br);
 	}
-*/
+
+	public int deleteReply(SqlSessionTemplate sqlSession, Board_Reply br) {
+		return sqlSession.delete("boardReplyMapper.deleteReply",br);
+	}
+
 	
 }

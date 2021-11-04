@@ -70,6 +70,12 @@ public class NoticeServiceImpl implements NoticeService {
 		if (result < 0) {
 			throw new CommException("공지사항 삭제 실패");
 		}
-		
+
 	}
+
+	/*
+	 * @Override public ArrayList<Notice> noticeWriter(Notice writer) { return
+	 * noticeDao.noticeWriter(sqlSession, writer); }
+	 */
+
 }

@@ -106,6 +106,7 @@
             <table id="replyArea1" class="table" style ="width:75%;  background :white">
             <thead>
             <tr style = "background : yellow">
+            <th style ="width:15%">댓글 번호</th> 
             <th style ="width:10% ;text-align : center" >작성자</th>
             <th style ="width:60% ; text-align : center">내용</th>
             <th style ="width:15%; text-align : center">작성일</th>
@@ -120,8 +121,39 @@
         </div>
         <br><br>
     </div>
-
+<div class="modal fade" id="modifyModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">댓글 수정창</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="reply_no">댓글 번호</label> <input class="form-control"
+							id="replyNo" name="replyNo"  readonly>
+					</div>
+					<div class="form-group">
+						<label for="reply_text">댓글 내용</label> <input class="form-control"
+							id="updateContent" name="replyContent" placeholder="댓글 내용을 입력해주세요">
+					</div>
+					<div class="form-group">
+						<label for="reply_writer">댓글 작성자</label> <input
+							class="form-control" id="empId" name="empId"
+							readonly>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default pull-left"
+						data-dismiss="modal">닫기</button>
+					<button type="button"  class="btn btn-success modalModBtn">수정</button>
+					
+				</div>
+			</div>
+		</div>
+	</div>
      <script>
+     var rlist = [];
  	$(function(){
 		selectReplyList();
 		
@@ -167,14 +199,17 @@
  	            
  	            var value="";
  	            $.each(list, function(i, obj){
+ 	            	rlist.push(obj);
  	                  value += "<tr style='background:white; '>"
+ 	                		 +"<td style = 'text-align : center'>"  + obj.replyNo + "</td>"
  	                        +"<td style = 'text-align : center'>"  + obj.empId + "</td>" 
- 	                         +"<td id = "+obj.replyNo+" style = 'text-align : center'>" + obj.replyContent + "</td>" 
+ 	                         +"<td  style = 'text-align : center'>" + obj.replyContent + "</td>" 
  	                        + "<td style = 'text-align : center'>" + obj.replyDate + "</td>"; 
  	                                               
  	               if("${loginUser.empId}" == obj.empId){
- 	                  value += "<td style = 'text-align : center'><button onclick ='replyUpdate("+obj.replyNo+");'>수정하기 </button>"
- 	                  + "</td></tr>"; 
+ 	            	  value +="<td style = 'text-align : center '><button class = 'btn btn-success modalModBtn' onclick = 'deleteReply("+obj.replyNo+");' style ='width:70px; background :red'>삭제</button> </td>"
+              	    	 + "<td style = 'text-align : center '><button style ='width:70px'; onclick = 'updateForm("+obj.replyNo+");'type='button' class='btn btn-xs btn-success' data-toggle='modal' data-target='#modifyModal'>수정 </button>"
+               				 + "</td></tr>"; 
  	               }else{
  	                  value += "</tr>";
  	               }               
@@ -186,18 +221,56 @@
  	      }); 	      	      
  	   }
  	
- 	   function replyUpdate(replyNo){
- 	      alert("kkkkkkkkkp");
- 	     var bno = ${n.noticeNo};	    
- 	      console.log(replyNo);
- 	      var value = "";
- 	      value += "<textarea  style ='width:80%' 'placeholder='수정할 내용을 입력해주세요'></textarea>"
- 	    	 $("#"+replyNo+"").html(value); 
+ 	function updateForm(replyNo){	 
+ 		console.log(replyNo);
+ 		for(var i = 0; i< rlist.length; i++){
+ 			if(replyNo == rlist[i].replyNo){
+ 				$("#replyNo").val(rlist[i].replyNo);
+ 				$("#updateContent").val(rlist[i].replyContent);
+ 				$("#empId").val("익명"); 
+ 				}	
+ 			}
+		 };
 
- 	      
- 	   }
+		 	$(".modalModBtn").on("click", function(){
+		 		var reply = $(this).parent().parent();
+		 		var replyNo = reply.find("#replyNo").val();
+		 		var replyContent = reply.find("#updateContent").val();
+		 		console.log(replyNo);
+		 		$.ajax({
+					url:"updateNoticeReply.bo",
+		 			type:"get",
+		 			data:{replyContent:replyContent,
+		 					replyNo:replyNo},				
+		 					success :function(result){ 						
+		 						if(result > 0){
+		 							alert("댓글수정 성공");
+		 							$("#modifyModal").modal("hide");	
+		 							selectReplyList();
+		 						}else{
+		 							alert("댓글 수정 실패");
+		 						}
+		 				
+		 					}
+		 			});
+		 	});
  	   
- 	   
+		 	function deleteReply(replyNo){
+		 		console.log(replyNo);
+		 		$.ajax({
+		 			url:"deleteNoticeReply.bo",
+		 			type:"get",
+		 			data:{replyNo:replyNo},
+		 			success :function(result){
+		 				if(result > 0){
+		 					alert("삭제성공");
+		 					selectReplyList();
+		 				}else{
+		 					alert("삭제 실패");
+		 				}
+		 			}
+		 		});
+		 	}
     </script>
 	
     <jsp:include page="../common/footer.jsp"/>

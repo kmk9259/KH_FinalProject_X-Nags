@@ -148,8 +148,8 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default pull-left"
 						data-dismiss="modal">닫기</button>
-					<button type="button" class="btn btn-success modalModBtn">수정</button>
-					<button type="button" class="btn btn-danger modalDelBtn">삭제</button>
+					<button type="button"  class="btn btn-success modalModBtn">수정</button>
+					
 				</div>
 			</div>
 		</div>
@@ -157,7 +157,6 @@
 	
 
      <script>
-     var obj2 = "";
      var rlist = [];
  	$(function(){
  		
@@ -207,14 +206,9 @@
  	           
  	            var value="";
  	           
- 	           console.log(rlist);
+ 	           
  	            $.each(list, function(i, obj){
- 	            	rlist.push(obj);
- 	            	
- 	            	/* rlist.forEach(function(item){
- 	            		console.log(i,item);
- 	            	}); */
- 	            	
+ 	            	rlist.push(obj);           	
                   value += "<tr style='background:white;'>"
  	                		 +"<td style = 'text-align : center'>"  + obj.replyNo + "</td>" 
  	                        +"<td style = 'text-align : center'> 익명 </td>" 
@@ -223,8 +217,9 @@
  	                                               
  	               if("${loginUser.empId}" == obj.empId){
  	            	  
- 	                  value += "<td style = 'text-align : center '><button style ='width:80px' onclick = 'test("+obj.replyNo+");'type='button' class='btn btn-xs btn-success' data-toggle='modal' data-target='#modifyModal'>수정 </button>"
- 	                  + "</td></tr>"; 
+ 	                  value +="<td style = 'text-align : center '><button class = 'btn btn-success modalModBtn' onclick = 'deleteReply("+obj.replyNo+");' style ='width:70px; background :red'>삭제</button> </td>"
+ 	                	     + "<td style = 'text-align : center '><button style ='width:70px'; onclick = 'updateForm("+obj.replyNo+");'type='button' class='btn btn-xs btn-success' data-toggle='modal' data-target='#modifyModal'>수정 </button>"
+ 	                 				 + "</td></tr>"; 
  	               }else{
  	                  value += "</tr>";	                  
  	               }  
@@ -239,27 +234,56 @@
  	   }
  	
  	
- 	function test(replyNo){	 	 
+ 	function updateForm(replyNo){	 
+ 		console.log(replyNo);
  		for(var i = 0; i< rlist.length; i++){
  			if(replyNo == rlist[i].replyNo){
  				$("#replyNo").val(rlist[i].replyNo);
  				$("#updateContent").val(rlist[i].replyContent);
- 				$("#empId").val("익명"); 	
+ 				$("#empId").val("익명"); 
+ 				}	
  			}
- 		}
- 	}
- <%--
-
- 	   function replyUpdate(replyNo){
- 	      alert("kkkkkkkkkp");
- 	      var value = "";
- 	      value += "<textarea style ='width:80%'placeholder='수정할 내용을 입력해주세요'> </textarea>"
- 	      $("#"+replyNo+"").html(value);
- 	   }
-
+		 };
  	
-     
-	--%>
+ 	$(".modalModBtn").on("click", function(){
+ 		var reply = $(this).parent().parent();
+ 		var replyNo = reply.find("#replyNo").val();
+ 		var replyContent = reply.find("#updateContent").val();
+ 		console.log(replyNo);
+ 		$.ajax({
+			url:"updateReply.bo",
+ 			type:"get",
+ 			data:{replyContent:replyContent,
+ 					replyNo:replyNo},				
+ 					success :function(result){ 						
+ 						if(result > 0){
+ 							alert("댓글수정 성공");
+ 							$("#modifyModal").modal("hide");	
+ 							selectReplyList();
+ 						}else{
+ 							alert("댓글 수정 실패");
+ 						}
+ 				
+ 					}
+ 			});
+ 	});
+ 	
+ 	function deleteReply(replyNo){
+ 		console.log(replyNo);
+ 		$.ajax({
+ 			url:"deleteReply.bo",
+ 			type:"get",
+ 			data:{replyNo:replyNo},
+ 			success :function(result){
+ 				if(result > 0){
+ 					alert("삭제성공");
+ 					selectReplyList();
+ 				}else{
+ 					alert("삭제 실패");
+ 				}
+ 			}
+ 		});
+ 	}
     </script>
 
     <jsp:include page="../common/footer.jsp"/>

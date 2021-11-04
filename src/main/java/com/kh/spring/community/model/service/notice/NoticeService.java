@@ -20,5 +20,9 @@ public interface NoticeService{
 
 	void deleteNotice(int bno);
 
+	/* ArrayList<Notice> noticeWriter(Notice writer); */
+
+	
+
 	
 }
