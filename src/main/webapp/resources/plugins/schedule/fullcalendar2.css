@@ -171,7 +171,8 @@
 
 .fc .fc-button-primary:focus, .fc .fc-button-primary:not (:disabled ).fc-button-active:focus,
 	.fc .fc-button-primary:not (:disabled ):active:focus {
-	box-shadow: 0 0 0 .2rem rgba(76, 91, 106, .5)
+	box-shadow: 0 0 0 .2rem rgba(76, 91, 106, .5);
+	margin: 0
 }
 
 .fc .fc-button:disabled {
@@ -258,15 +259,21 @@
 }
 
 .fc .fc-toolbar {
-	flex-wrap: nowrap;
-	display: flex;
+	
+	  display: flex;
 	justify-content: space-between;
 	align-items: center
 	
 }
-
+.fc-toolbar-chunk{
+	
+	  display: flex;
+	justify-content: space-between;
+	align-items: center
+	
+}
 .fc .fc-toolbar.fc-header-toolbar {
-	flex-wrap: nowrap;
+
 	margin-bottom: 1.5em
 	
 }
@@ -276,9 +283,19 @@
 }
 
 .fc .fc-toolbar-title {
-	flex-wrap: nowrap;
+
 	font-size: 1.75em;
-	margin: 0
+	margin-right: 10px;
+	margin-left: 10px
+
+}
+.fc-today-button {
+	
+	margin-right: 10px
+}
+
+.fc-next-button {
+	margin-left: 10px
 }
 
 .fc-direction-ltr .fc-toolbar>*>:not (:first-child ){
