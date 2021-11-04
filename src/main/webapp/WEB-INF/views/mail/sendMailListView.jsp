@@ -9,6 +9,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>X-Nomal Groupware Solution</title>
+
 <style type="text/css">
 #pagingArea{width:fit-content;margin:auto;}
 #mailList>tbody>tr:hover {
@@ -105,7 +106,7 @@
                 <ul class="pagination">
                 	<c:choose>
                 		<c:when test="${ pi.currentPage ne 1 }">
-                			<li class="page-item"><a class="page-link" href="list.bo?currentPage=${ pi.currentPage-1 }">이전</a></li>
+                			<li class="page-item"><a class="page-link" href="sendList.ml?currentPage=${ pi.currentPage-1 }">이전</a></li>
                 		</c:when>
                 		<c:otherwise>
                 			<li class="page-item disabled"><a class="page-link" href="">이전</a></li>
@@ -115,7 +116,7 @@
                     <c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
                     	<c:choose>
 	                		<c:when test="${ pi.currentPage ne p }">
-                    			<li class="page-item"><a class="page-link" href="list.bo?currentPage=${ p }">${ p }</a></li>
+                    			<li class="page-item"><a class="page-link" href="sendList.ml?currentPage=${ p }">${ p }</a></li>
 	                		</c:when>
 	                		<c:otherwise>
 	                			<li class="page-item disabled"><a class="page-link" href="">${ p }</a></li>
@@ -126,17 +127,17 @@
                     
                     <c:choose>
                 		<c:when test="${ pi.currentPage ne pi.maxPage }">
-                			<li class="page-item"><a class="page-link" href="list.bo?currentPage=${ pi.currentPage+1 }">다음</a></li>
+                			<li class="page-item"><a class="page-link" href="sendList.ml?currentPage=${ pi.currentPage+1 }">다음</a></li>
                 		</c:when>
                 		<c:otherwise>
-                			<li class="page-item disabled"><a class="page-link" href="list.bo?currentPage=${ pi.currentPage+1 }">다음</a></li>
+                			<li class="page-item disabled"><a class="page-link" href="sendList.ml?currentPage=${ pi.currentPage+1 }">다음</a></li>
                 		</c:otherwise>
                 	</c:choose>
                 </ul>
             <!-- 페이징끝 -->
             
             </div>
-									</div>
+			</div>
 									
 									
 				<!-- basic table  End -->

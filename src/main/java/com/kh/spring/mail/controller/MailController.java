@@ -51,8 +51,7 @@ public class MailController {
 		
 		mailService.insertMail(m);
 		
-		return "main";
-		//나중에 보낸메일함으로 경로 바꾸기
+		return "redirect:sendList.ml";
 		
 	}
 	
@@ -83,7 +82,8 @@ public class MailController {
 	
 	//보낸메일함 
 	@RequestMapping("sendList.ml")
-	public String selectSendMailList(@RequestParam(value = "currentPage", required = false, defaultValue="1") int currentPage, Model model, HttpServletRequest request) {
+	public String selectSendMailList(@RequestParam(value = "currentPage", required = false, defaultValue="1") int currentPage, 
+									 Model model, HttpServletRequest request) {
 		
 		Member mem = (Member) request.getSession().getAttribute("loginUser");
 		
@@ -112,13 +112,58 @@ public class MailController {
 	
 	//받은 메일함
 	@RequestMapping("receiveList.ml")
-	public String selectReceiveMailList() {
+	public String selectReceiveMailList(@RequestParam(value = "currentPage", required = false, defaultValue="1") int currentPage, 
+										Model model, HttpServletRequest request) {
+		
+		Member mem = (Member) request.getSession().getAttribute("loginUser");
+		
+		int listCount = mailService.selectReceiveMailListCount(mem.getEmpId());
+		
+		PageInfo pi = PaginationMail.getPageInfo(listCount, currentPage, 10, 5);
+		
+		ArrayList<Mail> receiveList = mailService.selectReceiveMailList(pi, mem.getEmpId());
+		
+		model.addAttribute("receiveList", receiveList);
+		model.addAttribute("pi", pi);
+		
 		return "mail/receiveMailListView";
 	}
+	
 	//받은 메일 보기
 	@RequestMapping("receiveDetail.ml")
-	public String selectReceiveMail() {
-		return "mail/receiveMailDetailView";
+	public ModelAndView selectReceiveMail(int mno, ModelAndView mv) {
+		
+		//조회수 올려서 읽음처리하기
+		Mail m = mailService.selectReceiveMail(mno);
+		
+		mv.addObject("m", m).setViewName("mail/receiveMailDetailView");
+		
+		return mv;
+	}
+	
+	//받은메일에서 휴지통으로
+	@RequestMapping("checkDelete.ml")
+	public ModelAndView wasteReceiveMail(ModelAndView mv, HttpServletRequest request,
+										@RequestParam(name="checkList") String checkList ) {
+		
+		System.out.println(checkList);
+		String[] list = checkList.split(",");
+		
+		System.out.println(list);
+		
+		
+		if(list != null) {
+			for(int i = 0; i < list.length; i++) {
+				
+				mailService.wasteReceiveMail(Integer.parseInt(list[i]));
+				
+			}
+		}
+		
+		mv.setViewName("redirect:receiveList.ml");
+		
+		return mv;
+		
 	}
 	
 	//휴지통

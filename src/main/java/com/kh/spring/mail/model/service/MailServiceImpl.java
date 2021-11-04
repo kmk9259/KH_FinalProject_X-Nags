@@ -35,10 +35,9 @@ public class MailServiceImpl implements MailService {
 	
 	@Override
 	public int selectSendMailListCount(String empId) {
-		// TODO Auto-generated method stub
+		
 		return mailDao.selectSendMailListCount(sqlSession, empId);
 	}
-
 
 
 	@Override
@@ -52,6 +51,49 @@ public class MailServiceImpl implements MailService {
 	public Mail selectSendMail(int mno) {
 		
 		return mailDao.selectSendMail(sqlSession, mno);
+	}
+
+
+	@Override
+	public int selectReceiveMailListCount(String empId) {
+		
+		return mailDao.selectReceiveMailListCount(sqlSession, empId);
+	}
+
+
+	@Override
+	public ArrayList<Mail> selectReceiveMailList(PageInfo pi, String empId) {
+		
+		return mailDao.selectReceiveMailList(sqlSession, pi, empId);
+	}
+
+
+	@Override
+	public Mail selectReceiveMail(int mno) {
+		
+		Mail m = null;
+		
+		int result = mailDao.increaseCount(sqlSession, mno);
+		
+		if(result < 0) {
+			throw new CommException("increaseCount 실패");
+		}else {
+			m = mailDao.selectReceiveMail(sqlSession, mno);
+		}
+		
+		return m;
+	}
+
+
+	@Override
+	public void wasteReceiveMail(int mno) {
+		
+		int result = mailDao.wasteReceiveMail(sqlSession, mno);
+		
+		if(result < 0) {
+			throw new CommException("wasteReceiveMail 실패");
+		}
+		
 	}
 	
 
