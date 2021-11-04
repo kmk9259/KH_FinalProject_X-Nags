@@ -18,5 +18,13 @@ public class Notice_ReplyDao {
 		return (ArrayList)sqlSession.selectList("noticeReplyMapper.selectNoticeReplyList",bno);
 	}
 
+	public int updateNoticeReply(SqlSessionTemplate sqlSession, Notice_Reply nr) {
+		return sqlSession.update("noticeReplyMapper.updateNoticeReply",nr);
+	}
+
+	public int deleteNoticeReply(SqlSessionTemplate sqlSession, Notice_Reply nr) {
+		return sqlSession.delete("noticeReplyMapper.deleteNoticeReply",nr);
+	}
+
 	
 }

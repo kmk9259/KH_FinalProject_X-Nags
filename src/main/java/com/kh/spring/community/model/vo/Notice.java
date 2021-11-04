@@ -24,5 +24,6 @@ public class Notice {
 	private String filePath;
 	private int count;
 	private Date uploadDate;
+	private String rightNo;
 
 }

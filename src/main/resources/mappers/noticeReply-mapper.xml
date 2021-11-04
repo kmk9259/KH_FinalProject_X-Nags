@@ -29,11 +29,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ORDER BY REPLY_NO DESC
 	
 	</select>
-		<!-- 
-	<update id = "updateReply" parameterType="Board_Reply">
-	UPDATE BOARD_REPLY
+	<update id = "updateNoticeReply" parameterType="Notice_Reply">
+	UPDATE NOTICE_REPLY
 	SET REPLY_CONTENT= #{replyContent},REPLY_DATE = sysdate
 	WHERE REPLY_NO =#{replyNo} 
 	</update>
-	 -->
+	
+	
+	<delete id="deleteNoticeReply" parameterType="Notice_Reply">
+		DELETE FROM NOTICE_REPLY
+		WHERE REPLY_NO =#{replyNo} 
+	</delete>
 </mapper>

@@ -10,5 +10,9 @@ public interface Notice_ReplyService {
 
 	ArrayList<Notice_Reply> selectNoticeReplyList(int bno);
 
+	int updateNoticeReply(Notice_Reply nr);
+
+	int deleteNoticeReply(Notice_Reply nr);
+
 	
 }

@@ -19,9 +19,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.spring.common.Pagination;
 import com.kh.spring.common.exception.CommException;
 import com.kh.spring.community.model.service.notice.NoticeService;
-import com.kh.spring.community.model.vo.Board;
 import com.kh.spring.community.model.vo.Notice;
 import com.kh.spring.community.model.vo.PageInfo;
+import com.kh.spring.employee.model.service.EmployeeService;
 
 @Controller
 public class NoticeController {
@@ -31,23 +31,33 @@ public class NoticeController {
 
 	@RequestMapping("notice.bo")
 	public String selectList(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
-			Model model) {
-
+			Model model,Notice n, HttpServletRequest request) {	
+	
+		/*
+		 * Notice Writer = (Notice) request.getSession().getAttribute("loginUser");
+		 * ArrayList<Notice> grant = noticeService.noticeWriter(Writer);
+		 */
+		
+			/*
+			 * Notice grant = noticeService.noticeWriter(n); System.out.println(grant +
+			 * "권한");
+			 */
+		
 		int listCount = noticeService.selectListCount();
-		System.out.println(listCount);
-
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
-
 		ArrayList<Notice> list = noticeService.selectList(pi);
-
-		System.out.println(list + " 리스트");
+		
+		/* model.addAttribute("loginEmp", loginEmp); */
+//		model.addAttribute("grant",grant);
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
+		
 		return "notice/noticeListView";
 	}
 
 	@RequestMapping("noticedetail.bo")
 	public ModelAndView selectBoard(int bno, ModelAndView mv) {
+
 		Notice n = noticeService.selectNotice(bno);
 
 		mv.addObject("n", n).setViewName("notice/noticeDetailView");
@@ -78,14 +88,13 @@ public class NoticeController {
 		noticeService.insertNotice(n);
 		return "redirect:notice.bo";
 	}
-	
-	
+
 	@RequestMapping("noticeUpdateForm.bo")
 	public ModelAndView noticeupdateForm(int bno, ModelAndView mv) {
 		mv.addObject("n", noticeService.selectNotice(bno)).setViewName("notice/noticeUpdateForm");
 		return mv;
 	}
-	
+
 	@RequestMapping("noticeUpdate.bo")
 	public ModelAndView updateBoard(Notice n, ModelAndView mv, HttpServletRequest request,
 
@@ -113,6 +122,7 @@ public class NoticeController {
 
 		return mv;
 	}
+
 	@RequestMapping("noticeDelete.bo")
 	public String deleteBoard(int bno, String fileName, HttpServletRequest request) {
 		noticeService.deleteNotice(bno);
@@ -121,7 +131,7 @@ public class NoticeController {
 		}
 		return "redirect:notice.bo";
 	}
-	
+
 	private void deleteFile(String fileName, HttpServletRequest request) {
 		String resources = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = resources + "\\upload_files\\";
@@ -131,6 +141,7 @@ public class NoticeController {
 		deleteFile.delete();
 
 	}
+
 	private String saveFile(MultipartFile file, HttpServletRequest request) {
 		String resources = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = resources + "\\upload_files\\";
@@ -152,4 +163,6 @@ public class NoticeController {
 		}
 		return changeName;
 	}
+		
+
 }

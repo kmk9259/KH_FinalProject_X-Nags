@@ -32,11 +32,20 @@ public class Board_ReplyServiceImpl implements Board_ReplyService {
 	public ArrayList<Board_Reply> selectReplyList(int bno) {
 		return board_ReplyDao.selectReplyList(sqlSession, bno); 
 	}
-/*
+
 	@Override
 	public int updateReply(Board_Reply br) {
 		int result = board_ReplyDao.updateReply(sqlSession, br);
 		return result;
 	}
-*/
+
+	@Override
+	public int deleteReply(Board_Reply br) {
+		int result = board_ReplyDao.deleteReply(sqlSession, br);
+		if (result < 0) {
+			throw new CommException("댓글 삭제 실패");
+		}
+		return result;
+	}
+
 }

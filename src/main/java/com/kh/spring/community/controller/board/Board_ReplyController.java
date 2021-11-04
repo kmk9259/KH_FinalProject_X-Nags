@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.GsonBuilder;
 import com.kh.spring.community.model.service.board.Board_ReplyService;
 import com.kh.spring.community.model.vo.Board_Reply;
+
 @Controller
 public class Board_ReplyController {
 
@@ -30,16 +31,25 @@ public class Board_ReplyController {
 		System.out.println(bno + "bno");
 		ArrayList<Board_Reply> list = board_ReplyService.selectReplyList(bno);
 		System.out.println(list + "리스트");
-		
+
 		return new GsonBuilder().setDateFormat("yyyy년 MM월 dd일 HH:mm").create().toJson(list);
 	}
-	/*
-	@RequestMapping(value = "rupdate.bo")
+
+	@RequestMapping(value = "updateReply.bo")
 	@ResponseBody
 	public String updateReply(Board_Reply br) {
+
 		int result = board_ReplyService.updateReply(br);
-		System.out.println(br.getBoardNo() + "bdn");
+		System.out.println(br.getReplyNo() + "댓글번호");
+		System.out.println(result + "ffff");
 		return String.valueOf(result);
 	}
-	*/
+
+	@RequestMapping(value = "deleteReply.bo")
+	@ResponseBody
+	public String deleteReply(Board_Reply br) {
+		int result = board_ReplyService.deleteReply(br);
+		System.out.println(result + "ffff");
+		return String.valueOf(result);
+	}
 }

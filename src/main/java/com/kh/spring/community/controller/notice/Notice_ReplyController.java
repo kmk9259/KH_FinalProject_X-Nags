@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.GsonBuilder;
 import com.kh.spring.community.model.service.notice.Notice_ReplyService;
+import com.kh.spring.community.model.vo.Board_Reply;
 import com.kh.spring.community.model.vo.Notice_Reply;
 @Controller
 public class Notice_ReplyController {
@@ -16,8 +17,7 @@ public class Notice_ReplyController {
 
 	@Autowired 
 	private Notice_ReplyService notice_ReplyService;
-	
-	
+
 	@RequestMapping(value = "nrinsert.bo")
 	@ResponseBody
 	public String insertReply(Notice_Reply nr) {
@@ -35,13 +35,21 @@ public class Notice_ReplyController {
 		
 		return new GsonBuilder().setDateFormat("yyyy년 MM월 dd일 HH:mm").create().toJson(list);
 	}
-	/*
-	@RequestMapping(value = "rupdate.bo")
+	@RequestMapping(value = "updateNoticeReply.bo")
 	@ResponseBody
-	public String updateReply(Board_Reply br) {
-		int result = board_ReplyService.updateReply(br);
-		System.out.println(br.getBoardNo() + "bdn");
+	public String updateNoticeReply(Notice_Reply nr) {
+
+		int result = notice_ReplyService.updateNoticeReply(nr);
+		System.out.println(nr.getReplyNo() + "댓글번호");
+		System.out.println(result + "ffff");
 		return String.valueOf(result);
 	}
-	*/
+
+	@RequestMapping(value = "deleteNoticeReply.bo")
+	@ResponseBody
+	public String deleteNoticeReply(Notice_Reply nr) {
+		int result = notice_ReplyService.deleteNoticeReply(nr);
+		System.out.println(result + "ffff");
+		return String.valueOf(result);
+	}
 }
