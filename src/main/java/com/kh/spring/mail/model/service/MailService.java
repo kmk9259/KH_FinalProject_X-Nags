@@ -15,4 +15,12 @@ public interface MailService {
 
 	Mail selectSendMail(int mno);
 
+	int selectReceiveMailListCount(String empId);
+
+	ArrayList<Mail> selectReceiveMailList(PageInfo pi, String empId);
+
+	Mail selectReceiveMail(int mno);
+
+	void wasteReceiveMail(int mno);
+
 }

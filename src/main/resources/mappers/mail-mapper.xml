@@ -36,6 +36,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="change_name" property="changeName"/>
 	</resultMap>
 	
+	<resultMap type="Mail" id="receiveResultSet">
+		<id column="mail_no" property="mailNo"/>
+		<result column="user_name" property="empId"/>
+		<result column="emp_id" property="receiver"/>
+		<result column="mail_title" property="title"/>
+		<result column="mail_content" property="content"/>
+		<result column="mail_date" property="date"/>
+		<result column="read_count" property="readCount"/>
+		<result column="important_flag" property="importantFlag"/>
+		<result column="writer_status" property="writerStatus"/>
+		<result column="receiver_status" property="receiverStatus"/>
+		<result column="origin_name" property="originName"/>
+		<result column="change_name" property="changeName"/>
+	</resultMap>
+	
 	<resultMap id="employeeResultSet" type="Employee">
 		<id property="empId" column="EMP_ID"/>
 		<result property="jobCode" column="JOB_CODE"/>
@@ -74,6 +89,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ORDER BY A.MAIL_NO DESC
 	</select>
 	
+	<!-- 보낸메일보기 -->
 	<select id="selectSendMail" parameterType="_int" resultMap="sendResultSet">
 		SELECT
 		    *
@@ -82,6 +98,48 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE A.WRITER_STATUS=1
 		AND A.MAIL_NO=#{mno}
 	</select>
+	
+	<!-- 받은 메일함 갯수 -->
+	<select id="selectReceiveMailListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM MAIL
+		WHERE MAIL_RECEIVER=#{empId}
+		AND RECEIVER_STATUS=1 
+	</select>
+	
+	<!-- 받은메일함 리스트 받아오기 -->
+	<select id="selectReceiveMailList" resultMap="receiveResultSet">
+		SELECT
+		    *
+		FROM MAIL A
+		JOIN MEMBER B ON A.EMP_ID=B.EMP_ID
+		WHERE A.RECEIVER_STATUS=1
+		AND A.MAIL_RECEIVER=#{empId}
+		ORDER BY A.MAIL_NO DESC
+	</select>
+	
+	<!-- 받은메일보기 -->
+	<select id="selectReceiveMail" parameterType="_int" resultMap="receiveResultSet">
+		SELECT
+		    *
+		FROM MAIL A
+		JOIN MEMBER B ON A.EMP_ID=B.EMP_ID
+		WHERE A.RECEIVER_STATUS=1
+		AND A.MAIL_NO=#{mno}
+	</select>
+	
+	<!-- 받은 메일 조회수 증가 -->
+	<update id="increaseCount" parameterType="_int">
+		UPDATE MAIL
+		SET READ_COUNT=READ_COUNT+1
+		WHERE MAIL_NO=${mno}
+	</update>
+	
+	<update id="wasteReceiveMail" parameterType="_int">
+		UPDATE MAIL
+		SET RECEIVER_STATUS=2
+		WHERE MAIL_NO=${mno}
+	</update>
 	
 	
 	<!--
