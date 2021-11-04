@@ -83,7 +83,7 @@
 							  <tbody>
 							    <tr>
 							      <th scope="row" id="inTime"></th>
-							      <th scope="row" id="outTime">아직 퇴근 전입니다.</th>
+							      <th scope="row" id="outTime"></th>
 							      <th scope="row">25 </th>
 							      <th scope="row">10회</th>
 							    </tr>
@@ -133,7 +133,7 @@
 	                        <td>${ att.attendanceDate }</td>
 	                        <td>${ att.attendanceInTime }</td>
 	                        <td>${ att.attendanceOutTime }</td>
-	                        <td>${ att.attStatusNo }</td>
+	                        <td>${ att.attStatusName }</td>
 	                        
 	                    </tr>
                     </c:forEach>				    
@@ -143,7 +143,7 @@
             <script>
                	$(function () {
 					$.ajax({
-						url:"attInTime.att",
+						url:"attTime.att",
 						type:"post",
 						data :{
 							empId:"${sessionScope.loginUser.empId}"
@@ -152,23 +152,11 @@
 							console.log("성공");
 							console.log(att);
 							$("#inTime").html(att.attendanceInTime); 
+							$("#outTime").html(att.attendanceOutTime); 
 						}
 					});
 				})
-				/* $(function () {
-					$.ajax({
-						url:"selectAllMy.att",
-						type:"post",
-						data :{
-							empId:"${sessionScope.loginUser.empId}"
-						},
-						success:function(att){
-							console.log("성공");
-							console.log(att);
-							$("#inTime").html(att.attendanceInTime); 
-						}
-					});
-				}) */
+				
            	</script>
             
             

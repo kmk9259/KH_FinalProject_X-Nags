@@ -26,7 +26,7 @@
     <link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/resources/vendors/styles/style.css">
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <!-- <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -37,7 +37,7 @@
         gtag('js', new Date());
 
         gtag('config', 'UA-119386393-1');
-    </script>
+    </script> -->
 </head>
 <body>
    
@@ -106,13 +106,39 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                         <a class="dropdown-item" href="myPage.me"><i class="dw dw-user1"></i> Mypage</a>
-                        <a class="dropdown-item" href="selectEmployee.me"><i class="dw dw-settings2"></i> Setting</a>
-                        <a class="dropdown-item" href="logout.me"><i class="dw dw-logout"></i> Log Out</a>
+                        <a class="dropdown-item" href="selectEmployee.me"><i class="dw dw-settings2"></i> Setting</a>                        
+                        <a class="dropdown-item btn-block" href="#" data-toggle='modal' data-target='#confirmation-modal'"><i class="dw dw-logout"></i> Log Out</a>
+                      	
+                      	<div class="modal fade" id="confirmation-modal" tabindex="-1" role="dialog" aria-hidden="true">
+			                <div class="modal-dialog modal-dialog-centered" role="document">
+			                    <div class="modal-content">
+			                    <form action="logout.me" method="get">
+			                        <div class="modal-body text-center font-18">
+			                            <h4 class="padding-top-30 mb-30 weight-500">로그아웃 하시겠습니까?</h4>
+			                            <p class="padding-top-30 mb-30 weight-500 text-blue">※ 로그아웃시 퇴근 시간이 찍히므로 <br>주의해주시길 바랍니다.</p>
+			                            <div class="padding-bottom-30 row" style="max-width: 170px; margin: 0 auto;">
+			                                <div class="col-6">
+			                                    <button type="button" class="btn btn-secondary border-radius-100 btn-block confirmation-btn" data-dismiss="modal"><i class="fa fa-times"></i></button> NO
+			                                </div>
+			                                
+			                                <div class="col-6">
+			                                    <button type="submit" class="btn btn-primary border-radius-100 btn-block confirmation-btn" ><i class="fa fa-check"></i></button> YES
+			                                </div>
+			                               
+			                            </div>
+			                        </div>
+			                    </form>
+			                    </div>
+			                </div>
+			            </div>
                     </div>
+					<script>
+						$('#confirmation-modal').appendTo("body").modal('show');
+					</script> 
+
                 </div>
             </div>
             </c:if>
-
         </div>
     </div>
 

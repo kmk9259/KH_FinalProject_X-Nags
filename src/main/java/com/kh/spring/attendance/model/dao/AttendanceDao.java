@@ -21,9 +21,13 @@ public class AttendanceDao {
 		return sqlSession.insert("attendanceMapper.insertIntime",loginEmp);
 	}
 
-	public Attendance selectIntime(SqlSessionTemplate sqlSession, Employee loginEmp) {
-		return sqlSession.selectOne("attendanceMapper.selectIntime",loginEmp);
+	public int insertOuttime(SqlSessionTemplate sqlSession, Employee loginEmp) {
+		return sqlSession.insert("attendanceMapper.insertOuttime",loginEmp);
 	}
+
+	public Attendance selectTime(SqlSessionTemplate sqlSession, Employee loginEmp) {
+		return sqlSession.selectOne("attendanceMapper.selectTime",loginEmp);
+	}	
 
 	public ArrayList<Attendance> selectAttMy(SqlSessionTemplate sqlSession, Member mem) {
 		return (ArrayList)sqlSession.selectList("attendanceMapper.selectAttMy",mem);
@@ -32,6 +36,10 @@ public class AttendanceDao {
 	public ArrayList<Employee> selectAttDay(SqlSessionTemplate sqlSession, Attendance att) {
 		return (ArrayList)sqlSession.selectList("attendanceMapper.selectAttDay",att);
 	}
+
+	
+
+	
 
 	
 

@@ -59,26 +59,28 @@ public class AttendanceController {
 		return "attendance/attendanceMonth";
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="attInTime.att", produces = "application/json; charset=utf-8")
+	@ResponseBody 
+	@RequestMapping(value="attTime.att", produces = "application/json; charset=utf-8")
 	public String selectIntime(Employee emp) {
-		Attendance att = attendanceService.selectIntime(emp);
+		Attendance att = attendanceService.selectTime(emp);
 		
 		if(att==null) {
 			attendanceService.insertIntime(emp);
-			att = attendanceService.selectIntime(emp);			
+			att = attendanceService.selectTime(emp);			
 			return new GsonBuilder().setDateFormat("yyyy년 MM월 dd일  HH시 mm분 ss초").create().toJson(att);			
 		}else {
-			att = attendanceService.selectIntime(emp);
+			att = attendanceService.selectTime(emp);
+			System.out.println("att : "+att);
 			return new GsonBuilder().setDateFormat("yyyy년 MM월 dd일   HH시 mm분 ss초").create().toJson(att);
 		}		
 	}
+
 	@ResponseBody
 	@RequestMapping(value="selectAttDay.att", produces = "application/json; charset=utf-8")
 	public String selectAttDay(Attendance att) {
 		
 		ArrayList<Employee> attlist = attendanceService.selectAttDay(att);
 			
-		return new GsonBuilder().setDateFormat("yyyy년 MM월 dd일 HH시 mm분").create().toJson(attlist);
+		return new GsonBuilder().setDateFormat("yyyy년 MM월 dd일 HH시 mm분 ss초").create().toJson(attlist);
 	}
 }

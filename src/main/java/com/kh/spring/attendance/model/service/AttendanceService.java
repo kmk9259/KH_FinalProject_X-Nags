@@ -12,12 +12,20 @@ public interface AttendanceService {
 	ArrayList<AttStatus> selectAttStatus();
 
 	void insertIntime(Employee loginEmp);
+	
+	void insertOuttime(Employee loginEmp);
 
-	Attendance selectIntime(Employee loginEmp);
+	Attendance selectTime(Employee loginEmp);
+	
+	//Attendance selectOuttime(Employee emp);
 
 	ArrayList<Attendance> selectAttMy(Member mem);
 
 	ArrayList<Employee> selectAttDay(Attendance att);
+
+	
+
+	
 
 
 

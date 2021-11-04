@@ -99,14 +99,12 @@
                 </div>
                 <jsp:include page="../common/footer.jsp"/>
                 <script>
-                $(function(){
-                	
-
-					 $( ".month-picker" ).datepicker({
-                    		dateFormat: "yyyy-mm",
-                    		language:"ko",
+                $(function(){           	
+					$( ".month-picker" ).datepicker({
+                   		dateFormat: "yyyy-mm",
+                   		language:"ko",
                     		
-                    	}); 
+                    }); 
 
             		
             		$("#btn").click(function(){
