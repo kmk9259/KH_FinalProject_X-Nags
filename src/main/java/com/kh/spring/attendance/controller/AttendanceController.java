@@ -1,8 +1,5 @@
 package com.kh.spring.attendance.controller;
 
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,10 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.kh.spring.attendance.model.service.AttendanceService;
 import com.kh.spring.attendance.model.vo.AttStatus;
 import com.kh.spring.attendance.model.vo.Attendance;
@@ -81,6 +75,15 @@ public class AttendanceController {
 		
 		ArrayList<Employee> attlist = attendanceService.selectAttDay(att);
 			
-		return new GsonBuilder().setDateFormat("yyyy년 MM월 dd일 HH시 mm분 ss초").create().toJson(attlist);
+		return new GsonBuilder().setDateFormat("yyyy년 MM월 dd일 HH:mm:ss").create().toJson(attlist);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="selectAttMonth.att", produces = "application/json; charset=utf-8")
+	public String selectAttMonth(Attendance att) {
+		System.out.println("monthAtt : "+att);
+		ArrayList<Employee> attlist = attendanceService.selectAttMonth(att);
+			
+		return new GsonBuilder().setDateFormat("yyyy년 MM월 dd일 HH:mm:ss").create().toJson(attlist);
 	}
 }

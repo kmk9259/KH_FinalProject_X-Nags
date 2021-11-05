@@ -133,7 +133,7 @@
 			            </div>
                     </div>
 					<script>
-						$('#confirmation-modal').appendTo("body").modal('show');
+						$('#confirmation-modal').appendTo("body");
 					</script> 
 
                 </div>

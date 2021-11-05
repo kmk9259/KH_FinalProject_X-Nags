@@ -51,8 +51,7 @@
     <div class="mobile-menu-overlay"></div>
     <div class="main-container">
         <div class="pd-ltr-20 xs-pd-20-10">
-            <div class="min-height-200px">
-                
+            <div class="min-height-200px">                
                 <div class="pd-20 card-box mb-30">
                     <div class="clearfix mb-20">
                         <div class="pull-left">
@@ -64,17 +63,17 @@
                             <form>
                                 <div class="form-group"> 
                                 	<label>날짜</label>
-                                    <input class="form-control month-picker" placeholder="Click" type="text">                                
+                                    <input class="form-control month-picker" name="date" placeholder="Click" type="text">                                
                                 </div>
                                 <div class="form-group">
 	                                <label>항목</label>
 	                                <div class="d-flex">
 	                                    <div class="custom-control custom-radio mb-5 ">
-	                                        <input type="radio" name="choice" id="dept" value="M" class="custom-control-input">
+	                                        <input type="radio" name="item" id="dept" value="dept_code" class="custom-control-input">
 	                                        <label class="custom-control-label weight-400" for="dept">부서&nbsp&nbsp</label>
 	                                    </div>
 	                                    <div class="custom-control custom-radio mb-5">
-	                                        <input type="radio" name="choice" id="job" value="F" class="custom-control-input">
+	                                        <input type="radio" name="item" id="job" value="job_code" class="custom-control-input">
 	                                        <label class="custom-control-label weight-400" for="job">직급</label>
 	                                    </div>
 	                                </div>	                                
@@ -91,41 +90,95 @@
 	                                </div>	                                
                                	</div>
                                 <div class="form-group mb-0">
-                                    <input type="submit" class="btn btn-primary" value="&nbsp&nbsp&nbsp&nbsp조회&nbsp&nbsp&nbsp&nbsp">
+                                    <input type="button" class="btn btn-primary" id="btn" value="&nbsp&nbsp&nbsp&nbsp조회&nbsp&nbsp&nbsp&nbsp">
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
-                <jsp:include page="../common/footer.jsp"/>
-                <script>
-                $(function(){           	
-					$( ".month-picker" ).datepicker({
-                   		dateFormat: "yyyy-mm",
-                   		language:"ko",
+                <div class="pd-20 card-box mb-30">
+                    <div class="clearfix mb-20">
+                        <div class="pull-left">
+                            <h4 class="text-blue h4">조회 결과</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">                            
+                        	<table id="attMonthList" class="table table-striped table-bordered" style="text-align: center;">
+								<thead>
+									<tr>
+										<th>부서명</th>
+										<th>직급명</th>
+										<th>사원명</th>
+										<th>날짜</th>
+										<th>출근 시간</th>
+										<th>퇴근 시간</th>
+									</tr>
+								</thead>
+								<tbody></tbody>
+							</table>
+                    	</div>
+                	</div>
+            	</div>
+            	<script>
+            	$(function(){
+                	var attMonthDate ="";
+                	$( ".month-picker" ).datepicker({
+                    		dateFormat: "yyyy-mm",
+                    		language:"ko",
+                    		onSelect: function(dateText) {
+                    			attMonthDate = dateText;
+                    			console.log(attMonthDate);
+                    	    }
                     		
-                    }); 
-
-            		
+                    });  
             		$("#btn").click(function(){
-            			                
-            		});
-            			 
+            			var orderBy = $('input[name="item"]:checked').val();
+            			var attStatusNo = $('input[name="attList"]:checked').val();
             			
-            	});
-                </script>
-                
+            			 $.ajax({
+        					url:"selectAttMonth.att",
+        					type:"post",
+        					data:{
+        						attMonthDate : attMonthDate,
+        						orderBy : orderBy,
+        						attStatusNo : attStatusNo
+        					},
+        					dataType:"json",
+        					success:function(list){
+        						$tableBody = $('#attMonthList tbody');
+        						$tableBody.html('');
+        						
+        						$.each(list, function(i, obj){
+        							var $tr = $('<tr>');
+        							var $deptName = $('<td>').text(obj.deptName);
+        							var $jobName = $('<td>').text(obj.jobName);
+        							var $userName = $('<td>').text(obj.userName);
+        							var $attDate = $('<td>').text(obj.attDate.substring(0,13));
+        							var $attInTime = $('<td>').text(obj.attInTime.substring(14,25));
+        							var $attOutTime = $('<td>').text(obj.attOutTime.substring(14,25));
+        							
+        							
+        							$tr.append($deptName);
+        							$tr.append($jobName);
+        							$tr.append($userName);
+        							$tr.append($attDate);
+        							$tr.append($attInTime);
+        							$tr.append($attOutTime);
+        							$tableBody.append($tr);
+        						}); 
+        						
+        					},error:function(){
+        						console.log("일별 근태 현황 ajax 통신 실패");
+        					}
+        				}); 
+            		});   			 
+        		});
+            	</script>
+            	<jsp:include page="../common/footer.jsp"/>
+        	</div>
+    	</div>    	
+	</div>  
 
-            </div>
-
-        </div>
-    </div>
-    
-    
-	<!-- JavaScript Includes -->
-	
-    <script src="${ pageContext.servletContext.contextPath }/resources/plugins/jquery-asGradient/dist/jquery-asGradient.js"></script>
-    	
-	
 </body>
 </html>

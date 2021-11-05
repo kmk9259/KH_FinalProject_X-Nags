@@ -20,6 +20,7 @@ public class Attendance {
 	private String empId;					//사원 아이디
 	private int attStatusNo;				//현황 번호
 	private Date attendanceDate;			//날짜
+	private String attMonthDate;
 	private Timestamp attendanceInTime;		//출근 시간
 	private Timestamp attendanceOutTime;	//퇴근 시간
 	

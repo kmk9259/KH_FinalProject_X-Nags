@@ -23,6 +23,8 @@ public interface AttendanceService {
 
 	ArrayList<Employee> selectAttDay(Attendance att);
 
+	ArrayList<Employee> selectAttMonth(Attendance att);
+
 	
 
 	
