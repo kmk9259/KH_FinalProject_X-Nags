@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>X-Nomal Groupware Solution</title>
 <style>
  	#enrollForm>table{width:100%;}
     #enrollForm>table *{ margin:5px;}

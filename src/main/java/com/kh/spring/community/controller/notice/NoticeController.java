@@ -31,24 +31,13 @@ public class NoticeController {
 
 	@RequestMapping("notice.bo")
 	public String selectList(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
-			Model model,Notice n, HttpServletRequest request) {	
+			Model model) {	
 	
-		/*
-		 * Notice Writer = (Notice) request.getSession().getAttribute("loginUser");
-		 * ArrayList<Notice> grant = noticeService.noticeWriter(Writer);
-		 */
-		
-			/*
-			 * Notice grant = noticeService.noticeWriter(n); System.out.println(grant +
-			 * "권한");
-			 */
-		
+	
 		int listCount = noticeService.selectListCount();
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
 		ArrayList<Notice> list = noticeService.selectList(pi);
-		
-		/* model.addAttribute("loginEmp", loginEmp); */
-//		model.addAttribute("grant",grant);
+
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		

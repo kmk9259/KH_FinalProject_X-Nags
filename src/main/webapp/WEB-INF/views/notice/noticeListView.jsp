@@ -66,7 +66,7 @@
 		<div class="card-box mb-30">
 			<div class="pd-20">
 				<h4 class="text-blue h4">공지사항 게시판</h4>
-				<c:if test="${ !empty loginUser }">
+				<c:if test="${ loginUser.rightNo == 3 }">
 					<a class="btn btn-secondary" style="float: right"
 						href="noticeEnrollForm.bo">글쓰기</a>
 				</c:if>

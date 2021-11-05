@@ -17,11 +17,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       <result property="originName" column="ORIGIN_NAME"/>
       <result property="changeName" column="CHANGE_NAME"/>
       <result property="status" column="STATUS"/>
+   	<result property="rightNo" column="RIGHT_NO"/>
    </resultMap>
 
 	<select id="loginMember" parameterType="Member" resultMap="memberResultSet">
+	SELECT  M.USER_NO, M.EMP_ID, M.USER_PWD, M.USER_NAME, M.USER_SSN, M.EMAIL, M.PHONE, M.ADDRESS, M.GENDER,
+		   M.ORIGIN_NAME, M.CHANGE_NAME, M.STATUS, E.RIGHT_NO
+	FROM MEMBER M
+	JOIN EMPLOYEE E ON E.EMP_ID = M.EMP_ID
+	JOIN RIGHT R ON R.RIGHT_NO = E.RIGHT_NO
+	WHERE M.EMP_ID =#{empId} AND M.STATUS='Y'
 	
-		select * from member where EMP_ID=#{empId} and status='Y'
+		<!-- select * from member where EMP_ID=#{empId} and status='Y' -->
 		<!-- select * from member where EMP_ID=#{empId} and status='Y' -->
 		
 	</select>

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>X-Nomal Groupware Solution</title>
 <style>
 	#contentArea{width:100%}
 	#contentArea *{margin:5px }
@@ -57,7 +57,7 @@
             </table>
             <br>
 		
-			<c:if test="${ loginUser.empId eq n.empId }">
+			<c:if test="${ loginUser.rightNo == 3 }">
 	            <div align="center">
 	                <button class="btn btn-primary" onclick="postFormSubmit(1);">수정하기</button>
 	                <button class="btn btn-danger" onclick="postFormSubmit(2);">삭제하기</button>
@@ -73,6 +73,7 @@
 					
 					if(num == 1){
 						postForm.attr("action", "noticeUpdateForm.bo");
+						
 					}else{
 						postForm.attr("action", "noticeDelete.bo");
 					}

@@ -60,21 +60,7 @@ public class BoardServiceImpl implements BoardService {
 			throw new CommException("게시글 삭제 실패");
 		}
 	}
-	/*
-	 * @Override public void updateBoard(Board b) { int result =
-	 * boardDao.updateBoard(sqlSession, b); if(result < 0) { throw new
-	 * CommException("게시글 수정 실패"); } }
-	 */
-	/*
-	 * @Override public ArrayList<Reply> selectReplyList(int bno) { return
-	 * boardDao.selectReplyList(sqlSession, bno); }
-	 * 
-	 * @Override public int insertReply(Reply r) { int result =
-	 * boardDao.insertReply(sqlSession, r); if(result < 0) { throw new
-	 * CommException("댓글 작성 실패"); } return result; }
-	 * 
-	 * 
-	 */
+
 
 	@Override
 	public void updateBoard(Board b) {

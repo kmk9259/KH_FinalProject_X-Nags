@@ -27,4 +27,5 @@ public class Member {
 	private String status;
 	private String originName;
 	private String changeName;
+	private int rightNo;
 }

@@ -78,10 +78,7 @@
 				</script>
             </c:if> 
       
-            <br><br>
-            
-            
-
+            <br><br>                        
             <table id="replyArea" class="table"  >
                 <thead>
                     <tr>
@@ -202,11 +199,8 @@
  	         data:{bno:bno},
  	         type:"get",
  	         success:function(list){
- 	            $("#rcount").text(list.length);
- 	           
- 	            var value="";
- 	           
- 	           
+ 	            $("#rcount").text(list.length);	           
+ 	            var value="";     
  	            $.each(list, function(i, obj){
  	            	rlist.push(obj);           	
                   value += "<tr style='background:white;'>"
@@ -285,7 +279,6 @@
  		});
  	}
     </script>
-
     <jsp:include page="../common/footer.jsp"/>
 </body>
 </html>
