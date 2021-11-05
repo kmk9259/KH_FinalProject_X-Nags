@@ -1,18 +1,26 @@
 package com.kh.spring.employee.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.spring.common.Pagination;
 import com.kh.spring.common.PaginationEmp;
+import com.kh.spring.common.exception.CommException;
 import com.kh.spring.employee.model.service.EmployeeService;
 import com.kh.spring.employee.model.vo.Department;
 import com.kh.spring.employee.model.vo.Employee;
@@ -20,6 +28,10 @@ import com.kh.spring.employee.model.vo.Job;
 import com.kh.spring.employee.model.vo.PageInfo;
 import com.kh.spring.employee.model.vo.Right;
 import com.kh.spring.employee.model.vo.SalGrade;
+import com.kh.spring.member.model.service.MemberService;
+import com.kh.spring.member.model.vo.Member;
+import com.kh.spring.salary.model.service.SalaryService;
+import com.kh.spring.salary.model.vo.Salary;
 
 
 @Controller
@@ -27,6 +39,15 @@ public class EmployeeController {
 
 	@Autowired
 	private EmployeeService employeeService;
+	
+	@Autowired 
+	private MemberService memberService;
+	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	@Autowired
+	private SalaryService salaryService;
 	
 	
 	@RequestMapping("enrollEmp.me")
@@ -115,4 +136,88 @@ public class EmployeeController {
 	}
 	
 	
+	@RequestMapping("insertEmp2.me")
+	public String insertEmp2(@ModelAttribute Salary sal,@ModelAttribute Member m, @ModelAttribute Employee emp, HttpSession session,
+							 @RequestParam("post") String post,
+							 @RequestParam("address1") String address1,
+							 @RequestParam("address2") String address2,
+							 HttpServletRequest request, Model model,
+							 @RequestParam(name="uploadFile", required=false) MultipartFile file,
+							 @RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
+
+		System.out.println(m);
+		System.out.println(file.getOriginalFilename());
+		
+		int listCount = employeeService.selectListCount();
+		System.out.println(listCount);
+		
+		if(!file.getOriginalFilename().equals("")) {
+			
+			String changeName = saveFile(file, request);
+			
+			if(changeName != null) {
+			m.setOriginName(file.getOriginalFilename());
+			m.setChangeName(changeName);
+			}
+		}
+		
+		m.setAddress(post+"/"+address1+"/"+address2);
+		//솔팅기법
+		System.out.println("암호화전 : "+m.getUserPwd());
+		String encPwd = bCryptPasswordEncoder.encode(m.getUserPwd());
+		System.out.println("암호화후 : "+encPwd);
+		m.setUserPwd(encPwd);
+		
+		//개인정보 등록
+		memberService.insertMember(m);
+		System.out.println(m);
+		
+		//사원 등록
+		employeeService.insertEmployee(emp);
+		
+		//회계정보 등록
+		salaryService.insertSalary(sal);
+		
+		PageInfo pi = PaginationEmp.getPageInfo(listCount, currentPage, 10, 10);
+		
+		ArrayList<Employee> list = employeeService.selectList(pi);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("pi",pi);
+		
+		
+		session.setAttribute("msg", "회원가입 성공");
+		return "employee/listEmp";
+		
+		
+		
+
+	}
+	
+	
+	private String saveFile(MultipartFile file, HttpServletRequest request) {
+
+		String resources = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = resources+"\\profile_files\\";
+		
+		System.out.println("savePath : " + savePath);
+		
+		String originName = file.getOriginalFilename();
+		
+		String currentTime = new SimpleDateFormat("yyyMMddHHmmss").format(new Date());
+		
+		String ext = originName.substring(originName.lastIndexOf("."));
+		
+		String changeName = currentTime + ext;
+		
+		try {
+			file.transferTo(new File(savePath + changeName));
+		} catch (IllegalStateException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new CommException("file upload error");
+		}
+		
+		return changeName;
+	}
 }

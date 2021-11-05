@@ -12,6 +12,6 @@ import lombok.ToString;
 @Getter
 @ToString
 public class Mrooms {
-	private int roomNo;
+	private String roomNo;
 	private String roomName;
 }
