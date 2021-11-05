@@ -63,6 +63,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="status" column="STATUS"/>
 	</resultMap>
 	
+	<resultMap id="memberResultSet" type="Member">
+      <id property="userNo" column="USER_NO"/>
+      <result property="empId" column="EMP_ID"/>
+      <result property="userPwd" column="USER_PWD"/>
+      <result property="userName" column="USER_NAME"/>
+      <result property="userSsn" column="USER_SSN"/>
+      <result property="email" column="EMAIL"/>
+      <result property="phone" column="PHONE"/>
+      <result property="address" column="ADDRESS"/>
+      <result property="gender" column="GENDER"/>
+      <result property="originName" column="ORIGIN_NAME"/>
+      <result property="changeName" column="CHANGE_NAME"/>
+      <result property="status" column="STATUS"/>
+   </resultMap>
+	
 	<!-- 메일 작성 -->
 	<insert id="insertMail" parameterType="Mail">
 		insert into mail
@@ -140,6 +155,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SET RECEIVER_STATUS=2
 		WHERE MAIL_NO=${mno}
 	</update>
+	
+	<insert id="resendMail" parameterType="Mail">
+		insert into mail
+		values(seq_mno.nextval, #{empId}, #{receiver}, #{title}, #{content}, sysdate, default,
+				#{importantFlag},  default, default, #{originName}, #{changeName})
+	</insert>
+	
+	<select id="getReceiver" resultMap="memberResultSet" parameterType="String">
+		SELECT * FROM MEMBER
+		WHERE USER_NAME=#{receiver}
+	</select>
+	
 	
 	
 	<!--

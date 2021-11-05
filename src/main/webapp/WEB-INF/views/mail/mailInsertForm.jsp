@@ -54,66 +54,57 @@ label {
 
 				<!-- 메일 폼 시작 -->
 				<div class="pd-20 card-box mb-30">
-					<div class="clearfix">
-						<div class="pull-left">
-							<h4 class="text-blue h4">사내 메일 작성</h4>
-							<p class="mb-30">메일 작성에 대한 안내사항 적기</p>
-						</div>
-					</div>
+					
 					<form action="insert.ml" method="post"
 						enctype="multipart/form-data">
-						<div class="form-group">
-							<label id="title">보내는 사람</label> <input type="text" readonly
-								class="form-control-plaintext" 
-								value="${ sessionScope.loginUser.userName }">
+						
 								<input type="hidden" readonly
 								class="form-control-plaintext" name="empId"
 								value="${ sessionScope.loginUser.empId }">
-						</div>
-
-
+						
 
 						<div class="form-group">
-							<label id="title">받는 사람</label>
 							<div class="mailReceiver">
 								<div class="form-group">
 									<input class="form-control" value="" type="text"
-										name="receiver" required="required">
+										name="receiver" required="required" placeholder="받는 사람">
 								</div>
 								<div class="form-group">
 									<button type="button" class="btn btn-primary" data-backdrop="static" data-toggle="modal" data-target="#member-modal">주소록</button>
 								</div>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label id="title">제목</label> <input class="form-control" value=""
-								type="text" name="title" required="required">
-						</div>
-						<div class="form-group">
-							<label id="title">파일 첨부</label> <input type="file"
-								class="form-control-file form-control height-auto"
-								name="uploadFile">
-						</div>
-						<div class="form-group">
-							<div class="row">
-								<div class="col-md-6 col-sm-12">
-									<label class="weight-600"></label>
+								<div class="">
 									<div class="custom-control custom-checkbox mb-5">
 										<input type="checkbox" class="custom-control-input"
-											id="customCheck1" name="importantFlag" value="1"> <label
-											class="custom-control-label" for="customCheck1">중요 메일</label>
+												id="customCheck1" name="importantFlag" value="1"> <label
+												class="custom-control-label" for="customCheck1">중요 메일</label>
 									</div>
 								</div>
+								<br>
+								
+								<input class="form-control" value=""
+								type="text" name="title" required="required" placeholder="메일 제목을 입력해주세요.">
+								<br>
+								<br>
+								
+								
 							</div>
+							
 						</div>
 						<div class="form-group">
-							<label id="title">내용</label>
-							<textarea class="form-control" name="content" required="required"></textarea>
+							<input type="file"
+								class="form-control-file form-control height-auto"
+								name="uploadFile">
+							</div>
+
+						
+						<div class="form-group">
+							<textarea class="textarea_editor form-control border-radius-0" name="content" required="required" placeholder="메일 내용을 입력해주세요."></textarea>
 						</div>
+						
+					
 						<div class="clearfix">
 							<div class="pull-right">
-								<button type="reset" class="btn btn-outline-danger">취소</button>
+								<!-- <button type="button" onclick="" class="btn btn-outline-danger">취소</button> -->
 								<button type="submit" class="btn btn-primary">메일 전송</button>
 							</div>
 						</div>
@@ -123,7 +114,6 @@ label {
 			</div>
 		</div>
 	</div>
-	
 	
 			
 			

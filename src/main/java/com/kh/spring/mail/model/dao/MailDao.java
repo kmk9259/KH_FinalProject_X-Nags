@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.spring.mail.model.vo.Mail;
 import com.kh.spring.mail.model.vo.PageInfo;
+import com.kh.spring.member.model.vo.Member;
 
 @Repository
 public class MailDao {
@@ -69,5 +70,20 @@ public class MailDao {
 		
 		return sqlSession.update("mailMapper.wasteReceiveMail", mno);
 	}
+
+	public int resendMail(SqlSessionTemplate sqlSession, Mail m) {
+		
+		return sqlSession.insert("mailMapper.resendMail", m);
+	}
+
+	public Member getReceiver(SqlSessionTemplate sqlSession, String receiver) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("mailMapper.getReceiver", receiver);
+	}
+
+//	public Member getReceiver(SqlSessionTemplate sqlSession, String receiver) {
+//
+//		return sqlSession.selectOne("mailMapper.getReceiver", receiver);
+//	}
 
 }

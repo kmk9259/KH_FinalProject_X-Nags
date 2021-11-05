@@ -11,6 +11,7 @@ import com.kh.spring.employee.model.vo.Employee;
 import com.kh.spring.mail.model.dao.MailDao;
 import com.kh.spring.mail.model.vo.Mail;
 import com.kh.spring.mail.model.vo.PageInfo;
+import com.kh.spring.member.model.vo.Member;
 
 @Service
 public class MailServiceImpl implements MailService {
@@ -95,6 +96,31 @@ public class MailServiceImpl implements MailService {
 		}
 		
 	}
+
+
+	@Override
+	public void resendMail(Mail m) {
+
+		int result = mailDao.resendMail(sqlSession, m);
+		
+		if(result < 0) {
+			throw new CommException("메일 재전송 실패");
+		}
+		
+	}
+
+
+	@Override
+	public Member getReceiver(String receiver) {
+		return mailDao.getReceiver(sqlSession, receiver);
+	}
+
+
+//	@Override
+//	public Member getReceiver(String receiver) {
+//		
+//		return mailDao.getReceiver(sqlSession, receiver);
+//	}
 	
 
 	
