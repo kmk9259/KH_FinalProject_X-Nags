@@ -21,7 +21,8 @@
 	<typeAlias type="com.kh.spring.community.model.vo.Notice_Reply" alias="Notice_Reply" /> 
 	<typeAlias type="com.kh.spring.meetingroom.model.vo.Mrooms" alias="Mrooms" /> 
 	<typeAlias type="com.kh.spring.employee.model.vo.Right" alias="Right"/>
-	<typeAlias type="com.kh.spring.employee.model.vo.SalGrade" alias="SalGrade"/>      
+	<typeAlias type="com.kh.spring.employee.model.vo.SalGrade" alias="SalGrade"/>     
+	<typeAlias type="com.kh.spring.salary.model.vo.Salary" alias="Salary"/>  
    </typeAliases>
 
 
@@ -36,6 +37,7 @@
     <mapper resource="/mappers/notice-mapper.xml" />
 	<mapper resource="/mappers/noticeReply-mapper.xml" />
 	<mapper resource="/mappers/meetingRoom-mapper.xml" />
+	<mapper resource="/mappers/salary-mapper.xml" />
    </mappers>
 
 

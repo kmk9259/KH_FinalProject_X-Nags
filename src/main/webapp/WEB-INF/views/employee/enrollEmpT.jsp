@@ -424,7 +424,7 @@ p {
 								
 								
 								
-								<input type="button" name="next" class="next action-button" value="Next"  /> 
+								<input type="button" name="next" class="next1 action-button" value="Next"  /> 
 								
 								
 								
@@ -439,7 +439,7 @@ p {
 							<label class="col-sm-12 col-md-2 col-form-label" >직급코드(*)</label>
 							<div class="col-sm-12 col-md-10">
 
-								<select class="form-control" id="jobCode" name="jobCode" class="required">
+								<select class="form-control" id="jobCode" name="jobCode" required>
 									<option selected disabled hidden="hidden" value="">직급을 선택하세요</option>
 									
 									
@@ -513,24 +513,26 @@ p {
 						<tbody>
 							<tr>
 								<th scope="row">기본급</th>
-								<!-- onkeyup="inputNumberFormat(this)" -->
-								<td><input type="text" class="form-control" id="money1" name="money1" onkeyup="inputNumberFormat(this)"></td>
+								<td><input type="text" class="form-control" id="money1"  onkeyup="inputNumberFormat(this)">
+								<input type="hidden" class="form-control" id="money11" name="total">
+								</td>
+								
 								<th>소득세</th>
-								<td><input type="text" class="form-control" disabled></td>
+								<td><input type="text" class="form-control" id="incometax"  name="incomeTax" onkeyup="inputNumberFormat(this)" disabled></td>
 								
 							</tr>
 							<tr>
 								<th scope="row">보너스</th>
-								<td><input type="text" class="form-control" id="money2" name="money1" onkeyup="inputNumberFormat(this)"></td>
+								<td><input type="text" class="form-control" id="money2" name="commission" onkeyup="inputNumberFormat(this)"></td>
 								<th>고용 보험</th>
-								<td><input type="text" class="form-control" disabled></td>
+								<td><input type="text" class="form-control" id="empIn" name="empInsurance" onkeyup="inputNumberFormat(this)" disabled></td>
 								
 							</tr>
 							<tr>
 								<th scope="row">식대</th>
-								<td><input type="text" class="form-control" id="money3" name="money1" onkeyup="inputNumberFormat(this)"></td>
+								<td><input type="text" class="form-control" id="money3" name="meal" onkeyup="inputNumberFormat(this)"></td>
 								<th>국민 연금</th>
-								<td><input type="text" class="form-control" disabled></td>
+								<td><input type="text" class="form-control" id="retirement" name="retirement" onkeyup="inputNumberFormat(this)" disabled></td>
 								
 							</tr>
 							
@@ -538,7 +540,7 @@ p {
 								<th scope="row"></th>
 								<td></td>
 								<th>건강 보험</th>
-								<td><input type="text" class="form-control" disabled></td>
+								<td><input type="text" class="form-control" id="health" name="healthInsurance" onkeyup="inputNumberFormat(this)" disabled></td>
 								
 							</tr>
 							
@@ -548,13 +550,13 @@ p {
 								<th scope="row">지급 총액</th>
 								<td><input type="text" class="form-control" id="sum01" onkeyup="inputNumberFormat(this)" disabled></td>
 								<th>공제 총액</th>
-								<td><input type="text" class="form-control" disabled></td>
+								<td><input type="text" class="form-control"  id="result" onkeyup="inputNumberFormat(this)" disabled></td>
 								
 							</tr>
 							
 							 <tr>
 							  <th colspan="2">차감 지급액</th> 
-								<td colspan="2"><input type="text" class="form-control" disabled></td>
+								<td colspan="2"><input type="text" class="form-control" id="sum02"  onkeyup="inputNumberFormat(this)" disabled></td>
 								
 								
 								
@@ -564,26 +566,71 @@ p {
 					</table>
 					
 					
-					<!-- 숫자 패턴 함수 -->
+					<!--==========================숫자 패턴 함수 (회계관련)================= -->
 								<script>
 								
 								function inputNumberFormat(obj) {
 								     obj.value = comma(uncomma(obj.value));
 								     
 								     var sum =document.getElementById('sum01');
+								     var sum2 =document.getElementById('sum02');
 								     var n1 = document.getElementById('money1');
 								     var n2 = document.getElementById('money2');
 								     var n3 = document.getElementById('money3');
 								     
-								   
+								     var nh1 = document.getElementById('money11');
+								    /*  var nh2 = document.getElementById('money2');
+								     var nh3 = document.getElementById('money3'); */
 								     
+								     var n4 = document.getElementById('incometax');
+								     var n5 = document.getElementById('empIn');
+								     var n6 = document.getElementById('retirement');
+								     var n7 = document.getElementById('health');
+								     
+								     var n8 = document.getElementById('result');
+								     
+								   
+								     /*필드에 담긴(스트링 숫자 ) 값을 int 로 변환(콤마 제거) */
 								     var num1 = parseInt((n1.value).replace(/,/g,""));
 								     var num2 = parseInt((n2.value).replace(/,/g,""));
 								     var num3 = parseInt((n3.value).replace(/,/g,""));
-								    
+								     
+								   /*   var numh1=nh1.val();
+								     
+								     console.log(numh1); */
+								     
+								     
+								    /*숫자로 변화한 필드값을 합침*/
 								     var total = num1 + num2 + num3; 
-								     console.log("숫자로? 콤마 없이 "+total);
+								     /* console.log("숫자로? 콤마 없이 기본 총 지급액 "+total); */
+								     
+								     /*4대 보험 계산*/
+								     var incometax = total * 0.033;
+								     var empIn = total * 0.0065;
+								     var retirement = total * 0.045;
+								     var health = total * 0.0306;
+								     
+								     /*4대 보험 합산*/
+								     var total2 = incometax + empIn + retirement + health; 
+								     
+								     /* 지급액 - 공제액 */
+								     var finalresult = total - total2 ;
+								    
+								     /* 4대 보험 칸 자동 완성 (콤마 포함)*/
+								     n4.value = incometax.toString().replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+								     n5.value = empIn.toString().replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+								     n6.value = retirement.toString().replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+								     n7.value = health.toString().replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+								     
+								     /*공제 금액 총합(콤마 찍기)*/
+								   	 n8.value = total2.toString().replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+								      
+								     
+								   	/*지급 총합(콤마 찍기)*/
 								     sum.value  = total.toString().replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+								     
+								     /*차감 지급 총합(콤마 찍기)*/
+								     sum2.value = finalresult.toString().replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
 								 }
 
 								 function comma(str) {
@@ -609,20 +656,12 @@ p {
 		                  
 		                  
 		                
-		                  <script>
-		                  /* $(document).ready(function(){
-		                	  var i = document.getElementById("money1").value;
-		                	
-		                	 
-								 console.log(i);
-							 }) */
-		                  
-		                  </script>
+		                
 		                  
 		                  
 		                  
 		                
-                        <input type="button" name="next" class="next action-button" value="Next"  /> 
+                        <input type="button" name="next" class="next2 action-button" value="Next" /> 
                         <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
                     
 		                    </fieldset>
@@ -632,8 +671,8 @@ p {
 		                        <div class="text-center">
 							<label class="title">사원 프로필 사진</label>
 							<div>
-								<a class="fileRemove" id="close"> X </a> <img name="uploadFile"
-									id="uploadFile" width="200px" height="180">
+								<a class="fileRemove" id="close"> X </a>
+								<img name="uploadFile" id="uploadFile" width="200px" height="180">
 
 							</div>
 							<br>
@@ -664,8 +703,7 @@ p {
 									if (inputFile.files.length == 1) {//file이 존재 할경우 
 										var reader = new FileReader();// 파일을 읽어들이 FileReader객체를 생성 
 
-										reader
-												.readAsDataURL(inputFile.files[0]);//파일을 읽어주는 메소드  --> 해당 파일을 읽어서 url을 부여 (문자열로 저장 )
+										reader.readAsDataURL(inputFile.files[0]);//파일을 읽어주는 메소드  --> 해당 파일을 읽어서 url을 부여 (문자열로 저장 )
 
 										reader.onload = function(e) {//파일 읽기가 다완료 되면 실행할 메소드 
 											console.log(e);
@@ -691,7 +729,7 @@ p {
 
 
 						</div>
-								<input type="button" name="next" class="next action-button" value="Submit" />
+								<input type="button" name="next" class="next3 action-button" value="Submit!!" />
 								<input type="button" name="previous" class="previous action-button-previous" value="Previous" />
 		                    </fieldset>
 		                    
@@ -727,12 +765,13 @@ p {
 			
 
 			
+			
 		
 			
 			$(document).ready(function(){
 				
 				
-				
+
 				
 				
 
@@ -743,12 +782,12 @@ p {
 
 				setProgressBar(current);
 
-				$(".next").click(function(){
+				$(".next1").click(function(){
 					
 					
 					
-					/*=====================유효성 검사 =====================*/
-					/* var userName = $("#msform input[name=userName]");
+					 /*=====================유효성 검사 =====================*/
+					  var userName = $("#msform input[name=userName]");
 
 					if(userName.val() == ''){
 						
@@ -865,19 +904,26 @@ p {
 						$("input[name=gender]:radio:checked").focus();
 						 return false;
 					} 
-					 */
+					  
+					
+					current_fs = $(this).parent();
+					next_fs = $(this).parent().next(); 
+					 
 					
 					/*=====================유효성 검사 끝 =====================*/
+				
 					
 
-				current_fs = $(this).parent();
-				next_fs = $(this).parent().next();
+
 
 				//Add Class Active
 				$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
 
 				//show the next fieldset
 				next_fs.show();
+				
+	
+				
 				//hide the current fieldset with style
 				current_fs.animate({opacity: 0}, {
 				step: function(now) {
@@ -929,9 +975,253 @@ p {
 				$(".progress-bar")
 				.css("width",percent+"%")
 				}
+				
+				
+				
+				/* =============== step 2=============  */
+				
+				
+				$(".next2").click(function(){
+					
+					
+					
+					 /*=====================유효성 검사 =====================*/
+					
+					 
+					  var jobCode = document.getElementById("jobCode").selectedIndex;
+					 console.log(jobCode);
+					  if(jobCode === 0)
+					  {
+							alert("직업 코드를 선택하세요")
+							document.getElementById("jobCode").focus();
+							e.preventDefault();
+							return false;
+					  } 
+					  
+					  
+					  var deptCode = document.getElementById("deptCode").selectedIndex;
+						 console.log(deptCode);
+						  if(deptCode === 0)
+						  {
+								alert("부서를 선택하세요")
+								document.getElementById("deptCode").focus();
+								e.preventDefault();
+								return false;
+						  } 
+						  
+						  
+					  var salLevel = document.getElementById("salLevel").selectedIndex;
+							 console.log(salLevel);
+							  if(salLevel === 0)
+							{
+									alert("급여등급을 선택하세요")
+									document.getElementById("salLevel").focus();
+									e.preventDefault();
+									return false;
+							} 
+					
+					
+					
+					var money1 = $("#money1").val();
+					
+					
+					if(money1 == ""){
+						alert("기본급을 입력하세요")
+						document.getElementById("money1").focus();
+						
+						return false;
+					}
+					
+					
+					var money2 = $("#money2").val();
+					
+					
+					if(money2 == ""){
+						alert("보너스를 입력하세요")
+						document.getElementById("money2").focus();
+						
+						return false;
+					}
+					
+					
+					var money3 = $("#money3").val();
+					
+					
+					if(money3 == ""){
+						alert("식대를 입력하세요")
+						document.getElementById("money3").focus();
+						
+						return false;
+					}
+					 
+					/*=====================유효성 검사 끝 =====================*/
+				
+				
+					current_fs = $(this).parent();
+					next_fs = $(this).parent().next(); 
+
+
+
+				//Add Class Active
+				$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+				//show the next fieldset
+				next_fs.show();
+				
+	
+				
+				//hide the current fieldset with style
+				current_fs.animate({opacity: 0}, {
+				step: function(now) {
+				// for making fielset appear animation
+				opacity = 1 - now;
+
+				current_fs.css({
+				'display': 'none',
+				'position': 'relative'
+				});
+				next_fs.css({'opacity': opacity});
+				},
+				duration: 500
+				});
+				setProgressBar(++current);
+				});
+
+				$(".previous").click(function(){
+
+				current_fs = $(this).parent();
+				previous_fs = $(this).parent().prev();
+
+				//Remove class active
+				$("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+
+				//show the previous fieldset
+				previous_fs.show();
+
+				//hide the current fieldset with style
+				current_fs.animate({opacity: 0}, {
+				step: function(now) {
+				// for making fielset appear animation
+				opacity = 1 - now;
+
+				current_fs.css({
+				'display': 'none',
+				'position': 'relative'
+				});
+				previous_fs.css({'opacity': opacity});
+				},
+				duration: 500
+				});
+				setProgressBar(--current);
+				});
+
+				function setProgressBar(curStep){
+				var percent = parseFloat(100 / steps) * curStep;
+				percent = percent.toFixed();
+				$(".progress-bar")
+				.css("width",percent+"%")
+				}
+				
+				
+				
+				
+					/* =============== step 3=============  */
+				
+				
+				$(".next3").click(function(){
+					
+					
+					
+					 /*=====================유효성 검사 =====================*/
+					
+					 alert("hi");
+					 var file = $("#file").val();
+					 console.log(file);
+					 
+					 if(file == ""){
+						 alert("사진을 등록하세요")
+							document.getElementById("file").focus();
+							
+							return false;
+						 
+					 }
+					
+					/*=====================유효성 검사 끝 =====================*/
+				
+				
+					current_fs = $(this).parent();
+					next_fs = $(this).parent().next(); 
+
+
+
+				//Add Class Active
+				$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+				//show the next fieldset
+				next_fs.show();
+				
+	
+				
+				//hide the current fieldset with style
+				current_fs.animate({opacity: 0}, {
+				step: function(now) {
+				// for making fielset appear animation
+				opacity = 1 - now;
+
+				current_fs.css({
+				'display': 'none',
+				'position': 'relative'
+				});
+				next_fs.css({'opacity': opacity});
+				},
+				duration: 500
+				});
+				setProgressBar(++current);
+				});
+
+				$(".previous").click(function(){
+
+				current_fs = $(this).parent();
+				previous_fs = $(this).parent().prev();
+
+				//Remove class active
+				$("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+
+				//show the previous fieldset
+				previous_fs.show();
+
+				//hide the current fieldset with style
+				current_fs.animate({opacity: 0}, {
+				step: function(now) {
+				// for making fielset appear animation
+				opacity = 1 - now;
+
+				current_fs.css({
+				'display': 'none',
+				'position': 'relative'
+				});
+				previous_fs.css({'opacity': opacity});
+				},
+				duration: 500
+				});
+				setProgressBar(--current);
+				});
+
+				function setProgressBar(curStep){
+				var percent = parseFloat(100 / steps) * curStep;
+				percent = percent.toFixed();
+				$(".progress-bar")
+				.css("width",percent+"%")
+				}
+				
+				
+				
+				
 
 				$(".submit").click(function(){
-				return false;
+
+					
+				return true;
 				})
 
 				});
