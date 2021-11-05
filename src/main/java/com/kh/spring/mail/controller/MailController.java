@@ -142,7 +142,7 @@ public class MailController {
 	}
 	
 	//받은메일에서 휴지통으로
-	@RequestMapping("checkDelete.ml")
+	@RequestMapping("wasteCheckedReceiveMail.ml")
 	public ModelAndView wasteReceiveMail(ModelAndView mv, HttpServletRequest request,
 										@RequestParam(name="checkList") String checkList ) {
 		
@@ -164,6 +164,26 @@ public class MailController {
 		
 		return mv;
 		
+	}
+	
+	//보낸메일보기->메일다시보내기
+	@RequestMapping("resend.ml")
+	public String resendMail(@RequestParam(name="mno") int mno) {
+		
+		//보낸메일 가져오기
+		Mail m = mailService.selectSendMail(mno);
+		System.out.println("보낸메일다시보내기 ~~ " + m);
+		
+		//아이디 가져오기
+		Member id =  mailService.getReceiver(m.getReceiver());
+		
+		m.setTitle("[재전송] "+m.getTitle());
+		m.setReceiver(id.getEmpId());
+		//m.setReceiver(id);
+		
+		mailService.resendMail(m);
+		
+		return "redirect:sendList.ml";
 	}
 	
 	//휴지통

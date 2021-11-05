@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.kh.spring.mail.model.vo.Mail;
 import com.kh.spring.mail.model.vo.PageInfo;
+import com.kh.spring.member.model.vo.Member;
 
 public interface MailService {
 
@@ -22,5 +23,11 @@ public interface MailService {
 	Mail selectReceiveMail(int mno);
 
 	void wasteReceiveMail(int mno);
+
+	void resendMail(Mail m);
+
+	Member getReceiver(String receiver);
+
+	//Member getReceiver(String receiver);
 
 }
