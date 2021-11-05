@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -130,9 +132,14 @@
 				  <tbody>				    
 				    <c:forEach items="${ attMyList }" var="att">
 	                    <tr>
+	                    	<c:set var="getIntime" value="${att.attendanceInTime}"/>
+	                    	<c:set var="inTime" value="${fn:substring(getIntime,11,19) }"/>
+	                    	<c:set var="getOuttime" value="${att.attendanceOutTime}"/>
+	                    	<c:set var="outTime" value="${fn:substring(getOuttime,11,19) }"/>
+	                    	
 	                        <td>${ att.attendanceDate }</td>
-	                        <td>${ att.attendanceInTime }</td>
-	                        <td>${ att.attendanceOutTime }</td>
+	                        <td>${ inTime }</td>
+	                        <td>${ outTime }</td>
 	                        <td>${ att.attStatusName }</td>
 	                        
 	                    </tr>
@@ -150,7 +157,7 @@
 						},
 						success:function(att){
 							console.log("성공");
-							console.log(att);
+							
 							$("#inTime").html(att.attendanceInTime); 
 							$("#outTime").html(att.attendanceOutTime); 
 						}

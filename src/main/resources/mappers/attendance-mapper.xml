@@ -14,7 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="ATT_OUTTIME" property="attendanceOutTime"/>	
 		
 	</resultMap>
-	<resultMap id="attDayResultSet" type="Employee">
+	<resultMap id="attDateResultSet" type="Employee">
 		<id property="empId" column="EMP_ID"/>
 		<result column="DEPT_NAME" property="deptName"/>
 		<result column="JOB_NAME" property="jobName"/> 
@@ -30,7 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 
 	<select id="selectAttStatus" resultMap="attStatusResultSet">
-	SELECT * FROM ATT_STATUS	
+		SELECT * FROM ATT_STATUS	
 	</select>
 	
 	<insert id="insertIntime" parameterType="Employee">
@@ -45,34 +45,48 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<select id="selectTime" parameterType="Employee" resultMap="attendanceResultSet">
-	SELECT * FROM ATTENDANCE 
-	WHERE EMP_ID=#{empId} and TO_CHAR(SYSDATE, 'YY/MM/DD') = TO_CHAR(ATT_INTIME, 'YY/MM/DD')
+		SELECT * FROM ATTENDANCE 
+		WHERE EMP_ID=#{empId} and TO_CHAR(SYSDATE, 'YY/MM/DD') = TO_CHAR(ATT_INTIME, 'YY/MM/DD')
 	</select>
 	
 	<select id="selectAttMy" parameterType="Member" resultMap="attendanceResultSet">
-	SELECT EMP_ID, ATT_STATUS_NAME, ATT_DATE, ATT_INTIME, ATT_OUTTIME
-	FROM ATTENDANCE 
-	JOIN ATT_STATUS USING (ATT_STATUS_NO)
-	WHERE EMP_ID=#{empId}
-	ORDER BY ATT_DATE 
+		SELECT EMP_ID, ATT_STATUS_NAME, ATT_DATE, ATT_INTIME, ATT_OUTTIME
+		FROM ATTENDANCE 
+		JOIN ATT_STATUS USING (ATT_STATUS_NO)
+		WHERE EMP_ID=#{empId}
+		ORDER BY ATT_DATE 
 	</select>
 
-	<select id="selectAttDay" parameterType="Attendance" resultMap="attDayResultSet">
-	SELECT DEPT_NAME, JOB_NAME, USER_NAME, ATT_DATE, ATT_INTIME, ATT_OUTTIME
-	FROM EMPLOYEE 
-	JOIN JOB USING (JOB_CODE)
-	JOIN DEPARTMENT USING (DEPT_CODE)
-    JOIN MEMBER USING (EMP_ID)
-    JOIN ATTENDANCE USING (EMP_ID)
-	WHERE TO_CHAR(ATT_DATE, 'YYYY-MM-dd') = TO_CHAR(#{attendanceDate}, 'YYYY-MM-dd')
-    AND ATT_STATUS_NO =#{attStatusNo} 
-    <if test="orderBy.equals('dept_code')">
-    	ORDER BY DEPT_CODE, ATT_DATE
-    </if>
-    <if test="orderBy.equals('job_code')">
-    	ORDER BY JOB_CODE, ATT_DATE
-    </if>
-    
-	
+	<select id="selectAttDay" parameterType="Attendance" resultMap="attDateResultSet">
+		SELECT DEPT_NAME, JOB_NAME, USER_NAME, ATT_DATE, ATT_INTIME, ATT_OUTTIME
+		FROM EMPLOYEE 
+		JOIN JOB USING (JOB_CODE)
+		JOIN DEPARTMENT USING (DEPT_CODE)
+	    JOIN MEMBER USING (EMP_ID)
+	    JOIN ATTENDANCE USING (EMP_ID)
+		WHERE TO_CHAR(ATT_DATE, 'YYYY-MM-dd') = TO_CHAR(#{attendanceDate}, 'YYYY-MM-dd')
+	    AND ATT_STATUS_NO =#{attStatusNo} 
+	    <if test="orderBy.equals('dept_code')">
+	    	ORDER BY DEPT_CODE, ATT_DATE
+	    </if>
+	    <if test="orderBy.equals('job_code')">
+	    	ORDER BY JOB_CODE, ATT_DATE
+	    </if>
+	</select> 
+	<select id="selectAttMonth" parameterType="Attendance" resultMap="attDateResultSet">
+		SELECT DEPT_NAME, JOB_NAME, USER_NAME, ATT_DATE, ATT_INTIME, ATT_OUTTIME
+		FROM EMPLOYEE 
+		JOIN JOB USING (JOB_CODE)
+		JOIN DEPARTMENT USING (DEPT_CODE)
+	    JOIN MEMBER USING (EMP_ID)
+	    JOIN ATTENDANCE USING (EMP_ID)
+		WHERE TO_CHAR(ATT_DATE, 'YYYY-MM') =#{attMonthDate}
+	    AND ATT_STATUS_NO =#{attStatusNo} 
+	    <if test="orderBy.equals('dept_code')">
+	    	ORDER BY DEPT_CODE, ATT_DATE
+	    </if>
+	    <if test="orderBy.equals('job_code')">
+	    	ORDER BY JOB_CODE, ATT_DATE
+	    </if>
 	</select> 
 </mapper>

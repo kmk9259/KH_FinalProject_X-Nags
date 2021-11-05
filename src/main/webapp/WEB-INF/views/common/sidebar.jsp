@@ -81,7 +81,7 @@
                             <span class="micon dw dw-house-1"></span><span class="mtext">커뮤니티</span>
                         </a>
                         <ul class="submenu">
-                            <li><a href="">투표 게시판</a></li>
+                            <li><a href="voting.vo">투표 게시판</a></li>
                             <li><a href="list.bo">익명 게시판</a></li>
                             <li><a href="notice.bo">공지 사항</a></li>
                         </ul>

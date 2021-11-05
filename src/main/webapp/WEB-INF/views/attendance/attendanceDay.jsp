@@ -127,7 +127,7 @@
                     		dateFormat: "yyyy-mm-dd",
                     		language:"ko",
                     		onSelect: function(dateText) {
-                    			attendanceDate = dateText
+                    			attendanceDate = dateText;
                     	    }
                     		
                     });  
@@ -153,9 +153,10 @@
         							var $deptName = $('<td>').text(obj.deptName);
         							var $jobName = $('<td>').text(obj.jobName);
         							var $userName = $('<td>').text(obj.userName);
-        							var $attDate = $('<td>').text(obj.attDate);
-        							var $attInTime = $('<td>').text(obj.attInTime);
-        							var $attOutTime = $('<td>').text(obj.attOutTime);
+        							var $attDate = $('<td>').text(obj.attDate.substring(0,13));
+        							var $attInTime = $('<td>').text(obj.attInTime.substring(14,25));
+        							var $attOutTime = $('<td>').text(obj.attOutTime.substring(14,25));
+        							
         							
         							$tr.append($deptName);
         							$tr.append($jobName);

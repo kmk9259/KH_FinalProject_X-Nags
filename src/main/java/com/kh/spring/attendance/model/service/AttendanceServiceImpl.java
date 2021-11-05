@@ -49,11 +49,6 @@ public class AttendanceServiceImpl implements AttendanceService {
 	public Attendance selectTime(Employee emp) {
 		return attendanceDao.selectTime(sqlSession, emp);
 	}
-
-	/*
-	 * @Override public Attendance selectOuttime(Employee emp) { return
-	 * attendanceDao.selectOuttime(sqlSession, emp); }
-	 */
 	
 	@Override
 	public ArrayList<Attendance> selectAttMy(Member mem) {
@@ -63,6 +58,11 @@ public class AttendanceServiceImpl implements AttendanceService {
 	@Override
 	public ArrayList<Employee> selectAttDay(Attendance att) {
 		return attendanceDao.selectAttDay(sqlSession, att);
+	}
+
+	@Override
+	public ArrayList<Employee> selectAttMonth(Attendance att) {
+		return attendanceDao.selectAttMonth(sqlSession, att);
 	}
 
 	
