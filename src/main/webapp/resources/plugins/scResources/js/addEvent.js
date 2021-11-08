@@ -6,7 +6,6 @@ var editTitle = $('#edit-title');
 var editStart = $('#edit-start');
 var editEnd = $('#edit-end');
 var editType = $('#edit-type');
-var editUsername = $('#edit-username');
 var editColor = $('#edit-color');
 var editDesc = $('#edit-desc');
 
@@ -22,7 +21,6 @@ var newEvent = function (start, end, eventType) {
     $("#contextMenu").hide(); //메뉴 숨김
 
     modalTitle.html('새로운 일정');
-    editUsername.val('');
     editType.val(eventType).prop('selected', true);
     editTitle.val('');
     editStart.val(start);
@@ -48,7 +46,7 @@ var newEvent = function (start, end, eventType) {
             end: editEnd.val(),
             description: editDesc.val(),
             type: editType.val(),
-            username: editUsername.val(),
+            username: '사나',
             backgroundColor: editColor.val(),
             textColor: '#ffffff',
             allDay: false
@@ -83,7 +81,7 @@ var newEvent = function (start, end, eventType) {
 
         //새로운 일정 저장
         $.ajax({
-            type: "get", 
+            type: "get",
             url: "",
             data: {
                 //.....
