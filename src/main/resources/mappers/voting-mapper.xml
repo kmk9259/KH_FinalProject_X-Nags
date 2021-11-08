@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="votingMapper">
+<resultMap id="votingResultSet" type="Voting">
+		<id column="VOTING_NO" property="votingNo"/>
+		<result column="VOTING_TITLE" property="votingTitle"/>
+		<result column="VOTING_CONTENT" property="votingContent"/>
+		<result column="EMP_ID" property="empId"/>
+		<result column="VOTING_DATE" property="votingDate"/>
+</resultMap>
+
+ <select id="selectListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM VOTING
+	</select>
+
+	<select id="selectList"  resultMap="votingResultSet">
+		SELECT *
+		FROM VOTING 
+		ORDER BY VOTING_NO DESC
+	</select>
+
+</mapper>

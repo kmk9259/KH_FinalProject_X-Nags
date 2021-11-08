@@ -18,6 +18,7 @@
     <typeAlias type="com.kh.spring.community.model.vo.Board_Reply" alias="Board_Reply" /> 
     <typeAlias type="com.kh.spring.approval.model.vo.Approval" alias="Approval" /> 
     <typeAlias type="com.kh.spring.community.model.vo.Notice" alias="Notice" /> 
+    <typeAlias type="com.kh.spring.community.model.vo.Voting" alias="Voting" /> 
 	<typeAlias type="com.kh.spring.community.model.vo.Notice_Reply" alias="Notice_Reply" /> 
 	<typeAlias type="com.kh.spring.meetingroom.model.vo.Mrooms" alias="Mrooms" /> 
 	<typeAlias type="com.kh.spring.employee.model.vo.Right" alias="Right"/>
@@ -27,6 +28,7 @@
 
 
    <mappers>
+   <mapper resource="/mappers/voting-mapper.xml" />
    	<mapper resource="/mappers/member-mapper.xml" />
     <mapper resource="/mappers/mail-mapper.xml"/> 
     <mapper resource="/mappers/employee-mapper.xml"/>
