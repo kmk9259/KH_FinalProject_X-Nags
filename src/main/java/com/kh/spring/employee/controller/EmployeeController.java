@@ -50,40 +50,7 @@ public class EmployeeController {
 	private SalaryService salaryService;
 	
 	
-	@RequestMapping("enrollEmp.me")
-	public String enrollForm(Model model) {
-		
-		
-		ArrayList<Job> jlist = employeeService.selectJlist();
-		ArrayList<Department> dlist = employeeService.selectDlist();
-		ArrayList<Right> rlist = employeeService.selectRlist();
-		ArrayList<SalGrade> slist = employeeService.selectSlist();
-		
-		model.addAttribute("jlist", jlist);
-		model.addAttribute("dlist", dlist);
-		model.addAttribute("rlist", rlist);
-		model.addAttribute("slist", slist);
-		
-		return "employee/enrollEmp";
-	}
-	
-	
-	
-	
-	
-	@RequestMapping("insertEmp.me")
-	public String insertEmp(@ModelAttribute Employee emp, HttpSession session) {
 
-		employeeService.insertEmployee(emp);
-		
-		
-		
-		
-		session.setAttribute("msg","직원 등록 성공");
-		System.out.println(emp);
-		return "employee/enrollMem";
-	}
-	
 	
 	@RequestMapping("listEmp.me")
 	public String selectList(@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage, Model model) {
@@ -111,18 +78,7 @@ public class EmployeeController {
 		
 		
 		System.out.println(list);
-//		System.out.println("날짜 포멧 전 "+list.get(1).getHireDate());
-//		
-//		int i =0;
-//		for(i = 0; i <list.size(); i++) {
-//			SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
-//			
-//			//원하는 포멧으로 데이터 지정 
-//			String strCreateDate = sdf.format(list.get(i).getHireDate());
-//			System.out.println("날짜 포멧 후 "+ strCreateDate);;
-//			/* list.get(i).setHireDate(strCreateDate); */
-//		}
-		
+
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pi",pi);
@@ -132,7 +88,7 @@ public class EmployeeController {
 	}
 	
 	
-	@RequestMapping("enrollEmpT.me")
+	@RequestMapping("enrollEmp.me")
 	public String enrollFormT(Model model) {
 		
 		
@@ -146,11 +102,11 @@ public class EmployeeController {
 		model.addAttribute("rlist", rlist);
 		model.addAttribute("slist", slist);
 		
-		return "employee/enrollEmpT";
+		return "employee/enrollEmp";
 	}
 	
 	
-	@RequestMapping("insertEmp2.me")
+	@RequestMapping("insertEmp.me")
 	public String insertEmp2(@ModelAttribute Employee emp, HttpSession session, @ModelAttribute Salary sal,
 							 @ModelAttribute Member m, 
 							 @RequestParam("post") String post,
@@ -215,7 +171,7 @@ public class EmployeeController {
 		salaryService.insertSalary(sal);
 		
 		
-		session.setAttribute("msg", "회원가입 성공");
+		session.setAttribute("msg", "직원 등록 성공");
 		return "employee/listEmp";
 		
 		
@@ -248,5 +204,10 @@ public class EmployeeController {
 		}
 		
 		return changeName;
+	}
+	
+	@RequestMapping("empDetail.me")
+	public String empPage() {
+		return "employee/empDetail";
 	}
 }

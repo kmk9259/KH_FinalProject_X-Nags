@@ -71,8 +71,9 @@
                                     <li><a href="overtimeForm.ap">연장근무 신청</a></li>
                                 </ul>
                             </li>
-                            <li><a href="">진행중 결재함</a></li>
-                            <li><a href="">완료 결재함</a></li>
+                            <li><a href="apping.ap">진행중 결재함</a></li>
+                            <li><a href="askapp.ap">결재 요청함</a></li>
+                            <li><a href="apped.ap">완료 결재함</a></li>
                         </ul>
                         
                     </li>
@@ -109,12 +110,12 @@
                             <span class="micon dw dw-apartment"></span><span class="mtext">시스템 관리</span>
                         </a>
                         <ul class="submenu">
-							<li><a href="enrollEmp.me">사원 등록</a></li>
+							<li><a href="enrollEmp.me">사원 등록 </a></li>
                             <li><a href="listEmp.me">사원 조회 </a></li>
                             <li><a href="supplies.me">비품 예약 </a></li>
                             <li><a href="return.me">비품 반납 </a></li>
                             <li><a href="meetingRoom.me">회의실 예약 </a></li>
-                            <li><a href="enrollEmpT.me">사원 등록2 </a></li>
+                            
                         </ul>
                     </li>
                   </ul>
