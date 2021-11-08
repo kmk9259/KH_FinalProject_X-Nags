@@ -8,45 +8,38 @@
 <meta charset='utf-8' />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>X-Nomal Groupware Solution</title>
-<!-- 화면 해상도에 따라 글자 크기 대응(모바일 대응) -->
-<meta name="viewport"
-	content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<link href='https://use.fontawesome.com/releases/v5.0.6/css/all.css'
-	rel='stylesheet'>
 
-<link rel=" shortcut icon" href="image/favicon.ico">
 
-<link rel="stylesheet" href="vendor/css/fullcalendar.min.css" />
-<link rel="stylesheet" href="vendor/css/bootstrap.min.css">
-<link rel="stylesheet" href='vendor/css/select2.min.css' />
-<link rel="stylesheet"
-	href='vendor/css/bootstrap-datetimepicker.min.css' />
+<link rel=" shortcut icon" href="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/image/favicon.ico">
 
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,600">
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/css/fullcalendar.min.css" />
+<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/css/bootstrap.min.css">
+<link rel="stylesheet" href='${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/css/select2.min.css' />
+<link rel="stylesheet" href='${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/css/bootstrap-datetimepicker.min.css' />
 
-<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,600">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/css/main.css">
 
 </head>
 <body>
 
-	<jsp:include page="../common/menubar.jsp" />
+	<%-- <jsp:include page="../common/menubar.jsp" /> --%>
 
-	 <div class="container">
+	  <div class="container">
 
         <!-- 일자 클릭시 메뉴오픈 -->
         <div id="contextMenu" class="dropdown clearfix">
             <ul class="dropdown-menu dropNewEvent" role="menu" aria-labelledby="dropdownMenu"
                 style="display:block;position:static;margin-bottom:5px;">
-                <li><a tabindex="-1" href="#">내일정</a></li>
-                <li><a tabindex="-1" href="#">부서일정</a></li>
-                <li><a tabindex="-1" href="#">회사전체일정</a></li>
+                <li><a tabindex="-1" href="#">일정등록</a></li>
+                
                 <li class="divider"></li>
                 <li><a tabindex="-1" href="#" data-role="close">Close</a></li>
             </ul>
         </div>
+
 
         <div id="wrapper">
             <div id="loading"></div>
@@ -77,6 +70,13 @@
                                 <label class="col-xs-4" for="edit-title">일정명</label>
                                 <input class="inputModal" type="text" name="edit-title" id="edit-title"
                                     required="required" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <label class="col-xs-4" for="edit-username">사원이름</label>
+                                <input class="inputModal" type="text" name="edit-username" id="edit-username"
+                                    required="required" readonly />
                             </div>
                         </div>
                         <div class="row">
@@ -158,24 +158,39 @@
                     </div>
                 </div>
 
- 
+                <div class="col-lg-6">
+                    <label for="calendar_view">등록자별</label>
+                    <div class="input-group">
+                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="정연"
+                                checked>정연</label>
+                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="다현"
+                                checked>다현</label>
+                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="사나"
+                                checked>사나</label>
+                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="나연"
+                                checked>나연</label>
+                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="지효"
+                                checked>지효</label>
+                    </div>
+                </div>
+
             </div>
         </div>
         <!-- /.filter panel -->
     </div>
     <!-- /.container -->
-
-    <script src="vendor/js/jquery.min.js"></script>
-    <script src="vendor/js/bootstrap.min.js"></script>
-    <script src="vendor/js/moment.min.js"></script>
-    <script src="vendor/js/fullcalendar.min.js"></script>
-    <script src="vendor/js/ko.js"></script>
-    <script src="vendor/js/select2.min.js"></script>
-    <script src="vendor/js/bootstrap-datetimepicker.min.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/addEvent.js"></script>
-    <script src="js/editEvent.js"></script>
-    <script src="js/etcSetting.js"></script>
+    
+    <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/jquery.min.js"></script>
+    <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/bootstrap.min.js"></script>
+    <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/moment.min.js"></script>
+    <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/fullcalendar.min.js"></script>
+    <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/ko.js"></script>
+    <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/select2.min.js"></script>
+    <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/js/main.js"></script>
+    <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/js/addEvent.js"></script>
+    <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/js/editEvent.js"></script>
+    <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/js/etcSetting.js"></script>
 
 	<jsp:include page="../common/footer.jsp" />
 </body>
