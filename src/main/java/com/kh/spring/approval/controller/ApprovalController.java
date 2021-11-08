@@ -3,6 +3,7 @@ package com.kh.spring.approval.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +17,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.spring.approval.model.service.ApprovalService;
 import com.kh.spring.approval.model.vo.Approval;
+import com.kh.spring.common.PaginationMail;
 import com.kh.spring.common.exception.CommException;
+import com.kh.spring.mail.model.vo.PageInfo;
+import com.kh.spring.member.model.vo.Member;
 
 @Controller
 public class ApprovalController {
@@ -42,6 +46,7 @@ public class ApprovalController {
 		return "approval/requestOvertimeForm";
 	}
 	
+	//전자 결재 신청
 	@RequestMapping("insert.ap")
 	public String insertApproval(Approval app, HttpServletRequest request, Model model,
 			@RequestParam(name="uploadFile", required=false) MultipartFile file) {
@@ -62,27 +67,45 @@ public class ApprovalController {
 	}
 
 	//파일 저장
-		private String saveFile(MultipartFile file, HttpServletRequest request) {
+	private String saveFile(MultipartFile file, HttpServletRequest request) {
 
-			String resources = request.getSession().getServletContext().getRealPath("resources");
-			String savePath = resources+"\\approval_files\\";
+		String resources = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = resources+"\\approval_files\\";
+		
+		String originalName = file.getOriginalFilename();
+		String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+		
+		String ext = originalName.substring(originalName.lastIndexOf("."));
+		String changeName = currentTime+ext;
+		
+		try {
+			file.transferTo(new File(savePath + changeName));
 			
-			String originalName = file.getOriginalFilename();
-			String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-			
-			String ext = originalName.substring(originalName.lastIndexOf("."));
-			String changeName = currentTime+ext;
-			
-			try {
-				file.transferTo(new File(savePath + changeName));
-				
-			} catch (IllegalStateException | IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				throw new CommException("file upload error");
-				//에러가 났을 때 업로드를 시킬건지 말지 설계 시 결정
+		} catch (IllegalStateException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new CommException("file upload error");
+			//에러가 났을 때 업로드를 시킬건지 말지 설계 시 결정
 			}
 			
 			return changeName;
-		}
+	}
+	
+	//진행중 결재함
+	@RequestMapping("apping.ap")
+	public String selectApprovalList(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage, Model model,
+									HttpServletRequest request) {
+		
+		Member mem = (Member) request.getSession().getAttribute("loginUser");
+
+		int listCount = approvalService.selectApprovalListCount(mem.getEmpId());
+		
+		PageInfo pi = PaginationMail.getPageInfo(listCount, currentPage, 10, 10);
+
+		ArrayList<Approval> appList = approvalService.selectApprovalList(pi, mem.getEmpId());
+		
+		
+		return null;
+	}
+	
 }

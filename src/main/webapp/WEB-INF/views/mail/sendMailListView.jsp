@@ -22,6 +22,13 @@
 
 <jsp:include page="../common/menubar.jsp" />
 
+<c:if test="${ !empty msg }">
+	<script>
+		alert("${msg}");
+	</script>
+	<c:remove var="msg" scope="session"/>
+</c:if>
+
 <div class="main-container">
 		<div class="pd-ltr-20 xs-pd-20-10">
 			<div class="min-height-200px">

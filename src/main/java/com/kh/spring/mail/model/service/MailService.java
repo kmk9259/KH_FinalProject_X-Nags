@@ -28,6 +28,9 @@ public interface MailService {
 
 	Member getReceiver(String receiver);
 
-	//Member getReceiver(String receiver);
+	void insertSendDelivery(Mail m);
+
+	void wasteSendMail(int mno);
+
 
 }

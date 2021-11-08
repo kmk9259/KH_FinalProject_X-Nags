@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="approvalMapper">
 
 	   
-	<resultMap type="approval" id="appResultSet">
+	<resultMap type="Approval" id="appResultSet">
 		<id column="APP_NO" property="appNo"/>
 		<result column="EMP_ID" property="empId"/>
 		<result column="CATEGORY" property="category"/>
@@ -23,12 +23,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="CHANGE_NAME" property="changeName"/>
 	</resultMap>
 	
-	<insert id="insertApproval">
+	<!-- 결재 전송 -->
+	<insert id="insertApproval" parameterType="Approval">
 		INSERT INTO APPROVAL
 		VALUES
-		(SEQ_ANO.NEXTVAL, #{empId}, #{category}, #{appMid}, #{appFin}, #{appMid}, default,
+		(SEQ_ANO.NEXTVAL, #{empId}, #{category}, #{appMid}, #{appFin}, default,
 		 #{title}, #{content}, sysdate, #{appDate}, null,  null, #{originName}, #{changeName})
 	</insert>
+	
+	<!-- 진행중 결재함 수 -->
+	<select id="selectApprovalListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM MAIL
+		WHERE EMP_ID=#{empId}
+		AND APP_STATUS=1
+	</select>
+	
+	<!-- 진행중 결재함 리스트 -->
+	<select id="selectApprovalList" resultMap="appResultSet">
+		SELECT *
+		FROM APPROVAL A
+		JOIN MEMBER B ON A. 
+	</select>
+	
 
 	
 </mapper>

@@ -150,23 +150,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE MAIL_NO=${mno}
 	</update>
 	
+	<!-- 받은메일리스트에서 휴지통 -->
 	<update id="wasteReceiveMail" parameterType="_int">
 		UPDATE MAIL
 		SET RECEIVER_STATUS=2
 		WHERE MAIL_NO=${mno}
 	</update>
 	
+	<!-- 보낸메일 재전송 -->
 	<insert id="resendMail" parameterType="Mail">
 		insert into mail
 		values(seq_mno.nextval, #{empId}, #{receiver}, #{title}, #{content}, sysdate, default,
 				#{importantFlag},  default, default, #{originName}, #{changeName})
 	</insert>
 	
+	<!-- 아름으로 아이디 불러오기 -->
 	<select id="getReceiver" resultMap="memberResultSet" parameterType="String">
 		SELECT * FROM MEMBER
 		WHERE USER_NAME=#{receiver}
 	</select>
 	
+	<!-- 보낸메일 전달 -->
+	<insert id="insertSendDelivery" parameterType="Mail">
+		insert into mail
+		values(seq_mno.nextval, #{empId}, #{receiver}, #{title}, #{content}, sysdate, default,
+				#{importantFlag},  default, default, #{originName}, #{changeName})
+	</insert>
+	
+	<update id="wasteSendMail" parameterType="_int">
+		UPDATE MAIL
+		SET WRITER_STATUS=2
+		WHERE MAIL_NO=${mno}
+	</update>
 	
 	
 	<!--

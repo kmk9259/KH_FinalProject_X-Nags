@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,173 +26,231 @@ import com.kh.spring.member.model.vo.Member;
 
 @Controller
 public class MailController {
-	
+
 	@Autowired
 	private MailService mailService;
-	
-	//메일 작성 폼 열기
+
+	// 메일 작성 폼 열기
 	@RequestMapping("insertForm.ml")
 	public String insertMailForm() {
 		return "mail/mailInsertForm";
 	}
-	
-	//메일 작성하기
+
+	// 메일 작성하기
 	@RequestMapping("insert.ml")
-	public String insertMail(Mail m, HttpServletRequest request, Model model,
-			@RequestParam(name="uploadFile", required=false) MultipartFile file) {
-		
-		if(!file.getOriginalFilename().equals("")) {
+	public String insertMail(Mail m, HttpServletRequest request, HttpSession session,
+			@RequestParam(name = "uploadFile", required = false) MultipartFile file) {
+
+		if (!file.getOriginalFilename().equals("")) {
 			String changeName = saveFile(file, request);
-			
-			if(changeName != null) {
+
+			if (changeName != null) {
 				m.setOriginName(file.getOriginalFilename());
 				m.setChangeName(changeName);
 			}
 		}
-		
+
 		mailService.insertMail(m);
 		
+		session.setAttribute("msg","메일을 성공적으로 전송했습니다.");
+
 		return "redirect:sendList.ml";
-		
+
 	}
-	
-	//파일 저장
+
+	// 파일 저장
 	private String saveFile(MultipartFile file, HttpServletRequest request) {
 
 		String resources = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = resources+"\\mail_files\\";
-		
+		String savePath = resources + "\\mail_files\\";
+
 		String originalName = file.getOriginalFilename();
 		String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-		
+
 		String ext = originalName.substring(originalName.lastIndexOf("."));
-		String changeName = currentTime+ext;
-		
+		String changeName = currentTime + ext;
+
 		try {
 			file.transferTo(new File(savePath + changeName));
-			
+
 		} catch (IllegalStateException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new CommException("file upload error");
-			//에러가 났을 때 업로드를 시킬건지 말지 설계 시 결정
+			// 에러가 났을 때 업로드를 시킬건지 말지 설계 시 결정
 		}
-		
+
 		return changeName;
 	}
-	
-	//보낸메일함 
+
+	// 보낸메일함
 	@RequestMapping("sendList.ml")
-	public String selectSendMailList(@RequestParam(value = "currentPage", required = false, defaultValue="1") int currentPage, 
-									 Model model, HttpServletRequest request) {
-		
+	public String selectSendMailList(
+			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage, Model model,
+			HttpServletRequest request) {
+
 		Member mem = (Member) request.getSession().getAttribute("loginUser");
-		
+
 		int listCount = mailService.selectSendMailListCount(mem.getEmpId());
-		
-		PageInfo pi = PaginationMail.getPageInfo(listCount, currentPage, 10, 5);
-		
+
+		PageInfo pi = PaginationMail.getPageInfo(listCount, currentPage, 10, 10);
+
 		ArrayList<Mail> sendList = mailService.selectSendMailList(pi, mem.getEmpId());
-		
+
 		model.addAttribute("sendList", sendList);
 		model.addAttribute("pi", pi);
-		
+
 		return "mail/sendMailListView";
 	}
-	
-	//보낸 메일 보기
+
+	// 보낸 메일 보기
 	@RequestMapping("sendDetail.ml")
 	public ModelAndView selectSendMail(int mno, ModelAndView mv) {
-		
+
 		Mail m = mailService.selectSendMail(mno);
-		
+
 		mv.addObject("m", m).setViewName("mail/sendMailDetailView");
-		
+
 		return mv;
 	}
-	
-	//받은 메일함
+
+	// 받은 메일함
 	@RequestMapping("receiveList.ml")
-	public String selectReceiveMailList(@RequestParam(value = "currentPage", required = false, defaultValue="1") int currentPage, 
-										Model model, HttpServletRequest request) {
-		
+	public String selectReceiveMailList(
+			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage, Model model,
+			HttpServletRequest request) {
+
 		Member mem = (Member) request.getSession().getAttribute("loginUser");
-		
+
 		int listCount = mailService.selectReceiveMailListCount(mem.getEmpId());
-		
-		PageInfo pi = PaginationMail.getPageInfo(listCount, currentPage, 10, 5);
-		
+
+		PageInfo pi = PaginationMail.getPageInfo(listCount, currentPage, 10, 10);
+
 		ArrayList<Mail> receiveList = mailService.selectReceiveMailList(pi, mem.getEmpId());
-		
+
 		model.addAttribute("receiveList", receiveList);
 		model.addAttribute("pi", pi);
-		
+
 		return "mail/receiveMailListView";
 	}
-	
-	//받은 메일 보기
+
+	// 받은 메일 보기
 	@RequestMapping("receiveDetail.ml")
 	public ModelAndView selectReceiveMail(int mno, ModelAndView mv) {
-		
-		//조회수 올려서 읽음처리하기
+
+		// 조회수 올려서 읽음처리하기
 		Mail m = mailService.selectReceiveMail(mno);
-		
+
 		mv.addObject("m", m).setViewName("mail/receiveMailDetailView");
-		
+
 		return mv;
 	}
-	
-	//받은메일에서 휴지통으로
+
+	// 받은메일함에서 휴지통으로
 	@RequestMapping("wasteCheckedReceiveMail.ml")
 	public ModelAndView wasteReceiveMail(ModelAndView mv, HttpServletRequest request,
-										@RequestParam(name="checkList") String checkList ) {
-		
+			@RequestParam(name = "checkList") String checkList) {
+
 		System.out.println(checkList);
 		String[] list = checkList.split(",");
-		
+
 		System.out.println(list);
-		
-		
-		if(list != null) {
-			for(int i = 0; i < list.length; i++) {
-				
+
+		if (list != null) {
+			for (int i = 0; i < list.length; i++) {
+
 				mailService.wasteReceiveMail(Integer.parseInt(list[i]));
-				
+
 			}
 		}
-		
+
 		mv.setViewName("redirect:receiveList.ml");
-		
+
 		return mv;
-		
+
 	}
-	
-	//보낸메일보기->메일다시보내기
+
+	// 보낸메일보기->메일다시보내기
 	@RequestMapping("resend.ml")
-	public String resendMail(@RequestParam(name="mno") int mno) {
-		
-		//보낸메일 가져오기
+	public String resendMail(@RequestParam(name = "mno") int mno) {
+
+		// 보낸메일 가져오기
 		Mail m = mailService.selectSendMail(mno);
 		System.out.println("보낸메일다시보내기 ~~ " + m);
-		
-		//아이디 가져오기
-		Member id =  mailService.getReceiver(m.getReceiver());
-		
-		m.setTitle("[재전송] "+m.getTitle());
+
+		// 아이디 가져오기
+		Member id = mailService.getReceiver(m.getReceiver());
+
+		m.setTitle("[재전송] " + m.getTitle());
 		m.setReceiver(id.getEmpId());
-		//m.setReceiver(id);
-		
+		// m.setReceiver(id);
+
 		mailService.resendMail(m);
-		
+
 		return "redirect:sendList.ml";
 	}
-	
-	//휴지통
+
+	// 보낸메일 전달 화면
+	@RequestMapping("sendDelivery.ml")
+	public ModelAndView sendDelivery(Mail m, HttpServletRequest request,
+			@RequestParam(name = "mno", required = false) int mno, ModelAndView mv) {
+
+		Mail sendMail = mailService.selectSendMail(mno);
+
+		mv.addObject("sendMail", sendMail).setViewName("mail/sendDeliveryForm");
+
+		return mv;
+	}
+
+	// 보낸메일 전달
+	@RequestMapping("insertSendDelivery.ml")
+	public String insertSendDelivery(Mail m, HttpServletRequest request, HttpSession session,
+			@RequestParam(name = "reUploadFile", required = false) MultipartFile file) {
+
+		if (!file.getOriginalFilename().equals("")) {
+			if (m.getChangeName() != null) {
+				deleteFile(m.getChangeName(), request);
+			}
+
+			String changeName = saveFile(file, request);
+			m.setOriginName(file.getOriginalFilename());
+			m.setChangeName(changeName);
+		}
+
+		mailService.insertSendDelivery(m);
+		
+		session.setAttribute("msg","메일을 성공적으로 전달했습니다.");
+
+		return "redirect:sendList.ml";
+	}
+
+	// 파일 지우기
+	private void deleteFile(String fileName, HttpServletRequest request) {
+
+		String resources = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = resources + "\\mail_files\\";
+
+		File deleteFile = new File(savePath + fileName);
+		deleteFile.delete();
+
+	}
+
+	// 보낸메일 휴지통으로 이동
+	@RequestMapping("wasteSendMail.ml")
+	public String wasteSendMail(@RequestParam(name = "mno") int mno, HttpSession session) {
+
+		mailService.wasteSendMail(mno);
+		
+		session.setAttribute("msg","메일을 휴지통으로 이동했습니다.");
+		
+		return "redirect:sendList.ml";
+
+	}
+
+	// 휴지통
 	@RequestMapping("waste.ml")
 	public String selectWasteMailList() {
 		return "mail/wasteMailListView";
 	}
-	
 
-	
 }
