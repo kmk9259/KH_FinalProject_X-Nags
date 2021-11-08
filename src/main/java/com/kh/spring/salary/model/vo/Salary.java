@@ -16,7 +16,7 @@ import lombok.ToString;
 @ToString
 public class Salary {
 	/* 급여등급
-		최소급여
+	      사원번호
 		보너스
 		식대
 		소득세
@@ -24,15 +24,22 @@ public class Salary {
 		국민연금
 		건강보험
 		월급
-	 * */				
+	  */
 	private String salLevel;					
 	private String empId;			
-	private int commission;
-	private int meal;
-	private int incomeTax;
-	private int empInsurance;
-	private int retirement;
-	private int healthInsurance;
-	private int total;
+//	private int commission;
+//	private int meal;
+//	private int incomeTax;
+//	private int empInsurance;
+//	private int retirement;
+//	private int healthInsurance;
+//	private int total;
+	private String commission;
+	private String meal;
+	private String incomeTax;
+	private String empInsurance;
+	private String retirement;
+	private String healthInsurance;
+	private String total;
 
 }

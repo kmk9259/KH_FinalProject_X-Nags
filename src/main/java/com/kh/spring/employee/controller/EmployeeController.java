@@ -108,7 +108,21 @@ public class EmployeeController {
 		
 		ArrayList<Employee> list = employeeService.selectList(pi);
 		
+		
+		
 		System.out.println(list);
+//		System.out.println("날짜 포멧 전 "+list.get(1).getHireDate());
+//		
+//		int i =0;
+//		for(i = 0; i <list.size(); i++) {
+//			SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
+//			
+//			//원하는 포멧으로 데이터 지정 
+//			String strCreateDate = sdf.format(list.get(i).getHireDate());
+//			System.out.println("날짜 포멧 후 "+ strCreateDate);;
+//			/* list.get(i).setHireDate(strCreateDate); */
+//		}
+		
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pi",pi);
@@ -137,7 +151,8 @@ public class EmployeeController {
 	
 	
 	@RequestMapping("insertEmp2.me")
-	public String insertEmp2(@ModelAttribute Salary sal,@ModelAttribute Member m, @ModelAttribute Employee emp, HttpSession session,
+	public String insertEmp2(@ModelAttribute Employee emp, HttpSession session, @ModelAttribute Salary sal,
+							 @ModelAttribute Member m, 
 							 @RequestParam("post") String post,
 							 @RequestParam("address1") String address1,
 							 @RequestParam("address2") String address2,
@@ -145,11 +160,22 @@ public class EmployeeController {
 							 @RequestParam(name="uploadFile", required=false) MultipartFile file,
 							 @RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
 
+		
+		
+		//사원 등록
+		employeeService.insertEmployee(emp);
+		System.out.println("emp " + emp);
+		
+		
+		
+		
+		
 		System.out.println(m);
 		System.out.println(file.getOriginalFilename());
 		
 		int listCount = employeeService.selectListCount();
 		System.out.println(listCount);
+		
 		
 		if(!file.getOriginalFilename().equals("")) {
 			
@@ -161,7 +187,8 @@ public class EmployeeController {
 			}
 		}
 		
-		m.setAddress(post+"/"+address1+"/"+address2);
+		
+		m.setAddress(post+"/"+address1+"/"+address2); 
 		//솔팅기법
 		System.out.println("암호화전 : "+m.getUserPwd());
 		String encPwd = bCryptPasswordEncoder.encode(m.getUserPwd());
@@ -170,13 +197,11 @@ public class EmployeeController {
 		
 		//개인정보 등록
 		memberService.insertMember(m);
-		System.out.println(m);
+		System.out.println("m "+m);
 		
-		//사원 등록
-		employeeService.insertEmployee(emp);
 		
-		//회계정보 등록
-		salaryService.insertSalary(sal);
+		
+
 		
 		PageInfo pi = PaginationEmp.getPageInfo(listCount, currentPage, 10, 10);
 		
@@ -184,6 +209,10 @@ public class EmployeeController {
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pi",pi);
+		
+		
+		//회계정보 등록
+		salaryService.insertSalary(sal);
 		
 		
 		session.setAttribute("msg", "회원가입 성공");

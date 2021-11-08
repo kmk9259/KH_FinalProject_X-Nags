@@ -187,9 +187,19 @@ height: 40px;
 							} 
 						
 						    
+						$(function(){
+		                	var selectDate ="";
+		                	$( ".date-picker" ).datepicker({
+		                    		dateFormat: "yyyy-mm-dd",
+		                    		language:"ko",
+		                    		onSelect: function(dateText) {
+		                    			selectDate = dateText;
+		                    			consoloe(selectDate);
+		                    	    }
+		                    		
+		                    }); 
 						
-						
-						
+						 }); 
 						
 						</script>
 						

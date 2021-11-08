@@ -120,7 +120,7 @@ public class MemberController {
 		return "member/myPage";
 	}
 	
-	
+
 	@RequestMapping("insertMember.me")
 	public String insertMember(@ModelAttribute Member m, @RequestParam("post") String post,
 														 @RequestParam("address1") String address1,
