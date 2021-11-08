@@ -116,12 +116,28 @@ public class MailServiceImpl implements MailService {
 	}
 
 
-//	@Override
-//	public Member getReceiver(String receiver) {
-//		
-//		return mailDao.getReceiver(sqlSession, receiver);
-//	}
-	
+	@Override
+	public void insertSendDelivery(Mail m) {
+
+		int result = mailDao.insertSendDelivery(sqlSession, m);
+		
+		if(result < 0) {
+			throw new CommException("메일 전달 실패");
+		}
+		
+	}
+
+
+	@Override
+	public void wasteSendMail(int mno) {
+
+		int result = mailDao.wasteSendMail(sqlSession, mno);
+		
+		if(result < 0) {
+			throw new CommException("메일 휴지통 이동 실패");
+		}
+		
+	}
 
 	
 }

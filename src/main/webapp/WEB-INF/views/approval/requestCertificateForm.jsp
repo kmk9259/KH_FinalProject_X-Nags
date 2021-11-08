@@ -50,9 +50,8 @@ label {
 						</div>
 					</div>
 				</div>
-				<form action="insert.ap" method="post"
-						enctype="multipart/form-data">
-				<div class="page-header">
+				<form action="insert.ap" method="post" enctype="multipart/form-data">
+				<%-- <div class="page-header">
 					<div class="row">
 						<div class="col-md-6 col-sm-12">
 							<div class="title">
@@ -69,39 +68,38 @@ label {
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> --%>
 				<div class="page-header">
 					<div class="row">
 						<div class="col-md-6 col-sm-12">
 							<div class="title">
-								<h4>결재선 지정</h4>
+								<h4 class="text-blue h4">결재선 지정</h4>
+								<input type="hidden" readonly class="form-control-plaintext" name="empId" value="${ sessionScope.loginUser.empId }">
 							</div>
 							<div class="form-group">
-							<label id="title">중간 결재자</label> <input class="form-control" value=""
-								type="text" name="appMin" required="required">
-								<input class="form-control" value=""
-								type="hidden" name="appMin" required="required">
+								<input class="form-control" type="text" required="required" name="appMid" placeholder="중간 결제자를 입력해 주세요">
+								<input class="form-control" type="hidden" required="required" >
 							</div>
-							<div class="form-group">
-								<label id="title">최종 결재자</label> <input class="form-control" value=""
-									type="text" name="appFin" required="required">
+								<input class="form-control" type="text" required="required" name="appFin" placeholder="최종 결재자를 입력해 주세요">
+								<input class="form-control" type="hidden"  required="required">
 							</div>
 						</div>
 					</div>
-				</div>
+				
 
 
 				<!-- 결재 폼 시작 -->
 				<div class="pd-20 card-box mb-30">
 					<div class="clearfix">
 						<div class="pull-left">
-							<h4 class="text-blue h4">증명서 신청서</h4>
+							<h4 class="h4">증명서 신청서</h4>
 						
 						</div>
 					</div>
 					
 						<div class="form-group">
-							<select>
+							<select class="custom-select col-6">
+								<option selected>증명서 선택</option>
 								<option name="category" value="4">재직증명서</option>
 								<option name="category" value="5">급여명세서</option>
 								<option name="category" value="6">기타</option>
@@ -109,28 +107,23 @@ label {
 						</div>
 						
 						<div class="form-group">
-							<label>기안일</label>
-							<input class="form-control date-picker1" name="appDate" placeholder="기안일 지정" type="text">
+							<input class="form-control date-picker1" name="appDate" placeholder="기안일 지정" type="text" required="required">
 						</div>
 						
 
 						<div class="form-group">
-							<label id="title">제목</label> <input class="form-control"
-								type="text" name="title" required="required">
+							<input class="form-control" type="text" name="title" required="required" placeholder="제목을 입력해주세요.">
 						</div>
 						<div class="form-group">
-							<label id="title">파일 첨부</label> <input type="file"
-								class="form-control-file form-control height-auto"
-								name="uploadFile">
+							<input type="file" class="form-control-file form-control height-auto" name="uploadFile">
 						</div>
 						
 						<div class="form-group">
-							<label id="title">내용</label>
-							<textarea class="form-control" name="content" required="required"></textarea>
+							<textarea class="textarea_editor form-control border-radius-0" name="content" required="required" placeholder="내용을 입력해주세요."></textarea>
 						</div>
 						<div class="clearfix">
 							<div class="pull-right">
-								<button type="reset" class="btn btn-outline-danger">취소</button>
+								<!--  <button type="reset" class="btn btn-outline-danger">취소</button> -->
 								<button type="submit" class="btn btn-primary">결재 전송</button>
 							</div>
 						</div>
@@ -195,12 +188,12 @@ label {
 			 <script>
                 
                 $(function(){
-                	var attendanceDate ="";
+                	var appDate ="";
                 	$( ".date-picker1" ).datepicker({
                     		dateFormat: "yyyy-mm-dd",
-                    		language:"ru",
+                    		language:"en",
                     		onSelect: function(dateText) {
-                    			attendanceDate = dateText
+                    			appDate = dateText
                     	    }
                     		
                     });  	 

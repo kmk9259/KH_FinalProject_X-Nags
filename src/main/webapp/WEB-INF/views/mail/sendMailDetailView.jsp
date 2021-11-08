@@ -112,7 +112,7 @@ function resend(){
 
 //전달
 function delivery(){
-	$("#sendMail").attr("action", "delivery.ml");
+	$("#sendMail").attr("action", "sendDelivery.ml");
 	$("#sendMail").submit();
 	return true;
 }
