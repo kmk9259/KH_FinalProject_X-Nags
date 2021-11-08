@@ -293,7 +293,7 @@ p {
 		            <div class="card px-0 pt-4 pb-0 mt-3 mb-3" style="border: none;">
 		                <h2 id="heading">사원을 등록하세요</h2>
 		                <p>다음 순서대로 진행하세요</p>
-		                <form id="msform" action="insertEmp2.me" method="post">
+		                <form id="msform" action="insertEmp2.me" method="post" enctype="multipart/form-data">
 		                    <!-- progressbar -->
 		                    <ul id="progressbar">
 		                        <li class="active" id="account"><strong>개인정보 등록</strong></li>
@@ -307,6 +307,11 @@ p {
 							
 							<!-- fieldsets -->
 		                    
+		                    
+		                    
+		                    
+		                    
+		                    <!-- ================================================== -->
 		                    <fieldset>
 		                        <div class="form-card">
 		                            <div class="row">
@@ -371,19 +376,20 @@ p {
 
 						<!-- 주소입력  -->
 
-						<h4 class="text-blue h5">&nbsp;주소 입력</h4><br><br><br>
+						<label for="address"> &nbsp; 주소 입력 :</label><br>
 
 						<div class="form-inline">
-							<label> &nbsp; 우편번호(*) : &nbsp;</label>
-							<input type="text" id="post" name="post" class="form-control mr-2 postcodify_postcode5" size="6">
-							<button type="button" class="btn btn-primary" id="postcodify_search_button">검색</button>
+							<label> &nbsp; 우편번호 : &nbsp;</label> <input type="text"
+								id="post" name="post" class="form-control mr-2 postcodify_postcode5"
+								size="6">
+							<button type="button" class="btn btn-primary"
+								id="postcodify_search_button">검색</button>
 						</div>
-						<br>
-						<label> &nbsp; 도로명주소(*) : </label>
-						<input type="text" id="address1" name="address1" class="form-control postcodify_address" size="30">
-						<br>
- 						<label> &nbsp; 상세주소(*) : </label>
-						<input type="text" id="address2" name="address2" class="form-control postcodify_extra_info" size="30"> <br>
+						<br> <label> &nbsp; 도로명주소 : </label> <input type="text" id="address1"
+							name="address1" class="form-control postcodify_address" size="30">
+						<br> <label> &nbsp; 상세주소 : </label> <input type="text" id="address2"
+							name="address2" class="form-control postcodify_extra_info"
+							size="30"> <br>
 
 
 						<!-- jQuery와 Postcodify를 로딩한다. -->
@@ -394,7 +400,13 @@ p {
 								$("#postcodify_search_button")
 										.postcodifyPopUp();
 							});
-						</script>
+						</script> 
+
+						
+						
+						 <!-- <div class="form-group">
+							<label>주소(*)</label> <input class="form-control" placeholder="주소" type="text" id="" name="address">
+						</div>  -->
 
 						<!-- 주소입력   끝-->
 
@@ -424,11 +436,13 @@ p {
 								
 								
 								
-								<input type="button" name="next" class="next1 action-button" value="Next"  /> 
+								<input type="button" name="next" class="next1 action-button" value="Next" /> 
+                       
 								
 								
 								
 		                    </fieldset>
+		                    
 		                    
 		                    
 		                    <!--========================= step 2 =====================================-->
@@ -514,25 +528,31 @@ p {
 							<tr>
 								<th scope="row">기본급</th>
 								<td><input type="text" class="form-control" id="money1"  onkeyup="inputNumberFormat(this)">
-								<input type="hidden" class="form-control" id="money11" name="total">
+								<input type="hidden" class="form-control" id="money11" >
 								</td>
 								
 								<th>소득세</th>
-								<td><input type="text" class="form-control" id="incometax"  name="incomeTax" onkeyup="inputNumberFormat(this)" disabled></td>
+								<td><input type="text" class="form-control" id="incometax"   onkeyup="inputNumberFormat(this)" disabled>
+								<input type="hidden" class="form-control" id="incometax1" name="incomeTax">
+								</td>
 								
 							</tr>
 							<tr>
 								<th scope="row">보너스</th>
-								<td><input type="text" class="form-control" id="money2" name="commission" onkeyup="inputNumberFormat(this)"></td>
+								<td><input type="text" class="form-control" id="money2"  onkeyup="inputNumberFormat(this)">
+								<input type="hidden" class="form-control" id="money22" name="commission"></td>
 								<th>고용 보험</th>
-								<td><input type="text" class="form-control" id="empIn" name="empInsurance" onkeyup="inputNumberFormat(this)" disabled></td>
+								<td><input type="text" class="form-control" id="empIn"  onkeyup="inputNumberFormat(this)" disabled>
+								<input type="hidden" class="form-control" id="empIn1" name="empInsurance"></td>
 								
 							</tr>
 							<tr>
 								<th scope="row">식대</th>
-								<td><input type="text" class="form-control" id="money3" name="meal" onkeyup="inputNumberFormat(this)"></td>
+								<td><input type="text" class="form-control" id="money3"  onkeyup="inputNumberFormat(this)">
+								<input type="hidden" class="form-control" id="money33" name="meal"></td>
 								<th>국민 연금</th>
-								<td><input type="text" class="form-control" id="retirement" name="retirement" onkeyup="inputNumberFormat(this)" disabled></td>
+								<td><input type="text" class="form-control" id="retirement"  onkeyup="inputNumberFormat(this)" disabled>
+								<input type="hidden" class="form-control" id="retirement1" name="retirement"></td>
 								
 							</tr>
 							
@@ -540,7 +560,8 @@ p {
 								<th scope="row"></th>
 								<td></td>
 								<th>건강 보험</th>
-								<td><input type="text" class="form-control" id="health" name="healthInsurance" onkeyup="inputNumberFormat(this)" disabled></td>
+								<td><input type="text" class="form-control" id="health"  onkeyup="inputNumberFormat(this)" disabled>
+								<input type="hidden" class="form-control" id="health1" name="healthInsurance"></td>
 								
 							</tr>
 							
@@ -548,15 +569,18 @@ p {
 							
 							<tr>
 								<th scope="row">지급 총액</th>
-								<td><input type="text" class="form-control" id="sum01" onkeyup="inputNumberFormat(this)" disabled></td>
+								<td><input type="text" class="form-control" id="sum01" onkeyup="inputNumberFormat(this)"  disabled>
+								<input type="hidden" class="form-control" id="sum011" name="total"></td>
 								<th>공제 총액</th>
-								<td><input type="text" class="form-control"  id="result" onkeyup="inputNumberFormat(this)" disabled></td>
+								<td><input type="text" class="form-control"  id="result" onkeyup="inputNumberFormat(this)" disabled>
+								<!-- <input type="hidden" class="form-control" id="result1" ></td> -->
 								
 							</tr>
 							
 							 <tr>
 							  <th colspan="2">차감 지급액</th> 
-								<td colspan="2"><input type="text" class="form-control" id="sum02"  onkeyup="inputNumberFormat(this)" disabled></td>
+								<td colspan="2"><input type="text" class="form-control" id="sum02"  onkeyup="inputNumberFormat(this)" disabled>
+								</td>
 								
 								
 								
@@ -573,19 +597,26 @@ p {
 								     obj.value = comma(uncomma(obj.value));
 								     
 								     var sum =document.getElementById('sum01');
+								     var sumh =document.getElementById('sum011');
 								     var sum2 =document.getElementById('sum02');
 								     var n1 = document.getElementById('money1');
 								     var n2 = document.getElementById('money2');
 								     var n3 = document.getElementById('money3');
 								     
 								     var nh1 = document.getElementById('money11');
-								    /*  var nh2 = document.getElementById('money2');
-								     var nh3 = document.getElementById('money3'); */
+								     var nh2 = document.getElementById('money22');
+								     var nh3 = document.getElementById('money33'); 
 								     
 								     var n4 = document.getElementById('incometax');
 								     var n5 = document.getElementById('empIn');
 								     var n6 = document.getElementById('retirement');
 								     var n7 = document.getElementById('health');
+								     
+								     
+								     var nh4 = document.getElementById('incometax1');
+								     var nh5 = document.getElementById('empIn1');
+								     var nh6 = document.getElementById('retirement1');
+								     var nh7 = document.getElementById('health1');
 								     
 								     var n8 = document.getElementById('result');
 								     
@@ -595,9 +626,12 @@ p {
 								     var num2 = parseInt((n2.value).replace(/,/g,""));
 								     var num3 = parseInt((n3.value).replace(/,/g,""));
 								     
-								   /*   var numh1=nh1.val();
+								     /*히든으로 숫자값만 가지고 있을 input*/
+								     nh1.value= num1;
+								     nh2.value= num2;
+								     nh3.value= num3;
 								     
-								     console.log(numh1); */
+								     console.log("numh1 "+nh1.value); 
 								     
 								     
 								    /*숫자로 변화한 필드값을 합침*/
@@ -609,6 +643,15 @@ p {
 								     var empIn = total * 0.0065;
 								     var retirement = total * 0.045;
 								     var health = total * 0.0306;
+								     
+								     /*히든으로 숫자값만 가지고 있을 input*/
+								     nh4.value= incometax;
+								     nh5.value= empIn;
+								     nh6.value= retirement;
+								     nh7.value= health; 
+								     sumh.value=total;
+								     
+								     
 								     
 								     /*4대 보험 합산*/
 								     var total2 = incometax + empIn + retirement + health; 
@@ -658,15 +701,16 @@ p {
 		                
 		                
 		                  
-		                  
+		                  <input type="button" name="next" class="next2 action-button" value="Next"  /> 
+		                   <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
 		                  
 		                
-                        <input type="button" name="next" class="next2 action-button" value="Next" /> 
-                        <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
+                        
                     
 		                    </fieldset>
 		                    
 		                    
+		                    <!-- ================================================== -->
 		                    <fieldset>
 		                        <div class="text-center">
 							<label class="title">사원 프로필 사진</label>
@@ -729,11 +773,11 @@ p {
 
 
 						</div>
-								<input type="button" name="next" class="next3 action-button" value="Submit!!" />
+								<input type="button" name="next" class="next3 action-button" value="Submit" onclick= "submit();"; />
 								<input type="button" name="previous" class="previous action-button-previous" value="Previous" />
 		                    </fieldset>
 		                    
-		                    <fieldset>
+		                     <fieldset>
 		                        <div class="form-card">
 		                            <div class="row">
 		                                <div class="col-7">
@@ -753,7 +797,7 @@ p {
 		                                </div>
 		                            </div>
 		                        </div>
-		                    </fieldset>
+		                    </fieldset> 
 		                </form>
 		            </div>
 		        </div>
@@ -815,7 +859,8 @@ p {
 
 					} 
 					
-				 	if(pw.length < 6 || pw.length > 15){
+				 	if(pw.length < 6 )
+				 	{
 
 						  alert("6자리 ~ 15자리 이내로 입력해주세요.");
 						  return false;
@@ -828,11 +873,14 @@ p {
 						 }else {
 							console.log("통과"); 
 						    
-						 }
-				
-						
+					}
+				 
+				 	if(pw.length > 15 ){
+				 		
+				 		 alert("15자리 이내로 입력해주세요.");
+						  return false;
 					
-					
+				 	}
 					
 					var ssn = $("#msform input[name=userSsn]");
 					 console.log(ssn.val());
@@ -904,6 +952,10 @@ p {
 						$("input[name=gender]:radio:checked").focus();
 						 return false;
 					} 
+					
+					var add1 = $("#address1").val();
+					
+					console.log(add1);
 					  
 					
 					current_fs = $(this).parent();
@@ -1053,6 +1105,9 @@ p {
 						
 						return false;
 					}
+					
+					
+					
 					 
 					/*=====================유효성 검사 끝 =====================*/
 				
@@ -1134,7 +1189,7 @@ p {
 					
 					 /*=====================유효성 검사 =====================*/
 					
-					 alert("hi");
+					
 					 var file = $("#file").val();
 					 console.log(file);
 					 

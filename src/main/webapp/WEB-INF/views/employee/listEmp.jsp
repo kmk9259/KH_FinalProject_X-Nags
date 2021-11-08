@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -125,11 +126,11 @@
 								<td>${emp.rightName }</td>
 								<td>${emp.deptName }</td>
 								<td>${emp.salLevel }</td>
-								<td>${emp.hireDate }</td>
+								<td><fmt:formatDate pattern="yyyy-MM-dd" value="${emp.hireDate }"/></td>
 								<td>${emp.modifyDate }</td>
 								<td>${emp.endDate }</td>
 								<td>
-								<!-- <span class="badge badge-primary">수정</span> -->
+								
 								<div class="dropdown">
 											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
 												<i class="dw dw-more"></i>
@@ -164,7 +165,21 @@
 						</div>
 					</div>
 				</div><!-- 반응형 테이블 끝 -->
+				<script>
+				$(function(){
+                	var attendanceDate ="";
+                	$( ".date-picker" ).datepicker({
+                    		dateFormat: "yyyy-mm-dd",
+                    		language:"ko",
+                    		onSelect: function(dateText) {
+                    			attendanceDate = dateText;
+                    	    }
+                    		
+                    });
+                	
+				});
 				
+				</script>
 				
 				
 				
