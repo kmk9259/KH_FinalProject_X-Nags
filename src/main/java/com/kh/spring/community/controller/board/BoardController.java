@@ -56,8 +56,7 @@ public class BoardController {
 	@RequestMapping("insert.bo")
 	public String insertBoard(Board b, HttpServletRequest request, Model model,
 			@RequestParam(name = "uploadFile", required = false) MultipartFile file) {
-		System.out.println(b);
-		System.out.println(file.getOriginalFilename());
+		
 
 		if (!file.getOriginalFilename().equals("")) {
 			String changeName = saveFile(file, request);

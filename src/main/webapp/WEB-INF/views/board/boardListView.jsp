@@ -182,5 +182,6 @@
 	<script
 		src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
 --%>
-	<jsp:include page="../common/footer.jsp" /></body>
+	<jsp:include page="../common/footer.jsp" />
+	</body>
 </html>
