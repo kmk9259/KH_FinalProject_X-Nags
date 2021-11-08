@@ -102,17 +102,17 @@
 					
 					
 					<div class="table-responsive">
-						<table class="table table-striped">
+						<table class="table table-striped" style="text-align:center;">
 							<thead>
 								<tr>
 									<!-- <th scope="col">#</th> -->
 									<th scope="col">사원아이디</th>
+									<th scope="col">사원 이름</th>
 									<th scope="col">직급코드</th>
 									<th scope="col">권한</th>
 									<th scope="col">부서</th>
 									<th scope="col">급여등급</th>
 									<th scope="col">입사일</th>
-									<th scope="col">수정일</th>
 									<th scope="col">퇴사일</th>
 									<th scope="col">수정하기</th>
 								</tr>
@@ -120,14 +120,15 @@
 							<tbody>
 							<c:forEach items="${list }" var="emp">
 								<tr>
-								<%-- <th scope="row">${count }</th> --%>
+								
+								<td>${emp.empId }</td>
 								<td>${emp.empId }</td>
 								<td>${emp.jobName }</td>
 								<td>${emp.rightName }</td>
 								<td>${emp.deptName }</td>
 								<td>${emp.salLevel }</td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd" value="${emp.hireDate }"/></td>
-								<td>${emp.modifyDate }</td>
+								<%-- <td>${emp.modifyDate }</td> --%>
 								<td>${emp.endDate }</td>
 								<td>
 								
@@ -136,9 +137,9 @@
 												<i class="dw dw-more"></i>
 											</a>
 											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list" style="">
-												<a class="dropdown-item" href="#"><i class="dw dw-eye"></i> View</a>
-												<a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
-												<a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
+												<a class="dropdown-item" href="empDetail.me"><i class="dw dw-eye"></i> View</a>
+												<a class="dropdown-item" href="update.me"><i class="dw dw-edit2"></i> Edit</a>
+												<a class="dropdown-item" href="delete.me"><i class="dw dw-delete-3"></i> Delete</a>
 											</div>
 										</div>
 								
