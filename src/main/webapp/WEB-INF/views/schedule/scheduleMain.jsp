@@ -10,7 +10,7 @@
 <title>X-Nomal Groupware Solution</title>
 
 
-<link rel=" shortcut icon" href="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/image/favicon.ico">
+<link rel="shortcut icon" href="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/image/favicon.ico">
 
 <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/css/fullcalendar.min.css" />
 <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/css/bootstrap.min.css">
@@ -72,13 +72,7 @@
                                     required="required" />
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <label class="col-xs-4" for="edit-username">사원이름</label>
-                                <input class="inputModal" type="text" name="edit-username" id="edit-username"
-                                    required="required" readonly />
-                            </div>
-                        </div>
+                       
                         <div class="row">
                             <div class="col-xs-12">
                                 <label class="col-xs-4" for="edit-start">시작</label>
@@ -192,6 +186,6 @@
     <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/js/editEvent.js"></script>
     <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/js/etcSetting.js"></script>
 
-	<jsp:include page="../common/footer.jsp" />
+<%-- 	<jsp:include page="../common/footer.jsp" />--%>
 </body>
 </html>

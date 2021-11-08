@@ -12,7 +12,7 @@ var calendar = $('#calendar').fullCalendar({
   allDaySlot                : true,
   displayEventTime          : true,
   displayEventEnd           : true,
-  firstDay                  : 1, //월요일이 먼저 오게 하려면 1
+  firstDay                  : 0, //월요일이 먼저 오게 하려면 1
   weekNumbers               : false,
   selectable                : true,
   weekNumberCalculation     : "ISO",
