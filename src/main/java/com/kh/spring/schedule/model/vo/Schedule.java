@@ -19,17 +19,17 @@ public class Schedule {
 	
 	private int scheduleNo;
 	private String empId;
-	private String deptCode;
 	private String scheduleTitle;
-	private Date scheduleStartDate;
-	private Date scheduleEndDate;
-	private Timestamp scheduleStartTime;
-	private Timestamp scheduleEndTime;
-	private String schedulePlace;
-	private String scheduleContent;
-	private int scheduleCategoryNo;
-	private String scheduleAlarm;
+	private Date scheduleStart;
+	private Date scheduleEnd;
+	private String scheduleDiscription;
+	private int scheduleTypeNo;
+	private String scheduleBackground;
+	private String scheduleAllDay;
+//	private String scheduleAlarm;
 	
+	private String userName;
+	private String deptName;
 
 
 }

@@ -81,9 +81,18 @@ var editEvent = function (event, element, view) {
         //일정 업데이트
         $.ajax({
             type: "get",
-            url: "",
+            url: "update.sc",
             data: {
-                //...
+            	_id: eventId,
+                title: editTitle.val(),
+                start: editStart.val(),
+                end: editEnd.val(),
+                description: editDesc.val(),
+                type: editType.val(),
+                username: '사나',
+                backgroundColor: editColor.val(),
+                textColor: '#ffffff',
+                allDay: false
             },
             success: function (response) {
                 alert('수정되었습니다.')
@@ -103,9 +112,9 @@ $('#deleteEvent').on('click', function () {
     //삭제시
     $.ajax({
         type: "get",
-        url: "",
+        url: "delets.sc",
         data: {
-            //...
+            
         },
         success: function (response) {
             alert('삭제되었습니다.');

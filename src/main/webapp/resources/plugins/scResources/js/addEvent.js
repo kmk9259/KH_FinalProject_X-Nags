@@ -75,6 +75,7 @@ var newEvent = function (start, end, eventType) {
         }
 
         $("#calendar").fullCalendar('renderEvent', eventData, true);
+      //  var content = eventModal.find("#edit-desc").val('');
         eventModal.find('input, textarea').val('');
         editAllDay.prop('checked', false);
         eventModal.modal('hide');
@@ -82,14 +83,14 @@ var newEvent = function (start, end, eventType) {
         //새로운 일정 저장
         $.ajax({
             type: "get",
-            url: "",
+            url: "insert.sc",
             data: {
-                //.....
+                eventData : eventData 
             },
             success: function (response) {
                 //DB연동시 중복이벤트 방지를 위한
-                //$('#calendar').fullCalendar('removeEvents');
-                //$('#calendar').fullCalendar('refetchEvents');
+                $('#calendar').fullCalendar('removeEvents');
+                $('#calendar').fullCalendar('refetchEvents');
             }
         });
     });
