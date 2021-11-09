@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,19 +68,19 @@
 									<div class="col-md-3 col-sm-12">
 										<ul class="nav flex-column nav-pills vtabs" role="tablist">
 											<li class="nav-item">
-												<a class="nav-link" data-toggle="tab" href="#home7" role="tab" aria-selected="true"><i class="fa fa-home"></i></a>
+												<a class="nav-link active" data-toggle="tab" href="#home7" role="tab" aria-selected="true"><i class="fa fa-vcard"></i></a>
 											</li>
 											<li class="nav-item">
 												<a class="nav-link" data-toggle="tab" href="#profile7" role="tab" aria-selected="false"><i class="fa fa-users"></i></a>
 											</li>
 											<li class="nav-item">
-												<a class="nav-link active" data-toggle="tab" href="#contact7" role="tab" aria-selected="false"><i class="fa fa-envelope-o"></i></a>
+												<a class="nav-link" data-toggle="tab" href="#contact7" role="tab" aria-selected="false"><i class="fa fa-envelope-o"></i></a>
 											</li>
 										</ul>
 									</div>
 									<div class="col-md-9 col-sm-12">
 										<div class="tab-content">
-											<div class="tab-pane fade" id="home7" role="tabpanel">
+											<div class="tab-pane fade active show" id="home7" role="tabpanel">
 												<div class="pd-20">
 													
 													
@@ -184,7 +185,7 @@
 
 						<div class="btns" align="center">
 							
-							<button type="reset" class="btn btn-danger">초기화</button>
+							<button type="submit" class="btn btn-primary">수정하기</button>
 						</div>
 
 					</div>
@@ -211,52 +212,216 @@
 								
 													<div class="form-group">
 													<label>사원 아이디</label>
-													   <input class="form-control" type="text" placeholder="userName" id="userName" name="userName">
+													   <input class="form-control" type="text" id="empId" name="empId" value="${emp.empId }" disabled>
 												    </div>
 													
 													<div class="form-group">
-													<label>직급</label>
-													   <input class="form-control" type="text" placeholder="userName" id="userName" name="userName">
-												    </div>
-						
-						
-												    <div class="form-group">
-														<label>부서</label>
-														<input class="form-control" type="password" placeholder="password" id="userPwd" name="userPwd">
+														<label >직급</label>
+															<select class="form-control" id="jobCode" name="jobCode">
+																   <option selected disabled hidden="hidden" value="${emp.jobCode }">${emp.jobName }</option>
+										
+																	<c:forEach items="${jlist }" var="job" varStatus="status">
+																	<option value="${job.jobCode }">${job.jobName }</option> 
+																    </c:forEach>
+										
+															</select>
 													</div>
-												    <div class="form-group">
+													<script>
+													$(function(){
+														if("${job.jobName }"=="대표"){
+															$("#jobCode").val('J1');
+														}
+														
+														if("${job.jobName  }"=="부사장"){
+															$("#jobCode").val('J2');
+														}
+														
+														if("${job.jobName  }"=="부장"){
+															$("#jobCode").val('J3');
+														}
+														
+														if("${job.jobName  }"=="차장"){
+															$("#jobCode").val('J4');
+														}
+														
+														if("${job.jobName  }"=="과장"){
+															$("#jobCode").val('J5');
+														}
+														
+														if("${job.jobName  }"=="대리"){
+															$("#jobCode").val('J6');
+														}
+														
+														if("${job.jobName  }"=="사원"){
+															$("#jobCode").val('J7');
+														}
+														
+													})
+													</script>
+						
+						
+												    
+												   
+													<div class="form-group">
+														<label >부서코드</label>
+															<select class="form-control" id="deptName" name="deptName" >
+																	<option selected disabled hidden="hidden" value="${emp.deptName }">${emp.deptName }</option>						
+																	<c:forEach items="${dlist }" var="d" varStatus="status">
+																	<option value="${d.deptCode }">${d.deptName }</option> 
+																    </c:forEach>
+										
+															</select>
+													</div>
+													
+													<script>
+													
+													$(function(){
+														if("${emp.deptName }"=="인사관리부"){
+															$("#deptName").val('D1');
+														}
+														
+														if("${emp.deptName  }"=="회계관리부"){
+															$("#deptName").val('D2');
+														}
+														
+														if("${emp.deptName  }"=="마케팅부"){
+															$("#deptName").val('D3');
+														}
+														
+														if("${emp.deptName  }"=="국내영업부"){
+															$("#deptName").val('D4');
+														}
+														
+														if("${emp.deptName  }"=="해외영업부"){
+															$("#deptName").val('D5');
+														}
+														
+														if("${emp.deptName  }"=="기술지원부"){
+															$("#deptName").val('D6');
+														}
+														
+														if("${emp.deptName  }"=="총무부"){
+															$("#deptName").val('D7');
+														}
+														
+													})
+													
+													
+													
+													
+													
+													</script>
+													
+													
+													<div class="form-group">
+														<label>급여 등급</label>
+														
+															<select class="form-control" id="salLevel " name="salLevel ">
+																	<option selected disabled hidden="hidden"  value="${emp.salLevel  }">${emp.salLevel  }</option>
+																	<c:forEach items="${slist }" var="s" varStatus="status">
+																	<option value="${s.salLevel }">${s.salLevel }</option> 
+																    </c:forEach>
+										
+															</select>
+														
+													</div>
+													
+													<script>
+													$(function(){
+														if("${emp.salLevel }"=="S1"){
+															$("#salLevel").val('S1');
+														}
+														
+														if("${emp.salLevel }"=="S2"){
+															$("#salLevel").val('S2');
+														}
+														
+														if("${emp.salLevel }"=="S3"){
+															$("#salLevel").val('S3');
+														}
+														
+														if("${emp.salLevel }"=="S4"){
+															$("#salLevel").val('S4');
+														}
+														
+														if("${emp.salLevel }"=="S5"){
+															$("#salLevel").val('S5');
+														}
+														
+														if("${emp.salLevel }"=="S6"){
+															$("#salLevel").val('S6');
+														}
+														
+													})
+													</script>
+													
+													
+													<div class="form-group">
 														<label>권한</label>
-														<input class="form-control" type="text" id="userSsn" name="userSsn" onkeyup="setSSn(this)" maxlength='14'>
+														
+															<select class="form-control" id="rightName2" name="rightNo">
+																	<option selected disabled hidden="hidden"  value="${emp.rightNo }">${emp.rightName }</option>
+																	<c:forEach items="${rlist }" var="r" varStatus="status">
+																	<option value="${r.rightNo }">${r.rightName }</option> 
+																    </c:forEach>
+										
+															</select>
+														
 													</div>
 													
+													<script>
+													$(function(){
+														if("${emp.rightName }"=="권한없음"){
+															$("#rightName2").val('0');
+														}
+														
+														if("${emp.rightName }"=="인사관리자"){
+															$("#rightName2").val('1');
+														}
+														
+														if("${emp.rightName }"=="근태관리자"){
+															$("#rightName2").val('2');
+														}
+														
+														if("${emp.rightName }"=="공지사항관리자"){
+															$("#rightName2").val('3');
+														}
+														
+														if("${emp.rightName }"=="비품관리자"){
+															$("#rightName2").val('4');
+														}
+														
+													})
+													</script>
 													
 													<div class="form-group">
-													<label>급여 등급</label>
-													   <input class="form-control" type="text" placeholder="userName" id="userName" name="userName">
-												    </div>
-													
-													<div class="form-group">
-													<label>입사일</label>
-													   <input class="form-control" type="text" placeholder="userName" id="userName" name="userName">
+													<label><strong>입사일</strong></label> &nbsp;&nbsp;&nbsp;&nbsp;
+													<fmt:formatDate pattern="yyyy년 MM월 dd일" value="${emp.hireDate }"/>
 												    </div>
 						
 						
 												    <div class="form-group">
-														<label>수정일</label>
-														<input class="form-control" type="password" placeholder="password" id="userPwd" name="userPwd">
+														<label><strong>수정일</strong></label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<fmt:formatDate pattern="yyyy년 MM월 dd일" value="${emp.modifyDate }"/>
 													</div>
 												    <div class="form-group">
-														<label>퇴사일</label>
-														<input class="form-control" type="text" id="userSsn" name="userSsn" onkeyup="setSSn(this)" maxlength='14'>
+														<label><strong>퇴사일</strong></label>&nbsp;&nbsp;&nbsp;&nbsp;
+														<fmt:formatDate pattern="yyyy년 MM월 dd일" value="${emp.endDate }"/>
 													</div>
 											
 											
-											   
+											   			<div class="btns" align="center">
+							
+															<button type="submit" class="btn btn-primary">수정하기</button>
+														</div>
 								
 								
+													
 												</div>
-											</div>
-											<div class="tab-pane fade active show" id="contact7" role="tabpanel">
+											</div><!-- profile7 -->
+											
+											
+											<div class="tab-pane fade" id="contact7" role="tabpanel">
 												<div class="pd-20">
 												
 												<h4 class="text-blue h5">&nbsp;회계 정보</h4><br><br><br>
@@ -335,8 +500,14 @@
 															</tr> 
 														</tbody>
 													</table>
+													
+														<div class="btns" align="center">
+							
+															<button type="submit" class="btn btn-primary">수정하기</button>
+														</div>
 												</div>
-											</div>
+											</div><!-- tab penels contact7  -->
+											
 										</div>
 									</div>
 								</div>

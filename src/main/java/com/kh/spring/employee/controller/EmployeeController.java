@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.spring.common.Pagination;
 import com.kh.spring.common.PaginationEmp;
@@ -207,7 +208,21 @@ public class EmployeeController {
 	}
 	
 	@RequestMapping("empDetail.me")
-	public String empPage() {
-		return "employee/empDetail";
+	public ModelAndView empPage(int empId, ModelAndView mv, Model model) {
+		
+		ArrayList<Job> jlist = employeeService.selectJlist();
+		ArrayList<Department> dlist = employeeService.selectDlist();
+		ArrayList<Right> rlist = employeeService.selectRlist();
+		ArrayList<SalGrade> slist = employeeService.selectSlist();
+		
+		model.addAttribute("jlist", jlist);
+		model.addAttribute("dlist", dlist);
+		model.addAttribute("rlist", rlist);
+		model.addAttribute("slist", slist);
+		
+		Employee emp = employeeService.selectEmp(empId);
+		
+		mv.addObject("emp", emp).setViewName("employee/empDetail");
+		return mv;
 	}
 }

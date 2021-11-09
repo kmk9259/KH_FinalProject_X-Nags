@@ -35,6 +35,8 @@ public interface EmployeeService {
 
 	ArrayList<SalGrade> selectSlist();
 
+	Employee selectEmp(int empId);
+
 
 
 	

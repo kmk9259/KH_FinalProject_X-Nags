@@ -305,28 +305,18 @@ p {
 		                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
 		                    </div> <br>
 							
-							<!-- fieldsets -->
+							
 		                    
-		                    
-		                    
-		                    
-		                    
-		                    <!-- ================================================== -->
-		                    <fieldset>
-		                        <div class="form-card">
-		                            <div class="row">
-		                                <div class="col-7">
-		                                    <h2 class="fs-title">사원 개인 정보 등록:</h2>
-		                                </div>
-		                                <div class="col-5">
-		                                    <h2 class="steps">Step 1 - 4</h2>
-		                                </div>
-		                            </div>
-										
+
+	                       <!--========================= step 1 =====================================-->
+		<fieldset>
+		   <div class="form-card">
+		                   <div class="row">
+		                           <div class="col-7"><h2 class="fs-title">사원 개인 정보 등록:</h2></div>
+		                            <div class="col-5"><h2 class="steps">Step 1 - 4</h2></div>
+		                   </div>
 										
 
-						
-						
 
 						<div class="form-group">
 							<label>직원 이름(*)</label>
@@ -402,13 +392,9 @@ p {
 							});
 						</script> 
 
-						
-						
-						 <!-- <div class="form-group">
-							<label>주소(*)</label> <input class="form-control" placeholder="주소" type="text" id="" name="address">
-						</div>  -->
 
 						<!-- 주소입력   끝-->
+						
 
 						<!-- 성별 입력 -->
 						<br>
@@ -424,19 +410,13 @@ p {
 
 
 						<div class="btns" align="center">
-							
 							<button type="reset" class="btn btn-danger">초기화</button>
 						</div>
 
 					</div>
-										
-		                        
-		                        
-		                       
+
 								
-								
-								
-								<input type="button" name="next" class="next1 action-button" value="Next" /> 
+							<input type="button" name="next" class="next1 action-button" value="Next" /> 
                        
 								
 								

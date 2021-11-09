@@ -18,7 +18,7 @@ import lombok.ToString;
 @ToString
 public class Employee {
 
-	private int empId;				
+	private String empId;				
 	private String jobCode;					
 	private String rightNo;				
 	private String deptCode;
