@@ -100,4 +100,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	
+	<select id="selectEmp" parameterType="_int" resultMap="employeeResultSet">
+	SELECT EMP_ID, JOB_NAME, RIGHT_NAME, DEPT_NAME, SAL_LEVEL, HIRE_DATE, MODIFIY_DATE, END_DATE
+	FROM EMPLOYEE 
+	JOIN JOB USING (JOB_CODE)
+	JOIN DEPARTMENT USING (DEPT_CODE) 
+	JOIN RIGHT USING (RIGHT_NO)
+	WHERE EMP_ID = #{empId} AND STATUS = 'Y'
+	</select>
+	
+	
 </mapper>

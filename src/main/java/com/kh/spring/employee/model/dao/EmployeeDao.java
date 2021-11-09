@@ -76,6 +76,11 @@ public class EmployeeDao {
 		return (ArrayList)sqlSession.selectList("employeeMapper.selectSlist");
 	}
 
+	public Employee selectEmp(SqlSessionTemplate sqlSession, int empId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("employeeMapper.selectEmp", empId);
+	}
+
 
 
 

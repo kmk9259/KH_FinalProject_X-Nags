@@ -102,7 +102,7 @@
 					
 					
 					<div class="table-responsive">
-						<table class="table table-striped" style="text-align:center;">
+						<table id="salary" class="table table-striped" style="text-align:center;">
 							<thead>
 								<tr>
 									<!-- <th scope="col">#</th> -->
@@ -119,7 +119,7 @@
 							</thead>
 							<tbody>
 							<c:forEach items="${list }" var="emp">
-								<tr>
+								<tr> 
 								
 								<td>${emp.empId }</td>
 								<td>${emp.empId }</td>
@@ -127,8 +127,7 @@
 								<td>${emp.rightName }</td>
 								<td>${emp.deptName }</td>
 								<td>${emp.salLevel }</td>
-								<td><fmt:formatDate pattern="yyyy-MM-dd" value="${emp.hireDate }"/></td>
-								<%-- <td>${emp.modifyDate }</td> --%>
+								<td><fmt:formatDate pattern="yyyy년 MM월 dd일" value="${emp.hireDate }"/></td>
 								<td>${emp.endDate }</td>
 								<td>
 								
@@ -137,11 +136,11 @@
 												<i class="dw dw-more"></i>
 											</a>
 											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list" style="">
-												<a class="dropdown-item" href="empDetail.me"><i class="dw dw-eye"></i> View</a>
+												<a class="dropdown-item"><i class="dw dw-eye"></i> View</a>
 												<a class="dropdown-item" href="update.me"><i class="dw dw-edit2"></i> Edit</a>
 												<a class="dropdown-item" href="delete.me"><i class="dw dw-delete-3"></i> Delete</a>
 											</div>
-										</div>
+								</div>
 								
 								</td>
 								</tr>
@@ -150,37 +149,54 @@
 							</tbody>
 						</table>
 					</div>
-					<div class="collapse collapse-box" id="responsive-table">
-						<div class="code-box">
-							<div class="clearfix">
-								<a href="javascript:;"
-									class="btn btn-primary btn-sm code-copy pull-left"
-									data-clipboard-target="#responsive-table-code"><i
-									class="fa fa-clipboard"></i> Copy Code</a> <a
-									href="#responsive-table"
-									class="btn btn-primary btn-sm pull-right" rel="content-y"
-									data-toggle="collapse" role="button"><i
-									class="fa fa-eye-slash"></i> Hide Code</a>
-							</div>
 
-						</div>
-					</div>
 				</div><!-- 반응형 테이블 끝 -->
-				<script>
-				$(function(){
-                	var attendanceDate ="";
-                	$( ".date-picker" ).datepicker({
-                    		dateFormat: "yyyy-mm-dd",
-                    		language:"ko",
-                    		onSelect: function(dateText) {
-                    			attendanceDate = dateText;
-                    	    }
-                    		
-                    });
-                	
-				});
-				
-				</script>
+		
+			<script>
+			$(function() {
+			    /*view*/
+			    var i = $("#salary tbody td:eq(8) .dropdown-menu-icon-list a:eq(0)").text();
+			    console.log(i); 
+			    
+			    
+			    
+			    /*사원번호*/
+			    var aaa = $("#salary tbody td:eq(0)").text();
+			    console.log(aaa)
+			    
+			     /*사원번호2*/
+			    var bbb = $("#salary tbody tr:eq(1) td:eq(0)").text();
+			    console.log(bbb)
+			    
+			    /*사원번호*/
+			    var i1 = $("#salary tbody tr:eq(0) td:eq(8) .dropdown-menu-icon-list a:eq(0)").parent().parent().parent().parent().children().eq(0).text();
+			    console.log(i1);
+			    var i2 = $("#salary tbody tr:eq(1) td:eq(8) .dropdown-menu-icon-list a:eq(0)").parent().parent().parent().parent().children().eq(0).text();
+			    console.log(i2);
+			    var i3 = $("#salary tbody tr:eq(2) td:eq(8) .dropdown-menu-icon-list a:eq(0)").parent().parent().parent().parent().children().eq(0).text();
+			    console.log(i3);
+			    console.log($("#salary tbody tr").length);
+			    
+
+			    
+			    var hh = $("#salary tbody tr").children().eq(0).text();
+			    console.log("hh " + hh)
+			    
+			    /*각각 테이블 tr 별로 for 문으로 인덱스 구해서*/
+			    
+			    for(var i =0; i<$("#salary tbody tr").length; i++){
+			    	
+			    	$("#salary tbody tr:eq("+i+") td:eq(8) .dropdown-menu-icon-list a:eq(0)").click(function(){
+			    		location.href="empDetail.me?empId=" +  $(this).parent().parent().parent().parent().children().eq(0).text();
+				    });
+			    }
+			    
+			    
+			    
+			});
+			  
+
+         </script>
 				
 				
 				
