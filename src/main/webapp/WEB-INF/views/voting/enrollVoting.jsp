@@ -15,58 +15,47 @@
 }
 </style>
 </head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+     
+
 <body>
 	<jsp:include page="../common/menubar.jsp" />
 	<div class="mobile-menu-overlay"></div>
 
 	<div class="main-container">
-		<div class="content">
-			<div align="center">
-				<br />
-				<h2>투표프로그램</h2>
-				<hr width="600" />
-				
-				<hr width="600" />
-				<form name="frm" method="post" action="pollInsertProc.jsp">
-					<table border="1" width="500" id ="content">
-						<tr>
-							<td><b>주제</b></td>
-							<td colspan="2"><input name="question" size="30"></td>
-						</tr>
-						
-						<tr>
-							<td rowspan="10"><b>항목</b></td>
-							<td><button type = "button" onclick = "addContent();">항목추가</button></td>
-							<%--
-								for (int i = 1; i <= 4; i++) {
-								out.println("<td>" + (i * 2 - 1) + ": <input name='item'></td>");
-								out.println("<td>" + (i * 2) + ": <input name='item'></td>");
-								out.println("</tr>");
-								if (i == 9) {
-									out.println("");
-								} else {
-									out.println("<tr>");
-								}
-							} 
-							--%>
-						</tr>
+	<form  method="post" action="votingInsert.bo" enctype="multipart/form-data">
+	<input type = "hidden" name = "empId" value = "${loginUser.empId }">	
+	주제 :<input type = "text" name = "votingTitle">
+<table id="example" >
+        <tr>
+            <th>항목</th> 			          
+      </tr>
+        <tr class="item1">      
+            <td><input type="text" style = 'width:500px' name = "votingContent"></td>                 
+        </tr>
 </table>
- <input type="button" value="작성하기" onclick="">
- <input type="reset" value="모두 지우기"> 
- <input type="button" value="리스트" onClick=""> 
+<button type = "submit">등록하기</button>
 </form>
+ <button id="addItemBtn">항목추가하기</button>
+ <button id="delBtn">항목제거하기</button>	
 </div>
-</div>
-</div>
-<script>
-function addContent(){
-	var value = "";
-	value += "<td><input type = 'text' name = 'content'></td>"
-	
-	("#content").html(value);
-}
-</script>
-    
+<script >
+
+$(document).ready(function(){
+    $("#addItemBtn").click(function(){
+        var value = "";
+        value += "<tr><td><input type ='text' style = 'width:500px' name = 'votingContent'></td></tr>"
+        $("#example").append(value);        
+    });
+     
+    // 삭제버튼 클릭시
+   $("#delBtn").click(function(){
+	   $("#example tr:last").remove();
+   })
+
+});
+
+</script>  
 <jsp:include page="../common/footer.jsp" />
 </body>
 						

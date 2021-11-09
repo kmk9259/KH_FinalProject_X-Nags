@@ -22,4 +22,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ORDER BY VOTING_NO DESC
 	</select>
 
+<insert id = "insertVoting" parameterType="Voting">
+	INSERT INTO VOTING
+	VALUES(VOTING_NO.NEXTVAL, #{votingTitle}, #{votingContent}, #{empId}, sysdate)
+</insert>
+
+<select id="selectVoting" parameterType="_int" resultMap="votingResultSet">
+		SELECT *
+		FROM VOTING 
+		WHERE VOTING_NO=#{bno} 	
+	</select>
 </mapper>
