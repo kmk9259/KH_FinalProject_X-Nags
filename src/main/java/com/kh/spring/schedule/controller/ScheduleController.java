@@ -52,7 +52,7 @@ public class ScheduleController {
 	public String detailSchedule(Schedule sc) {
 		
 		
-		return //???? ;
+		return null;
 		
 	}
 	
