@@ -24,6 +24,7 @@ public class ApprovalDao {
 		return sqlSession.selectOne("approvalMapper.selectApprovalListCount", empId);
 	}
 
+	//진행중 결재함 리스트 보기
 	public ArrayList<Approval> selectApprovalList(SqlSessionTemplate sqlSession, PageInfo pi, String empId) {
 		
 		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
@@ -33,4 +34,15 @@ public class ApprovalDao {
 		return (ArrayList)sqlSession.selectList("approvalMapper.selectApprovalList", empId, rowBounds);
 	}
 
+	public int selectAskApprovalListCount(SqlSessionTemplate sqlSession, String empId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	/*
+	 * //휴가 신청 public int insertHoliday(SqlSessionTemplate sqlSession, Approval app)
+	 * {
+	 * 
+	 * return sqlSession.insert("approvalMapper.insertHoliday", app); }
+	 */
 }

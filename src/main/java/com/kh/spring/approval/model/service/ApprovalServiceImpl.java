@@ -19,7 +19,8 @@ public class ApprovalServiceImpl implements ApprovalService {
 	
 	@Autowired
 	private ApprovalDao approvalDao;
-
+	
+	//결재신청
 	@Override
 	public void insertApproval(Approval app) {
 
@@ -43,5 +44,31 @@ public class ApprovalServiceImpl implements ApprovalService {
 		
 		return approvalDao.selectApprovalList(sqlSession, pi, empId);
 	}
+	
+	//결재 요청함 리스트 수
+	@Override
+	public int selectAskApprovalListCount(String empId) {
+		
+		return approvalDao.selectAskApprovalListCount(sqlSession, empId);
+	}
+	
+	//결재 요청함 리스트
+	@Override
+	public ArrayList<Approval> selectAskApprovalList(PageInfo pi, String empId) {
+		
+		return null;
+	}
+	
+	/*
+	 * //휴가 신청
+	 * 
+	 * @Override public void insertHoliday(Approval app) {
+	 * 
+	 * int result = approvalDao.insertHoliday(sqlSession, app);
+	 * 
+	 * if(result < 0) { throw new CommException("휴가 신청 실패"); }
+	 * 
+	 * }
+	 */
 
 }
