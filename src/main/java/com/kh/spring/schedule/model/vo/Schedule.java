@@ -31,5 +31,4 @@ public class Schedule {
 	private String userName;
 	private String deptName;
 
-
 }

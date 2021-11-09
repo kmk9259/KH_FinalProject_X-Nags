@@ -23,8 +23,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	
 	 <insert id="insertSchedule" parameterType="Schedule" >
-	INSERT INTO SCHEDULE
-	VALUES (SEQ_SALNO.NEXTVAL, #{salLevel}, RPAD(to_number(to_char(SYSDATE, 'yymmdd')),9,SEQ_EMP_ID.CURRVAL),  #{commission},#{meal},#{incomeTax},#{empInsurance},#{retirement},#{healthInsurance},#{total})	
+	INSERT INTO SCHEDULE (SCHEDULE_NO, EMP_ID, SCHEDULE_TITLE, SCHEDULE_START, SCHEDULE_END, SCHEDULE_DISCRIPTION,)
+	SCHEDULE_TYPE_NO, SCHEDULE_BACKGROUNDCOLOR, SCHEDULE_ALLDAY, USER_NAME, DEPT_NAME)
+	VALUES (SCHEDULE_NO.NEXTVAL, #{empId}, RPAD(to_number(to_char(SYSDATE, 'yymmdd')),9,SEQ_EMP_ID.CURRVAL),  #{commission},#{meal},#{incomeTax},#{empInsurance},#{retirement},#{healthInsurance},#{total})	
 	</insert>
 
 	
