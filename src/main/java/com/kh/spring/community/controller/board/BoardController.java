@@ -54,7 +54,7 @@ public class BoardController {
 	}
 
 	@RequestMapping("insert.bo")
-	public String insertBoard(Board b, HttpServletRequest request, Model model,
+	public String insertBoard(Board b, HttpServletRequest request,
 			@RequestParam(name = "uploadFile", required = false) MultipartFile file) {
 		
 

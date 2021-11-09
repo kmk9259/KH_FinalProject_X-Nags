@@ -22,5 +22,13 @@ public class VotingDao {
 		return sqlSession.selectOne("votingMapper.selectListCount");
 	}
 
+	public int insertVoting(SqlSessionTemplate sqlSession, Voting v) {
+		return sqlSession.insert("votingMapper.insertVoting",v);
+	}
+
+	public Voting selectVoting(SqlSessionTemplate sqlSession, int bno) {
+		return sqlSession.selectOne("votingMapper.selectVoting",bno);
+	}
+
 	
 }

@@ -2,22 +2,28 @@ package com.kh.spring.community.controller.voting;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.spring.common.Pagination;
 import com.kh.spring.community.model.service.voting.VotingService;
+import com.kh.spring.community.model.vo.Board;
 import com.kh.spring.community.model.vo.PageInfo;
 import com.kh.spring.community.model.vo.Voting;
+
 @Controller
 public class VotingController {
 
-	@Autowired 
+	@Autowired
 	private VotingService votingService;
-	
+
 	@RequestMapping("voting.vo")
 	public String votingList(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
 			Model model) {
@@ -38,5 +44,27 @@ public class VotingController {
 	@RequestMapping("enrollVoting.vo")
 	public String enrollForm() {
 		return "voting/enrollVoting";
+	}
+
+	@RequestMapping("votingInsert.bo")
+	public String insertBoard(Voting v) {
+		votingService.insertVoting(v);
+
+		return "redirect:voting.vo";
+	}
+
+	@RequestMapping("votingdetail.bo")
+	public ModelAndView selectVoting(int bno, ModelAndView mv) {
+		Voting v = votingService.selectVoting(bno);
+		System.out.println(v.getVotingContent() + "보팅 ");
+		// v.setVotingContent(v.getVotingContent().split(","));
+
+		String[] vContent = v.getVotingContent().split(",");
+		System.out.println(vContent[1] + "111111");
+		System.out.println(vContent[0] + "00000");
+		// v.setVotingContent(vContent);
+		mv.addObject("v", v).setViewName("voting/votingDetail");
+		mv.addObject("vContent",vContent).setViewName("voting/votingDetail");
+		return mv;
 	}
 }

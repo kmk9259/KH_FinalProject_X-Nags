@@ -11,5 +11,9 @@ public interface VotingService {
 
 	ArrayList<Voting> selectList(PageInfo pi);
 
+	void insertVoting(Voting v);
+
+	Voting selectVoting(int bno);
+
 	
 }

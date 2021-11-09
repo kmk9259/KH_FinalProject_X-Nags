@@ -90,8 +90,7 @@
 									<td>${ v.votingNo }</td>
 									<td>${v.empId }</td>
 									<td>${ v.votingTitle }</td>
-									<td>${ v.votingDate }</td>
-									
+									<td>${ v.votingDate }</td>									
 								</tr>
 							</c:forEach>
 
@@ -147,17 +146,18 @@
 			<br>
 		</div>
 	</div>
+
 	<script>
-	<%--
+
 		$(function() {
 			$("#boardList tbody tr").click(
 					function() {
-						location.href = "detail.bo?bno="
+						location.href = "votingdetail.bo?bno="
 								+ $(this).children().eq(0).text();
 					});
 		});
 	</script>
-	--%>
+
 	<%-- js 
 
 	
