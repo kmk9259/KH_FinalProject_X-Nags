@@ -24,6 +24,18 @@ public class ScheduleServiceImpl implements ScheduleService {
 		
 		return result;
 	}
+
+	@Override
+	public int updateSchedule(Schedule sc) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int deleteSchedule(Schedule sc) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 	
 	
