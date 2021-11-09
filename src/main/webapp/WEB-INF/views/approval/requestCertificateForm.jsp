@@ -9,13 +9,6 @@
 	content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>X-Nomal Groupware Solution</title>
 <style type="text/css">
-.mailReceiver {
-	display: flex;
-	flex-flow: row wrap;
-	align-items: center;
-	width: 100%;
-	margin-bottom: 0;
-}
 
 label {
 	font-weight: bold;
@@ -98,16 +91,16 @@ label {
 					</div>
 					
 						<div class="form-group">
-							<select class="custom-select col-6">
+							<select class="custom-select col-6" name="category">
 								<option selected>증명서 선택</option>
-								<option name="category" value="4">재직증명서</option>
-								<option name="category" value="5">급여명세서</option>
-								<option name="category" value="6">기타</option>
+								<option value="4">재직증명서</option>
+								<option value="5">급여명세서</option>
+								<option value="6">기타</option>
 							</select>
 						</div>
 						
 						<div class="form-group">
-							<input class="form-control date-picker1" name="appDate" placeholder="기안일 지정" type="text" required="required">
+							<input class="form-control date-picker" name="date" placeholder="기안일 지정" type="text" required="required">
 						</div>
 						
 
@@ -189,7 +182,7 @@ label {
                 
                 $(function(){
                 	var appDate ="";
-                	$( ".date-picker1" ).datepicker({
+                	$( ".date-picker" ).datepicker({
                     		dateFormat: "yyyy-mm-dd",
                     		language:"en",
                     		onSelect: function(dateText) {

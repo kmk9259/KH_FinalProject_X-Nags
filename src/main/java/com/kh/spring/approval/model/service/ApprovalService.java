@@ -13,4 +13,10 @@ public interface ApprovalService {
 
 	ArrayList<Approval> selectApprovalList(PageInfo pi, String empId);
 
+	int selectAskApprovalListCount(String empId);
+
+	ArrayList<Approval> selectAskApprovalList(PageInfo pi, String empId);
+
+	/* void insertHoliday(Approval app); */
+
 }

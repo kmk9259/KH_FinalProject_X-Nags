@@ -12,38 +12,55 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="CATEGORY" property="category"/>
 		<result column="APP_MID" property="appMid"/> 
 		<result column="APP_FIN" property="appFin"/>
-		<result column="APP_STATUS" property="status"/>
+		<result column="STATUS" property="status"/>
 		<result column="APP_TITLE" property="title"/>
 		<result column="APP_CONTENT" property="content"/>
 		<result column="WRITE_DATE" property="writeDate"/>
-		<result column="APP_DATE" property="appDate"/>
+		<result column="START_DATE" property="startDate"/>
+		<result column="END_DATE" property="appDate"/>
 		<result column="MID_REPLY" property="midReply"/>
 		<result column="FIN_REPLY" property="finReply"/>
 		<result column="ORIGIN_NAME" property="originName"/>
 		<result column="CHANGE_NAME" property="changeName"/>
+		
 	</resultMap>
+	
+
 	
 	<!-- 결재 전송 -->
 	<insert id="insertApproval" parameterType="Approval">
-		INSERT INTO APPROVAL
-		VALUES
-		(SEQ_ANO.NEXTVAL, #{empId}, #{category}, #{appMid}, #{appFin}, default,
-		 #{title}, #{content}, sysdate, #{appDate}, null,  null, #{originName}, #{changeName})
+		
+		<if test="startDate == null">
+			INSERT INTO APPROVAL
+			VALUES
+			(SEQ_ANO.NEXTVAL, #{empId}, #{category}, #{appMid}, #{appFin}, default,
+			 #{title}, #{content}, sysdate, null, #{appDate}, null,  null, #{originName}, #{changeName})
+		</if>
+		<if test="startDate != null">
+			INSERT INTO APPROVAL
+			VALUES
+			(SEQ_ANO.NEXTVAL, #{empId}, #{category}, #{appMid}, #{appFin}, default,
+			 #{title}, #{content}, sysdate, ${startDate}, #{appDate}, null,  null, #{originName}, #{changeName})
+			
+		</if>
+	
+	
 	</insert>
 	
 	<!-- 진행중 결재함 수 -->
 	<select id="selectApprovalListCount" resultType="_int">
 		SELECT COUNT(*)
-		FROM MAIL
+		FROM APPROVAL
 		WHERE EMP_ID=#{empId}
-		AND APP_STATUS=1
+		AND STATUS IN (1,3)
 	</select>
 	
 	<!-- 진행중 결재함 리스트 -->
 	<select id="selectApprovalList" resultMap="appResultSet">
 		SELECT *
-		FROM APPROVAL A
-		JOIN MEMBER B ON A. 
+		FROM APPROVAL
+		WHERE EMP_ID=#{empId}
+		AND STATUS IN (1,3)
 	</select>
 	
 

@@ -43,7 +43,7 @@ label {
 							<nav aria-label="breadcrumb" role="navigation">
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="">홈</a></li>
-									<li class="breadcrumb-item active" aria-current="page">전자 결재</li>
+									<li class="breadcrumb-item">전자 결재</li>
 									<li class="breadcrumb-item active" aria-current="page">연장근무 신청</li>
 								</ol>
 							</nav>
@@ -68,19 +68,22 @@ label {
 						</div>
 					</div>
 				</div> --%>
+				
 				<div class="page-header">
 					<div class="row">
 						<div class="col-md-6 col-sm-12">
 							<div class="title">
 								<h4 class="text-blue h4">결재선 지정</h4>
 								<input type="hidden" readonly class="form-control-plaintext" name="empId" value="${ sessionScope.loginUser.empId }">
+								<input type="hidden" readonly class="form-control-plaintext" name="category" value="3">
+								
 							</div>
 							<div class="form-group">
 								<input class="form-control" type="text" required="required" name="appMid" placeholder="중간 결제자를 입력해 주세요">
-								<input class="form-control" type="hidden" required="required" >
+								<input class="form-control" type="hidden">
 							</div>
 								<input class="form-control" type="text" required="required" name="appFin" placeholder="최종 결재자를 입력해 주세요">
-								<input class="form-control" type="hidden"  required="required">
+								<input class="form-control" type="hidden">
 							</div>
 						</div>
 					</div>
@@ -91,11 +94,11 @@ label {
 				<div class="pd-20 card-box mb-30">
 					<div class="clearfix">
 						<div class="pull-left">
-							<h4 class="text-blue h4">연장근무 신청서</h4>
+							<h4 class="h4">연장근무 신청서</h4>
 						</div>
 					</div>
 						<div class="form-group">
-							<input class="form-control date-picker1" placeholder="연장 근무일 지정" type="text" name="appDate">
+							<input class="form-control date-picker" placeholder="연장 근무일 지정" type="text" name="date" required="required">
 						</div>
 						<div class="form-group">
 							<input class="form-control" type="text" name="title" required="required" placeholder="제목을 입력해주세요.">
@@ -175,7 +178,7 @@ label {
                 
                 $(function(){
                 	var appDate ="";
-                	$( ".date-picker1" ).datepicker({
+                	$( ".date-picker" ).datepicker({
                     		dateFormat: "yyyy-mm-dd",
                     		language:"en",
                     		onSelect: function(dateText) {
