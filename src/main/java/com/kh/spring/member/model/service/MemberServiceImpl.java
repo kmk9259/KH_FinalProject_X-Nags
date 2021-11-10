@@ -69,6 +69,12 @@ public class MemberServiceImpl implements MemberService {
 		}		
 	}
 
+	@Override
+	public Member selectMem(int empId) {
+		// TODO Auto-generated method stub
+		return memberDao.selectMem(sqlSession, empId);
+	}
+
 
 
 

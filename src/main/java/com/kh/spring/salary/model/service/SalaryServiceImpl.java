@@ -26,4 +26,10 @@ public class SalaryServiceImpl implements SalaryService {
 		
 	}
 
+	@Override
+	public Salary selectSal(int empId) {
+		// 
+		return salaryDao.selectSal(sqlSession, empId);
+	}
+
 }

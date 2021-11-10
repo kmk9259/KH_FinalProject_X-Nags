@@ -37,6 +37,11 @@ public interface EmployeeService {
 
 	Employee selectEmp(int empId);
 
+	Employee updateEmp(Employee emp);
+
+	void deleteEmp(int empId);
+
+	
 
 
 	
