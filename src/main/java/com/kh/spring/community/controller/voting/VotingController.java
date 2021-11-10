@@ -48,6 +48,12 @@ public class VotingController {
 
 	@RequestMapping("votingInsert.bo")
 	public String insertBoard(Voting v) {
+		//String[] vContent = v.getVotingContent().split(",");
+		/*
+		 * for(int i = 0; i< v.getVotingContent().length; i++) {
+		 * v.setVotingContent(v.getVotingContent()); }
+		 */
+		
 		votingService.insertVoting(v);
 
 		return "redirect:voting.vo";
@@ -57,14 +63,20 @@ public class VotingController {
 	public ModelAndView selectVoting(int bno, ModelAndView mv) {
 		Voting v = votingService.selectVoting(bno);
 		System.out.println(v.getVotingContent() + "보팅 ");
-		// v.setVotingContent(v.getVotingContent().split(","));
-
+		
 		String[] vContent = v.getVotingContent().split(",");
 		System.out.println(vContent[1] + "111111");
 		System.out.println(vContent[0] + "00000");
-		// v.setVotingContent(vContent);
+		
 		mv.addObject("v", v).setViewName("voting/votingDetail");
 		mv.addObject("vContent",vContent).setViewName("voting/votingDetail");
 		return mv;
 	}
+	
+	
+	
+	/*
+	 * @RequestMapping("votingAction.vo") public ModelAndView votingAction(Voting v)
+	 * { votingService.votingAction(v); return mv; }
+	 */
 }

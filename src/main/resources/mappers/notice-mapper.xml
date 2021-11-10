@@ -13,6 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="COUNT" property="count" />
 		<result column="FILE_PATH" property="filePath" />
 		<result column="UPLOAD_DATE" property="uploadDate" />
+		<result property="userName" column="USER_NAME"/>
 	</resultMap>
 
 	<select id="selectListCount" resultType="_int">
@@ -22,9 +23,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="selectList" resultMap="noticeResultSet">
-		SELECT *
-		FROM NOTICE
-		ORDER BY NOTICE_NO DESC
+		SELECT N.NOTICE_NO, N.EMP_ID, N.NOTICE_TITLE, N.NOTICE_CONTENT, N.ORIGIN_FILE, 
+		N.CHANGE_FILE, N.COUNT, N.FILE_PATH, N.UPLOAD_DATE, M.USER_NAME
+		FROM NOTICE N
+		JOIN MEMBER M ON N.EMP_ID = M.EMP_ID
+		ORDER BY N.NOTICE_NO DESC
 	</select>
 
 	<update id="increaseCount" parameterType="_int">
@@ -36,8 +39,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectNotice" parameterType="_int"
 		resultMap="noticeResultSet">
-		SELECT *
-		FROM NOTICE
+		SELECT N.NOTICE_NO, N.EMP_ID, N.NOTICE_TITLE, N.NOTICE_CONTENT, N.ORIGIN_FILE, 
+		N.CHANGE_FILE, N.COUNT, N.FILE_PATH, N.UPLOAD_DATE, M.USER_NAME
+		FROM NOTICE N
+		JOIN MEMBER M ON N.EMP_ID = M.EMP_ID
 		WHERE NOTICE_NO=#{bno}
 	</select>
 
