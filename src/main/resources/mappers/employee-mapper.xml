@@ -142,6 +142,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	WHERE E.EMP_ID = #{empId} AND E.STATUS='Y'
 	</select>
 	
+	<select id="selectNextEmp" resultType="string">
+	select RPAD(to_number(to_char(SYSDATE, 'yymmdd')),9,last_number)
+	from user_sequences
+	where sequence_name='SEQ_EMP_ID'
+	
+	</select>
+	
 
 	<update id="updateEmp" parameterType="Employee" >
 	update EMPLOYEE set

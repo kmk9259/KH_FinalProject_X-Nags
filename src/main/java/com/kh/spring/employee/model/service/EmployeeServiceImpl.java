@@ -103,6 +103,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
+	public String selectNextEmp() {
+		return employeeDao.selectNextEmp(sqlSession);
+	}
+
+  @Override
 	public Employee updateEmp(Employee emp) {
 		int result = employeeDao.updateEmp(sqlSession, emp);
 		
@@ -123,6 +128,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	
+
 
 
 

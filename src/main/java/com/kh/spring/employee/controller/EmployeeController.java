@@ -96,11 +96,14 @@ public class EmployeeController {
 		ArrayList<Department> dlist = employeeService.selectDlist();
 		ArrayList<Right> rlist = employeeService.selectRlist();
 		ArrayList<SalGrade> slist = employeeService.selectSlist();
+		String nextEmp = employeeService.selectNextEmp();
+		System.out.println("nextEmp : "+nextEmp);
 		
 		model.addAttribute("jlist", jlist);
 		model.addAttribute("dlist", dlist);
 		model.addAttribute("rlist", rlist);
 		model.addAttribute("slist", slist);
+		model.addAttribute("nextEmp", nextEmp);
 		
 		return "employee/enrollEmp";
 	}
