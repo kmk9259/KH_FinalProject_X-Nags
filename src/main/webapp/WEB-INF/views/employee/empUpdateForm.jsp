@@ -56,12 +56,12 @@
 					<div class="row">
 						<div class="col-md-6 col-sm-12">
 							<div class="title">
-								<h4>사원 상세 정보</h4>
+								<h4>사원 정보 업데이트</h4>
 							</div>
 							<nav aria-label="breadcrumb" role="navigation">
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="">홈</a></li>
-									<li class="breadcrumb-item active" aria-current="page">사원 상세 정보</li>
+									<li class="breadcrumb-item active" aria-current="page">사원 정보 업데이트</li>
 								</ol>
 							</nav>
 						</div>
@@ -70,198 +70,212 @@
 
 
 
-			
-					<div class="pd-20 card-box mb-30">
-							<h5 class="h4 text-blue mb-20">${emp.jobName }  ${mem.userName } 님</h5>
+
+		<div class="pd-20 card-box mb-30">
+		
+
+					<h5 class="h4 text-blue mb-20">${emp.jobName }  ${mem.userName } 님</h5>
 							<div class="tab">
 								<div class="row clearfix">
-									<div class="col-md-3 col-sm-12">
-										<ul class="nav flex-column nav-pills vtabs" role="tablist">
-											<li class="nav-item">
-												<a class="nav-link active" data-toggle="tab" href="#home7" role="tab" aria-selected="true"><i class="fa fa-vcard"></i></a>
-											</li>
-											<li class="nav-item">
-												<a class="nav-link" data-toggle="tab" href="#profile7" role="tab" aria-selected="false"><i class="fa fa-users"></i></a>
-											</li>
-											<li class="nav-item">
-												<a class="nav-link" data-toggle="tab" href="#contact7" role="tab" aria-selected="false"><i class="fa fa-envelope-o"></i></a>
-											</li>
-										</ul>
-									</div>
+											<div class="col-md-3 col-sm-12">
+												<ul class="nav flex-column nav-pills vtabs" role="tablist">
+													<li class="nav-item">
+														<a class="nav-link active" data-toggle="tab" href="#home7" role="tab" aria-selected="true"><i class="fa fa-vcard"></i></a>
+													</li>
+													
+												</ul>
+											</div>
 									<div class="col-md-9 col-sm-12">
 										<div class="tab-content">
-										
-										<!-- 1 -->
-											<div class="tab-pane fade show active" id="home7" role="tabpanel">
+											<div class="tab-pane fade active show" id="home7" role="tabpanel">
 												<div class="pd-20">
-													
-															 <div class="image_box">                              
-                               								 <img src="${ pageContext.servletContext.contextPath }/resources/profile_files/${ mem.changeName }" class="profile" >
-                               								 </div> <br><br><br><br>
-		                     
-		                     
-		                    			 <!-- 프로필 사진 끝 -->
-						
-						
 
-															<div class="form-group">
-																<label>직원 이름(*)</label>
-																<input class="form-control" type="text"  id="userName" name="userName" value="${mem.userName }" disabled>
-															</div>
-									
-									
-															<%-- <div class="form-group">
-																<label>비밀번호(*)</label>
-																<input class="form-control" type="hidden"  id="userPwd" name="userPwd" value="${mem.userPwd }">
-															</div> --%>
-															<div class="form-group">
-																<label>주민등록번호(*)</label>
-																<input class="form-control" type="text" id="userSsn" name="userSsn" onkeyup="setSSn(this)" value="${mem.userSsn }"maxlength='14' disabled>
-																
-																<script>
-																function setSSn(obj)
-																{
-																	var ssn = obj.value;
-																	var ssn = ssn.replace("-","");
-																	if(ssn.length < 7) {
-																		var ssn1 = ssn.substring(0,7);
-																		var ssn2 = ssn.substring(7,8);
-																								
-																		obj.value = ssn1+"-"+ssn2;
-																	}
-																}
-																
-																</script>
-															</div>
-															
-															<div class="form-group">
-																<label>이메일(*)</label> <input class="form-control" value="${mem.email }" type="email" id="email" name="email" disabled>
-															</div>
-															
-															<div class="form-group">
-																<label>전화번호(*)</label> <input class="form-control" value="${mem.phone }" type="tel" id="phone" name="phone" oninput="autoHyphen(this)" maxlength='13' disabled>
-															</div><br><br><br>
-															<script>
-															const autoHyphen = (target) => {
-																 target.value = target.value
-																   .replace(/[^0-9]/, '')
-																   .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
-																}
-															
-															</script>
-									
-															<!-- 주소입력  -->
-									
-															<label for="address"> &nbsp; <Strong>주소  :</Strong></label><br>
-															
-															
-															<c:forTokens var="addr" items="${ loginUser.address }" delims="/" varStatus="status">
-																		<c:if test="${ status.index eq 0 && addr >= '0' && addr <= '99999' }">
-																		<c:set var="post" value="${ addr }"/>
-																		</c:if>
-																		
-																		<c:if test="${ status.index eq 0 && !(addr >= '0' && addr <= '99999') }">
-																		<c:set var="address1" value="${ addr }"/>
-																		</c:if>
-																		
-																		<c:if test="${ status.index eq 1 }">
-																		<c:set var="address1" value="${ addr }"/>
-																		</c:if>
-																	<c:if test="${ status.index eq 2 }">
-																		<c:set var="address2" value="${ addr }"/>
-																	</c:if>
-															</c:forTokens>
-															
-									
-															<div class="form-inline">
-																<label> &nbsp; 우편번호 : &nbsp;</label> <input type="text"
-																	id="post" name="post"  class="form-control mr-2 postcodify_postcode5"
-																	size="6" value="${ post }" disabled>
-																<button type="button" class="btn btn-primary" id="postcodify_search_button" disabled>검색</button>
-															</div>
-															<br>
-															<label> &nbsp; 도로명주소 : </label> <input type="text" id="address1"
-																name="address1" class="form-control postcodify_address" size="30" value="${ address1 }" disabled>
-															<br>
-															<label> &nbsp; 상세주소 : </label>
-															<input type="text" id="address2" name="address2" class="form-control postcodify_extra_info" size="30" value="${ address2 }" disabled> <br>
-									
-
-															<!-- jQuery와 Postcodify를 로딩한다. -->
-															<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
-															<script>
-																// 검색 단추를 누르면 팝업 레이어가 열리도록 설정한다.
-																$(function() {
-																	$("#postcodify_search_button")
-																			.postcodifyPopUp();
-																	});
-																</script> 
-										
-																
-																<!-- 주소입력   끝-->
-										
-																<!-- 성별 입력 -->
-																<br>
-																<br>
-																<label for=""> &nbsp; Gender : </label>&nbsp;&nbsp;
-																<input type="radio" name="gender" id="Male" value="M" disabled>
-																<label	for="Male">남자</label> &nbsp;&nbsp;
-																<input type="radio" name="gender" id="Female" value="F" disabled>
-																<label for="Female">여자</label><br>
-										
-																<!-- 성별 입력 끝 -->
-																
-																<script>
-																$(function(){
-																		if("${ mem.gender }" == "M"){
-																		$("#Male").attr("checked", true); 
-																		
-																		}else if("${ mem.gender }" == "F"){
-																		
-																		$("#Female").attr("checked", true);
-																		}
-																					                    		
-																});
-											                    </script>
-
-						
-
-						 					<br><br><br><p style="color: red;">개인 정보는 본인이 마이페이지에서 수정 가능합니다.</p>
-															
-
-
-												</div>
-											</div>
-											
-										<!-- 2 -->
-											<div class="tab-pane fade" id="profile7" role="tabpanel">
-												<div class="pd-20">
+												<form id="updateForm" method="post" action="updateEmp.me">
+												<input type="hidden" name="empId" value="${ emp.empId }">
+								
 													<div class="form-group">
 													<label>사원 아이디</label>
-													   <input class="form-control" type="text" id="empId" name="empId" value="${emp.empId }" disabled>
+													   <input class="form-control" type="text" value="${emp.empId }" disabled>
 												    </div>
-												    
-												    <div class="form-group">
-												    <label>직급</label>
-													   <input class="form-control" type="text" id="jobCode" name="jobCode" value="${emp.jobName }" disabled>
-												    </div>
-													
 													
 													<div class="form-group">
-													<label>부서</label>
-													   <input class="form-control" type="text" id="deptName" name="deptName" value="${emp.deptName }" disabled>
-												    </div>
+														<label >직급</label>
+															 <select class="form-control" id="jobCode" name="jobCode">
+																   <option selected  hidden="hidden"  value="${emp.jobCode}">${emp.jobName}</option>
+										
+																	<c:forEach items="${jlist }" var="job" varStatus="status">
+																	<option value="${job.jobCode}">${job.jobName}</option> 
+																    </c:forEach>
+										
+															</select> 
+													</div>
+													 <script>
+													$(function(){
+														if("${job.jobName}"=="대표"){
+															$("#jobCode").val('J1');
+														}
+														
+														if("${job.jobName}"=="부사장"){
+															$("#jobCode").val('J2');
+														}
+														
+														if("${job.jobName}"=="부장"){
+															$("#jobCode").val('J3');
+														}
+														
+														if("${job.jobName}"=="차장"){
+															$("#jobCode").val('J4');
+														}
+														
+														if("${job.jobName}"=="과장"){
+															$("#jobCode").val('J5');
+														}
+														
+														if("${job.jobName}"=="대리"){
+															$("#jobCode").val('J6');
+														}
+														
+														if("${job.jobName}"=="사원"){
+															$("#jobCode").val('J7');
+														}
+														
+													})
+													</script> 
 						
-													<div class="form-group">
-												    <label>급여 등급</label>
-													   <input class="form-control" type="text" id="salLevel" name="salLevel" value="${emp.salLevel}" disabled>
-												    </div>
+						
+												    
 												   
 													<div class="form-group">
-													<label>권한</label>
-													   <input class="form-control" type="text" id="rightName2" name="rightNo" value="${emp.rightName}" disabled>
-												    </div>
+														<label >부서코드</label>
+															 <select class="form-control" id="deptCode" name="deptCode" >
+																	<option selected  hidden="hidden"  value="${emp.deptCode }">${emp.deptName }</option>						
+																	<c:forEach items="${dlist }" var="d" varStatus="status">
+																	<option value="${d.deptCode }">${d.deptName }</option> 
+																    </c:forEach>
+										
+															</select> 
+													</div>
 													
+													 <script>
+													
+													$(function(){
+														if("${emp.deptName }"=="인사관리부"){
+															$("#deptCode").val('D1');
+														}
+														
+														if("${emp.deptName  }"=="회계관리부"){
+															$("#deptCode").val('D2');
+														}
+														
+														if("${emp.deptName  }"=="마케팅부"){
+															$("#deptCode").val('D3');
+														}
+														
+														if("${emp.deptName  }"=="국내영업부"){
+															$("#deptCode").val('D4');
+														}
+														
+														if("${emp.deptName  }"=="해외영업부"){
+															$("#deptCode").val('D5');
+														}
+														
+														if("${emp.deptName  }"=="기술지원부"){
+															$("#deptCode").val('D6');
+														}
+														
+														if("${emp.deptName  }"=="총무부"){
+															$("#deptCode").val('D7');
+														}
+														
+													})
+													
+													
+													
+													
+													
+													</script> 
+													
+													
+													<div class="form-group">
+														<label>급여 등급</label>
+														
+															 <select class="form-control" id="salLevel" name="salLevel">
+																	<option selected  hidden="hidden"  value="${emp.salLevel}">${emp.salLevel}</option>
+																	<c:forEach items="${slist}" var="s" varStatus="status">
+																	<option value="${s.salLevel}">${s.salLevel}</option> 
+																    </c:forEach>
+										
+															</select> 
+														
+													</div>
+													
+													 <script>
+													$(function(){
+														if("${emp.salLevel }"=="S1"){
+															$("#salLevel").val('S1');
+														}
+														
+														if("${emp.salLevel }"=="S2"){
+															$("#salLevel").val('S2');
+														}
+														
+														if("${emp.salLevel }"=="S3"){
+															$("#salLevel").val('S3');
+														}
+														
+														if("${emp.salLevel }"=="S4"){
+															$("#salLevel").val('S4');
+														}
+														
+														if("${emp.salLevel }"=="S5"){
+															$("#salLevel").val('S5');
+														}
+														
+														if("${emp.salLevel }"=="S6"){
+															$("#salLevel").val('S6');
+														}
+														
+													})
+													</script>
+													 
+													
+													<div class="form-group">
+														<label>권한</label>
+														
+														 	<select class="form-control" id="rightNo" name="rightNo">
+																	<option selected disabled hidden="hidden"  value="${emp.rightNo }">${emp.rightName }</option>
+																	 <c:forEach items="${rlist }" var="r" varStatus="status">
+																	<option value="${r.rightNo }">${r.rightName }</option> 
+																    </c:forEach> 
+										
+															</select> 
+														
+													</div>
+													
+													 <script>
+													$(function(){
+														if("${emp.rightName }"=="권한없음"){
+															$("#rightNo").val('0');
+														}
+														
+														if("${emp.rightName }"=="인사관리자"){
+															$("#rightNo").val('1');
+														}
+														
+														if("${emp.rightName }"=="근태관리자"){
+															$("#rightNo").val('2');
+														}
+														
+														if("${emp.rightName }"=="공지사항관리자"){
+															$("#rightNo").val('3');
+														}
+														
+														if("${emp.rightName }"=="비품관리자"){
+															$("#rightNo").val('4');
+														}
+														
+													})
+													</script> 
 													
 													<div class="form-group">
 													<label><strong>입사일</strong></label> &nbsp;&nbsp;&nbsp;&nbsp;
@@ -277,16 +291,11 @@
 														<label><strong>퇴사일</strong></label>&nbsp;&nbsp;&nbsp;&nbsp;
 														<fmt:formatDate pattern="yyyy년 MM월 dd일" value="${emp.endDate }"/>
 													</div>
-
-													
-													
-												</div>
-											</div>
-										<!-- 3 -->
-											<div class="tab-pane fade" id="contact7" role="tabpanel">
-												<div class="pd-20">
-													
-													<h4 class="text-blue h5">&nbsp;회계 정보</h4><br><br><br>
+											
+											<hr>
+											<div class="pd-20">
+												
+												<h4 class="text-blue h5">&nbsp;회계 정보</h4><br><br><br>
 												
 													<table class="table table-bordered salary">
 														<thead>
@@ -366,7 +375,6 @@
 													
 													<!--==========================숫자 패턴 함수 (회계관련)================= -->
 														<script>
-													
 														
 														function inputNumberFormat(obj) {
 														     obj.value = comma(uncomma(obj.value));
@@ -462,31 +470,31 @@
 														 } 
 														 
 														
+														
 														</script>
 													
+														
 												</div>
-											</div>
-											
-											
-											
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
 
+												<div align="center">
+                    								<button type="submit" class="btn btn-primary">수정하기</button>
+                    								<button type="button" class="btn btn-danger" onclick="javascript:history.go(-1);">이전으로</button>
+                								</div>
+												</form>
+												</div><!-- pd-20_END -->
 
+														 </div>
+													</div>
+											   </div>
+										  </div>
+									  </div>
+								 </div><!-- row clearfix_END -->
+							</div><!-- tab_END -->
 
+    				 </div><!-- pd-20 card-box mb-30_END -->
 
-		
-			</div>
-		</div>
-			
-    
-				
-    
-  
+			  </div>
+
 
 	<!-- ======================================================================= -->
 

@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.spring.common.Pagination;
 import com.kh.spring.common.PaginationEmp;
 import com.kh.spring.common.exception.CommException;
 import com.kh.spring.employee.model.service.EmployeeService;
@@ -221,8 +220,59 @@ public class EmployeeController {
 		model.addAttribute("slist", slist);
 		
 		Employee emp = employeeService.selectEmp(empId);
+		Member mem = memberService.selectMem(empId);
+		Salary sal = salaryService.selectSal(empId);
 		
 		mv.addObject("emp", emp).setViewName("employee/empDetail");
+		mv.addObject("mem", mem).setViewName("employee/empDetail");
+		mv.addObject("sal", sal).setViewName("employee/empDetail");
 		return mv;
 	}
+	
+	@RequestMapping("updateEmpForm.me")
+	public ModelAndView updateForm(int empId, ModelAndView mv, Model model) {
+		
+		ArrayList<Job> jlist = employeeService.selectJlist();
+		ArrayList<Department> dlist = employeeService.selectDlist();
+		ArrayList<Right> rlist = employeeService.selectRlist();
+		ArrayList<SalGrade> slist = employeeService.selectSlist();
+		
+		model.addAttribute("jlist", jlist);
+		model.addAttribute("dlist", dlist);
+		model.addAttribute("rlist", rlist);
+		model.addAttribute("slist", slist);
+
+		
+		Employee emp = employeeService.selectEmp(empId);
+		Member mem = memberService.selectMem(empId);
+		Salary sal = salaryService.selectSal(empId);
+		
+		mv.addObject("emp", emp).setViewName("employee/empUpdateForm");
+		mv.addObject("mem", mem).setViewName("employee/empUpdateForm");
+		mv.addObject("sal", sal).setViewName("employee/empUpdateForm");
+		
+		
+		return mv;
+	}
+	
+	@RequestMapping("updateEmp.me")
+	public ModelAndView updateEmp(Employee emp, ModelAndView mv, HttpServletRequest request, Model model) {
+		
+		Employee empInfo =  employeeService.updateEmp(emp);
+		model.addAttribute("empInfo" , empInfo);
+		mv.addObject("empId", emp.getEmpId()).setViewName("redirect:empDetail.me");
+		
+		return mv;
+		
+		//return "employee/empDetail.me";
+	}
+	
+	@RequestMapping("deleteEmp.me")
+	public String deleteEmp(int empId, HttpServletRequest request) {
+		employeeService.deleteEmp(empId);
+		
+		return "redirect:listEmp";
+		
+	}
+
 }

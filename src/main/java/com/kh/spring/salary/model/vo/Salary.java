@@ -27,13 +27,8 @@ public class Salary {
 	  */
 	private String salLevel;					
 	private String empId;			
-//	private int commission;
-//	private int meal;
-//	private int incomeTax;
-//	private int empInsurance;
-//	private int retirement;
-//	private int healthInsurance;
-//	private int total;
+
+	
 	private String commission;
 	private String meal;
 	private String incomeTax;
@@ -41,5 +36,6 @@ public class Salary {
 	private String retirement;
 	private String healthInsurance;
 	private String total;
+	private String basic;
 
 }

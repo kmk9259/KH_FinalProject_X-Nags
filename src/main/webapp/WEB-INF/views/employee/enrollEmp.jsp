@@ -508,7 +508,7 @@ p {
 							<tr>
 								<th scope="row">기본급</th>
 								<td><input type="text" class="form-control" id="money1"  onkeyup="inputNumberFormat(this)">
-								<input type="hidden" class="form-control" id="money11" >
+								<input type="hidden" class="form-control" id="money11" name="basic">
 								</td>
 								
 								<th>소득세</th>
@@ -550,7 +550,7 @@ p {
 							<tr>
 								<th scope="row">지급 총액</th>
 								<td><input type="text" class="form-control" id="sum01" onkeyup="inputNumberFormat(this)"  disabled>
-								<input type="hidden" class="form-control" id="sum011" name="total"></td>
+								<input type="hidden" class="form-control" id="sum011" name="total" ></td>
 								<th>공제 총액</th>
 								<td><input type="text" class="form-control"  id="result" onkeyup="inputNumberFormat(this)" disabled>
 								<!-- <input type="hidden" class="form-control" id="result1" ></td> -->
@@ -753,7 +753,7 @@ p {
 
 
 						</div>
-								<input type="button" name="next" class="next3 action-button" value="Submit" onclick= "submit();"; />
+								<input type="button" name="next" class="next3 action-button" value="Submit" onclick= "submit();" />
 								<input type="button" name="previous" class="previous action-button-previous" value="Previous" />
 		                    </fieldset>
 		                    

@@ -6,4 +6,6 @@ public interface SalaryService {
 
 	void insertSalary(Salary sal);
 
+	Salary selectSal(int empId);
+
 }
