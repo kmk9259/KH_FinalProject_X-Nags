@@ -37,6 +37,8 @@ public interface EmployeeService {
 
 	Employee selectEmp(int empId);
 
+	String selectNextEmp();
+
 
 
 	

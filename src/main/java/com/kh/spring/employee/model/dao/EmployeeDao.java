@@ -81,6 +81,10 @@ public class EmployeeDao {
 		return sqlSession.selectOne("employeeMapper.selectEmp", empId);
 	}
 
+	public String selectNextEmp(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("employeeMapper.selectNextEmp");
+	}
+
 
 
 

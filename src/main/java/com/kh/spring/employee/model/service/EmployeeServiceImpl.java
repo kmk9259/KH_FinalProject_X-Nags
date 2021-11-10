@@ -102,6 +102,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeDao.selectEmp(sqlSession, empId);
 	}
 
+	@Override
+	public String selectNextEmp() {
+		return employeeDao.selectNextEmp(sqlSession);
+	}
+
 
 
 	

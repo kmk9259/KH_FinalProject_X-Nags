@@ -109,5 +109,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	WHERE EMP_ID = #{empId} AND STATUS = 'Y'
 	</select>
 	
+	<select id="selectNextEmp" resultType="string">
+	select RPAD(to_number(to_char(SYSDATE, 'yymmdd')),9,last_number)
+	from user_sequences
+	where sequence_name='SEQ_EMP_ID'
+	
+	</select>
+	
 	
 </mapper>
