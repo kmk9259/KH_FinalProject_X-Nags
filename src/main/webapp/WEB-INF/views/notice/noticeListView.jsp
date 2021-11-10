@@ -89,7 +89,7 @@
 							<c:forEach items="${ list }" var="b">
 								<tr>
 									<td>${ b.noticeNo }</td>
-									<td>${ b.empId }</td>
+									<td>${ b.userName }</td>
 									<td>${ b.noticeTitle }</td>
 									<td>${ b.uploadDate }</td>
 									<td>${b.count }</td>

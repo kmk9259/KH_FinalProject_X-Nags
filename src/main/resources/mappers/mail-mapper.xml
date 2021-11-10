@@ -177,6 +177,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				#{importantFlag},  default, default, #{originName}, #{changeName})
 	</insert>
 	
+	<!-- 보낸 메일 휴지통으로 이동 -->
 	<update id="wasteSendMail" parameterType="_int">
 		UPDATE MAIL
 		SET WRITER_STATUS=2

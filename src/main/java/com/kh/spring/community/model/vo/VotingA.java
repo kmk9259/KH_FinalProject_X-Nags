@@ -13,18 +13,10 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Notice {
+public class VotingA{
 
-	private int noticeNo;
-	private String empId;
-	private String noticeTitle;
-	private String noticeContent;
-	private String originFile;	
-	private String changeFile;
-	private String filePath;
+	private int votingNo;
 	private int count;
-	private Date uploadDate;
-	private String rightNo;
-	private String userName;
+	private String [] item;
 
 }

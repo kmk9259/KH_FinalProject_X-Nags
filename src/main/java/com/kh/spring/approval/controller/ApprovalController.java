@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Spliterator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -20,9 +19,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.spring.approval.model.service.ApprovalService;
 import com.kh.spring.approval.model.vo.Approval;
-import com.kh.spring.common.PaginationMail;
+import com.kh.spring.common.PaginationApp;
 import com.kh.spring.common.exception.CommException;
-import com.kh.spring.mail.model.vo.PageInfo;
+import com.kh.spring.employee.model.vo.Employee;
+import com.kh.spring.approval.model.vo.PageInfo;
 import com.kh.spring.member.model.vo.Member;
 
 @Controller
@@ -78,6 +78,7 @@ public class ApprovalController {
 
 			} else {
 				System.out.println("하루 : " + date);
+				app.setStartDate(null);
 				app.setAppDate(date);
 			}
 
@@ -90,7 +91,7 @@ public class ApprovalController {
 		approvalService.insertApproval(app);
 		session.setAttribute("msg", "결재를 성공적으로 전송했습니다.");
 
-		return "main";
+		return "redirect:apping.ap";
 		// 나중에 진행중 결재함으로 경로 바꾸기
 	}
 
@@ -128,7 +129,7 @@ public class ApprovalController {
 	 * return null; }
 	 */
 
-	// 파일 저장
+	//파일 저장
 	private String saveFile(MultipartFile file, HttpServletRequest request) {
 
 		String resources = request.getSession().getServletContext().getRealPath("resources");
@@ -153,7 +154,7 @@ public class ApprovalController {
 		return changeName;
 	}
 
-	// 진행중 결재함
+	//진행중 결재함
 	@RequestMapping("apping.ap")
 	public String selectApprovalList(
 			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage, Model model,
@@ -163,7 +164,7 @@ public class ApprovalController {
 
 		int listCount = approvalService.selectApprovalListCount(mem.getEmpId());
 
-		PageInfo pi = PaginationMail.getPageInfo(listCount, currentPage, 10, 10);
+		PageInfo pi = PaginationApp.getPageInfo(listCount, currentPage, 10, 10);
 
 		ArrayList<Approval> appList = approvalService.selectApprovalList(pi, mem.getEmpId());
 
@@ -173,14 +174,14 @@ public class ApprovalController {
 		return "approval/processingAppListView";
 	}
 
-	// 진행중 결재함 보기
+	//진행중 결재함 보기
 	@RequestMapping("appingDetail.ap")
 	public ModelAndView selectProcessingApproval(int ano, ModelAndView mv) {
 
 		return mv;
 	}
 
-	// 결재 요청함
+	//결재 요청함
 	@RequestMapping("askapp.ap")
 	public String selectAskApprovalList(
 			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage, Model model,
@@ -190,15 +191,40 @@ public class ApprovalController {
 
 		int listCount = approvalService.selectAskApprovalListCount(mem.getEmpId());
 
-		PageInfo pi = PaginationMail.getPageInfo(listCount, currentPage, 10, 10);
+		PageInfo pi = PaginationApp.getPageInfo(listCount, currentPage, 10, 10);
 
 		ArrayList<Approval> appList = approvalService.selectAskApprovalList(pi, mem.getEmpId());
-
+		
 		model.addAttribute("appList", appList);
 		model.addAttribute("pi", pi);
 
 
 		return "approval/askAppListView";
 	}
+	
+	//결재 요청 문서 보기
+	@RequestMapping("askDetail.ap")
+	public String selectAskApprovalDetail(int ano, Model model, HttpServletRequest request) {
+
+		Approval app = approvalService.selectAskApprovalDetail(ano);
+		
+		Member mem = (Member) request.getSession().getAttribute("loginUser");
+		
+		//기안자, 결재자 정보
+		Employee writer = approvalService.selectAppWriter(app.getEmpId());
+		Employee mid = approvalService.selectAppMid(app.getAppMid());
+		Employee fin = approvalService.selectAppFin(app.getAppFin());
+		
+		model.addAttribute("app", app);
+		model.addAttribute("writer", writer);
+		model.addAttribute("mid", mid);
+		model.addAttribute("fin", fin);
+		model.addAttribute("mem", mem);
+
+		return "approval/askAppDetailView";
+	}
+	
+	
+	
 
 }

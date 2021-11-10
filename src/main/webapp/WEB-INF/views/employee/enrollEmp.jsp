@@ -352,6 +352,7 @@ p {
 											   .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
 											}
 										
+
 										</script>
 										<!-- 주소입력  -->
 
@@ -567,6 +568,264 @@ p {
 
 									<!--==========================숫자 패턴 함수 (회계관련)================= -->
 									<script>
+
+
+
+						<div class="form-group">
+							<label>직원 이름(*)</label>
+							<input class="form-control" type="text" placeholder="userName" id="userName" name="userName">
+						</div>
+
+
+						<div class="form-group">
+							<label>비밀번호(*)</label>
+							<input class="form-control" type="password" placeholder="password" id="userPwd" name="userPwd">
+						</div>
+						<div class="form-group">
+							<label>주민등록번호(*)</label>
+							<input class="form-control" type="text" id="userSsn" name="userSsn" onkeyup="setSSn(this)" maxlength='14'>
+							
+							<script>
+							function setSSn(obj)
+							{
+								var ssn = obj.value;
+								var ssn = ssn.replace("-","");
+								if(ssn.length < 7) {
+									var ssn1 = ssn.substring(0,7);
+									var ssn2 = ssn.substring(7,8);
+															
+									obj.value = ssn1+"-"+ssn2;
+								}
+							}
+							
+							</script>
+						</div>
+						
+						<div class="form-group">
+							<label>이메일(*)</label> <input class="form-control" placeholder="email" type="email" id="email" name="email">
+						</div>
+						
+						<div class="form-group">
+							<label>전화번호(*)</label> <input class="form-control" placeholder="000-0000-0000" type="tel" id="phone" name="phone" oninput="autoHyphen(this)" maxlength='13'>
+						</div><br><br><br>
+						<script>
+						const autoHyphen = (target) => {
+							 target.value = target.value
+							   .replace(/[^0-9]/, '')
+							   .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+							}
+						
+						</script>
+
+						<!-- 주소입력  -->
+
+						<label for="address"> &nbsp; 주소 입력 :</label><br>
+
+						<div class="form-inline">
+							<label> &nbsp; 우편번호 : &nbsp;</label> <input type="text"
+								id="post" name="post" class="form-control mr-2 postcodify_postcode5"
+								size="6">
+							<button type="button" class="btn btn-primary"
+								id="postcodify_search_button">검색</button>
+						</div>
+						<br> <label> &nbsp; 도로명주소 : </label> <input type="text" id="address1"
+							name="address1" class="form-control postcodify_address" size="30">
+						<br> <label> &nbsp; 상세주소 : </label> <input type="text" id="address2"
+							name="address2" class="form-control postcodify_extra_info"
+							size="30"> <br>
+
+
+						<!-- jQuery와 Postcodify를 로딩한다. -->
+						<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+						<script>
+							// 검색 단추를 누르면 팝업 레이어가 열리도록 설정한다.
+							$(function() {
+								$("#postcodify_search_button")
+										.postcodifyPopUp();
+							});
+						</script> 
+
+
+						<!-- 주소입력   끝-->
+						
+
+						<!-- 성별 입력 -->
+						<br>
+						<br>
+						<label for=""> &nbsp; Gender : </label>&nbsp;&nbsp;
+						<input type="radio" name="gender" id="Male" value="M">
+						<label	for="Male">남자</label> &nbsp;&nbsp;
+						<input type="radio" name="gender" id="Female" value="F">
+						<label for="Female">여자</label><br>
+
+						<!-- 성별 입력 끝 -->
+
+
+
+						<div class="btns" align="center">
+							<button type="reset" class="btn btn-danger">초기화</button>
+						</div>
+
+					</div>
+
+								
+							<input type="button" name="next" class="next1 action-button" value="Next" /> 
+                       
+								
+								
+								
+		                    </fieldset>
+		                    
+		                    
+		                    
+		                    <!--========================= step 2 =====================================-->
+		                    <fieldset>
+		                    
+		                    
+		                    <div class="form-group row">
+							<label class="col-sm-12 col-md-2 col-form-label" >직급코드(*)</label>
+							<div class="col-sm-12 col-md-10">
+
+								<select class="form-control" id="jobCode" name="jobCode" required>
+									<option selected disabled hidden="hidden" value="">직급을 선택하세요</option>
+									
+									
+									<c:forEach items="${jlist }" var="job" varStatus="status">
+									<option value="${job.jobCode }">${job.jobName }</option> 
+								    </c:forEach> 
+								    
+								</select>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-12 col-md-2 col-form-label">권한</label>
+							<div class="col-sm-12 col-md-10">
+								<select class="form-control" id="rightNo" name="rightNo">
+									
+									<c:forEach items="${rlist }" var="r" varStatus="status">
+									<option value="${r.rightNo }">${r.rightName }</option> 
+								    </c:forEach> 
+									
+								</select>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-12 col-md-2 col-form-label">부서코드 (*)</label>
+							<div class="col-sm-12 col-md-10">
+								<select class="form-control" id="deptCode" name="deptCode">
+									<option hidden="hidden" value=""  selected >부서코드를 선택하세요</option>
+					
+									<c:forEach items="${dlist }" var="d" varStatus="status">
+									<option value="${d.deptCode }">${d.deptName }</option> 
+								    </c:forEach> 
+								</select>
+							</div>
+
+						</div>
+
+						<div class="form-group row">
+							<label class="col-sm-12 col-md-2 col-form-label">급여 등급 (*)</label>
+							<div class="col-sm-12 col-md-10">
+
+								<select class="form-control" id="salLevel" name="salLevel">
+									<option value="" selected disabled hidden="hidden">급여 등급 선택</option>
+									<c:forEach items="${slist }" var="s" varStatus="status">
+									<option value="${s.salLevel }">${s.salLevel }</option> 
+								    </c:forEach> 
+									
+
+								</select>
+							</div>
+						</div>
+
+
+
+
+ <!--=================================== 회계정보 입력 창 시작 =================================== -->
+		                  <br><br><br>
+		                  
+		                  <h4 class="text-blue h5">&nbsp;회계 입력</h4><br><br><br>
+		                  
+		                  
+		                  <table class="table table-bordered salary">
+						<thead>
+							<tr>
+								<th scope="col">목록</th>
+								<th scope="col">금액</th>
+								<th scope="col">공제목록</th>
+								<th scope="col">금액</th>
+								
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row">기본급</th>
+								<td><input type="text" class="form-control" id="money1"  onkeyup="inputNumberFormat(this)">
+								<input type="hidden" class="form-control" id="money11" name="basic">
+								</td>
+								
+								<th>소득세</th>
+								<td><input type="text" class="form-control" id="incometax"   onkeyup="inputNumberFormat(this)" disabled>
+								<input type="hidden" class="form-control" id="incometax1" name="incomeTax">
+								</td>
+								
+							</tr>
+							<tr>
+								<th scope="row">보너스</th>
+								<td><input type="text" class="form-control" id="money2"  onkeyup="inputNumberFormat(this)">
+								<input type="hidden" class="form-control" id="money22" name="commission"></td>
+								<th>고용 보험</th>
+								<td><input type="text" class="form-control" id="empIn"  onkeyup="inputNumberFormat(this)" disabled>
+								<input type="hidden" class="form-control" id="empIn1" name="empInsurance"></td>
+								
+							</tr>
+							<tr>
+								<th scope="row">식대</th>
+								<td><input type="text" class="form-control" id="money3"  onkeyup="inputNumberFormat(this)">
+								<input type="hidden" class="form-control" id="money33" name="meal"></td>
+								<th>국민 연금</th>
+								<td><input type="text" class="form-control" id="retirement"  onkeyup="inputNumberFormat(this)" disabled>
+								<input type="hidden" class="form-control" id="retirement1" name="retirement"></td>
+								
+							</tr>
+							
+							<tr>
+								<th scope="row"></th>
+								<td></td>
+								<th>건강 보험</th>
+								<td><input type="text" class="form-control" id="health"  onkeyup="inputNumberFormat(this)" disabled>
+								<input type="hidden" class="form-control" id="health1" name="healthInsurance"></td>
+								
+							</tr>
+							
+							
+							
+							<tr>
+								<th scope="row">지급 총액</th>
+								<td><input type="text" class="form-control" id="sum01" onkeyup="inputNumberFormat(this)"  disabled>
+								<input type="hidden" class="form-control" id="sum011" name="total" ></td>
+								<th>공제 총액</th>
+								<td><input type="text" class="form-control"  id="result" onkeyup="inputNumberFormat(this)" disabled>
+								<!-- <input type="hidden" class="form-control" id="result1" ></td> -->
+								
+							</tr>
+							
+							 <tr>
+							  <th colspan="2">차감 지급액</th> 
+								<td colspan="2"><input type="text" class="form-control" id="sum02"  onkeyup="inputNumberFormat(this)" disabled>
+								</td>
+								
+								
+								
+								
+							</tr> 
+						</tbody>
+					</table>
+					
+					
+					<!--==========================숫자 패턴 함수 (회계관련)================= -->
+								<script>
+
 								
 								function inputNumberFormat(obj) {
 								     obj.value = comma(uncomma(obj.value));
@@ -814,11 +1073,46 @@ p {
 								</fieldset>
 							</form>
 						</div>
+
 					</div>
 				</div>
 			</div>
 
 			<!-- js function for steps -->
+
+								<input type="button" name="next" class="next3 action-button" value="Submit" onclick= "submit();" />
+								<input type="button" name="previous" class="previous action-button-previous" value="Previous" />
+		                    </fieldset>
+		                    
+		                     <fieldset>
+		                        <div class="form-card">
+		                            <div class="row">
+		                                <div class="col-7">
+		                                    <h2 class="fs-title">등록 성공:</h2>
+		                                </div>
+		                                <div class="col-5">
+		                                    <h2 class="steps">Step 4 - 4</h2>
+		                                </div>
+		                            </div> <br><br>
+		                            <h2 class="purple-text text-center"><strong>SUCCESS !</strong></h2> <br>
+		                            <div class="row justify-content-center">
+		                                <div class="col-3"> <img src="https://i.imgur.com/GwStPmg.png" class="fit-image"> </div>
+		                            </div> <br><br>
+		                            <div class="row justify-content-center">
+		                                <div class="col-7 text-center">
+		                                    <h5 class="purple-text text-center">성공적으로 등록 되었습니다!</h5>
+		                                </div>
+		                            </div>
+		                        </div>
+		                    </fieldset> 
+		                </form>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+					
+			<!-- js function for steps -->	
+
 			<script>
 			
 

@@ -4,7 +4,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
  
 <mapper namespace="approvalMapper">
-
 	   
 	<resultMap type="Approval" id="appResultSet">
 		<id column="APP_NO" property="appNo"/>
@@ -12,7 +11,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="CATEGORY" property="category"/>
 		<result column="APP_MID" property="appMid"/> 
 		<result column="APP_FIN" property="appFin"/>
-		<result column="STATUS" property="status"/>
+		<result column="MID_STATUS" property="midStatus"/>
+		<result column="FIN_STATUS" property="finStatus"/>
 		<result column="APP_TITLE" property="title"/>
 		<result column="APP_CONTENT" property="content"/>
 		<result column="WRITE_DATE" property="writeDate"/>
@@ -22,7 +22,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="FIN_REPLY" property="finReply"/>
 		<result column="ORIGIN_NAME" property="originName"/>
 		<result column="CHANGE_NAME" property="changeName"/>
-		
+	</resultMap>
+	
+	<resultMap type="Approval" id="appAskResultSet">
+		<id column="APP_NO" property="appNo"/>
+		<result column="USER_NAME" property="empId"/>
+		<result column="CATEGORY" property="category"/>
+		<result column="APP_MID" property="appMid"/> 
+		<result column="APP_FIN" property="appFin"/>
+		<result column="MID_STATUS" property="midStatus"/>
+		<result column="FIN_STATUS" property="finStatus"/>
+		<result column="APP_TITLE" property="title"/>
+		<result column="APP_CONTENT" property="content"/>
+		<result column="WRITE_DATE" property="writeDate"/>
+		<result column="START_DATE" property="startDate"/>
+		<result column="END_DATE" property="appDate"/>
+		<result column="MID_REPLY" property="midReply"/>
+		<result column="FIN_REPLY" property="finReply"/>
+		<result column="ORIGIN_NAME" property="originName"/>
+		<result column="CHANGE_NAME" property="changeName"/>
+	</resultMap>
+	
+	<resultMap id="employeeResultSet" type="Employee">
+		<id property="empId" column="EMP_ID"/>
+		<result property="jobName" column="JOB_NAME"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="deptName" column="DEPT_NAME"/>
 	</resultMap>
 	
 
@@ -30,19 +55,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 결재 전송 -->
 	<insert id="insertApproval" parameterType="Approval">
 		
-		<if test="startDate == null">
+		
+		<!-- <if test="startDate == null or startDate == ''">
 			INSERT INTO APPROVAL
 			VALUES
-			(SEQ_ANO.NEXTVAL, #{empId}, #{category}, #{appMid}, #{appFin}, default,
-			 #{title}, #{content}, sysdate, null, #{appDate}, null,  null, #{originName}, #{changeName})
+			(SEQ_ANO.NEXTVAL, #{empId}, #{category}, #{appMid}, #{appFin}, default,  default,
+			 #{title}, #{content}, sysdate, NULL, #{appDate}, NULL, NULL, #{originName}, #{changeName})
 		</if>
-		<if test="startDate != null">
+		
+		<if test="startDate != null or startDate != ''">
 			INSERT INTO APPROVAL
 			VALUES
-			(SEQ_ANO.NEXTVAL, #{empId}, #{category}, #{appMid}, #{appFin}, default,
-			 #{title}, #{content}, sysdate, ${startDate}, #{appDate}, null,  null, #{originName}, #{changeName})
-			
-		</if>
+			(SEQ_ANO.NEXTVAL, #{empId}, #{category}, #{appMid}, #{appFin}, default,  default,
+			 #{title}, #{content}, sysdate, #{startDate}, #{appDate}, NULL, NULL, #{originName}, #{changeName})
+		</if> -->
+		
+		INSERT INTO APPROVAL
+		VALUES
+		<choose>
+			<when test="startDate == null or startDate == ''">
+				(SEQ_ANO.NEXTVAL, #{empId}, #{category}, #{appMid}, #{appFin}, default,  default,
+				 #{title}, #{content}, sysdate, NULL, #{appDate}, NULL, NULL, #{originName}, #{changeName})
+			</when>
+			<otherwise>
+				(SEQ_ANO.NEXTVAL, #{empId}, #{category}, #{appMid}, #{appFin}, default,  default,
+			 	#{title}, #{content}, sysdate, #{startDate}, #{appDate}, NULL, NULL, #{originName}, #{changeName})
+			</otherwise>
+		</choose>
 	
 	
 	</insert>
@@ -52,7 +91,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT COUNT(*)
 		FROM APPROVAL
 		WHERE EMP_ID=#{empId}
-		AND STATUS IN (1,3)
+		AND MID_STATUS=1
+		AND FIN_STATUS=1
+		ORDER BY APP_NO DESC
 	</select>
 	
 	<!-- 진행중 결재함 리스트 -->
@@ -60,8 +101,70 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT *
 		FROM APPROVAL
 		WHERE EMP_ID=#{empId}
-		AND STATUS IN (1,3)
+		AND MID_STATUS=1
+		AND FIN_STATUS=1
+		ORDER BY APP_NO DESC
 	</select>
+	
+	<!-- 요청 결재함 수 -->
+	<select id="selectAskApprovalListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM APPROVAL
+		WHERE 
+		(APP_MID=${empId} OR APP_FIN=${empId})
+		AND MID_STATUS=1
+		AND FIN_STATUS=1
+	</select>
+	
+	<!-- 요청 결재함 리스트 -->
+	<select id="selectAskApprovalList" resultMap="appAskResultSet">
+		SELECT *
+		FROM APPROVAL A
+		JOIN MEMBER B ON A.EMP_ID=B.EMP_ID
+		WHERE 
+		(APP_MID=${empId} OR APP_FIN=${empId})
+		AND A.MID_STATUS=1
+		AND A.FIN_STATUS=1
+		ORDER BY A.APP_NO DESC
+	</select>
+	
+	<!-- 요청 결재함 보기 -->
+	<select id="selectAskApprovalDetail" parameterType="_int" resultMap="appResultSet">
+		SELECT *
+		FROM APPROVAL
+		WHERE APP_NO=${ano}
+	</select>
+	
+	<!-- 기안자정보  -->
+	<select id="selectAppWriter" parameterType="String" resultMap="employeeResultSet">
+		SELECT USER_NAME, EMP_ID, JOB_NAME, DEPT_NAME
+		FROM EMPLOYEE 
+		JOIN MEMBER USING (EMP_ID)
+		JOIN JOB USING (JOB_CODE)
+		JOIN DEPARTMENT USING (DEPT_CODE) 
+		WHERE EMP_ID=#{empId}
+	</select>
+	
+	<!-- 중간결재자정보  -->
+	<select id="selectAppMid" parameterType="String" resultMap="employeeResultSet">
+		SELECT USER_NAME, EMP_ID, JOB_NAME, DEPT_NAME
+		FROM EMPLOYEE 
+		JOIN MEMBER USING (EMP_ID)
+		JOIN JOB USING (JOB_CODE)
+		JOIN DEPARTMENT USING (DEPT_CODE) 
+		WHERE EMP_ID=#{empId}
+	</select>
+	
+	<!-- 최종결재자정보  -->
+	<select id="selectAppFin" parameterType="String" resultMap="employeeResultSet">
+		SELECT USER_NAME, EMP_ID, JOB_NAME, DEPT_NAME
+		FROM EMPLOYEE 
+		JOIN MEMBER USING (EMP_ID)
+		JOIN JOB USING (JOB_CODE)
+		JOIN DEPARTMENT USING (DEPT_CODE) 
+		WHERE EMP_ID=#{empId}
+	</select>
+	
 	
 
 	

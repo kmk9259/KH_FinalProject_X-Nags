@@ -19,7 +19,9 @@ public class Voting {
 	private String votingTitle;
 	private String votingContent;
 	private String empId;
+	private int count;
 	private Date votingDate;
+
 	
-	
+
 }

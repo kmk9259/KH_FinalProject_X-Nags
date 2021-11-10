@@ -107,6 +107,29 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeDao.selectNextEmp(sqlSession);
 	}
 
+  @Override
+	public Employee updateEmp(Employee emp) {
+		int result = employeeDao.updateEmp(sqlSession, emp);
+		
+		if (result < 0) {
+			throw new CommException("사원 업데이트 실패");
+		}
+		return emp;
+		
+	}
+
+	@Override
+	public void deleteEmp(int empId) {
+		int result = employeeDao.deleteEmp(sqlSession, empId);
+		if(result < 0) {
+			throw new CommException("사원 삭제 실패");
+		}
+		
+	}
+
+	
+
+
 
 
 	

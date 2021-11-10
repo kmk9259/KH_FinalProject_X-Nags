@@ -25,14 +25,16 @@
             <br>
             
             <br><br>
-            <table id="contentArea" align="center" class="table">
+            <form method = "post" action = "votingAction.vo">
+            <table id="contentArea"  class="table">
              <tr>
                     <th width="100">작성자</th>
-                    <td colspan="3">${ v.empId }</td>
+                    <td colspan="3" >${ v.empId }</td>
                 </tr>
                 <tr>
                     <th width="100">주제</th>
                     <td colspan="3">${ v.votingTitle }</td>
+                   
                 </tr>
               
                 <tr>
@@ -41,11 +43,16 @@
                 </tr>
                 <tr>
             	<c:forEach var = "name" items ="${vContent }">
-            	<tr><td ><p >${name}</p></td></tr>
+            	<tr >
+            	<!-- Controller에서 @RequestParam(name = "vContent" 로 받는다 -->
+            	<td><input  type = "checkbox" name = "vContent" value = "vContent">${name }</td>       	
+            	</tr>
             	</c:forEach>
-                  <%--   <td colspan="4"><p style="height:150px">${ vContent[0] }</p></td> --%>
+                
                 </tr>
             </table>
+            <input type = "submit" value = "투표하기">
+            </form>
             <br>     
             <br><br>
 
@@ -55,5 +62,20 @@
     </div>
 
     <jsp:include page="../common/footer.jsp"/>
+    <script >
+    $(document).ready(function() {
+	
+    	$('input[type="checkbox"][name="vContent"]').click(function(){  	 
+    	  if($(this).prop('checked')){    	 
+    	     $('input[type="checkbox"][name="vContent"]').prop('checked',false);    	 
+    	     $(this).prop('checked',true);
+    	 
+  	 	    }
+   	  
+       });
+ 
+    	  
+ });
+    </script>
 </body>
 </html>

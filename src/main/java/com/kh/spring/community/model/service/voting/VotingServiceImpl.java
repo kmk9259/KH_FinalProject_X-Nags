@@ -31,6 +31,7 @@ public class VotingServiceImpl implements VotingService {
 
 	@Override
 	public void insertVoting(Voting v) {
+		
 		int result = votingDao.insertVoting(sqlSession,v);
 
 		if (result < 0) {

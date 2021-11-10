@@ -9,7 +9,8 @@ import org.springframework.stereotype.Service;
 import com.kh.spring.approval.model.dao.ApprovalDao;
 import com.kh.spring.approval.model.vo.Approval;
 import com.kh.spring.common.exception.CommException;
-import com.kh.spring.mail.model.vo.PageInfo;
+import com.kh.spring.employee.model.vo.Employee;
+import com.kh.spring.approval.model.vo.PageInfo;
 
 @Service
 public class ApprovalServiceImpl implements ApprovalService {
@@ -56,7 +57,32 @@ public class ApprovalServiceImpl implements ApprovalService {
 	@Override
 	public ArrayList<Approval> selectAskApprovalList(PageInfo pi, String empId) {
 		
-		return null;
+		return approvalDao.selectAskApprovalList(sqlSession, pi, empId);
+	}
+	
+	//요청 문서 보기
+	@Override
+	public Approval selectAskApprovalDetail(int ano) {
+
+		return approvalDao.selectAskApprovalDetail(sqlSession, ano);
+	}
+	
+	//기안자정보 가져오기
+	@Override
+	public Employee selectAppWriter(String empId) {
+		return approvalDao.selectAppWriter(sqlSession, empId);
+	}
+	
+	//중간결재자 정보
+	@Override
+	public Employee selectAppMid(String appMid) {
+		return approvalDao.selectAppMid(sqlSession, appMid);
+	}
+	
+	//최종결재자 정보
+	@Override
+	public Employee selectAppFin(String appFin) {
+		return approvalDao.selectAppFin(sqlSession, appFin);
 	}
 	
 	/*

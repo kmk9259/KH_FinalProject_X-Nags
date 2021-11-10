@@ -39,6 +39,12 @@ public interface EmployeeService {
 
 	String selectNextEmp();
 
+	Employee updateEmp(Employee emp);
+
+	void deleteEmp(int empId);
+
+	
+
 
 
 	
