@@ -20,7 +20,8 @@ public class Approval {
 	private int category;
 	private String appMid;
 	private String appFin;
-	private int status;
+	private int midStatus;
+	private int finStatus;
 	private String title;
 	private String content;
 	private Date writeDate;
