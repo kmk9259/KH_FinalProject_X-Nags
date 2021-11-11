@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.kh.spring.approval.model.vo.Approval;
 import com.kh.spring.employee.model.vo.Employee;
+import com.kh.spring.holiday.model.vo.Holiday;
 import com.kh.spring.approval.model.vo.PageInfo;
 
 public interface ApprovalService {
@@ -25,6 +26,16 @@ public interface ApprovalService {
 	Employee selectAppMid(String appMid);
 
 	Employee selectAppFin(String appFin);
+
+	void midConfirm(Approval app);
+
+	void midReject(Approval app);
+
+	void insertOneDay(Holiday hol);
+
+	void finConfirm(Approval app);
+
+	void finReject(Approval app);
 
 	/* void insertHoliday(Approval app); */
 

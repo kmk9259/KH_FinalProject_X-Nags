@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.spring.approval.model.vo.Approval;
 import com.kh.spring.employee.model.vo.Employee;
+import com.kh.spring.holiday.model.vo.Holiday;
 import com.kh.spring.approval.model.vo.PageInfo;
 
 @Repository
@@ -72,6 +73,33 @@ public class ApprovalDao {
 	public Employee selectAppFin(SqlSessionTemplate sqlSession, String appFin) {
 		
 		return sqlSession.selectOne("approvalMapper.selectAppFin", appFin);
+	}
+
+	//중간결재 승인
+	public int midConfirm(SqlSessionTemplate sqlSession, Approval app) {
+		
+		return sqlSession.update("approvalMapper.midConfirm", app);
+	}
+	
+	//중간결재반려
+	public int midReject(SqlSessionTemplate sqlSession, Approval app) {
+		return sqlSession.update("approvalMapper.midReject", app);
+	}
+
+	//하루휴가
+	public int insertOneDay(SqlSessionTemplate sqlSession, Holiday hol) {
+		
+		return sqlSession.insert("approvalMapper.insertHoliDay", hol);
+	}
+
+	public int finConfirm(SqlSessionTemplate sqlSession, Approval app) {
+
+		return sqlSession.update("approvalMapper.finConfirm", app);
+	}
+
+	public int finReject(SqlSessionTemplate sqlSession, Approval app) {
+
+		return sqlSession.update("approvalMapper.finReject", app);
 	}
 
 	/*

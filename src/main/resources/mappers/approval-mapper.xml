@@ -16,8 +16,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="APP_TITLE" property="title"/>
 		<result column="APP_CONTENT" property="content"/>
 		<result column="WRITE_DATE" property="writeDate"/>
-		<result column="START_DATE" property="startDate"/>
-		<result column="END_DATE" property="appDate"/>
+		<result column="START_DATE" property="stayDate"/>
+		<result column="END_DATE" property="endDate"/>
 		<result column="MID_REPLY" property="midReply"/>
 		<result column="FIN_REPLY" property="finReply"/>
 		<result column="ORIGIN_NAME" property="originName"/>
@@ -35,8 +35,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="APP_TITLE" property="title"/>
 		<result column="APP_CONTENT" property="content"/>
 		<result column="WRITE_DATE" property="writeDate"/>
-		<result column="START_DATE" property="startDate"/>
-		<result column="END_DATE" property="appDate"/>
+		<result column="START_DATE" property="stayDate"/>
+		<result column="END_DATE" property="endDate"/>
 		<result column="MID_REPLY" property="midReply"/>
 		<result column="FIN_REPLY" property="finReply"/>
 		<result column="ORIGIN_NAME" property="originName"/>
@@ -50,6 +50,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="deptName" column="DEPT_NAME"/>
 	</resultMap>
 	
+	<resultMap type="Holiday" id="holidayResultSet">
+		<id property="holidayNo" column="HOLIDAY_NO"/>
+		<result property="empId" column="EMP_ID"/>
+		<result property="holidayName" column="HOLIDAY_NAME"/>
+		<result property="holStartDay" column="HOL_START_DAY"/>
+		<result property="holEndDay" column="HOL_END_DAY"/>
+		<result property="holDays" column="HOL_DAYS"/>
+	</resultMap>
 
 	
 	<!-- 결재 전송 -->
@@ -75,11 +83,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<choose>
 			<when test="startDate == null or startDate == ''">
 				(SEQ_ANO.NEXTVAL, #{empId}, #{category}, #{appMid}, #{appFin}, default,  default,
-				 #{title}, #{content}, sysdate, NULL, #{appDate}, NULL, NULL, #{originName}, #{changeName})
+				 #{title}, #{content}, sysdate, NULL, #{endDate}, NULL, NULL, #{originName}, #{changeName})
 			</when>
 			<otherwise>
 				(SEQ_ANO.NEXTVAL, #{empId}, #{category}, #{appMid}, #{appFin}, default,  default,
-			 	#{title}, #{content}, sysdate, #{startDate}, #{appDate}, NULL, NULL, #{originName}, #{changeName})
+			 	#{title}, #{content}, sysdate, #{stayDate}, #{endDate}, NULL, NULL, #{originName}, #{changeName})
 			</otherwise>
 		</choose>
 	
@@ -165,7 +173,48 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE EMP_ID=#{empId}
 	</select>
 	
+	<!-- 중간결재승인 -->
+	<update id="midConfirm" parameterType="Approval">
+		UPDATE APPROVAL
+		SET MID_REPLY=#{midReply}, MID_STATUS=2
+		WHERE APP_NO=#{appNo}
+	</update>
 	
+	<!-- 중간결재반려 -->
+	<update id="midReject" parameterType="Approval">
+		UPDATE APPROVAL
+		SET MID_REPLY=#{midReply}, MID_STATUS=3
+		WHERE APP_NO=#{appNo}
+	</update>
+	
+	<!-- 하루휴가 -->
+	<insert id="insertHoliDay" parameterType="Holiday">
+		INSERT HOLIDAY
+		VALUES
+		<choose>
+			<when test="holStartDay == null or holStartDay == ''">
+				(SEQ_HNO.NEXTVAL, #{empId}, #{holidayName}, #{holStartDay}, #{holEndDay}, #{holDays})
+			</when>
+			<otherwise>
+				(SEQ_HNO.NEXTVAL, #{empId}, #{holidayName}, #{holStartDay}, #{holEndDay}, #{holDays})
+			</otherwise>
+		</choose>
+	</insert>
+	
+	<!-- 최종결재승인 -->
+	<update id="finConfirm" parameterType="Approval">
+		UPDATE APPROVAL
+		SET FIN_REPLY=#{finReply}, FIN_STATUS=2
+		WHERE APP_NO=#{appNo}
+	</update>
+	
+	<!-- 최종결재반려 -->
+	<update id="finReject" parameterType="Approval">
+		UPDATE APPROVAL
+		SET FIN_REPLY=#{finReply}, FIN_STATUS=3
+		WHERE APP_NO=#{appNo}
+	</update>
 
+	
 	
 </mapper>

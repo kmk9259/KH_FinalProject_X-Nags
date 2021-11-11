@@ -1,6 +1,6 @@
 package com.kh.spring.approval.model.vo;
 
-import java.sql.Date;
+import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,13 +25,15 @@ public class Approval {
 	private String title;
 	private String content;
 	private Date writeDate;
-	private String startDate;
-	private String appDate;
+	private Date stayDate;
+	private Date endDate;
 	private String midReply;
 	private String finReply;
 	
 	private String originName;
 	private String changeName;
+	
+
 
 	
 }
