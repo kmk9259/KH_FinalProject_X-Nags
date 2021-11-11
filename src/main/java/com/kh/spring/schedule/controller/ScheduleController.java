@@ -1,10 +1,15 @@
 package com.kh.spring.schedule.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kh.spring.employee.model.vo.Employee;
+import com.kh.spring.member.model.vo.Member;
 import com.kh.spring.schedule.model.service.ScheduleService;
 import com.kh.spring.schedule.model.vo.Schedule;
 
@@ -16,7 +21,12 @@ public class ScheduleController {
 
 	
 	@RequestMapping("main.sc")
-	public String scheduleMain() {
+	public String scheduleMain(Model m, HttpServletRequest request) {
+		Member mem = (Member) request.getSession().getAttribute("loginUser");
+		Employee emp = (Employee) scheduleService.selectEmployee(mem);
+		m.addAttribute("mem", mem);
+		m.addAttribute("emp", emp);
+		System.out.println("emp : " + emp);
 		return "schedule/scheduleMain";
 	}
 	
@@ -29,31 +39,24 @@ public class ScheduleController {
 		return String.valueOf(result);
 	}
 	
-	//일정수정
-	@ResponseBody
-	@RequestMapping(value = "update.sc")
-	public String updateSchedule(Schedule sc) {
-		int result = scheduleService.updateSchedule(sc);
-		
-		return String.valueOf(result);
-	}
+//	//일정수정
+//	@ResponseBody
+//	@RequestMapping(value = "update.sc")
+//	public String updateSchedule(Schedule sc) {
+//		int result = scheduleService.updateSchedule(sc);
+//		
+//		return String.valueOf(result);
+//	}
+//	
+//	//일정삭제
+//	@ResponseBody
+//	@RequestMapping(value = "delete.sc")
+//	public String deleteSchedule(Schedule sc) {
+//		int result = scheduleService.deleteSchedule(sc);
+//		
+//		return String.valueOf(result);
+//	}
+//	
 	
-	//일정삭제
-	@ResponseBody
-	@RequestMapping(value = "delete.sc")
-	public String deleteSchedule(Schedule sc) {
-		int result = scheduleService.deleteSchedule(sc);
-		
-		return String.valueOf(result);
-	}
-	
-	//일정선택
-	@RequestMapping(value = "detail.sc")
-	public String detailSchedule(Schedule sc) {
-		
-		
-		return null;
-		
-	}
 	
 }
