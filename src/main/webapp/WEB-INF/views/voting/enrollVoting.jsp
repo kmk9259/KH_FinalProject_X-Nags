@@ -23,7 +23,7 @@
 	<div class="mobile-menu-overlay"></div>
 
 	<div class="main-container">
-	<form  method="post" action="votingInsert.bo" enctype="multipart/form-data">
+	<form  method="post" action="votingInsert.bo">
 	<input type = "hidden" name = "empId" value = "${loginUser.empId }">	
 	주제 :<input type = "text" name = "votingTitle">
 <table id="example" >
@@ -34,7 +34,7 @@
             <td><input type="text" style = 'width:500px' name = "votingContent"></td>                 
         </tr>
 </table>
-<button type = "submit">등록하기</button>
+<button id = "votingNo" type = "submit">등록하기</button>
 </form>
  <button id="addItemBtn">항목추가하기</button>
  <button id="delBtn">항목제거하기</button>	
@@ -52,6 +52,7 @@ $(document).ready(function(){
    $("#delBtn").click(function(){
 	   $("#example tr:last").remove();
    })
+   
 
 });
 

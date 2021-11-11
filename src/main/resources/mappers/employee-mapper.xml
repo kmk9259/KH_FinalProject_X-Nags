@@ -6,14 +6,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<resultMap id="employeeResultSet" type="Employee">
 		<id property="empId" column="EMP_ID"/>
+		
+		<result property="jobCode" column="JOB_CODE"/>
+		<result property="rightNo" column="RIGHT_NO"/>
+		<result property="deptCode" column="DEPT_CODE"/>
+
 		<result property="jobName" column="JOB_NAME"/>
 		<result property="rightName" column="RIGHT_NAME"/>
 		<result property="deptName" column="DEPT_NAME"/>
+		
 		<result property="salLevel" column="SAL_LEVEL"/>
 		<result property="hireDate" column="HIRE_DATE"/>
 		<result property="modifyDate" column="MODIFIY_DATE"/>
 		<result property="endDate" column="END_DATE"/>
 		<result property="status" column="STATUS"/>
+		
+       <result property="userName" column="USER_NAME"/>
+
+		
 	</resultMap>
 	
 	<resultMap id="jobResultSet" type="Job">
@@ -53,12 +63,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 	<select id="selectList" resultMap="employeeResultSet">
-		SELECT EMP_ID, JOB_NAME, RIGHT_NAME, DEPT_NAME, SAL_LEVEL, HIRE_DATE, MODIFIY_DATE, END_DATE
-		FROM EMPLOYEE 
-        JOIN JOB USING (JOB_CODE)
-        JOIN DEPARTMENT USING (DEPT_CODE) 
-        JOIN RIGHT USING (RIGHT_NO)
-		WHERE STATUS = 'Y'
+		SELECT E.EMP_ID, M.USER_NAME, J.JOB_NAME, R.RIGHT_NAME, D.DEPT_NAME, E.SAL_LEVEL, E.HIRE_DATE, E.MODIFIY_DATE, E.END_DATE
+		FROM EMPLOYEE E
+		JOIN MEMBER M ON M.EMP_ID = E.EMP_ID
+        JOIN JOB J  ON J.JOB_CODE = E.JOB_CODE
+		JOIN DEPARTMENT D ON D.DEPT_CODE = E.DEPT_CODE 
+		JOIN RIGHT R ON R.RIGHT_NO = E.RIGHT_NO
 		ORDER BY EMP_ID DESC		
 	</select>
 	
@@ -101,13 +111,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<select id="selectEmp" parameterType="_int" resultMap="employeeResultSet">
-	SELECT EMP_ID, JOB_NAME, RIGHT_NAME, DEPT_NAME, SAL_LEVEL, HIRE_DATE, MODIFIY_DATE, END_DATE
-	FROM EMPLOYEE 
-	JOIN JOB USING (JOB_CODE)
-	JOIN DEPARTMENT USING (DEPT_CODE) 
-	JOIN RIGHT USING (RIGHT_NO)
-	WHERE EMP_ID = #{empId} AND STATUS = 'Y'
+
+
+	SELECT  EMP_ID, E.JOB_CODE, E.DEPT_CODE, E.RIGHT_NO, J.JOB_NAME, R.RIGHT_NAME, D.DEPT_NAME, E.SAL_LEVEL, E.HIRE_DATE, E.MODIFIY_DATE, E.END_DATE
+    FROM EMPLOYEE E 
+	JOIN JOB J  ON J.JOB_CODE = E.JOB_CODE
+	JOIN DEPARTMENT D ON D.DEPT_CODE = E.DEPT_CODE 
+	JOIN RIGHT R ON R.RIGHT_NO = E.RIGHT_NO
+	WHERE E.EMP_ID = #{empId} AND E.STATUS='Y'
 	</select>
 	
+	<select id="selectNextEmp" resultType="string">
+	select RPAD(to_number(to_char(SYSDATE, 'yymmdd')),9,last_number)
+	from user_sequences
+	where sequence_name='SEQ_EMP_ID'
 	
+	</select>
+	
+
+	<update id="updateEmp" parameterType="Employee" >
+	update EMPLOYEE set
+	JOB_CODE = #{jobCode}, RIGHT_NO=#{rightNo}, DEPT_CODE = #{deptCode}, SAL_LEVEL = #{salLevel},
+	MODIFIY_DATE= sysdate
+	WHERE EMP_ID = #{empId}
+	</update>
+	
+	
+	<update id="deleteEmp" parameterType="_int">
+	UPDATE EMPLOYEE SET END_DATE = sysdate,  STATUS='N' WHERE EMP_ID = #{empId}
+	
+	</update>
 </mapper>

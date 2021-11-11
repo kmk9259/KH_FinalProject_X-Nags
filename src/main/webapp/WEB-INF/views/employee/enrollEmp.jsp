@@ -325,8 +325,9 @@ p {
 
 
 						<div class="form-group">
-							<label>비밀번호(*)</label>
+							<label>비밀번호(*)</label> <div class="form-control-feedback"  style="font-size: 0.9rem;">숫자 영문 특수문자 조합 6자리 이상 15자 이하로 입력하세요</div>
 							<input class="form-control" type="password" placeholder="password" id="userPwd" name="userPwd">
+							
 						</div>
 						<div class="form-group">
 							<label>주민등록번호(*)</label>
@@ -508,7 +509,7 @@ p {
 							<tr>
 								<th scope="row">기본급</th>
 								<td><input type="text" class="form-control" id="money1"  onkeyup="inputNumberFormat(this)">
-								<input type="hidden" class="form-control" id="money11" >
+								<input type="hidden" class="form-control" id="money11" name="basic">
 								</td>
 								
 								<th>소득세</th>
@@ -550,17 +551,18 @@ p {
 							<tr>
 								<th scope="row">지급 총액</th>
 								<td><input type="text" class="form-control" id="sum01" onkeyup="inputNumberFormat(this)"  disabled>
-								<input type="hidden" class="form-control" id="sum011" name="total"></td>
+								<input type="hidden" class="form-control" id="sum011" name="total" ></td>
 								<th>공제 총액</th>
 								<td><input type="text" class="form-control"  id="result" onkeyup="inputNumberFormat(this)" disabled>
-								<!-- <input type="hidden" class="form-control" id="result1" ></td> -->
+								<input type="hidden" class="form-control" id="result1" name="inTotal"></td>
 								
 							</tr>
 							
 							 <tr>
 							  <th colspan="2">차감 지급액</th> 
 								<td colspan="2"><input type="text" class="form-control" id="sum02"  onkeyup="inputNumberFormat(this)" disabled>
-								</td>
+								<input type="hidden" class="form-control" id="sum021" name="subTotal"></td>
+								
 								
 								
 								
@@ -578,6 +580,7 @@ p {
 								     
 								     var sum =document.getElementById('sum01');
 								     var sumh =document.getElementById('sum011');
+								     var sumh2 =document.getElementById('sum021');
 								     var sum2 =document.getElementById('sum02');
 								     var n1 = document.getElementById('money1');
 								     var n2 = document.getElementById('money2');
@@ -593,10 +596,12 @@ p {
 								     var n7 = document.getElementById('health');
 								     
 								     
+								     
 								     var nh4 = document.getElementById('incometax1');
 								     var nh5 = document.getElementById('empIn1');
 								     var nh6 = document.getElementById('retirement1');
 								     var nh7 = document.getElementById('health1');
+								     var nh8 = document.getElementById('result1');
 								     
 								     var n8 = document.getElementById('result');
 								     
@@ -624,13 +629,18 @@ p {
 								     var retirement = total * 0.045;
 								     var health = total * 0.0306;
 								     
+								     var inTotal = incometax + empIn + retirement +health;
+								     var subTotal = total - inTotal;
+								     
 								     /*히든으로 숫자값만 가지고 있을 input*/
 								     nh4.value= incometax;
 								     nh5.value= empIn;
 								     nh6.value= retirement;
-								     nh7.value= health; 
-								     sumh.value=total;
+								     nh7.value= health;
+								     nh8.value= inTotal;
 								     
+								     sumh.value=total;
+								     sumh2.value=subTotal;
 								     
 								     
 								     /*4대 보험 합산*/
@@ -753,7 +763,7 @@ p {
 
 
 						</div>
-								<input type="button" name="next" class="next3 action-button" value="Submit" onclick= "submit();"; />
+								<input type="button" name="next" class="next3 action-button" value="Submit" onclick= "submit();" />
 								<input type="button" name="previous" class="previous action-button-previous" value="Previous" />
 		                    </fieldset>
 		                    

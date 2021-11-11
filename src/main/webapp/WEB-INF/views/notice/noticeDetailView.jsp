@@ -26,7 +26,7 @@
             <table id="contentArea" align="center" class="table">
              <tr>
                     <th width="100">작성자</th>
-                    <td colspan="3">${ n.empId }</td>
+                    <td colspan="3">${ n.userName }</td>
                 </tr>
                 <tr>
                     <th width="100">제목</th>

@@ -18,6 +18,22 @@
 	width: 30px;
 	z-index: 1;
 }
+.image_box{
+  width: 350px;
+  height: 350px;
+}
+
+.profile{
+	width: 100%;
+	height: 100%;
+	margin-left: auto;
+   margin-right: auto;
+   display: block;
+
+  object-fit: cover;
+}
+
+
 </style>
 </head>
 <body>
@@ -56,13 +72,9 @@
 
 
 
-
-		<div class="pd-20 card-box mb-30">
-		
-		
-					
-				
-							<h5 class="h4 text-blue mb-20">사원 아무개 님</h5>
+			
+					<div class="pd-20 card-box mb-30">
+							<h5 class="h4 text-blue mb-20">${emp.jobName }  ${mem.userName } 님</h5>
 							<div class="tab">
 								<div class="row clearfix">
 									<div class="col-md-3 col-sm-12">
@@ -76,323 +88,186 @@
 											<li class="nav-item">
 												<a class="nav-link" data-toggle="tab" href="#contact7" role="tab" aria-selected="false"><i class="fa fa-envelope-o"></i></a>
 											</li>
+											
 										</ul>
+										
+										
+										
 									</div>
 									<div class="col-md-9 col-sm-12">
 										<div class="tab-content">
-											<div class="tab-pane fade active show" id="home7" role="tabpanel">
+										
+										<!-- 1 -->
+											<div class="tab-pane fade show active" id="home7" role="tabpanel">
 												<div class="pd-20">
 													
-													
-													
-		                        <div class="form-card">
-		                            
-										
-										
-
+															 <div class="image_box">                              
+                               								 <img src="${ pageContext.servletContext.contextPath }/resources/profile_files/${ mem.changeName }" class="profile" >
+                               								 </div> <br><br><br><br>
+		                     
+		                     
+		                    			 <!-- 프로필 사진 끝 -->
 						
 						
 
-						<div class="form-group">
-							<label>직원 이름(*)</label>
-							<input class="form-control" type="text" placeholder="userName" id="userName" name="userName">
-						</div>
-
-
-						<div class="form-group">
-							<label>비밀번호(*)</label>
-							<input class="form-control" type="password" placeholder="password" id="userPwd" name="userPwd">
-						</div>
-						<div class="form-group">
-							<label>주민등록번호(*)</label>
-							<input class="form-control" type="text" id="userSsn" name="userSsn" onkeyup="setSSn(this)" maxlength='14'>
-							
-							<script>
-							function setSSn(obj)
-							{
-								var ssn = obj.value;
-								var ssn = ssn.replace("-","");
-								if(ssn.length < 7) {
-									var ssn1 = ssn.substring(0,7);
-									var ssn2 = ssn.substring(7,8);
+															<div class="form-group">
+																<label>직원 이름(*)</label>
+																<input class="form-control" type="text"  id="userName" name="userName" value="${mem.userName }" disabled>
+															</div>
+									
+									
+															<%-- <div class="form-group">
+																<label>비밀번호(*)</label>
+																<input class="form-control" type="hidden"  id="userPwd" name="userPwd" value="${mem.userPwd }">
+															</div> --%>
+															<div class="form-group">
+																<label>주민등록번호(*)</label>
+																<input class="form-control" type="text" id="userSsn" name="userSsn" onkeyup="setSSn(this)" value="${mem.userSsn }"maxlength='14' disabled>
+																
+																<script>
+																function setSSn(obj)
+																{
+																	var ssn = obj.value;
+																	var ssn = ssn.replace("-","");
+																	if(ssn.length < 7) {
+																		var ssn1 = ssn.substring(0,7);
+																		var ssn2 = ssn.substring(7,8);
+																								
+																		obj.value = ssn1+"-"+ssn2;
+																	}
+																}
+																
+																</script>
+															</div>
 															
-									obj.value = ssn1+"-"+ssn2;
-								}
-							}
-							
-							</script>
-						</div>
-						
-						<div class="form-group">
-							<label>이메일(*)</label> <input class="form-control" placeholder="email" type="email" id="email" name="email">
-						</div>
-						
-						<div class="form-group">
-							<label>전화번호(*)</label> <input class="form-control" placeholder="000-0000-0000" type="tel" id="phone" name="phone" oninput="autoHyphen(this)" maxlength='13'>
-						</div><br><br><br>
-						<script>
-						const autoHyphen = (target) => {
-							 target.value = target.value
-							   .replace(/[^0-9]/, '')
-							   .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
-							}
-						
-						</script>
+															<div class="form-group">
+																<label>이메일(*)</label> <input class="form-control" value="${mem.email }" type="email" id="email" name="email" disabled>
+															</div>
+															
+															<div class="form-group">
+																<label>전화번호(*)</label> <input class="form-control" value="${mem.phone }" type="tel" id="phone" name="phone" oninput="autoHyphen(this)" maxlength='13' disabled>
+															</div><br><br><br>
+															<script>
+															const autoHyphen = (target) => {
+																 target.value = target.value
+																   .replace(/[^0-9]/, '')
+																   .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+																}
+															
+															</script>
+									
+															<!-- 주소입력  -->
+									
+															<label for="address"> &nbsp; <Strong>주소  :</Strong></label><br>
+															
+															
+															<c:forTokens var="addr" items="${ loginUser.address }" delims="/" varStatus="status">
+																		<c:if test="${ status.index eq 0 && addr >= '0' && addr <= '99999' }">
+																		<c:set var="post" value="${ addr }"/>
+																		</c:if>
+																		
+																		<c:if test="${ status.index eq 0 && !(addr >= '0' && addr <= '99999') }">
+																		<c:set var="address1" value="${ addr }"/>
+																		</c:if>
+																		
+																		<c:if test="${ status.index eq 1 }">
+																		<c:set var="address1" value="${ addr }"/>
+																		</c:if>
+																	<c:if test="${ status.index eq 2 }">
+																		<c:set var="address2" value="${ addr }"/>
+																	</c:if>
+															</c:forTokens>
+															
+									
+															<div class="form-inline">
+																<label> &nbsp; 우편번호 : &nbsp;</label> <input type="text"
+																	id="post" name="post"  class="form-control mr-2 postcodify_postcode5"
+																	size="6" value="${ post }" disabled>
+																<button type="button" class="btn btn-primary" id="postcodify_search_button" disabled>검색</button>
+															</div>
+															<br>
+															<label> &nbsp; 도로명주소 : </label> <input type="text" id="address1"
+																name="address1" class="form-control postcodify_address" size="30" value="${ address1 }" disabled>
+															<br>
+															<label> &nbsp; 상세주소 : </label>
+															<input type="text" id="address2" name="address2" class="form-control postcodify_extra_info" size="30" value="${ address2 }" disabled> <br>
+									
 
-						<!-- 주소입력  -->
-
-						<label for="address"> &nbsp; 주소 입력 :</label><br>
-
-						<div class="form-inline">
-							<label> &nbsp; 우편번호 : &nbsp;</label> <input type="text"
-								id="post" name="post" class="form-control mr-2 postcodify_postcode5"
-								size="6">
-							<button type="button" class="btn btn-primary"
-								id="postcodify_search_button">검색</button>
-						</div>
-						<br> <label> &nbsp; 도로명주소 : </label> <input type="text" id="address1"
-							name="address1" class="form-control postcodify_address" size="30">
-						<br> <label> &nbsp; 상세주소 : </label> <input type="text" id="address2"
-							name="address2" class="form-control postcodify_extra_info"
-							size="30"> <br>
-
-
-						<!-- jQuery와 Postcodify를 로딩한다. -->
-						<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
-						<script>
-							// 검색 단추를 누르면 팝업 레이어가 열리도록 설정한다.
-							$(function() {
-								$("#postcodify_search_button")
-										.postcodifyPopUp();
-							});
-						</script> 
-
-						
-						<!-- 주소입력   끝-->
-
-						<!-- 성별 입력 -->
-						<br>
-						<br>
-						<label for=""> &nbsp; Gender : </label>&nbsp;&nbsp;
-						<input type="radio" name="gender" id="Male" value="M">
-						<label	for="Male">남자</label> &nbsp;&nbsp;
-						<input type="radio" name="gender" id="Female" value="F">
-						<label for="Female">여자</label><br>
-
-						<!-- 성별 입력 끝 -->
-
-
-
-						<div class="btns" align="center">
-							
-							<button type="submit" class="btn btn-primary">수정하기</button>
-						</div>
-
-					</div>
+															<!-- jQuery와 Postcodify를 로딩한다. -->
+															<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+															<script>
+																// 검색 단추를 누르면 팝업 레이어가 열리도록 설정한다.
+																$(function() {
+																	$("#postcodify_search_button")
+																			.postcodifyPopUp();
+																	});
+																</script> 
 										
-		                        
-		                        
-		                       
-								
-								
-								
-								
-                       
-								
-								
-								
-		                  
-													
-													
+																
+																<!-- 주소입력   끝-->
+										
+																<!-- 성별 입력 -->
+																<br>
+																<br>
+																<label for=""> &nbsp; Gender : </label>&nbsp;&nbsp;
+																<input type="radio" name="gender" id="Male" value="M" disabled>
+																<label	for="Male">남자</label> &nbsp;&nbsp;
+																<input type="radio" name="gender" id="Female" value="F" disabled>
+																<label for="Female">여자</label><br>
+										
+																<!-- 성별 입력 끝 -->
+																
+																<script>
+																$(function(){
+																		if("${ mem.gender }" == "M"){
+																		$("#Male").attr("checked", true); 
+																		
+																		}else if("${ mem.gender }" == "F"){
+																		
+																		$("#Female").attr("checked", true);
+																		}
+																					                    		
+																});
+											                    </script>
+
+						
+
+						 					<br><br><br><p style="color: red;">개인 정보는 본인이 마이페이지에서 수정 가능합니다.</p>
+															
+
+
 												</div>
 											</div>
+											
+										<!-- 2 -->
 											<div class="tab-pane fade" id="profile7" role="tabpanel">
 												<div class="pd-20">
-								
-								
 													<div class="form-group">
 													<label>사원 아이디</label>
 													   <input class="form-control" type="text" id="empId" name="empId" value="${emp.empId }" disabled>
 												    </div>
+												    
+												    <div class="form-group">
+												    <label>직급</label>
+													   <input class="form-control" type="text" id="jobCode" name="jobCode" value="${emp.jobName }" disabled>
+												    </div>
+													
 													
 													<div class="form-group">
-														<label >직급</label>
-															<select class="form-control" id="jobCode" name="jobCode">
-																   <option selected disabled hidden="hidden" value="${emp.jobCode }">${emp.jobName }</option>
-										
-																	<c:forEach items="${jlist }" var="job" varStatus="status">
-																	<option value="${job.jobCode }">${job.jobName }</option> 
-																    </c:forEach>
-										
-															</select>
-													</div>
-													<script>
-													$(function(){
-														if("${job.jobName }"=="대표"){
-															$("#jobCode").val('J1');
-														}
-														
-														if("${job.jobName  }"=="부사장"){
-															$("#jobCode").val('J2');
-														}
-														
-														if("${job.jobName  }"=="부장"){
-															$("#jobCode").val('J3');
-														}
-														
-														if("${job.jobName  }"=="차장"){
-															$("#jobCode").val('J4');
-														}
-														
-														if("${job.jobName  }"=="과장"){
-															$("#jobCode").val('J5');
-														}
-														
-														if("${job.jobName  }"=="대리"){
-															$("#jobCode").val('J6');
-														}
-														
-														if("${job.jobName  }"=="사원"){
-															$("#jobCode").val('J7');
-														}
-														
-													})
-													</script>
+													<label>부서</label>
+													   <input class="form-control" type="text" id="deptName" name="deptName" value="${emp.deptName }" disabled>
+												    </div>
 						
-						
-												    
+													<div class="form-group">
+												    <label>급여 등급</label>
+													   <input class="form-control" type="text" id="salLevel" name="salLevel" value="${emp.salLevel}" disabled>
+												    </div>
 												   
 													<div class="form-group">
-														<label >부서코드</label>
-															<select class="form-control" id="deptName" name="deptName" >
-																	<option selected disabled hidden="hidden" value="${emp.deptName }">${emp.deptName }</option>						
-																	<c:forEach items="${dlist }" var="d" varStatus="status">
-																	<option value="${d.deptCode }">${d.deptName }</option> 
-																    </c:forEach>
-										
-															</select>
-													</div>
+													<label>권한</label>
+													   <input class="form-control" type="text" id="rightName2" name="rightNo" value="${emp.rightName}" disabled>
+												    </div>
 													
-													<script>
-													
-													$(function(){
-														if("${emp.deptName }"=="인사관리부"){
-															$("#deptName").val('D1');
-														}
-														
-														if("${emp.deptName  }"=="회계관리부"){
-															$("#deptName").val('D2');
-														}
-														
-														if("${emp.deptName  }"=="마케팅부"){
-															$("#deptName").val('D3');
-														}
-														
-														if("${emp.deptName  }"=="국내영업부"){
-															$("#deptName").val('D4');
-														}
-														
-														if("${emp.deptName  }"=="해외영업부"){
-															$("#deptName").val('D5');
-														}
-														
-														if("${emp.deptName  }"=="기술지원부"){
-															$("#deptName").val('D6');
-														}
-														
-														if("${emp.deptName  }"=="총무부"){
-															$("#deptName").val('D7');
-														}
-														
-													})
-													
-													
-													
-													
-													
-													</script>
-													
-													
-													<div class="form-group">
-														<label>급여 등급</label>
-														
-															<select class="form-control" id="salLevel " name="salLevel ">
-																	<option selected disabled hidden="hidden"  value="${emp.salLevel  }">${emp.salLevel  }</option>
-																	<c:forEach items="${slist }" var="s" varStatus="status">
-																	<option value="${s.salLevel }">${s.salLevel }</option> 
-																    </c:forEach>
-										
-															</select>
-														
-													</div>
-													
-													<script>
-													$(function(){
-														if("${emp.salLevel }"=="S1"){
-															$("#salLevel").val('S1');
-														}
-														
-														if("${emp.salLevel }"=="S2"){
-															$("#salLevel").val('S2');
-														}
-														
-														if("${emp.salLevel }"=="S3"){
-															$("#salLevel").val('S3');
-														}
-														
-														if("${emp.salLevel }"=="S4"){
-															$("#salLevel").val('S4');
-														}
-														
-														if("${emp.salLevel }"=="S5"){
-															$("#salLevel").val('S5');
-														}
-														
-														if("${emp.salLevel }"=="S6"){
-															$("#salLevel").val('S6');
-														}
-														
-													})
-													</script>
-													
-													
-													<div class="form-group">
-														<label>권한</label>
-														
-															<select class="form-control" id="rightName2" name="rightNo">
-																	<option selected disabled hidden="hidden"  value="${emp.rightNo }">${emp.rightName }</option>
-																	<c:forEach items="${rlist }" var="r" varStatus="status">
-																	<option value="${r.rightNo }">${r.rightName }</option> 
-																    </c:forEach>
-										
-															</select>
-														
-													</div>
-													
-													<script>
-													$(function(){
-														if("${emp.rightName }"=="권한없음"){
-															$("#rightName2").val('0');
-														}
-														
-														if("${emp.rightName }"=="인사관리자"){
-															$("#rightName2").val('1');
-														}
-														
-														if("${emp.rightName }"=="근태관리자"){
-															$("#rightName2").val('2');
-														}
-														
-														if("${emp.rightName }"=="공지사항관리자"){
-															$("#rightName2").val('3');
-														}
-														
-														if("${emp.rightName }"=="비품관리자"){
-															$("#rightName2").val('4');
-														}
-														
-													})
-													</script>
 													
 													<div class="form-group">
 													<label><strong>입사일</strong></label> &nbsp;&nbsp;&nbsp;&nbsp;
@@ -408,23 +283,18 @@
 														<label><strong>퇴사일</strong></label>&nbsp;&nbsp;&nbsp;&nbsp;
 														<fmt:formatDate pattern="yyyy년 MM월 dd일" value="${emp.endDate }"/>
 													</div>
-											
-											
-											   			<div class="btns" align="center">
-							
-															<button type="submit" class="btn btn-primary">수정하기</button>
-														</div>
-								
-								
+
+													
 													
 												</div>
-											</div><!-- profile7 -->
-											
-											
+												<button type="button"  class="btn btn-outline-success" onclick="update()">수정페이지로 이동</button>
+												
+											</div>
+										<!-- 3 -->
 											<div class="tab-pane fade" id="contact7" role="tabpanel">
 												<div class="pd-20">
-												
-												<h4 class="text-blue h5">&nbsp;회계 정보</h4><br><br><br>
+													
+													<h4 class="text-blue h5">&nbsp;회계 정보</h4><br><br><br>
 												
 													<table class="table table-bordered salary">
 														<thead>
@@ -439,31 +309,31 @@
 														<tbody>
 															<tr>
 																<th scope="row">기본급</th>
-																<td><input type="text" class="form-control" id="money1"  onkeyup="inputNumberFormat(this)">
+																<td><input type="text" class="form-control" id="money1"  onkeyup="inputNumberFormat(this)" value="${sal.basic }" readOnly>
 																<input type="hidden" class="form-control" id="money11" >
 																</td>
 																
 																<th>소득세</th>
-																<td><input type="text" class="form-control" id="incometax"   onkeyup="inputNumberFormat(this)" disabled>
-																<input type="hidden" class="form-control" id="incometax1" name="incomeTax">
+																<td><input type="text" class="form-control" id="incometax"   onkeyup="inputNumberFormat(this)" value="${sal.incomeTax }" disabled>
+																<input type="hidden" class="form-control" id="incometax1" name="incomeTax" >
 																</td>
 																
 															</tr>
 															<tr>
 																<th scope="row">보너스</th>
-																<td><input type="text" class="form-control" id="money2"  onkeyup="inputNumberFormat(this)">
+																<td><input type="text" class="form-control" id="money2"  onkeyup="inputNumberFormat(this)" value="${sal.commission }"readOnly >
 																<input type="hidden" class="form-control" id="money22" name="commission"></td>
 																<th>고용 보험</th>
-																<td><input type="text" class="form-control" id="empIn"  onkeyup="inputNumberFormat(this)" disabled>
+																<td><input type="text" class="form-control" id="empIn"  onkeyup="inputNumberFormat(this)" value="${sal.empInsurance }" disabled >
 																<input type="hidden" class="form-control" id="empIn1" name="empInsurance"></td>
 																
 															</tr>
 															<tr>
 																<th scope="row">식대</th>
-																<td><input type="text" class="form-control" id="money3"  onkeyup="inputNumberFormat(this)">
+																<td><input type="text" class="form-control" id="money3"  onkeyup="inputNumberFormat(this)" value="${sal.meal }" readOnly>
 																<input type="hidden" class="form-control" id="money33" name="meal"></td>
 																<th>국민 연금</th>
-																<td><input type="text" class="form-control" id="retirement"  onkeyup="inputNumberFormat(this)" disabled>
+																<td><input type="text" class="form-control" id="retirement"  onkeyup="inputNumberFormat(this)" value="${sal.retirement }" disabled >
 																<input type="hidden" class="form-control" id="retirement1" name="retirement"></td>
 																
 															</tr>
@@ -472,7 +342,7 @@
 																<th scope="row"></th>
 																<td></td>
 																<th>건강 보험</th>
-																<td><input type="text" class="form-control" id="health"  onkeyup="inputNumberFormat(this)" disabled>
+																<td><input type="text" class="form-control" id="health"  onkeyup="inputNumberFormat(this)"  value="${sal.healthInsurance }" disabled >
 																<input type="hidden" class="form-control" id="health1" name="healthInsurance"></td>
 																
 															</tr>
@@ -481,17 +351,17 @@
 															
 															<tr>
 																<th scope="row">지급 총액</th>
-																<td><input type="text" class="form-control" id="sum01" onkeyup="inputNumberFormat(this)"  disabled>
+																<td><input type="text" class="form-control" id="sum01" onkeyup="inputNumberFormat(this)" value="${sal.total }" disabled>
 																<input type="hidden" class="form-control" id="sum011" name="total"></td>
 																<th>공제 총액</th>
-																<td><input type="text" class="form-control"  id="result" onkeyup="inputNumberFormat(this)" disabled>
+																<td><input type="text" class="form-control"  id="result" onkeyup="inputNumberFormat(this)" value="${sal.inTotal}" disabled>
 																<!-- <input type="hidden" class="form-control" id="result1" ></td> -->
 																
 															</tr>
 															
 															 <tr>
 															  <th colspan="2">차감 지급액</th> 
-																<td colspan="2"><input type="text" class="form-control" id="sum02"  onkeyup="inputNumberFormat(this)" disabled>
+																<td colspan="2"><input type="text" class="form-control" id="sum02"  onkeyup="inputNumberFormat(this)" value="${sal.subTotal}" disabled>
 																</td>
 																
 																
@@ -501,30 +371,149 @@
 														</tbody>
 													</table>
 													
-														<div class="btns" align="center">
-							
-															<button type="submit" class="btn btn-primary">수정하기</button>
-														</div>
+													
+													<!--==========================숫자 패턴 함수 (회계관련)================= -->
+														<script>
+													
+														
+														function inputNumberFormat(obj) {
+														     obj.value = comma(uncomma(obj.value));
+														     
+														     var sum =document.getElementById('sum01');
+														     var sumh =document.getElementById('sum011');
+														     var sum2 =document.getElementById('sum02');
+														     var n1 = document.getElementById('money1');
+														     var n2 = document.getElementById('money2');
+														     var n3 = document.getElementById('money3');
+														     
+														     var nh1 = document.getElementById('money11');
+														     var nh2 = document.getElementById('money22');
+														     var nh3 = document.getElementById('money33'); 
+														     
+														     var n4 = document.getElementById('incometax');
+														     var n5 = document.getElementById('empIn');
+														     var n6 = document.getElementById('retirement');
+														     var n7 = document.getElementById('health');
+														     
+														     
+														     var nh4 = document.getElementById('incometax1');
+														     var nh5 = document.getElementById('empIn1');
+														     var nh6 = document.getElementById('retirement1');
+														     var nh7 = document.getElementById('health1');
+														     
+														     var n8 = document.getElementById('result');
+														     
+														   
+														     /*필드에 담긴(스트링 숫자 ) 값을 int 로 변환(콤마 제거) */
+														     var num1 = parseInt((n1.value).replace(/,/g,""));
+														     var num2 = parseInt((n2.value).replace(/,/g,""));
+														     var num3 = parseInt((n3.value).replace(/,/g,""));
+														     
+														     /*히든으로 숫자값만 가지고 있을 input*/
+														     nh1.value= num1;
+														     nh2.value= num2;
+														     nh3.value= num3;
+														     
+														     console.log("numh1 "+nh1.value); 
+														     
+														     
+														    /*숫자로 변화한 필드값을 합침*/
+														     var total = num1 + num2 + num3; 
+														     /* console.log("숫자로? 콤마 없이 기본 총 지급액 "+total); */
+														     
+														     /*4대 보험 계산*/
+														     var incometax = total * 0.033;
+														     var empIn = total * 0.0065;
+														     var retirement = total * 0.045;
+														     var health = total * 0.0306;
+														     
+														     /*히든으로 숫자값만 가지고 있을 input*/
+														     nh4.value= incometax;
+														     nh5.value= empIn;
+														     nh6.value= retirement;
+														     nh7.value= health; 
+														     sumh.value=total;
+														     
+														     
+														     
+														     /*4대 보험 합산*/
+														     var total2 = incometax + empIn + retirement + health; 
+														     
+														     /* 지급액 - 공제액 */
+														     var finalresult = total - total2 ;
+														    
+														     /* 4대 보험 칸 자동 완성 (콤마 포함)*/
+														     n4.value = incometax.toString().replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+														     n5.value = empIn.toString().replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+														     n6.value = retirement.toString().replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+														     n7.value = health.toString().replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+														     
+														     /*공제 금액 총합(콤마 찍기)*/
+														   	 n8.value = total2.toString().replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+														      
+														     
+														   	/*지급 총합(콤마 찍기)*/
+														     sum.value  = total.toString().replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+														     
+														     /*차감 지급 총합(콤마 찍기)*/
+														     sum2.value = finalresult.toString().replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+														 }
+						
+														 function comma(str) {
+														     str = String(str);
+														     return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+														 }
+						
+														 function uncomma(str) {
+														     str = String(str);
+														     return str.replace(/[^\d]+/g, '');
+														 } 
+														 
+														
+														</script>
+													
 												</div>
-											</div><!-- tab penels contact7  -->
+												
+												<button type="button"  class="btn btn-outline-success" onclick="update()">수정페이지로 이동</button>
+												
+											</div>
+											
+											
 											
 										</div>
 									</div>
 								</div>
 							</div>
-						
+							
+							
+							<script>
+							/*수정 폼으로 이동 하는 함수*/
+						    
+						   function update(){
+								var id =  document.getElementById('empId');
+								location.href="updateEmpForm.me?empId=" +  id.value;
+								console.log(id.value)
+							}
+						    	
+						    	
+						    
+							</script>
+							
+							
+						</div>
+					</div>
+
+
+
+
+		
+			</div>
+		</div>
+			
     
 				
     
-    </div>
- 
-    
-
-					
-			</div>
-		</div>
-
-	</div>
+  
 
 	<!-- ======================================================================= -->
 

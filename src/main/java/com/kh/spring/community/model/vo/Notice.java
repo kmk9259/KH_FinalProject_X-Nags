@@ -25,5 +25,6 @@ public class Notice {
 	private int count;
 	private Date uploadDate;
 	private String rightNo;
+	private String userName;
 
 }

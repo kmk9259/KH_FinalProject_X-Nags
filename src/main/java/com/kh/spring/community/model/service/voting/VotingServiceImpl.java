@@ -6,16 +6,16 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kh.spring.common.exception.CommException;
 import com.kh.spring.community.model.dao.voting.VotingDao;
-import com.kh.spring.community.model.vo.Board;
 import com.kh.spring.community.model.vo.PageInfo;
 import com.kh.spring.community.model.vo.Voting;
+import com.kh.spring.community.model.vo.VotingA;
+
 @Service
 public class VotingServiceImpl implements VotingService {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-	
+
 	@Autowired
 	private VotingDao votingDao;
 
@@ -31,21 +31,27 @@ public class VotingServiceImpl implements VotingService {
 
 	@Override
 	public void insertVoting(Voting v) {
-		int result = votingDao.insertVoting(sqlSession,v);
 
-		if (result < 0) {
-			throw new CommException("게시글 등록 실패");
+		int result = votingDao.insertVoting(sqlSession, v);
+
+		if (result > 0) {
+
+			String[] vContent = v.getVotingContent().split(",");
+			for (int i = 0; i < vContent.length; i++) {
+				String content = v.getVotingContent();
+				content = vContent[i];
+				votingDao.insertContent(sqlSession, content);
+			}
+
 		}
 	}
 
 	@Override
 	public Voting selectVoting(int bno) {
-		Voting v = null;	
-			v = votingDao.selectVoting(sqlSession, bno);
-		
+		Voting v = null;
+		v = votingDao.selectVoting(sqlSession, bno);
 
 		return v;
 	}
-}
-	
 
+}

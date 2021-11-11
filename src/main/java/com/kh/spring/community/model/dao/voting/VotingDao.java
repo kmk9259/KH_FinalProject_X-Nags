@@ -30,5 +30,11 @@ public class VotingDao {
 		return sqlSession.selectOne("votingMapper.selectVoting",bno);
 	}
 
+	public int insertContent(SqlSessionTemplate sqlSession, String content) {
+		return sqlSession.insert("votingMapper.insertContent",content);
+		
+	}
+
+
 	
 }

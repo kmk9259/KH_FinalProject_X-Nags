@@ -82,6 +82,24 @@ public class EmployeeDao {
 	}
 
 
+	public String selectNextEmp(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("employeeMapper.selectNextEmp");
+	}
+
+
+	public int updateEmp(SqlSessionTemplate sqlSession, Employee emp) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("employeeMapper.updateEmp", emp);
+	}
+
+	public int deleteEmp(SqlSessionTemplate sqlSession, int empId) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete("employeeMapper.deleteEmp", empId);
+	}
+
+	
+
+
 
 
 }

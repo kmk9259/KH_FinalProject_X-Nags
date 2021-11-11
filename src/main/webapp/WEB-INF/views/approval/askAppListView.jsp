@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +13,9 @@
 #pagingArea{width:fit-content;margin:auto;}
 #appList>tbody>tr:hover {
 	cursor: pointer;
+}
+table{
+	text-align: center;
 }
 
 </style>
@@ -55,7 +59,7 @@
 						</div>
 					</div>
 					<div id="mailList">
-					<table class="table appList" id="appList">
+					<table class="table appList table-striped" id="appList">
 						<thead>
 							<tr>
 								<th scope="col">문서 번호</th>
@@ -64,7 +68,8 @@
 								<th scope="col">제목</th>
 								<th scope="col">작성일</th>
 								<th scope="col">기안일</th>
-								<th scope="col">상태</th>
+								<th scope="col">중간 결재 상태</th>
+								<th scope="col">최종 결재 상태</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -88,29 +93,37 @@
 									<c:if test="${app.category eq 5 }">
 										<td scope="row">증명서 신청서(급여명세서)</td>
 									</c:if>
-									<c:if test="${app.category eq 5 }">
+									<c:if test="${app.category eq 6 }">
 										<td scope="row">증명서 신청서(기타)</td>
 									</c:if>
 									
 									<td>${app.empId }</td>
 									<td>${app.title }</td>
-									<td>${app.writeDate }</td>
-									<td>${app.appDate }</td>
 									
-									<c:if test="${app.status eq 1}">
-										<td scope="row">결재 대기</td>
+									<td><fmt:formatDate type="date" dateStyle="short" value="${app.writeDate }"/></td>
+									<td><fmt:formatDate type="date" dateStyle="short" value="${app.endDate }"/></td>
+									
+									<%-- <td>${app.writeDate }</td>
+									<td>${app.appDate }</td> --%>
+									
+									<c:if test="${app.midStatus eq 1}">
+										<td scope="row"><i class="icon-copy ion-ios-circle-outline"></i></td>
 									</c:if>
-									<c:if test="${app.status eq 2}">
-										<td scope="row">중간 결재 승인</td>
+									<c:if test="${app.midStatus eq 2}">
+										<td scope="row"><i class="icon-copy ion-ios-checkmark"></i></td>
 									</c:if>
-									<c:if test="${app.status eq 3}">
-										<td scope="row">중간 결재 반려</td>
+									<c:if test="${app.midStatus eq 3}">
+										<td scope="row"><i class="icon-copy ion-ios-close"></i></td>
 									</c:if>
-									<c:if test="${app.status eq 4}">
-										<td scope="row">최종 결재 승인</td>
+									
+									<c:if test="${app.finStatus eq 1}">
+										<td scope="row"><i class="icon-copy ion-ios-circle-outline"></i></td>
 									</c:if>
-									<c:if test="${app.status eq 5}">
-										<td scope="row">최종 결재 반려</td>
+									<c:if test="${app.finStatus eq 2}">
+										<td scope="row"><i class="icon-copy ion-ios-checkmark"></i></td>
+									</c:if>
+									<c:if test="${app.finStatus eq 3}">
+										<td scope="row"><i class="icon-copy ion-ios-close"></i></td>
 									</c:if>
 								</tr>
 							</c:forEach>
@@ -172,7 +185,7 @@
 				<script type="text/javascript">
 					$(function(){
 						$(".appList tbody tr").click(function(){
-							location.href="askDetail.ap?ano=" + $(this).children().eq(1).text();
+							location.href="askDetail.ap?ano=" + $(this).children().eq(0).text();
 						});
 					});
 				</script>

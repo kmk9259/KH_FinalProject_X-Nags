@@ -9,6 +9,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="VOTING_CONTENT" property="votingContent"/>
 		<result column="EMP_ID" property="empId"/>
 		<result column="VOTING_DATE" property="votingDate"/>
+		
+		
+</resultMap> 
+
+<resultMap id="votingAResultSet" type="VotingA">
+	<id column="VOTING_NO" property="votingNo"/>
+	<result column="REF_NO" property="refNo"/>
+	<result column="CONTENT" property="content"/>
+	<result column="COUNT" property="count"/>
+		
+
 </resultMap>
 
  <select id="selectListCount" resultType="_int">
@@ -16,18 +27,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM VOTING
 	</select>
 
-	<select id="selectList"  resultMap="votingResultSet">
+	<select id="selectList"   resultMap="votingResultSet" >
 		SELECT *
 		FROM VOTING 
 		ORDER BY VOTING_NO DESC
 	</select>
 
 <insert id = "insertVoting" parameterType="Voting">
-	INSERT INTO VOTING
-	VALUES(VOTING_NO.NEXTVAL, #{votingTitle}, #{votingContent}, #{empId}, sysdate)
+
+ 	INSERT INTO VOTING
+ 	
+	VALUES(VOTING_NO.NEXTVAL, #{votingTitle}, #{votingContent}, #{empId}, sysdate,default) 
+</insert>
+<insert id = "insertContent"  parameterType="String" >
+	INSERT INTO VOTING_A
+	VALUES(VA_SQE.NEXTVAL, #{refNo}, #{content},default)
 </insert>
 
-<select id="selectVoting" parameterType="_int" resultMap="votingResultSet">
+<select id="selectVoting" parameterType="_int" resultMap="votingResultSet" >
 		SELECT *
 		FROM VOTING 
 		WHERE VOTING_NO=#{bno} 	

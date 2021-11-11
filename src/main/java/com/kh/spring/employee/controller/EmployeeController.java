@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.spring.common.Pagination;
 import com.kh.spring.common.PaginationEmp;
 import com.kh.spring.common.exception.CommException;
 import com.kh.spring.employee.model.service.EmployeeService;
@@ -97,11 +96,14 @@ public class EmployeeController {
 		ArrayList<Department> dlist = employeeService.selectDlist();
 		ArrayList<Right> rlist = employeeService.selectRlist();
 		ArrayList<SalGrade> slist = employeeService.selectSlist();
+		String nextEmp = employeeService.selectNextEmp();
+		System.out.println("nextEmp : "+nextEmp);
 		
 		model.addAttribute("jlist", jlist);
 		model.addAttribute("dlist", dlist);
 		model.addAttribute("rlist", rlist);
 		model.addAttribute("slist", slist);
+		model.addAttribute("nextEmp", nextEmp);
 		
 		return "employee/enrollEmp";
 	}
@@ -221,8 +223,86 @@ public class EmployeeController {
 		model.addAttribute("slist", slist);
 		
 		Employee emp = employeeService.selectEmp(empId);
+		Member mem = memberService.selectMem(empId);
+		Salary sal = salaryService.selectSal(empId);
 		
 		mv.addObject("emp", emp).setViewName("employee/empDetail");
+		mv.addObject("mem", mem).setViewName("employee/empDetail");
+		mv.addObject("sal", sal).setViewName("employee/empDetail");
 		return mv;
 	}
+	
+	@RequestMapping("updateEmpForm.me")
+	public ModelAndView updateForm(int empId, ModelAndView mv, Model model) {
+		
+		ArrayList<Job> jlist = employeeService.selectJlist();
+		ArrayList<Department> dlist = employeeService.selectDlist();
+		ArrayList<Right> rlist = employeeService.selectRlist();
+		ArrayList<SalGrade> slist = employeeService.selectSlist();
+		
+		model.addAttribute("jlist", jlist);
+		model.addAttribute("dlist", dlist);
+		model.addAttribute("rlist", rlist);
+		model.addAttribute("slist", slist);
+
+		
+		Employee emp = employeeService.selectEmp(empId);
+		Member mem = memberService.selectMem(empId);
+		Salary sal = salaryService.selectSal(empId);
+		
+		mv.addObject("emp", emp).setViewName("employee/empUpdateForm");
+		mv.addObject("mem", mem).setViewName("employee/empUpdateForm");
+		mv.addObject("sal", sal).setViewName("employee/empUpdateForm");
+		
+		
+		return mv;
+	}
+	
+	@RequestMapping("updateEmp.me")
+	public ModelAndView updateEmp(Employee emp, Salary sal, ModelAndView mv, HttpServletRequest request, Model model) {
+		
+		Employee empInfo =  employeeService.updateEmp(emp);
+		model.addAttribute("empInfo" , empInfo);
+		
+		Salary updateSal = salaryService.updateSal(sal);
+		model.addAttribute("sal", updateSal);
+		
+		mv.addObject("empId", emp.getEmpId()).setViewName("redirect:empDetail.me");
+		
+		return mv;
+		
+		
+	}
+	
+	@RequestMapping("deleteEmp.me")
+	public String deleteEmp(int empId, HttpServletRequest request,
+							@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage, 
+							Model model)
+	{
+		employeeService.deleteEmp(empId);
+		
+
+		
+		int listCount = employeeService.selectListCount();
+		System.out.println(listCount);
+		
+		
+		PageInfo pi = PaginationEmp.getPageInfo(listCount, currentPage, 10, 10);
+		
+		ArrayList<Employee> list = employeeService.selectList(pi);
+		
+		
+		
+		System.out.println(list);
+
+		
+		model.addAttribute("list", list);
+		model.addAttribute("pi",pi);
+		
+		
+		return "employee/listEmp";
+		//return "redirect:listEmp";
+		
+	}
+
 }

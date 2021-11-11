@@ -44,6 +44,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    values (SEQ_UNO.NEXTVAL, RPAD(to_number(to_char(SYSDATE, 'yymmdd')),9,SEQ_EMP_ID.CURRVAL),#{userPwd},#{userName},#{userSsn},#{email},#{phone},#{address},#{gender},
    #{originName}, #{changeName},default)   
    </insert>
+   
+   
+   <select id="selectMem" parameterType="_int" resultMap="memberResultSet">
+
+
+   SELECT M.EMP_ID, M.USER_NAME, M.USER_PWD, M.USER_SSN, M.EMAIL,PHONE, M.ADDRESS, M.GENDER, M.ORIGIN_NAME, M.CHANGE_NAME
+   FROM MEMBER M 
+   WHERE M.EMP_ID = #{empId} AND M.STATUS='Y'
+
+ 	
+	</select>
 
 	
 	<!--  

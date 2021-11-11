@@ -30,6 +30,11 @@ public class MemberDao {
 		return sqlSession.insert("memberMapper.updatePwd",m);
 	}
 
+	public Member selectMem(SqlSessionTemplate sqlSession, int empId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("memberMapper.selectMem", empId);
+	}
+
 	
 
 }
