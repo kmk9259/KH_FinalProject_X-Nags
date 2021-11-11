@@ -99,11 +99,12 @@ table{
 									
 									<td>${app.empId }</td>
 									<td>${app.title }</td>
-									<%-- <td><fmt:formatDate type=“date” dateStyle=“short” value=“${app.writeDate}”/></td>
-									<td><fmt:formatDate type=“date” dateStyle=“short” value=“${app.appDate}”/></td>
-									 --%>
-									<td>${app.writeDate }</td>
-									<td>${app.appDate }</td>
+									
+									<td><fmt:formatDate type="date" dateStyle="short" value="${app.writeDate }"/></td>
+									<td><fmt:formatDate type="date" dateStyle="short" value="${app.endDate }"/></td>
+									
+									<%-- <td>${app.writeDate }</td>
+									<td>${app.appDate }</td> --%>
 									
 									<c:if test="${app.midStatus eq 1}">
 										<td scope="row"><i class="icon-copy ion-ios-circle-outline"></i></td>

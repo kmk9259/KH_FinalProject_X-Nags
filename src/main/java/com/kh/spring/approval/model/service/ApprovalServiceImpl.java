@@ -10,6 +10,7 @@ import com.kh.spring.approval.model.dao.ApprovalDao;
 import com.kh.spring.approval.model.vo.Approval;
 import com.kh.spring.common.exception.CommException;
 import com.kh.spring.employee.model.vo.Employee;
+import com.kh.spring.holiday.model.vo.Holiday;
 import com.kh.spring.approval.model.vo.PageInfo;
 
 @Service
@@ -84,6 +85,66 @@ public class ApprovalServiceImpl implements ApprovalService {
 	public Employee selectAppFin(String appFin) {
 		return approvalDao.selectAppFin(sqlSession, appFin);
 	}
+
+
+	//중간결재자 승인
+	@Override
+	public void midConfirm(Approval app) {
+		
+		int result = approvalDao.midConfirm(sqlSession, app);
+		
+		if(result < 0) {
+			throw new CommException("중간 승인 실패");
+		}
+		
+	}
+	
+	//중간결재자 반려
+	@Override
+	public void midReject(Approval app) {
+		int result = approvalDao.midReject(sqlSession, app);
+		
+		if(result < 0) {
+			throw new CommException("중간 반려 실패");
+		}
+	}
+	
+	//휴가추가
+	@Override
+	public void insertOneDay(Holiday hol) {
+		
+		int result = approvalDao.insertOneDay(sqlSession, hol);
+		
+		if(result < 0) {
+			throw new CommException("휴가 추가 실패");
+		}
+		
+	}
+	
+	//최종결재승인
+	@Override
+	public void finConfirm(Approval app) {
+		
+		int result = approvalDao.finConfirm(sqlSession, app);
+		
+		if(result < 0) {
+			throw new CommException("최종 승인 실패");
+		}
+		
+	}
+
+	//최종결재반려
+	@Override
+	public void finReject(Approval app) {
+		int result = approvalDao.finReject(sqlSession, app);
+		
+		if(result < 0) {
+			throw new CommException("최종 반려 실패");
+		}
+		
+	}
+
+	
 	
 	/*
 	 * //휴가 신청

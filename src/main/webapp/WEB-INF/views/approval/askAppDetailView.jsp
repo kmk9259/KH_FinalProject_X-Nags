@@ -9,10 +9,26 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>X-Nomal Groupware Solution</title>
+<style type="text/css">
+.appMid {
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+	width: 100%;
+	margin-bottom: 0;
+}
+</style>
 </head>
 <body>
 
 <jsp:include page="../common/menubar.jsp" />
+
+<c:if test="${ !empty msg }">
+	<script>
+		alert("${msg}");
+	</script>
+	<c:remove var="msg" scope="session"/>
+</c:if>
 
 <div class="main-container">
 		<div class="pd-ltr-20 xs-pd-20-10">
@@ -161,18 +177,13 @@
             	</c:otherwise>
             </c:choose>
             
-            
-            <!-- 버튼들 -->
-            <form id="sendMail" action="" method="post">
-            	<input type="hidden" name="empId" value="${ sessionScope.loginUser.empId }">
-            	<input type="hidden" name="mno" value="${app.appNo }">
-			</form>
 				<!-- 중간내용 끝 -->
 				</div>
 				</div>
-				
+			
 				
 				<div class="page-header">
+					
 					<div class="row">
 						<div class="col-md-6 col-sm-12">
 							<div class="title">
@@ -180,10 +191,22 @@
 							</div>
 							<div>
 								<c:choose>
+									<c:when test="${app.midReply != null }">
+										<p>${app.midReply}</p>
+									</c:when>
 									<c:when test="${ sessionScope.loginUser.empId == app.appMid}">
-										<input type="text" placeholder="의견을 입력해 주세요"/>
-										<button type="button">승인</button>
-										<button type="button">반려</button>
+										<div class="appMid">
+											<form id="midReply" action="" method="post">
+								            	<input type="hidden" name="ano" value="${app.appNo }">
+												<div class="form-group">
+													<input class="form-control" type="text" name="midReply" placeholder="의견을 입력해 주세요" required="required"/>
+												</div>
+												<div class="form-group">
+													<button class="btn btn-default" type="button" onclick="midConfirm();"><i class="icon-copy ion-checkmark-circled"></i></button>
+													<button class="btn btn-default" type="button" onclick="midReject();"><i class="icon-copy ion-close-circled"></i></button>
+												</div>
+											</form>
+										</div>
 									</c:when>
 									<c:otherwise>
 										<p>결재 권한이 없습니다.</p>
@@ -209,15 +232,23 @@
 								<c:when test="${app.midStatus eq 1}">
 									<p>중간 결재가 처리되지 않았습니다.</p>
 								</c:when>
+								<c:when test="${app.finReply != null }">
+									<p>${app.finReply}</p>
+								</c:when>
 								<c:otherwise>
-									<div class="form-group">
-										<input type="text" placeholder="의견을 입력해 주세요"/>
-									</div>
-									<div class="form-group">
-										<button type="button">승인</button>
-										<button type="button">반려</button>
-									</div>
-									
+									<div class="appMid">
+										<form id="finReply" action="" method="post">
+							            	<input type="hidden" name="ano" value="${app.appNo }">
+											<input type="hidden" name="category" value="${app.category }">	
+											<div class="form-group">
+												<input class="form-control" type="text" name="finReply" placeholder="의견을 입력해 주세요" required="required"/>
+											</div>
+											<div class="form-group">
+												<button class="btn btn-default" type="button" onclick="finConfirm();"><i class="icon-copy ion-checkmark-circled"></i></button>
+												<button class="btn btn-default" type="button" onclick="finReject();"><i class="icon-copy ion-close-circled"></i></button>
+											</div>
+										</form>
+									</div>	
 								</c:otherwise>
 							</c:choose>
 							
@@ -229,6 +260,92 @@
 				</div>
 				</div>
 				</div>
+				
+				
+				<!-- <script>
+					$(function() {
+						selectReplyList();
+						
+						$("#midConfirm").click(function(){
+							
+							var ano = ${app.appNo};
+							
+							if($("#midReply").val().trim().length != 0){
+								
+								$.ajax({
+									url:"midConfirm.ap",
+									type:"post",
+									date:{midReply:$("#midReply").val(),
+										  ano:ano,
+										  appMid:"${app.appMid}"},
+								    success:function(result){
+								    	if(result > 0){
+								    		$("#midReply").val("");
+								    		selectReplyList();
+								    	}else{
+								    		alert("의견등록실패")
+								    	}
+								    },error:function(){
+								    	console.log("댓글 작성 ajax 통신 실패");
+								    }
+								
+								})
+							}
+						
+						})	
+					
+					
+					})
+					
+				</script> -->
+				
+				<script>
+					function midConfirm(){
+						
+						
+						var confirmVal = confirm("결재를 승인하시겠습니까?");
+						
+						if(confirmVal){
+							$("#midReply").attr("action", "midConfirm.ap");
+							$("#midReply").submit();
+							return true;
+						}
+					}
+					
+					function midReject(){
+						var confirmVal = confirm("결재를 반려하시겠습니까?");
+						
+						if(confirmVal){
+							$("#midReply").attr("action", "midReject.ap");
+							$("#midReply").submit();
+							return true;
+						}
+					}
+					
+					function finConfirm(){
+						
+						var confirmVal = confirm("결재를 승인하시겠습니까?");
+						
+						if(confirmVal){
+							$("#finReply").attr("action", "finConfirm.ap");
+							$("#finReply").submit();
+							return true;
+						}
+					}
+					
+					function finReject(){
+						var confirmVal = confirm("결재를 반려하시겠습니까?");
+						
+						if(confirmVal){
+							$("#finReply").attr("action", "finReject.ap");
+							$("#finReply").submit();
+							return true;
+						}
+					}
+					
+				
+				</script>
+				
 <jsp:include page="../common/footer.jsp" />
 </body>
 </html>
