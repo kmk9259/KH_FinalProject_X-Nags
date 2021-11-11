@@ -194,7 +194,7 @@ height: 40px;
 		                    		language:"ko",
 		                    		onSelect: function(dateText) {
 		                    			selectDate = dateText;
-		                    			consoloe(selectDate);
+		                    			/* consoloe(selectDate); */
 		                    	    }
 		                    		
 		                    }); 

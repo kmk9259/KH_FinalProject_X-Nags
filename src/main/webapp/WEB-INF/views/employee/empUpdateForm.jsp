@@ -84,6 +84,7 @@
 													</li>
 													
 												</ul>
+												
 											</div>
 									<div class="col-md-9 col-sm-12">
 										<div class="tab-content">
@@ -243,7 +244,7 @@
 														<label>권한</label>
 														
 														 	<select class="form-control" id="rightNo" name="rightNo">
-																	<option selected disabled hidden="hidden"  value="${emp.rightNo }">${emp.rightName }</option>
+																	<option selected hidden="hidden"  value="${emp.rightNo}">${emp.rightName}</option>
 																	 <c:forEach items="${rlist }" var="r" varStatus="status">
 																	<option value="${r.rightNo }">${r.rightName }</option> 
 																    </c:forEach> 
@@ -310,32 +311,32 @@
 														<tbody>
 															<tr>
 																<th scope="row">기본급</th>
-																<td><input type="text" class="form-control" id="money1"  onkeyup="inputNumberFormat(this)" value="${sal.basic }" readOnly>
-																<input type="hidden" class="form-control" id="money11" >
+																<td><input type="text" class="form-control" id="money1"  onkeyup="inputNumberFormat(this)" value="${sal.basic }" >
+																<input type="hidden" class="form-control" id="money11" name="basic" value="${sal.basic }">
 																</td>
 																
 																<th>소득세</th>
-																<td><input type="text" class="form-control" id="incometax"   onkeyup="inputNumberFormat(this)" value="${sal.incomeTax }" disabled>
-																<input type="hidden" class="form-control" id="incometax1" name="incomeTax" >
+																<td><input type="text" class="form-control" id="incometax"   onkeyup="inputNumberFormat(this)" value="${sal.incomeTax }" readonly>
+																<input type="hidden" class="form-control" id="incometax1" name="incomeTax" value="${sal.incomeTax }" >
 																</td>
 																
 															</tr>
 															<tr>
 																<th scope="row">보너스</th>
-																<td><input type="text" class="form-control" id="money2"  onkeyup="inputNumberFormat(this)" value="${sal.commission }"readOnly >
-																<input type="hidden" class="form-control" id="money22" name="commission"></td>
+																<td><input type="text" class="form-control" id="money2"  onkeyup="inputNumberFormat(this)" value="${sal.commission }" >
+																<input type="hidden" class="form-control" id="money22" name="commission" value="${sal.commission }"></td>
 																<th>고용 보험</th>
-																<td><input type="text" class="form-control" id="empIn"  onkeyup="inputNumberFormat(this)" value="${sal.empInsurance }" disabled >
-																<input type="hidden" class="form-control" id="empIn1" name="empInsurance"></td>
+																<td><input type="text" class="form-control" id="empIn"  onkeyup="inputNumberFormat(this)" value="${sal.empInsurance }" readonly >
+																<input type="hidden" class="form-control" id="empIn1" name="empInsurance" value="${sal.empInsurance }"></td>
 																
 															</tr>
 															<tr>
 																<th scope="row">식대</th>
-																<td><input type="text" class="form-control" id="money3"  onkeyup="inputNumberFormat(this)" value="${sal.meal }" readOnly>
-																<input type="hidden" class="form-control" id="money33" name="meal"></td>
+																<td><input type="text" class="form-control" id="money3"  onkeyup="inputNumberFormat(this)" value="${sal.meal }" >
+																<input type="hidden" class="form-control" id="money33" name="meal" value="${sal.meal }"></td>
 																<th>국민 연금</th>
-																<td><input type="text" class="form-control" id="retirement"  onkeyup="inputNumberFormat(this)" value="${sal.retirement }" disabled >
-																<input type="hidden" class="form-control" id="retirement1" name="retirement"></td>
+																<td><input type="text" class="form-control" id="retirement"  onkeyup="inputNumberFormat(this)" value="${sal.retirement }" readonly >
+																<input type="hidden" class="form-control" id="retirement1" name="retirement" value="${sal.retirement }"></td>
 																
 															</tr>
 															
@@ -343,8 +344,8 @@
 																<th scope="row"></th>
 																<td></td>
 																<th>건강 보험</th>
-																<td><input type="text" class="form-control" id="health"  onkeyup="inputNumberFormat(this)"  value="${sal.healthInsurance }" disabled >
-																<input type="hidden" class="form-control" id="health1" name="healthInsurance"></td>
+																<td><input type="text" class="form-control" id="health"  onkeyup="inputNumberFormat(this)"  value="${sal.healthInsurance }" readonly >
+																<input type="hidden" class="form-control" id="health1" name="healthInsurance" value="${sal.healthInsurance }"></td>
 																
 															</tr>
 															
@@ -352,18 +353,18 @@
 															
 															<tr>
 																<th scope="row">지급 총액</th>
-																<td><input type="text" class="form-control" id="sum01" onkeyup="inputNumberFormat(this)" value="${sal.total }" disabled>
-																<input type="hidden" class="form-control" id="sum011" name="total"></td>
+																<td><input type="text" class="form-control" id="sum01" onkeyup="inputNumberFormat(this)" value="${sal.total }" readonly>
+																<input type="hidden" class="form-control" id="sum011" name="total" value="${sal.total }"></td>
 																<th>공제 총액</th>
-																<td><input type="text" class="form-control"  id="result" onkeyup="inputNumberFormat(this)" disabled>
-																<!-- <input type="hidden" class="form-control" id="result1" ></td> -->
+																<td><input type="text" class="form-control"  id="result" onkeyup="inputNumberFormat(this)" value="${sal.inTotal}" readonly>
+																<input type="hidden" class="form-control" id="result1" name="inTotal" value="${sal.inTotal}"></td> 
 																
 															</tr>
 															
 															 <tr>
 															  <th colspan="2">차감 지급액</th> 
-																<td colspan="2"><input type="text" class="form-control" id="sum02"  onkeyup="inputNumberFormat(this)" disabled>
-																</td>
+																<td colspan="2"><input type="text" class="form-control" id="sum02"  onkeyup="inputNumberFormat(this)" value="${sal.subTotal}"readonly>
+																<input type="hidden" class="form-control" id="sum021" name="subTotal" value="${sal.subTotal}" ></td>
 																
 																
 																
@@ -381,6 +382,7 @@
 														     
 														     var sum =document.getElementById('sum01');
 														     var sumh =document.getElementById('sum011');
+														     var sumh2 =document.getElementById('sum021');
 														     var sum2 =document.getElementById('sum02');
 														     var n1 = document.getElementById('money1');
 														     var n2 = document.getElementById('money2');
@@ -400,6 +402,7 @@
 														     var nh5 = document.getElementById('empIn1');
 														     var nh6 = document.getElementById('retirement1');
 														     var nh7 = document.getElementById('health1');
+														     var nh8 = document.getElementById('result1');
 														     
 														     var n8 = document.getElementById('result');
 														     
@@ -427,17 +430,29 @@
 														     var retirement = total * 0.045;
 														     var health = total * 0.0306;
 														     
+														     
+														     
 														     /*히든으로 숫자값만 가지고 있을 input*/
 														     nh4.value= incometax;
 														     nh5.value= empIn;
 														     nh6.value= retirement;
 														     nh7.value= health; 
-														     sumh.value=total;
+														     nh8.value= inTotal;
 														     
+														     sumh.value=total;
+														     sumh2.value=subTotal;
+														     
+														     
+														     var inTotal = incometax + empIn + retirement +health;
+														     var subTotal = total - inTotal;
+														     
+														     console.log("보험 합계 "+inTotal)
 														     
 														     
 														     /*4대 보험 합산*/
 														     var total2 = incometax + empIn + retirement + health; 
+														     
+														     sum.value=total2;
 														     
 														     /* 지급액 - 공제액 */
 														     var finalresult = total - total2 ;

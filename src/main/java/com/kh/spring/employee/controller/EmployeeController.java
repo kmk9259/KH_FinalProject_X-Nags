@@ -259,22 +259,49 @@ public class EmployeeController {
 	}
 	
 	@RequestMapping("updateEmp.me")
-	public ModelAndView updateEmp(Employee emp, ModelAndView mv, HttpServletRequest request, Model model) {
+	public ModelAndView updateEmp(Employee emp, Salary sal, ModelAndView mv, HttpServletRequest request, Model model) {
 		
 		Employee empInfo =  employeeService.updateEmp(emp);
 		model.addAttribute("empInfo" , empInfo);
+		
+		Salary updateSal = salaryService.updateSal(sal);
+		model.addAttribute("sal", updateSal);
+		
 		mv.addObject("empId", emp.getEmpId()).setViewName("redirect:empDetail.me");
 		
 		return mv;
 		
-		//return "employee/empDetail.me";
+		
 	}
 	
 	@RequestMapping("deleteEmp.me")
-	public String deleteEmp(int empId, HttpServletRequest request) {
+	public String deleteEmp(int empId, HttpServletRequest request,
+							@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage, 
+							Model model)
+	{
 		employeeService.deleteEmp(empId);
 		
-		return "redirect:listEmp";
+
+		
+		int listCount = employeeService.selectListCount();
+		System.out.println(listCount);
+		
+		
+		PageInfo pi = PaginationEmp.getPageInfo(listCount, currentPage, 10, 10);
+		
+		ArrayList<Employee> list = employeeService.selectList(pi);
+		
+		
+		
+		System.out.println(list);
+
+		
+		model.addAttribute("list", list);
+		model.addAttribute("pi",pi);
+		
+		
+		return "employee/listEmp";
+		//return "redirect:listEmp";
 		
 	}
 

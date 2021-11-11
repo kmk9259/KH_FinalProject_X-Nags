@@ -119,6 +119,9 @@
 							</thead>
 							<tbody>
 							<c:forEach items="${list }" var="emp">
+							<%-- <form action="" id="postForm" method="post">
+							<input type="hidden" name="empId" value="${emp.empId }">
+							</form> --%>
 								<tr> 
 								
 								<td>${emp.empId }</td>
@@ -131,16 +134,23 @@
 								<td><fmt:formatDate pattern="yyyy년 MM월 dd일" value="${emp.endDate }"/></td>
 								<td>
 								
+								
+								<c:if test="${emp.endDate eq null}">
 								<div class="dropdown">
 											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
 												<i class="dw dw-more"></i>
 											</a>
 											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list" style="">
+											
+					
 												<a class="dropdown-item"><i class="dw dw-eye"></i> View</a>
 												<a class="dropdown-item" ><i class="dw dw-edit2"></i> Edit</a>
 												<a class="dropdown-item" ><i class="dw dw-delete-3"></i> Delete</a>
+												
 											</div>
 								</div>
+								</c:if>
+								
 								
 								</td>
 								</tr>
@@ -187,7 +197,9 @@
 			    for(var i =0; i<$("#salary tbody tr").length; i++){
 			    	
 			    	$("#salary tbody tr:eq("+i+") td:eq(8) .dropdown-menu-icon-list a:eq(0)").click(function(){
-			    		location.href="empDetail.me?empId=" +  $(this).parent().parent().parent().parent().children().eq(0).text();
+			    		
+			    		
+			    		location.href="empDetail.me?empId=" +  $(this).parent().parent().parent().parent().children().eq(0).text(); 
 				    });
 			    }
 			    
@@ -196,7 +208,8 @@
 			    for(var i =0; i<$("#salary tbody tr").length; i++){
 			    	
 			    	$("#salary tbody tr:eq("+i+") td:eq(8) .dropdown-menu-icon-list a:eq(1)").click(function(){
-			    		location.href="updateEmpForm.me?empId=" +  $(this).parent().parent().parent().parent().children().eq(0).text(); 
+			    
+			    		location.href="updateEmpForm.me?empId=" +  $(this).parent().parent().parent().parent().children().eq(0).text();  
 			    		
 				    });
 			    }
@@ -204,13 +217,15 @@
 				
 				/*삭제 하는 함수*/
 			    
-			    for(var i =0; i<$("#salary tbody tr").length; i++){
+			     for(var i =0; i<$("#salary tbody tr").length; i++){
+			    	
 			    	
 			    	$("#salary tbody tr:eq("+i+") td:eq(8) .dropdown-menu-icon-list a:eq(2)").click(function(){
-			    		location.href="deleteEmp.me?empId=" +  $(this).parent().parent().parent().parent().children().eq(0).text(); 
+			    		/* $("#postForm").attr("action","deleteEmp.me"); */
+			    		location.href="deleteEmp.me?empId=" +  $(this).parent().parent().parent().parent().children().eq(0).text();  
 			    		
 				    });
-			    }
+			    } 
 			    
 			    
 			    

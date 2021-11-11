@@ -32,6 +32,8 @@
 
   object-fit: cover;
 }
+
+
 </style>
 </head>
 <body>
@@ -86,7 +88,11 @@
 											<li class="nav-item">
 												<a class="nav-link" data-toggle="tab" href="#contact7" role="tab" aria-selected="false"><i class="fa fa-envelope-o"></i></a>
 											</li>
+											
 										</ul>
+										
+										
+										
 									</div>
 									<div class="col-md-9 col-sm-12">
 										<div class="tab-content">
@@ -281,6 +287,8 @@
 													
 													
 												</div>
+												<button type="button"  class="btn btn-outline-success" onclick="update()">수정페이지로 이동</button>
+												
 											</div>
 										<!-- 3 -->
 											<div class="tab-pane fade" id="contact7" role="tabpanel">
@@ -346,14 +354,14 @@
 																<td><input type="text" class="form-control" id="sum01" onkeyup="inputNumberFormat(this)" value="${sal.total }" disabled>
 																<input type="hidden" class="form-control" id="sum011" name="total"></td>
 																<th>공제 총액</th>
-																<td><input type="text" class="form-control"  id="result" onkeyup="inputNumberFormat(this)" disabled>
+																<td><input type="text" class="form-control"  id="result" onkeyup="inputNumberFormat(this)" value="${sal.inTotal}" disabled>
 																<!-- <input type="hidden" class="form-control" id="result1" ></td> -->
 																
 															</tr>
 															
 															 <tr>
 															  <th colspan="2">차감 지급액</th> 
-																<td colspan="2"><input type="text" class="form-control" id="sum02"  onkeyup="inputNumberFormat(this)" disabled>
+																<td colspan="2"><input type="text" class="form-control" id="sum02"  onkeyup="inputNumberFormat(this)" value="${sal.subTotal}" disabled>
 																</td>
 																
 																
@@ -465,6 +473,9 @@
 														</script>
 													
 												</div>
+												
+												<button type="button"  class="btn btn-outline-success" onclick="update()">수정페이지로 이동</button>
+												
 											</div>
 											
 											
@@ -473,6 +484,22 @@
 									</div>
 								</div>
 							</div>
+							
+							
+							<script>
+							/*수정 폼으로 이동 하는 함수*/
+						    
+						   function update(){
+								var id =  document.getElementById('empId');
+								location.href="updateEmpForm.me?empId=" +  id.value;
+								console.log(id.value)
+							}
+						    	
+						    	
+						    
+							</script>
+							
+							
 						</div>
 					</div>
 
