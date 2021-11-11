@@ -7,14 +7,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<resultMap id="salaryResultSet" type="Salary">
 		<id property="salLevel" column="SAL_LEVEL"/>
 		<result property="empId" column="EMP_ID"/>
+		<result property="basic" column="BASIC"/>
 		<result property="commission" column="COMMISSION"/>
 		<result property="meal" column="MEAL"/>
+		<result property="total" column="TOTAL"/>
 		<result property="incomeTax" column="INCOME_TAX"/>
 		<result property="empInsurance" column="EMP_INSURANCE"/>
 		<result property="retirement" column="RETIREMENT"/>
-		<result property="healthInsurance" column="RETIREMENT"/>
-		<result property="total" column="TOTAL"/>
-		<result property="basic" column="BASIC"/>
+		<result property="healthInsurance" column="HEALTH_INSURANCE"/>
+		<result property="inTotal" column="IN_TOTAL"/>
+		<result property="subTotal" column="SUB_TOTAL"/>
 	</resultMap>
 	
 	<!-- <resultMap id="jobResultSet" type="Job">
@@ -42,18 +44,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	 <insert id="insertSal" parameterType="Salary" >
 	insert into salary
-	values (SEQ_SALNO.NEXTVAL, #{salLevel}, RPAD(to_number(to_char(SYSDATE, 'yymmdd')),9,SEQ_EMP_ID.CURRVAL),  #{commission},#{meal},#{incomeTax},#{empInsurance},#{retirement},#{healthInsurance},#{total},#{basic})	
+	values (SEQ_SALNO.NEXTVAL, #{salLevel}, RPAD(to_number(to_char(SYSDATE, 'yymmdd')),9,SEQ_EMP_ID.CURRVAL), #{basic}, #{commission},#{meal},#{total},#{incomeTax},#{empInsurance},#{retirement},#{healthInsurance},#{inTotal},#{subTotal})	
 	</insert>
 
 	<select id="selectSal" parameterType="_int" resultMap="salaryResultSet">
 
 
-    SELECT S.EMP_ID, S.COMMISSION, S.MEAL, S.INCOME_TAX, S.EMP_INSURANCE, S.RETIREMENT,  S.HEALTH_INSURANCE, S.TOTAL, S.BASIC
+    SELECT S.EMP_ID,S.BASIC, S.COMMISSION, S.MEAL, S.TOTAL, S.INCOME_TAX, S.EMP_INSURANCE, S.RETIREMENT,  S.HEALTH_INSURANCE, S.IN_TOTAL,  S.SUB_TOTAL
 
 	FROM SALARY S
 	WHERE S.EMP_ID = #{empId}
 	
 	</select>
+	
+	
+
+
+	
+	<update id="updateSal" parameterType="Salary" >
+	update Salary set
+	SAL_LEVEL = #{salLevel}, BASIC=#{basic}, COMMISSION = #{commission}, MEAL = #{meal},
+	TOTAL = #{total}, INCOME_TAX = #{incomeTax},
+	EMP_INSURANCE = #{empInsurance}, RETIREMENT = #{retirement},
+	HEALTH_INSURANCE = #{healthInsurance}, IN_TOTAL = #{inTotal},
+	SUB_TOTAL = #{subTotal}
+	WHERE EMP_ID = #{empId}
+	</update>
 	
 	
 	

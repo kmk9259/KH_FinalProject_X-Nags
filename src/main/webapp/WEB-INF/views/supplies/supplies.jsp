@@ -81,6 +81,9 @@ input[type=checkbox]:checked:disabled + label:before {
 
 </style>
 
+
+<link href="${ pageContext.servletContext.contextPath }/resources/assets/js/bootstrap-datepicker3.css" rel="stylesheet" />
+<link href="${ pageContext.servletContext.contextPath }/resources/assets/js/bootstrap-datepicker3.standalone.css" rel="stylesheet" />
 </head>
 <body>
 	<jsp:include page="../common/menubar.jsp" />
@@ -121,16 +124,18 @@ input[type=checkbox]:checked:disabled + label:before {
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-4 col-sm-12">
+						<div class="col-md-4 col-sm-12 dateRage">
 							
 								<div class="form-group ">
-									<label>예약 날짜</label> <input class="form-control date-picker"
-										placeholder="Select Date" id="startDate" type="text">
+									<label>예약 날짜</label>
+
+									<input type="text" id="startDate" class="form-control startDate">
+									
+									
 								</div>
 
 								<div class="form-group">
-									<label>반납 날짜</label> <input class="form-control date-picker"
-										placeholder="Select Date" id="endDate" type="text">
+									<label>반납 날짜</label> <input type="text" id="endDate" class="form-control startDate">
 								</div>
 								<button type="button" class="btn btn-success btn-lg btn-block" id="btn1" onclick="input1()">대여 기간 등록</button>
 								
@@ -138,15 +143,66 @@ input[type=checkbox]:checked:disabled + label:before {
 						</div>
 						
 						<script>
+						
+
+
+		                	/* $( "#startDate" ).datepicker({
+		                    		dateFormat: "yyyy-mm-dd",
+		                    		minDate: new Date(),
+		                    		language:"kr",
+		                    		todaytHightlight : true
+		                			
+		                			
+		                    		
+		                    });  */
+		                	
+		                	
+		                	$( "#endDate" ).datepicker({
+		                		minDate: new Date(),
+	                    		dateFormat: "yyyy-mm-dd",
+	                    		language:"kr",
+	                    		todaytHightlight : true
+	                			
+	                			
+	                    		
+	                    	});
+		                	
+		                	
+		                $("#startDate").datepicker({
+		                	format: "yyyy-mm-dd",
+		                	minDate: new Date(),
+		                	autoclose : true,
+		                }).on('changeDate', function(selected){
+		                	var startDate = new Date(selected.date.valueOf());
+		                	$("#endDate").datepicker('setStartDate', startDate);
+		                }).on('clearDate', function (selected) {
+		                	$('#endDate').datepicker('setStartDate', null);
+		                });
+		                
+		                
+		                $("#endDate").datepicker({
+		                	format: "yyyy-mm-dd",
+		                	minDate: new Date(),
+		                	autoclose : true,
+		                }).on('changeDate', function(selected){
+		                	var endDate = new Date(selected.date.valueOf());
+		                	$("#startDate").datepicker('setEndDate', endDate);
+		                }).on('clearDate', function (selected) {
+		                	$('#startDate').datepicker('setEndDate', null);
+		                });
+		                	
+						
+						
+						
 						function input1(){
 							
-							var startDate = document.getElementById("startDate").value;
-							var endDate = document.getElementById("endDate").value;
+							var startDate = document.getElementById("startDate").value
+							var endDate = document.getElementById("endDate").value; 
 							console.log(startDate)
 							console.log(endDate)
 							var p1 =document.getElementById("p1");
 							
-							p1.innerHTML =endDate + " 부터  " + startDate + " 일 까지" ;
+							p1.innerHTML =startDate + " 부터  " + endDate + " 일 까지" ;
 
 							
 							/* var length = $("input[name='supplies']:checked").length;
@@ -155,6 +211,7 @@ input[type=checkbox]:checked:disabled + label:before {
 							
 							
 						
+							
 
 							
 						
@@ -268,7 +325,7 @@ input[type=checkbox]:checked:disabled + label:before {
 								</div>
 								
 								
-								<script>
+								<script >
 								
 								function input2(){
 									
@@ -366,11 +423,13 @@ input[type=checkbox]:checked:disabled + label:before {
 			</div>
 
 	<jsp:include page="../common/footer.jsp" />
+	<script src="${ pageContext.servletContext.contextPath }/resources/assets/js/bootstrap-datepicker.js"></script>
+	<script src="${ pageContext.servletContext.contextPath }/resources/assets/js/bootstrap-datepicker.kr.min.js"></script>
 	
 	
 	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/slick/slick.min.js"></script>
 	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
-	<script src="${ pageContext.servletContext.contextPath }/resources/assets/js/momnet-locale-ko.js"></script>
+	<%-- <script src="${ pageContext.servletContext.contextPath }/resources/assets/js/momnet-locale-ko.js"></script> --%>
 	
 	<script>
 		jQuery(document).ready(function() {

@@ -18,4 +18,9 @@ public class SalaryDao {
 		return sqlSession.selectOne("salaryMapper.selectSal", empId);
 	}
 
+	public int updateSal(SqlSessionTemplate sqlSession, Salary sal) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("salaryMapper.updateSal", sal);
+	}
+
 }

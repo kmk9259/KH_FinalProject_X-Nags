@@ -21,28 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="endDate" column="END_DATE"/>
 		<result property="status" column="STATUS"/>
 		
-
-		<result property="userName" column="USER_NAME"/>
-		<result property="userNo" column="USER_NO"/>
-		<result property="userPwd" column="USER_PWD"/>
-		<result property="userSsn" column="USER_SSN"/>
-		<result property="email" column="EMAIL"/>
-		<result property="phone" column="PHONE"/>
-		<result property="address" column="ADDRESS"/>
-		<result property="gender" column="GENDER"/>
-		<result property="originName" column="ORIGIN_NAME"/>
-		<result property="changeName" column="CHANGE_NAME"/>
-		
-
-		<result property="commission" column="COMMISSION"/>
-		<result property="meal" column="MEAL"/>
-		<result property="incomeTax" column="INCOME_TAX"/>
-		<result property="empInsurance" column="EMP_INSURANCE"/>
-		<result property="retirement" column="RETIREMENT"/>
-		<result property="healthInsurance" column="HEALTH_INSURANCE"/>
-		<result property="total" column="TOTAL"/>
-		<result property="basic" column="BASIC"/>
-		
+       <result property="userName" column="USER_NAME"/>
 
 		
 	</resultMap>
@@ -134,7 +113,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectEmp" parameterType="_int" resultMap="employeeResultSet">
 
 
-	SELECT  EMP_ID, J.JOB_NAME, R.RIGHT_NAME, D.DEPT_NAME, E.SAL_LEVEL, E.HIRE_DATE, E.MODIFIY_DATE, E.END_DATE
+	SELECT  EMP_ID, E.JOB_CODE, E.DEPT_CODE, E.RIGHT_NO, J.JOB_NAME, R.RIGHT_NAME, D.DEPT_NAME, E.SAL_LEVEL, E.HIRE_DATE, E.MODIFIY_DATE, E.END_DATE
     FROM EMPLOYEE E 
 	JOIN JOB J  ON J.JOB_CODE = E.JOB_CODE
 	JOIN DEPARTMENT D ON D.DEPT_CODE = E.DEPT_CODE 
