@@ -1,7 +1,5 @@
 package com.kh.spring.community.model.vo;
 
-import java.sql.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +14,9 @@ import lombok.ToString;
 public class VotingA{
 
 	private int votingNo;
+	private int refNo;
+	private String Content;
 	private int count;
-	private String [] item;
+	
 
 }

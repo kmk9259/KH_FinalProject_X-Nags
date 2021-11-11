@@ -21,6 +21,7 @@ public class Voting {
 	private String empId;
 	private int count;
 	private Date votingDate;
+	//private String[] content;
 
 	
 

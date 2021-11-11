@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.kh.spring.community.model.vo.PageInfo;
 import com.kh.spring.community.model.vo.Voting;
+import com.kh.spring.community.model.vo.VotingA;
 
 public interface VotingService {
 
@@ -14,6 +15,10 @@ public interface VotingService {
 	void insertVoting(Voting v);
 
 	Voting selectVoting(int bno);
+
+	
+
+
 
 	
 }

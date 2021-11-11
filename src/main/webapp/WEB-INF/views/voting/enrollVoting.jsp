@@ -34,7 +34,7 @@
             <td><input type="text" style = 'width:500px' name = "votingContent"></td>                 
         </tr>
 </table>
-<button type = "submit">등록하기</button>
+<button id = "votingNo" type = "submit">등록하기</button>
 </form>
  <button id="addItemBtn">항목추가하기</button>
  <button id="delBtn">항목제거하기</button>	
@@ -52,6 +52,7 @@ $(document).ready(function(){
    $("#delBtn").click(function(){
 	   $("#example tr:last").remove();
    })
+   
 
 });
 

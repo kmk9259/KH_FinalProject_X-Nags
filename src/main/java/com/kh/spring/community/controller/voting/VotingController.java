@@ -2,21 +2,18 @@ package com.kh.spring.community.controller.voting;
 
 import java.util.ArrayList;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.spring.common.Pagination;
 import com.kh.spring.community.model.service.voting.VotingService;
-import com.kh.spring.community.model.vo.Board;
 import com.kh.spring.community.model.vo.PageInfo;
 import com.kh.spring.community.model.vo.Voting;
+import com.kh.spring.community.model.vo.VotingA;
 
 @Controller
 public class VotingController {
@@ -43,18 +40,14 @@ public class VotingController {
 
 	@RequestMapping("enrollVoting.vo")
 	public String enrollForm() {
+		
 		return "voting/enrollVoting";
 	}
 
 	@RequestMapping("votingInsert.bo")
-	public String insertBoard(Voting v) {
-		//String[] vContent = v.getVotingContent().split(",");
-		/*
-		 * for(int i = 0; i< v.getVotingContent().length; i++) {
-		 * v.setVotingContent(v.getVotingContent()); }
-		 */
-		
-		votingService.insertVoting(v);
+	public String insertVoting( Voting v) {
+			
+			votingService.insertVoting(v);
 
 		return "redirect:voting.vo";
 	}

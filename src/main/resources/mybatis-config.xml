@@ -19,12 +19,14 @@
     <typeAlias type="com.kh.spring.approval.model.vo.Approval" alias="Approval" /> 
     <typeAlias type="com.kh.spring.community.model.vo.Notice" alias="Notice" /> 
     <typeAlias type="com.kh.spring.community.model.vo.Voting" alias="Voting" /> 
+    <typeAlias type="com.kh.spring.community.model.vo.VotingA" alias="VotingA" /> 
 	<typeAlias type="com.kh.spring.community.model.vo.Notice_Reply" alias="Notice_Reply" /> 
 	<typeAlias type="com.kh.spring.meetingroom.model.vo.Mrooms" alias="Mrooms" /> 
 	<typeAlias type="com.kh.spring.employee.model.vo.Right" alias="Right"/>
 	<typeAlias type="com.kh.spring.employee.model.vo.SalGrade" alias="SalGrade"/>     
 	<typeAlias type="com.kh.spring.salary.model.vo.Salary" alias="Salary"/>  
 	<typeAlias type="com.kh.spring.schedule.model.vo.Schedule" alias="Schedule"/>  
+	<typeAlias type="com.kh.spring.holiday.model.vo.Holiday" alias="Holiday"/> 
    </typeAliases>
 
 
