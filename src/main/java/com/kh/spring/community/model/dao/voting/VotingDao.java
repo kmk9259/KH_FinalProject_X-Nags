@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.spring.community.model.vo.PageInfo;
 import com.kh.spring.community.model.vo.Voting;
+import com.kh.spring.community.model.vo.VotingA;
 
 @Repository
 public class VotingDao {
@@ -35,6 +36,21 @@ public class VotingDao {
 		
 	}
 
+	public ArrayList<VotingA> selectVotingList2(SqlSessionTemplate sqlSession, int bno) {
+		return (ArrayList)sqlSession.selectList("votingMapper.selectList2",bno);
+	}
+	public int votingUpdate(SqlSessionTemplate sqlSession, VotingA va) {
+	
+		return sqlSession.update("votingMapper.updateVoting",va);
+	}
+
+	public Voting selectVoting3(SqlSessionTemplate sqlSession, String bno) {
+		return sqlSession.selectOne("votingMapper.selectVoting3",bno);
+	}
+
+	public ArrayList<VotingA> selectList4(SqlSessionTemplate sqlSession, String bno) {
+		return (ArrayList)sqlSession.selectList("votingMapper.selectList4",bno);
+	}
 
 	
 }

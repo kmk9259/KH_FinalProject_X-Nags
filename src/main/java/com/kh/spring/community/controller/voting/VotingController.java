@@ -55,21 +55,39 @@ public class VotingController {
 	@RequestMapping("votingdetail.bo")
 	public ModelAndView selectVoting(int bno, ModelAndView mv) {
 		Voting v = votingService.selectVoting(bno);
-		System.out.println(v.getVotingContent() + "보팅 ");
-		
-		String[] vContent = v.getVotingContent().split(",");
-		System.out.println(vContent[1] + "111111");
-		System.out.println(vContent[0] + "00000");
+		ArrayList<VotingA> va = votingService.selectList2(bno);
 		
 		mv.addObject("v", v).setViewName("voting/votingDetail");
-		mv.addObject("vContent",vContent).setViewName("voting/votingDetail");
+		mv.addObject("va",va).setViewName("voting/votingDetail");
+		return mv;
+	}
+	
+	@RequestMapping("votingAction.vo")
+	public String votingUpdate(@RequestParam(value = "votingNo") int votingNo,
+								@RequestParam(value = "content") String content) {
+
+		 VotingA va = new VotingA();
+		 va.setRefNo(votingNo);
+		 va.setContent(content);
+
+		votingService.votingUpdate(va);
+		 
+		
+		return "redirect:voting.vo";
+	}
+
+	@RequestMapping("votingResult.vo")
+	public ModelAndView votingResult(@RequestParam(value = "bno") int bno, ModelAndView mv) {				
+		
+		System.out.println(bno + "222번호");	
+		Voting v = votingService.selectVoting(bno);
+		ArrayList<VotingA> va = votingService.selectList2(bno);
+		
+		mv.addObject("v", v).setViewName("voting/resultPage");
+		mv.addObject("va",va).setViewName("voting/resultPage");
+	
 		return mv;
 	}
 	
 	
-	
-	/*
-	 * @RequestMapping("votingAction.vo") public ModelAndView votingAction(Voting v)
-	 * { votingService.votingAction(v); return mv; }
-	 */
 }
