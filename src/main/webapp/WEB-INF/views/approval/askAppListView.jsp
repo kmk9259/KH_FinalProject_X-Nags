@@ -78,24 +78,26 @@ table{
 									
 									<td scope="row">${app.appNo }</td>
 									
-									<c:if test="${app.category eq 1 }">
-										<td scope="row">휴가 신청서</td>
-									</c:if>
-									<c:if test="${app.category eq 2 }">
-										<td scope="row">반차 신청서</td>
-									</c:if>
-									<c:if test="${app.category eq 3 }">
-										<td scope="row">연장근무 신청서</td>
-									</c:if>
-									<c:if test="${app.category eq 4 }">
-										<td scope="row">증명서 신청서(재직증명서)</td>
-									</c:if>
-									<c:if test="${app.category eq 5 }">
-										<td scope="row">증명서 신청서(급여명세서)</td>
-									</c:if>
-									<c:if test="${app.category eq 6 }">
-										<td scope="row">증명서 신청서(기타)</td>
-									</c:if>
+									<c:choose>
+		              					<c:when test="${app.category eq 1 }">
+											<td scope="row">휴가 신청서</td>
+										</c:when>
+			              				<c:when test="${app.category eq 2 }">
+											<td scope="row">반차 신청서</td>
+										</c:when>
+			              				<c:when test="${app.category eq 3 }">
+											<td scope="row">연장근무 신청서</td>
+										</c:when>
+			              				<c:when test="${app.category eq 4 }">
+											<td scope="row">증명서 신청서(재직증명서)</td>
+										</c:when>
+			              				<c:when test="${app.category eq 5 }">
+											<td scope="row">증명서 신청서(급여명세서)</td>
+										</c:when>
+			              				<c:when test="${app.category eq 6 }">
+											<td scope="row">증명서 신청서(기타)</td>
+										</c:when>
+		             			 	</c:choose>
 									
 									<td>${app.empId }</td>
 									<td>${app.title }</td>

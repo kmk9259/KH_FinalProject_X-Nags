@@ -1,7 +1,6 @@
 package com.kh.spring.holiday.model.vo;
 
 import java.util.Date;
-import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,6 +27,6 @@ public class Holiday {
 	private String holidayName;			
 	private Date holStartDay;
 	private Date holEndDay;		
-	private int holDays;
+	private Double holDays;
 
 }

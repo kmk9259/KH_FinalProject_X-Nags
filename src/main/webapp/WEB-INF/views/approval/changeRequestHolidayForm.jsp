@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +10,7 @@
 	content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>X-Nomal Groupware Solution</title>
 <style type="text/css">
-
+div.box{display: none;}
 label {
 	font-weight: bold;
 }
@@ -36,93 +37,90 @@ label {
 							<nav aria-label="breadcrumb" role="navigation">
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="">홈</a></li>
-									<li class="breadcrumb-item active" aria-current="page">전자 결재</li>
-									<li class="breadcrumb-item active" aria-current="page">증명서 신청</li>
+									<li class="breadcrumb-item">전자 결재</li>
+									<li class="breadcrumb-item active" aria-current="page">휴가 신청 수정</li>
 								</ol>
 							</nav>
 						</div>
 					</div>
 				</div>
-				<form action="insert.ap" method="post" enctype="multipart/form-data">
-				<%-- <div class="page-header">
-					<div class="row">
-						<div class="col-md-6 col-sm-12">
-							<div class="title">
-								<h4>작성자</h4>
-							</div>
-							<div class="form-group">
-							
-							<input type="text" readonly
-								class="form-control-plaintext"
-								value="${ sessionScope.loginUser.userName }">
-								<input type="hidden" readonly
-								class="form-control-plaintext" name="empId"
-								value="${ sessionScope.loginUser.empId }">
-							</div>
-						</div>
-					</div>
-				</div> --%>
+				<form action="update.ap" method="post" enctype="multipart/form-data">
+				
 				<div class="page-header">
 					<div class="row">
 						<div class="col-md-6 col-sm-12">
 							<div class="title">
 								<h4 class="text-blue h4">결재선 지정</h4>
-								<input type="hidden" readonly class="form-control-plaintext" name="empId" value="${ sessionScope.loginUser.empId }">
+								<input type="hidden" name="empId" value="${ sessionScope.loginUser.empId }">
 							</div>
 							<div class="form-group">
-								<input class="form-control" type="text" required="required" name="appMid" placeholder="중간 결제자를 입력해 주세요">
-								<input class="form-control" type="hidden" required="required" >
+								<input class="form-control" type="text" required="required" name="appMid" value="${mid.userName }">
+								<input class="form-control" type="hidden" required="required" value="${mid.empId }">
 							</div>
-								<input class="form-control" type="text" required="required" name="appFin" placeholder="최종 결재자를 입력해 주세요">
-								<input class="form-control" type="hidden"  required="required">
+								<input class="form-control" type="text" required="required" name="appFin" value="${fin.userName }">
+								<input class="form-control" type="hidden"  required="required" value="${fin.empId }">
 							</div>
 						</div>
 					</div>
-				
 
 
 				<!-- 결재 폼 시작 -->
 				<div class="pd-20 card-box mb-30">
 					<div class="clearfix">
 						<div class="pull-left">
-							<h4 class="h4">증명서 신청서</h4>
-						
+							<h4 class="h4">휴가 신청서</h4>
 						</div>
 					</div>
-					
 						<div class="form-group">
 							<select class="custom-select col-6" name="category">
-								<option selected>증명서 선택</option>
-								<option value="4">재직증명서</option>
-								<option value="5">급여명세서</option>
-								<option value="6">기타</option>
+								<option>선택</option>
+								<c:if test="${app.category eq 1 }">
+									<option value="1" selected="selected">휴가</option>
+									<option value="2">반차</option>
+								</c:if>
+								<c:if test="${app.category eq 2 }">
+									<option value="1" >휴가</option>
+									<option value="2" selected="selected">반차</option>
+								</c:if>
 							</select>
 						</div>
-						
+				
 						<div class="form-group">
-							<input class="form-control date-picker" name="date" placeholder="기안일 지정" type="text" required="required">
+							<p>
+							이전 휴가기간 : <fmt:formatDate type="date" dateStyle="long" value="${app.stayDate }"/> - <fmt:formatDate type="date" dateStyle="long" value="${app.endDate }"/>
+							</p>
+							<input class="form-control datetimepicker-range" placeholder="휴가 기간 변경" type="text" name="reDate">
+							<input type="hidden" name="startDate" value="${app.stayDate }">
+							<input type="hidden" name="endDate" value="${app.endDate }">
 						</div>
 						
 
 						<div class="form-group">
-							<input class="form-control" type="text" name="title" required="required" placeholder="제목을 입력해주세요.">
+							<input class="form-control" type="text" name="title" required="required" value="${app.title }">
 						</div>
 						<div class="form-group">
-							<input type="file" class="form-control-file form-control height-auto" name="uploadFile">
+							<input type="file" class="form-control-file form-control height-auto" name="reUploadFile">
+							<c:if test="${!empty app.originName }">
+								현재 첨부된 파일 : ${app.originName } <br>
+	                            <input type="hidden" name="changeName" value="${ app.changeName }">
+	                            <input type="hidden" name="originName" value="${ app.originName }">
+							</c:if>
 						</div>
 						
 						<div class="form-group">
-							<textarea class="textarea_editor form-control border-radius-0" name="content" required="required" placeholder="내용을 입력해주세요."></textarea>
+							<textarea class="textarea_editor form-control border-radius-0" name="content" required="required">
+								${app.content }
+							</textarea>
 						</div>
 						<div class="clearfix">
 							<div class="pull-right">
-								<!--  <button type="reset" class="btn btn-outline-danger">취소</button> -->
+								<!-- <button type="reset" class="btn btn-outline-danger">취소</button> -->
 								<button type="submit" class="btn btn-primary">결재 전송</button>
 							</div>
 						</div>
 						</div>
-					
 					</form>
+					
 				</div>
 				
 				
@@ -178,11 +176,12 @@ label {
 				</div>
 			</div>
 			
-			 <script>
-                
+			
+			<script>
+			
                 $(function(){
                 	var appDate ="";
-                	$( ".date-picker" ).datepicker({
+                	$( ".datetimepicker-range" ).datepicker({
                     		dateFormat: "yyyy/mm/dd",
                     		language:"en",
                     		onSelect: function(dateText) {
@@ -192,7 +191,15 @@ label {
                     });  	 
             			
             	});
+                
+                function selectBox(){
+                	
+                	
+                }
+             
                 </script>
+                
+                
 		
 
 	<jsp:include page="../common/footer.jsp" />

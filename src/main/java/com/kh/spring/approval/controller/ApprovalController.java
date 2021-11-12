@@ -97,7 +97,7 @@ public class ApprovalController {
 
 			} else {
 				System.out.println("하루 : " + date);
-				app.setStayDate(null);
+				app.setStayDate(oneDay);
 				app.setEndDate(oneDay);
 			}
 
@@ -111,7 +111,6 @@ public class ApprovalController {
 		session.setAttribute("msg", "결재를 성공적으로 전송했습니다.");
 
 		return "redirect:apping.ap";
-		// 나중에 진행중 결재함으로 경로 바꾸기
 	}
 
 	/*
@@ -165,10 +164,10 @@ public class ApprovalController {
 			file.transferTo(new File(savePath + changeName));
 
 		} catch (IllegalStateException | IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 			throw new CommException("file upload error");
-			// 에러가 났을 때 업로드를 시킬건지 말지 설계 시 결정
+			
 		}
 
 		return changeName;
@@ -194,11 +193,26 @@ public class ApprovalController {
 		return "approval/processingAppListView";
 	}
 
-	//진행중 결재함 보기
+	//작성결재문서보기
 	@RequestMapping("appingDetail.ap")
-	public ModelAndView selectProcessingApproval(int ano, ModelAndView mv) {
+	public String selectApprovalDetail(int ano, Model model, HttpServletRequest request) {
+		
+		Approval app = approvalService.selectApprovalDetail(ano);
+		
+		Member mem = (Member) request.getSession().getAttribute("loginUser");
 
-		return mv;
+		//기안자, 결재자 정보
+		Employee writer = approvalService.selectAppWriter(app.getEmpId());
+		Employee mid = approvalService.selectAppMid(app.getAppMid());
+		Employee fin = approvalService.selectAppFin(app.getAppFin());
+		
+		model.addAttribute("app", app); 
+		model.addAttribute("writer", writer);
+		model.addAttribute("mid", mid); 
+		model.addAttribute("fin", fin);
+		model.addAttribute("mem", mem);
+		
+		return "approval/processingAppDetailView";
 	}
 
 	//결재 요청함
@@ -280,23 +294,27 @@ public class ApprovalController {
 	
 	//최종결재승인
 	@RequestMapping("finConfirm.ap")
-	public ModelAndView finConfirm(int ano, String finReply, int category, ModelAndView mv, HttpServletRequest request, HttpSession session) {
+	public ModelAndView finConfirm(int ano, String finReply, int category, String empId, ModelAndView mv, HttpServletRequest request, HttpSession session) {
 		
 		Approval app = approvalService.selectAskApprovalDetail(ano);
+		System.out.println("휴가아아아 " + app.getEmpId());
 		
 		app.setFinReply(finReply);
 		
-		Holiday hol = null;
+		Holiday hol = new Holiday();
 		
 		if(category == 1) {
 			//휴가일수계산
 			//하루휴가
-			if(app.getStayDate() != null) {
+			if(app.getStayDate() == null) {
 				
 				hol.setEmpId(app.getEmpId());
 				hol.setHolidayName("연차");
+				hol.setHolStartDay(app.getEndDate());
 				hol.setHolEndDay(app.getEndDate());
-				hol.setHolDays(1);
+				hol.setHolDays(1.0);
+				
+				System.out.println("하루휴가");
 			
 			//휴가가 여러일일때
 			}else{
@@ -304,23 +322,34 @@ public class ApprovalController {
 				long diff = app.getEndDate().getTime() - app.getStayDate().getTime();
 				int diffDays = Long.valueOf(diff / (24 * 60 * 60 * 1000)).intValue();
 
-				hol.setEmpId(app.getEmpId());
+				hol.setEmpId(empId);
 				hol.setHolidayName("연차");
 				hol.setHolStartDay(app.getStayDate());
 				hol.setHolEndDay(app.getEndDate());
-				hol.setHolDays(diffDays);
+				hol.setHolDays(diffDays*1.0);
+				
+				System.out.println("휴가");
 			}
 		
 		//반차
 		}else if(category == 2) {
 			
-			hol.setEmpId(app.getEmpId());
+			hol.setEmpId(empId);
 			hol.setHolidayName("반차");
+			hol.setHolStartDay(app.getEndDate());
 			hol.setHolEndDay(app.getEndDate());
-			hol.setHolDays(1);
+			hol.setHolDays(0.5);
+			
+			System.out.println("반차");
 		}
 		
-		approvalService.insertOneDay(hol);
+		//연차 감소
+		approvalService.decreaseCount(hol);
+		
+		//휴가 추가
+		approvalService.insertHoliday(hol);
+		
+		//결재 승인
 		approvalService.finConfirm(app);
 		
 		session.setAttribute("msg", "결재를 승인하였습니다.");
@@ -347,6 +376,134 @@ public class ApprovalController {
 		return mv;
 	}
 	
+	//승인전 문서 수정 폼
+	@RequestMapping("change.ap")
+	public String changeApprovalForm(int ano, int category, Model model, HttpServletRequest request) {
+		//밑으로 수정
+		
+		Approval app = approvalService.selectApprovalDetail(ano);
+		
+		Member mem = (Member) request.getSession().getAttribute("loginUser");
+		
+		//기안자, 결재자 정보
+		Employee writer = approvalService.selectAppWriter(app.getEmpId());
+		Employee mid = approvalService.selectAppMid(app.getAppMid());
+		Employee fin = approvalService.selectAppFin(app.getAppFin());
+		
+		model.addAttribute("app", app);
+		model.addAttribute("writer", writer);
+		model.addAttribute("mid", mid);
+		model.addAttribute("fin", fin);
+		model.addAttribute("mem", mem);
+		
+		if(category == 1 || category == 2) {
+			return "approval/changeRequestHolidayForm";
+			
+		}else {
+			return "approval/changeRequestCertificateForm";
+			
+		}
+	}
 	
+	//승인전 문서 수정
+	@RequestMapping("update.ap")
+	public String changeApproval(Approval app, Model m, HttpServletRequest request, HttpSession session,
+			@RequestParam(name="reUploadFile", required=false) MultipartFile file,
+			@RequestParam(name="reDate", required=false) String reDate,
+			@RequestParam(name="category", required=true) int category) throws ParseException {
+		
+		if(!file.getOriginalFilename().equals("")) { 
+			
+			if(app.getChangeName() != null) {
+				deleteFile(app.getChangeName(), request);
+			}
+			
+			String changeName = saveFile(file, request);
+			app.setOriginName(file.getOriginalFilename());
+			app.setChangeName(changeName);
+			
+		}
+		
+		System.out.println("reDate  " + reDate);
+		System.out.println("category  " + category);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
+		
+		Date sDate = null;
+		Date eDate = null;
+		
+		Date oneDay = sdf.parse(reDate);
+		
+		if(reDate != null) {
+			System.out.println(reDate);
+			
+			if (category == 1) {
+
+				if (reDate.length() > 10) {
+					System.out.println("여러날 : " + reDate);
+
+					String[] str = reDate.split(" - ");
+					System.out.println("str[0] "+str[0]);
+					System.out.println("str[1] "+str[1]);
+					
+					sDate = sdf.parse(str[0]);
+					eDate = sdf.parse(str[1]);
+					
+					System.out.println("그냥 바로 형변환 시도 ~~ " + sDate);
+					System.out.println();
+					
+					app.setStayDate(sDate);
+					app.setEndDate(eDate);
+					
+
+				} else {
+					System.out.println("하루 : " + reDate);
+					app.setStayDate(oneDay);
+					app.setEndDate(oneDay);
+				}
+
+			} else {
+
+				System.out.println("하루 : " + reDate);
+				app.setEndDate(oneDay);
+			}
+		}
+		
+		approvalService.updateApproval(app);
+		
+		
+		
+		return null;
+	}
+	
+	//첨부파일 삭제
+	private void deleteFile(String fileName, HttpServletRequest request) {
+		
+		String resources = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = resources+"\\approval_files\\";
+		
+		System.out.println("savePath" + savePath);
+		
+		File deleteFile = new File(savePath+fileName);
+		deleteFile.delete();
+		
+	}
+
+	//승인 전 문서 삭제
+	@RequestMapping("deleteApping.app")
+	public String deleteProcessingApproval(int ano, String fileName, HttpServletRequest request, HttpSession session) {
+		
+		approvalService.deleteProcessingApproval(ano);
+		
+		if(!fileName.equals("")) {
+			deleteFile(fileName, request);
+			
+		}
+		
+		session.setAttribute("msg", "결재를 삭제하였습니다.");
+		
+		
+		return "redirect:apping.ap";
+	}
 
 }

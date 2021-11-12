@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,28 +74,31 @@
 									
 									<td scope="row">${app.appNo }</td>
 									
-									<c:if test="${app.category eq 1 }">
-										<td scope="row">휴가 신청서</td>
-									</c:if>
-									<c:if test="${app.category eq 2 }">
-										<td scope="row">반차 신청서</td>
-									</c:if>
-									<c:if test="${app.category eq 3 }">
-										<td scope="row">연장근무 신청서</td>
-									</c:if>
-									<c:if test="${app.category eq 4 }">
-										<td scope="row">증명서 신청서(재직증명서)</td>
-									</c:if>
-									<c:if test="${app.category eq 5 }">
-										<td scope="row">증명서 신청서(급여명세서)</td>
-									</c:if>
-									<c:if test="${app.category eq 6 }">
-										<td scope="row">증명서 신청서(기타)</td>
-									</c:if>
+									<c:choose>
+		              					<c:when test="${app.category eq 1 }">
+											<td scope="row">휴가 신청서</td>
+										</c:when>
+			              				<c:when test="${app.category eq 2 }">
+											<td scope="row">반차 신청서</td>
+										</c:when>
+			              				<c:when test="${app.category eq 3 }">
+											<td scope="row">연장근무 신청서</td>
+										</c:when>
+			              				<c:when test="${app.category eq 4 }">
+											<td scope="row">증명서 신청서(재직증명서)</td>
+										</c:when>
+			              				<c:when test="${app.category eq 5 }">
+											<td scope="row">증명서 신청서(급여명세서)</td>
+										</c:when>
+			              				<c:when test="${app.category eq 6 }">
+											<td scope="row">증명서 신청서(기타)</td>
+										</c:when>
+		             			 	</c:choose>
 									
 									<td>${app.title }</td>
-									<td>${app.writeDate }</td>
-									<td>${app.appDate }</td>
+									<td><fmt:formatDate type="date" dateStyle="short" value="${app.writeDate }"/></td>
+									<td><fmt:formatDate type="date" dateStyle="short" value="${app.endDate }"/></td>
+									
 									
 									<c:if test="${app.midStatus eq 1}">
 										<td scope="row"><i class="icon-copy ion-ios-circle-outline"></i></td>

@@ -14,6 +14,8 @@ public interface ApprovalService {
 	int selectApprovalListCount(String empId);
 
 	ArrayList<Approval> selectApprovalList(PageInfo pi, String empId);
+	
+	Approval selectApprovalDetail(int ano);
 
 	int selectAskApprovalListCount(String empId);
 
@@ -31,12 +33,20 @@ public interface ApprovalService {
 
 	void midReject(Approval app);
 
-	void insertOneDay(Holiday hol);
+	void insertHoliday(Holiday hol);
 
 	void finConfirm(Approval app);
 
 	void finReject(Approval app);
 
-	/* void insertHoliday(Approval app); */
+	void decreaseCount(Holiday hol);
 
+	void updateApproval(Approval app);
+
+	void deleteProcessingApproval(int ano);
+
+	
+
+	/* void insertHoliday(Approval app); */
+	
 }
