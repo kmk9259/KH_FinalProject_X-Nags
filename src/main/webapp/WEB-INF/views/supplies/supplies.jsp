@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -146,7 +147,7 @@ input[type=checkbox]:checked:disabled + label:before {
 						
 
 
-		                	/* $( "#startDate" ).datepicker({
+		                	   $( "#startDate" ).datepicker({
 		                    		dateFormat: "yyyy-mm-dd",
 		                    		minDate: new Date(),
 		                    		language:"kr",
@@ -154,7 +155,7 @@ input[type=checkbox]:checked:disabled + label:before {
 		                			
 		                			
 		                    		
-		                    });  */
+		                    });  
 		                	
 		                	
 		                	$( "#endDate" ).datepicker({
@@ -165,56 +166,34 @@ input[type=checkbox]:checked:disabled + label:before {
 	                			
 	                			
 	                    		
-	                    	});
+	                    	});  
 		                	
-		                	
-		                $("#startDate").datepicker({
-		                	format: "yyyy-mm-dd",
-		                	minDate: new Date(),
-		                	autoclose : true,
-		                }).on('changeDate', function(selected){
-		                	var startDate = new Date(selected.date.valueOf());
-		                	$("#endDate").datepicker('setStartDate', startDate);
-		                }).on('clearDate', function (selected) {
-		                	$('#endDate').datepicker('setStartDate', null);
-		                });
-		                
-		                
-		                $("#endDate").datepicker({
-		                	format: "yyyy-mm-dd",
-		                	minDate: new Date(),
-		                	autoclose : true,
-		                }).on('changeDate', function(selected){
-		                	var endDate = new Date(selected.date.valueOf());
-		                	$("#startDate").datepicker('setEndDate', endDate);
-		                }).on('clearDate', function (selected) {
-		                	$('#startDate').datepicker('setEndDate', null);
-		                });
-		                	
-						
+	                    	
+	                    	
 						
 						
 						function input1(){
-							
-							var startDate = document.getElementById("startDate").value
-							var endDate = document.getElementById("endDate").value; 
-							console.log(startDate)
-							console.log(endDate)
-							var p1 =document.getElementById("p1");
-							
-							p1.innerHTML =startDate + " 부터  " + endDate + " 일 까지" ;
-
-							
+					
 							/* var length = $("input[name='supplies']:checked").length;
 							
 							console.log(length) */
-							
-							
-						
-							
 
 							
-						
+	                    	    var startDate = document.getElementById("startDate").value;
+	                    	    var endDate = document.getElementById("endDate").value;
+	                    	    var p1 =document.getElementById("p1");
+
+	                    	    if ((Date.parse(endDate) <= Date.parse(startDate))) {
+	                    	        alert("반납일은 시작일 이후여야 합니다.");
+	                    	        document.getElementById("endDate").value = "";
+	                    	        
+	                    	    }else{
+	                    	    	p1.innerHTML =startDate + " 부터  " + endDate + " 일 까지" ;
+	                    	    }
+	                    	
+	                    	    
+								
+								
 							
 							} 
 						
@@ -230,91 +209,28 @@ input[type=checkbox]:checked:disabled + label:before {
 						</script>
 						
 						
+						<!-- private String suppliesCode;
+						private String suppliesName;
+						private int count; -->
 						
-
+						
+						
+						
+						
  						<div class="col-md-4 col-sm-12">
  						<fieldset class="outer" > <legend style="color: #1b00ff; font-weight: 700; width: 50%;"> 비품 목록</legend>
+ 						  <c:forEach items="${supList}" var="st" varStatus="status">
  						          <div class="mb-4">
-										<input type="checkbox" name="supplies" class="styled-checkbox" id="styled-checkbox-1" value="모니터">
-										<label for="styled-checkbox-1">모니터</label>
+										<input type="checkbox" name="supplies" class="styled-checkbox" id="styled-checkbox-${status.index+1 }" value="${st.suppliesName}">
+										<label for="styled-checkbox-${status.index+1 }"class="it${status.index+1 }">${st.suppliesName} : ${st.count}</label>
 										<div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
 										<span class="input-group-btn input-group-prepend"></span>
-										<input id="item01" type="text" value="0" name="demo3_22" class="form-control" style="height: 30px; text-align: center;">
+										<input id="item0${status.index +1}" type="text" value="0" name="demo3_22" "class="form-control" style="height: 30px; text-align: center;">
 										<span class="input-group-btn input-group-append">
 										</span></div>
 									</div>
-									
-									<div class="mb-4">
-										<input type="checkbox"  name="supplies" class="styled-checkbox" id="styled-checkbox-2"  value="프린터">
-										<label for="styled-checkbox-2">프린터</label>
-										<div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
-										<span class="input-group-btn input-group-prepend"></span>
-										<input id="item02" type="text" value="0" name="demo3_22" class="form-control" style="height: 30px; text-align: center;">
-										<span class="input-group-btn input-group-append">
-										</span></div>
-									</div>
-									
-									<div class="mb-4">
-										<input type="checkbox" name="supplies" class="styled-checkbox" id="styled-checkbox-3" value="책상">
-										<label for="styled-checkbox-3">책상</label>
-										<div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
-										<span class="input-group-btn input-group-prepend"></span>
-										<input id="item03" type="text" value="0" name="demo3_22" class="form-control" style="height: 30px; text-align: center;">
-										<span class="input-group-btn input-group-append">
-										</span></div>
-									</div> 
-									
-									<div class="mb-4">
-										<input type="checkbox"  name="supplies"class="styled-checkbox" id="styled-checkbox-4" value="케비넷">
-										<label for="styled-checkbox-4">케비넷</label>
-										<div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
-										<span class="input-group-btn input-group-prepend"></span>
-										<input id="item04" type="text" value="0" name="demo3_22" class="form-control" style="height: 30px; text-align: center;">
-										<span class="input-group-btn input-group-append">
-										</span></div>
-									</div> 
-									
-									<div class="mb-4">
-										<input type="checkbox" name="supplies" class="styled-checkbox" id="styled-checkbox-5" value="책 수납장">
-										<label for="styled-checkbox-5">책 수납장</label>
-										<div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
-										<span class="input-group-btn input-group-prepend"></span>
-										<input id="item05" type="text" value="0" name="demo3_22" class="form-control" style="height: 30px; text-align: center;">
-										<span class="input-group-btn input-group-append">
-										</span></div>
-									</div> 
-									
-									<div class="mb-4">
-										<input type="checkbox" name="supplies" class="styled-checkbox" id="styled-checkbox-6" value="카메라">
-										<label for="styled-checkbox-6">카메라</label>
-										<div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
-										<span class="input-group-btn input-group-prepend"></span>
-										<input id="item06" type="text" value="0" name="demo3_22" class="form-control" style="height: 30px; text-align: center;">
-										<span class="input-group-btn input-group-append"></span></div>
-									</div> 
-									
-									<div class="mb-4">
-										<input type="checkbox" name="supplies" class="styled-checkbox" id="styled-checkbox-7"  value="조명">
-										<label for="styled-checkbox-7">조명</label>
-										<div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
-										<span class="input-group-btn input-group-prepend"></span>
-										<input id="item07" type="text" value="0" name="demo3_22" class="form-control" style="height: 30px; text-align: center;">
-										<span class="input-group-btn input-group-append"></span></div>
-										
-									</div> 
-									
-									<div class="mb-4">
-										<input type="checkbox" name="supplies" class="styled-checkbox" id="styled-checkbox-8" value="사다리">
-										<label for="styled-checkbox-8">사다리</label>
-										
-										<div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
-										<span class="input-group-btn input-group-prepend"></span>
-										<input id="item08" type="text" value="0" name="demo3_22" class="form-control" style="height: 30px; text-align: center;">
-										<span class="input-group-btn input-group-append">
-										</span>
-										</div>
-										
-									</div> 
+						 	</c:forEach>
+					
 									
 									<br><br><br><br>
 									<button type="button" class="btn btn-success btn-lg btn-block" onclick="input2()">비품 선택 완료</button>
@@ -327,42 +243,56 @@ input[type=checkbox]:checked:disabled + label:before {
 								
 								<script >
 								
-								function input2(){
-									
-									$("input[name='demo3_22']").each(function(e){
-										console.log($(this).val())
-										var count = $(this).val();
+								
+								 $(document).ready(function() {
+									$('.styled-checkbox').on('click', function(){
+										if($(this).prop('checked')){
+											
+											var html = "";
+											
+											
+											 html +='<tr>'; 
+											 html +='<td>'+ $(this).val()+ '</td>';
+											 html +='<td>' + $("input[name='demo3_22']").val()+ '</td>';
+											 html +='<td><button type="submit" class="btn btn-primary">삭제</button></td>';
+											 html +='</tr>';
+											 
+											$("#myTable").append(html);
+										}else{
+											
+											if($(".it1").text() == $(this).val()) {
+												var tr = $(this).parent();
+												tr.remove();
+											}
+												//alert($(this).val())
+												//alert("각 레이블 이름 값 " + $(".it1").text())
+												//alert($("#myTable tr:eq(1) td:eq(0)").text())
+												var tr = $("#myTable tbody tr:last");
+												tr.remove();
+											
+											
+											
+											//var t = $("#myTable").find("td:eq(0)").text();
+											var length = $("#myTable tbody tr").length;
+											console.log("행 개수 "+length);
+											for(var i =0; i < length; i++ ){
+												//var t = $("#myTable tr:eq(1) td:eq(0)").text();
+												//console.log(i);
+												console.log($("#myTable tr").length)
+												
+												//console.log("찾은 컬럼 명 "+t)
+												//console.log($(this).val())
+											}
 										
-										if(count >0) {
-											var p1 =document.getElementById("p1");
-											p1.innerHTML += count + " 갯수" ;
+											
+											
 										}
-										
-										
-										
 									})
-									
-									
-								 	if ($('input[name="supplies"]').is(':checked') == true) {
-										
-								 		 $("input[name='supplies']:checked").each(function(e){
-											console.log($(this).val())
-											var items = $(this).val();
-											var p1 =document.getElementById("p1");
-											
-											p1.innerHTML += items ;
-											
-										}) 
-									
-								 		/* var length = $("input[name='supplies']:checked").length;
-										let text = "";
-										for(i =0; i < length; i++;){
-											var items = $(this).val();
-											p1.innerHTML = items ;
-										} */
-										
-								 	}
-								}
+								}); 
+								
+								
+								
+							
 								
 								</script>
 								
@@ -381,21 +311,16 @@ input[type=checkbox]:checked:disabled + label:before {
 						</div>
 						
 					</div>
-					<table class="table table-bordered">
-						<thead>
+					<table class="table table-bordered" id="myTable">
+						 <thead>
 							<tr>
-								<th scope="col">#</th>
-								<th scope="col">비품</th>
-								<th scope="col">갯수</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<th scope="row">1</th>
-								<td>Mark</td>
-								<td>Otto</td>
 								
+								<th scope="col">비품</th>
+								<th scope="col">개수</th>
+								<th scope="col">삭제</th>
 							</tr>
+						</thead> 
+						<tbody>
 							
 							
 						</tbody>

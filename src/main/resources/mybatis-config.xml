@@ -27,6 +27,8 @@
 	<typeAlias type="com.kh.spring.salary.model.vo.Salary" alias="Salary"/>  
 	<typeAlias type="com.kh.spring.schedule.model.vo.Schedule" alias="Schedule"/>  
 	<typeAlias type="com.kh.spring.holiday.model.vo.Holiday" alias="Holiday"/> 
+	<typeAlias type="com.kh.spring.supplies.model.vo.Supplies" alias="Supplies"/>
+	<typeAlias type="com.kh.spring.supplies.model.vo.Sitems" alias="Sitems"/>
    </typeAliases>
 
 
@@ -44,6 +46,8 @@
 	<mapper resource="/mappers/meetingRoom-mapper.xml" />
 	<mapper resource="/mappers/salary-mapper.xml" />
 	<mapper resource="/mappers/schedule-mapper.xml" />
+	<mapper resource="/mappers/supplies-mapper.xml" />
+	<mapper resource="/mappers/sitems-mapper.xml" />
 	
    </mappers>
 
