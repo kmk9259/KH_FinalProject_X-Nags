@@ -86,7 +86,7 @@ public class MemberController {
 		String todayDay = sdf.format(todayDate);
 		
 		long gap = targetDate.getTime() - todayDate.getTime();
-		String dDay = "D + "+(-(gap / (24 * 60 * 60 * 1000)));
+		String dDay = "D + "+((gap / (24 * 60 * 60 * 1000)+1));
 		System.out.println() ;
 		return dDay;
 		

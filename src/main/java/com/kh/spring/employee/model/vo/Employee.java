@@ -26,6 +26,7 @@ public class Employee {
 	private String rightName;				
 	private String deptName;
 	private String salLevel;
+	private int holCount;
 	
 	/* @DateTimeFormat(pattern ="yyyy-MM-dd") */
 	private Date hireDate;
@@ -38,6 +39,7 @@ public class Employee {
 	private Date attDate;
 	private Timestamp attInTime;
 	private Timestamp attOutTime;
+	private String changeName;
 	
 	
 	

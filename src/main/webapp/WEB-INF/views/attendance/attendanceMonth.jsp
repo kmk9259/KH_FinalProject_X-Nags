@@ -12,33 +12,34 @@
 	margin-left: 300px;
 	}
 	.scrolltbody {
-    display: block;
+     display: block; 
     width: 1715px;
     border-collapse: collapse;
     border: 1px solid #000;
     position:relative;
 	}
-	.scrolltbody th { border: 1px solid #000; background: white; }
-	.scrolltbody td { border: 1px solid #000; border-top: 0; }
+	.scrolltbody > thead > tr>th{
+	font-size: 15px;
+	height: 47.33px;
+	width: 300px;
+	}
 	.scrolltbody tbody {
 	    display: block;
 	    height: 280px;
 	    overflow: auto;
 	}
-	.scrolltbody > thead > tr>th{
+	.scrolltbody > tbody > tr>td{
 	font-size: 15px;
 	height: 47.33px;
+	width: 300px;
 	}
-	.scrolltbody > tbody > tr>th{
-	font-size: 15px;
-	height: 47.33px;
-	width: 500px;
-	}
+	
+	
 	.scrolltbody th:nth-of-type(1), .scrolltbody td:nth-of-type(1) { width: 428px; }
 	.scrolltbody th:nth-of-type(2), .scrolltbody td:nth-of-type(2) { width: 428px; }
 	.scrolltbody th:nth-of-type(3), .scrolltbody td:nth-of-type(3) { width: 428px; }
 	.scrolltbody th:last-child { width: 428px; }
-	 .scrolltbody td:last-child { width: calc( 420px - 19px );  } 
+	 .scrolltbody td:last-child { width: calc( 420px - 19px );  }  
 	</style>
 	<link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/resources/plugins/jquery-asColorPicker/dist/css/asColorPicker.css">
 
@@ -104,7 +105,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12 col-sm-12">                            
-                        	<table id="attMonthList" class="table table-striped table-bordered" style="text-align: center;">
+                        	<table id="attMonthList" class="table table-striped  scrolltbody" style="text-align: center;">
 								<thead>
 									<tr>
 										<th>부서명</th>

@@ -157,9 +157,14 @@
 						},
 						success:function(att){
 							console.log("성공");
-							
 							$("#inTime").html(att.attendanceInTime); 
-							$("#outTime").html(att.attendanceOutTime); 
+							if(att.attendanceOutTime !=null){
+								$("#outTime").html(att.attendanceOutTime); 
+							}else{
+								$("#outTime").html("아직 퇴근 전입니다."); 
+							}
+							
+							
 						}
 					});
 				})

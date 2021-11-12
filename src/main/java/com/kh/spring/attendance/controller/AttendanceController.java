@@ -36,20 +36,24 @@ public class AttendanceController {
 		return "attendance/attendanceMy";
 	}
 	@RequestMapping("attendanceDay.att")
-	public String DayAttendance(Model model) {
+	public String DayAttendance(Model model,HttpServletRequest request) {
 		ArrayList<AttStatus> attList = attendanceService.selectAttStatus();
-		
+		Member m = (Member) request.getSession().getAttribute("loginUser");		
+		Employee loginEmp = employeeService.loginEmployee(m);
 		
 		model.addAttribute("attList",attList);
+		model.addAttribute("loginEmp",loginEmp);
 		
 		return "attendance/attendanceDay";
 	}
 	@RequestMapping("attendanceMonth.att")
-	public String monthAttendance(Model model) {
+	public String monthAttendance(Model model,HttpServletRequest request) {
 		ArrayList<AttStatus> attList = attendanceService.selectAttStatus();
-		
+		Member m = (Member) request.getSession().getAttribute("loginUser");		
+		Employee loginEmp = employeeService.loginEmployee(m);
 		
 		model.addAttribute("attList",attList);
+		model.addAttribute("loginEmp",loginEmp);		
 		return "attendance/attendanceMonth";
 	}
 	
