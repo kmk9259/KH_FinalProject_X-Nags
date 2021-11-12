@@ -20,7 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="modifyDate" column="MODIFIY_DATE"/>
 		<result property="endDate" column="END_DATE"/>
 		<result property="status" column="STATUS"/>
-		
+		<result property="holCount" column="HOL_COUNT"/>
        <result property="userName" column="USER_NAME"/>
 
 		
@@ -51,7 +51,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	 <insert id="insertEmployee" parameterType="Employee" >
 	insert into employee
-	values (RPAD(to_number(to_char(SYSDATE, 'yymmdd')),9,SEQ_EMP_ID.NEXTVAL), #{jobCode},#{rightNo},#{deptCode},#{salLevel},sysdate,#{modifyDate},#{endDate},default)	
+	values (RPAD(to_number(to_char(SYSDATE, 'yymmdd')),9,SEQ_EMP_ID.NEXTVAL), #{jobCode},#{rightNo},#{deptCode},#{salLevel},sysdate,#{modifyDate},#{endDate},default,default)	
 	</insert>
 
 	
@@ -73,7 +73,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="loginEmployee" parameterType="Member" resultMap="employeeResultSet">
-	SELECT EMP_ID, JOB_NAME, RIGHT_NAME, DEPT_NAME, SAL_LEVEL, HIRE_DATE, MODIFIY_DATE, END_DATE
+	SELECT EMP_ID, JOB_NAME, RIGHT_NAME, DEPT_NAME, SAL_LEVEL, HIRE_DATE, MODIFIY_DATE, END_DATE, HOL_COUNT
 	FROM EMPLOYEE 
 	JOIN JOB USING (JOB_CODE)
 	JOIN DEPARTMENT USING (DEPT_CODE) 

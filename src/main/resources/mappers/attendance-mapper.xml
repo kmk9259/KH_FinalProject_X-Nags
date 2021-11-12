@@ -22,6 +22,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="ATT_DATE" property="attDate"/>
 		<result column="ATT_INTIME" property="attInTime"/>
 		<result column="ATT_OUTTIME" property="attOutTime"/>	
+		<result column="CHANGE_NAME" property="changeName"/>
+		<result property="rightName" column="RIGHT_NAME"/>
 	</resultMap>
 	
 	<resultMap id="attStatusResultSet" type="AttStatus">
@@ -58,12 +60,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="selectAttDay" parameterType="Attendance" resultMap="attDateResultSet">
-		SELECT DEPT_NAME, JOB_NAME, USER_NAME, ATT_DATE, ATT_INTIME, ATT_OUTTIME
+		SELECT DEPT_NAME, JOB_NAME, USER_NAME, ATT_DATE, ATT_INTIME, ATT_OUTTIME, RIGHT_NAME
 		FROM EMPLOYEE 
 		JOIN JOB USING (JOB_CODE)
 		JOIN DEPARTMENT USING (DEPT_CODE)
 	    JOIN MEMBER USING (EMP_ID)
 	    JOIN ATTENDANCE USING (EMP_ID)
+	    JOIN RIGHT USING (RIGHT_NO)
 		WHERE TO_CHAR(ATT_DATE, 'YYYY-MM-dd') = TO_CHAR(#{attendanceDate}, 'YYYY-MM-dd')
 	    AND ATT_STATUS_NO =#{attStatusNo} 
 	    <if test="orderBy.equals('dept_code')">
