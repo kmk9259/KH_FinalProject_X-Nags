@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.spring.common.exception.CommException;
+import com.kh.spring.employee.model.vo.Employee;
+import com.kh.spring.member.model.vo.Member;
 import com.kh.spring.schedule.model.dao.ScheduleDao;
 import com.kh.spring.schedule.model.vo.Schedule;
 
@@ -28,17 +30,23 @@ public class ScheduleServiceImpl implements ScheduleService {
 	}
 
 	@Override
-	public int updateSchedule(Schedule sc) {
-		// TODO Auto-generated method stub
-		return 0;
+	public Employee selectEmployee(Member mem) {
+	
+		return scheduleDao.selectEmployee(sqlSession, mem);
 	}
 
-	@Override
-	public int deleteSchedule(Schedule sc) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
+//	@Override
+//	public int updateSchedule(Schedule sc) {
+//		// TODO Auto-generated method stub
+//		return 0;
+//	}
+//
+//	@Override
+//	public int deleteSchedule(Schedule sc) {
+//		// TODO Auto-generated method stub
+//		return 0;
+//	}
+//	
 	
 	
 

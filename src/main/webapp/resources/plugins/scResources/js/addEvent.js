@@ -38,20 +38,21 @@ var newEvent = function (start, end, eventType) {
     //새로운 일정 저장버튼 클릭
     $('#save-event').unbind();
     $('#save-event').on('click', function () {
-
+    	console.log("함수요");
         var eventData = {
-            _id: eventId,
+            _id: "${mem.empId}",
             title: editTitle.val(),
             start: editStart.val(),
             end: editEnd.val(),
             description: editDesc.val(),
             type: editType.val(),
-            username: '사나',
             backgroundColor: editColor.val(),
-            textColor: '#ffffff',
-            allDay: false
+           // textColor: '#ffffff',
+            allDay: false,
+            username: "${emp.userName}",
+            deptname: "${emp.deptName}"
         };
-
+        console.log(eventData);
         if (eventData.start > eventData.end) {
             alert('끝나는 날짜가 앞설 수 없습니다.');
             return false;
@@ -82,16 +83,20 @@ var newEvent = function (start, end, eventType) {
 
         //새로운 일정 저장
         $.ajax({
-            type: "get",
+            type: "post",
             url: "insert.sc",
-            data: {
-                eventData : eventData 
-            },
+            data: eventData, 
+            dataType: "json",
             success: function (response) {
+            	console.log(response)
                 //DB연동시 중복이벤트 방지를 위한
-                $('#calendar').fullCalendar('removeEvents');
-                $('#calendar').fullCalendar('refetchEvents');
+//                $('#calendar').fullCalendar('removeEvents');
+//                $('#calendar').fullCalendar('refetchEvents');
+            },error:function(e){
+                console.log(" ajax 통신 실패");
+                console.log(e);
             }
+        
         });
     });
 };
