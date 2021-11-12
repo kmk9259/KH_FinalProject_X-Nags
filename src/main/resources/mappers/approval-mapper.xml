@@ -80,18 +80,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 		INSERT INTO APPROVAL
 		VALUES
-		<choose>
-			<when test="startDate == null or startDate == ''">
-				(SEQ_ANO.NEXTVAL, #{empId}, #{category}, #{appMid}, #{appFin}, default,  default,
-				 #{title}, #{content}, sysdate, NULL, #{endDate}, NULL, NULL, #{originName}, #{changeName})
-			</when>
-			<otherwise>
-				(SEQ_ANO.NEXTVAL, #{empId}, #{category}, #{appMid}, #{appFin}, default,  default,
-			 	#{title}, #{content}, sysdate, #{stayDate}, #{endDate}, NULL, NULL, #{originName}, #{changeName})
-			</otherwise>
-		</choose>
-	
-	
+		(SEQ_ANO.NEXTVAL, #{empId}, #{category}, #{appMid}, #{appFin}, default,  default,
+	 	#{title}, #{content}, sysdate, #{stayDate}, #{endDate}, NULL, NULL, #{originName}, #{changeName})
+
 	</insert>
 	
 	<!-- 진행중 결재함 수 -->
@@ -114,13 +105,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ORDER BY APP_NO DESC
 	</select>
 	
+	<!-- 진행중 결재함 보기 -->
+	<select id="selectApprovalDetail" parameterType="_int" resultMap="appResultSet">
+		SELECT *
+		FROM APPROVAL
+		WHERE APP_NO=${ano}
+	</select>
+	
 	<!-- 요청 결재함 수 -->
 	<select id="selectAskApprovalListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM APPROVAL
 		WHERE 
 		(APP_MID=${empId} OR APP_FIN=${empId})
-		AND MID_STATUS=1
+		AND MID_STATUS IN (1,2)
 		AND FIN_STATUS=1
 	</select>
 	
@@ -131,7 +129,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		JOIN MEMBER B ON A.EMP_ID=B.EMP_ID
 		WHERE 
 		(APP_MID=${empId} OR APP_FIN=${empId})
-		AND A.MID_STATUS=1
+		AND A.MID_STATUS IN (1,2)
 		AND A.FIN_STATUS=1
 		ORDER BY A.APP_NO DESC
 	</select>
@@ -189,16 +187,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 하루휴가 -->
 	<insert id="insertHoliDay" parameterType="Holiday">
-		INSERT HOLIDAY
+		INSERT INTO HOLIDAY
 		VALUES
-		<choose>
-			<when test="holStartDay == null or holStartDay == ''">
-				(SEQ_HNO.NEXTVAL, #{empId}, #{holidayName}, #{holStartDay}, #{holEndDay}, #{holDays})
-			</when>
-			<otherwise>
-				(SEQ_HNO.NEXTVAL, #{empId}, #{holidayName}, #{holStartDay}, #{holEndDay}, #{holDays})
-			</otherwise>
-		</choose>
+		(SEQ_HNO.NEXTVAL, #{empId}, #{holidayName}, #{holStartDay}, #{holEndDay}, #{holDays})
+		
 	</insert>
 	
 	<!-- 최종결재승인 -->
@@ -214,7 +206,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SET FIN_REPLY=#{finReply}, FIN_STATUS=3
 		WHERE APP_NO=#{appNo}
 	</update>
-
 	
+	<!-- 연차개수감소 -->
+	<update id="decreaseCount" parameterType="Holiday">
+		UPDATE EMPLOYEE
+		SET HOL_COUNT=HOL_COUNT-#{holDays}
+		WHERE EMP_ID=#{empId}
+	</update>
+
+	<!-- 진행중 문서 수정 -->
+	<update id="updateApproval" parameterType="Approval">
+		UPDATE APPROVAL
+		SET 
+	</update>
+	
+	<!-- 진행중 문서 삭제 -->
+	<delete id="deleteProcessingApproval">
+		
+	</delete>
 	
 </mapper>

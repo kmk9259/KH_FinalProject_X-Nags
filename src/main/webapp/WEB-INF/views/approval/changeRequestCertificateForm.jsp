@@ -36,32 +36,15 @@ label {
 							<nav aria-label="breadcrumb" role="navigation">
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="">홈</a></li>
-									<li class="breadcrumb-item active" aria-current="page">전자 결재</li>
-									<li class="breadcrumb-item active" aria-current="page">증명서 신청</li>
+									<li class="breadcrumb-item">전자 결재</li>
+									<li class="breadcrumb-item active" aria-current="page">증명서 신청 수정</li>
 								</ol>
 							</nav>
 						</div>
 					</div>
 				</div>
-				<form action="insert.ap" method="post" enctype="multipart/form-data">
-				<%-- <div class="page-header">
-					<div class="row">
-						<div class="col-md-6 col-sm-12">
-							<div class="title">
-								<h4>작성자</h4>
-							</div>
-							<div class="form-group">
-							
-							<input type="text" readonly
-								class="form-control-plaintext"
-								value="${ sessionScope.loginUser.userName }">
-								<input type="hidden" readonly
-								class="form-control-plaintext" name="empId"
-								value="${ sessionScope.loginUser.empId }">
-							</div>
-						</div>
-					</div>
-				</div> --%>
+				<form action="update.ap" method="post" enctype="multipart/form-data">
+				
 				<div class="page-header">
 					<div class="row">
 						<div class="col-md-6 col-sm-12">

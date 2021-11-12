@@ -30,6 +30,9 @@ public class Approval {
 	private String midReply;
 	private String finReply;
 	
+	private String startDate;
+	private String appDate;
+	
 	private String originName;
 	private String changeName;
 	

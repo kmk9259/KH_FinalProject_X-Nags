@@ -77,9 +77,6 @@
             <form id="sendMail" action="" method="post">
             	<input type="hidden" name="empId" value="${ sessionScope.loginUser.empId }">
             	<input type="hidden" name="mno" value="${m.mailNo }">
-            	<input type="hidden" name="" value="">
-            	<input type="hidden" name="" value="">
-            	<input type="hidden" name="" value="">
             
 	            <div class="card-footer">
 	              <div class="float-right">

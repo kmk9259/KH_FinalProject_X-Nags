@@ -47,6 +47,13 @@ public class ApprovalServiceImpl implements ApprovalService {
 		return approvalDao.selectApprovalList(sqlSession, pi, empId);
 	}
 	
+	//진행중 결재 보기
+	@Override
+	public Approval selectApprovalDetail(int ano) {
+
+		return approvalDao.selectApprovalDetail(sqlSession, ano);
+	}
+	
 	//결재 요청함 리스트 수
 	@Override
 	public int selectAskApprovalListCount(String empId) {
@@ -111,9 +118,9 @@ public class ApprovalServiceImpl implements ApprovalService {
 	
 	//휴가추가
 	@Override
-	public void insertOneDay(Holiday hol) {
+	public void insertHoliday(Holiday hol) {
 		
-		int result = approvalDao.insertOneDay(sqlSession, hol);
+		int result = approvalDao.insertHoliday(sqlSession, hol);
 		
 		if(result < 0) {
 			throw new CommException("휴가 추가 실패");
@@ -143,6 +150,44 @@ public class ApprovalServiceImpl implements ApprovalService {
 		}
 		
 	}
+	
+	//연차감소
+	@Override
+	public void decreaseCount(Holiday hol) {
+
+		int result = approvalDao.decreaseCount(sqlSession, hol);
+		
+		if(result < 0) {
+			throw new CommException("연차개수 변경 실패");
+		}
+		
+	}
+	
+	//걸재 전 문서 수정
+	@Override
+	public void updateApproval(Approval app) {
+		
+		int result = approvalDao.updateApproval(sqlSession, app);
+		
+		if(result < 0) {
+			throw new CommException("결재 수정 실패");
+		}
+		
+	}
+	
+	//결재전 문서 삭제
+	@Override
+	public void deleteProcessingApproval(int ano) {
+		
+		int result = approvalDao.deleteProcessingApproval(sqlSession, ano);
+		
+		if(result < 0) {
+			throw new CommException("결재 삭제 실패");
+		}
+		
+	}
+
+	
 
 	
 	
