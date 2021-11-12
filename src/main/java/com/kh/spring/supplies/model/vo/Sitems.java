@@ -13,13 +13,10 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class Supplies {
+public class Sitems {
 
 	private String suppliesCode;
-	private String empId;
 	private String suppliesName;
 	private int count;
-	private Date startDate;
-	private Date endDate;
-	private String status;
+
 }

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="sitemsMapper">
+
+	<resultMap id="SitemsResultSet" type="Sitems">
+		<id property="suppliesCode" column="SUPPLIES_CODE"/>
+		<result property="suppliesName" column="SUPPLIES_NAME"/>
+		<result property="count" column="COUNT"/>
+
+		
+	</resultMap>
+	
+	<select id="selectSitems" parameterType="Sitems" resultMap="SitemsResultSet">
+	SELECT * FROM S_ITEMS
+	</select>
+
+
+	
+	
+	
+	
+</mapper>
