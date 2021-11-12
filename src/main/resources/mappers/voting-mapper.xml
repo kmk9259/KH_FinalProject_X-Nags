@@ -41,7 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </insert>
 <insert id = "insertContent"  parameterType="String" >
 	INSERT INTO VOTING_A
-	VALUES(VA_SQE.NEXTVAL, #{refNo}, #{content},default)
+	VALUES(VA_SQE.NEXTVAL, VOTING_NO.CURRVAL, #{content},default)
 </insert>
 
 <select id="selectVoting" parameterType="_int" resultMap="votingResultSet" >
@@ -49,4 +49,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM VOTING 
 		WHERE VOTING_NO=#{bno} 	
 	</select>
+	
+	<select id="selectList2" parameterType="_int" resultMap="votingAResultSet" >
+		SELECT *
+		FROM VOTING_A 
+		WHERE REF_NO=#{bno} 	
+	</select>
+	
+
+	
+	<update id = "updateVoting" parameterType="VotingA">
+	UPDATE VOTING_A 
+	SET COUNT = COUNT+1
+	WHERE REF_NO =#{refNo} AND CONTENT=#{content}
+	</update>
+	
 </mapper>

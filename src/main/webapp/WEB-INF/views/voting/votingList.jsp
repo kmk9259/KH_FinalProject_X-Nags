@@ -76,9 +76,9 @@
 				<table id="boardList" class="data-table table stripe hover nowrap">
 					<thead>
 						<tr>
-							<th>글 번호</th>
+							<th>글 번호</th>							
+							<th>투표 주제</th>
 							<th>작성자</th>
-							<th>제목</th>
 							<th>작성일</th>
 												
 						</tr>
@@ -87,9 +87,9 @@
 						<tr>
 							<c:forEach items="${ list }" var="v">
 								<tr>
-									<td>${ v.votingNo }</td>
-									<td>${v.empId }</td>
+									<td>${v.votingNo }</td>									
 									<td>${ v.votingTitle }</td>
+									<td>${loginUser.userName}</td>
 									<td>${ v.votingDate }</td>									
 								</tr>
 							</c:forEach>

@@ -19,13 +19,15 @@
 
 	<div class="main-container">
     <div class="content">
+    <div class="pd-20">
         <br><br>
         <div class="innerOuter">
-            <h2>투표 상세보기</h2>
+            <h2>투표하기</h2>
             <br>
-            
+       
             <br><br>
             <form method = "post" action = "votingAction.vo">
+           	<input type = "hidden" name = "votingNo" value = "${v.votingNo}">
             <table id="contentArea"  class="table">
              <tr>
                     <th width="100">작성자</th>
@@ -42,20 +44,28 @@
                     <td colspan="3"></td>
                 </tr>
                 <tr>
-            	<c:forEach var = "name" items ="${vContent }">
+            	<c:forEach var = "a" items ="${va }">
             	<tr >
-            	<!-- Controller에서 @RequestParam(name = "vContent" 로 받는다 -->
-            	<td><input  type = "checkbox" name = "vContent" value = "vContent">${name }</td>       	
+            	
+            	<td><input  type = "checkbox" name = "content" value = "${a.content }">${a.content }</td> 
+            	   	
             	</tr>
             	</c:forEach>
                 
                 </tr>
             </table>
             <input type = "submit" value = "투표하기">
-            </form>
-            <br>     
+            </form>         	
+              <br>  
+           
+            <form id="postForm" action="votingResult.vo" method="post">
+			<input type="hidden" name="bno" value="${v.votingNo}">			  
+			<input type = "submit" value = "결과보기"> 
+			</form>
+            <br>  
+           
             <br><br>
-
+		</div>
         </div>
         </div>
         <br><br>
@@ -63,18 +73,18 @@
 
     <jsp:include page="../common/footer.jsp"/>
     <script >
+    
     $(document).ready(function() {
 	
-    	$('input[type="checkbox"][name="vContent"]').click(function(){  	 
+    	$('input[type="checkbox"][name="content"]').click(function(){  	 
     	  if($(this).prop('checked')){    	 
-    	     $('input[type="checkbox"][name="vContent"]').prop('checked',false);    	 
+    	     $('input[type="checkbox"][name="content"]').prop('checked',false);    	 
     	     $(this).prop('checked',true);
     	 
   	 	    }
-   	  
+    	 
        });
- 
-    	  
+    	    	        	  
  });
     </script>
 </body>

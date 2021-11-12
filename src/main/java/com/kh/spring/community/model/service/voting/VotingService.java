@@ -16,6 +16,16 @@ public interface VotingService {
 
 	Voting selectVoting(int bno);
 
+	ArrayList<VotingA> selectList2(int bno);
+
+	void votingUpdate(VotingA va);
+
+
+
+
+
+	
+
 	
 
 
