@@ -5,13 +5,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="attendanceMapper">
 
 	<resultMap id="attendanceResultSet" type="Attendance">
-		<id column="ATT_NO" property="attendanceNo"/>
+		<id column="ATT_NO" property="attNo"/>
 		<result column="EMP_ID" property="empId"/>
 		<result column="ATT_STATUS_NO" property="attStatusNo"/> 
 		<result column="ATT_STATUS_NAME" property="attStatusName"/>
-		<result column="ATT_DATE" property="attendanceDate"/>
-		<result column="ATT_INTIME" property="attendanceInTime"/>
-		<result column="ATT_OUTTIME" property="attendanceOutTime"/>	
+		<result column="ATT_DATE" property="attDate"/>
+		<result column="ATT_INTIME" property="attInTime"/>
+		<result column="ATT_OUTTIME" property="attOutTime"/>	
 		
 	</resultMap>
 	<resultMap id="attDateResultSet" type="Employee">
@@ -21,8 +21,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="USER_NAME" property="userName"/>
 		<result column="ATT_DATE" property="attDate"/>
 		<result column="ATT_INTIME" property="attInTime"/>
-		<result column="ATT_OUTTIME" property="attOutTime"/>	
-		<result column="CHANGE_NAME" property="changeName"/>
+		<result column="ATT_OUTTIME" property="attOutTime"/>
+		<result column="ATT_NO" property="attNo"/>
 		<result property="rightName" column="RIGHT_NAME"/>
 	</resultMap>
 	
@@ -37,18 +37,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<insert id="insertIntime" parameterType="Employee">
 		insert into attendance (ATT_NO,EMP_ID,ATT_DATE,ATT_INTIME)
-		values(SEQ_ATNO.nextval,#{empId},sysdate,sysdate)
+		values(SEQ_ATNO.nextval,#{empId},sysdate,TO_CHAR(SYSDATE,'hh24:MI:SS'))
 	</insert>
 	
 	<update id="insertOuttime" parameterType="Employee">
 		update attendance set
-		ATT_OUTTIME = SYSDATE
-		WHERE EMP_ID= #{empId} and TO_CHAR(SYSDATE, 'YY/MM/DD') = TO_CHAR(ATT_INTIME, 'YY/MM/DD')
+		ATT_OUTTIME = TO_CHAR(SYSDATE,'hh24:MI:SS')
+		WHERE EMP_ID= #{empId} and TO_CHAR(SYSDATE, 'YY/MM/DD') = TO_CHAR(ATT_DATE, 'YY/MM/DD')
 	</update>
 	
 	<select id="selectTime" parameterType="Employee" resultMap="attendanceResultSet">
 		SELECT * FROM ATTENDANCE 
-		WHERE EMP_ID=#{empId} and TO_CHAR(SYSDATE, 'YY/MM/DD') = TO_CHAR(ATT_INTIME, 'YY/MM/DD')
+		WHERE EMP_ID=#{empId} and TO_CHAR(SYSDATE, 'YY/MM/DD') = TO_CHAR(ATT_DATE, 'YY/MM/DD')
 	</select>
 	
 	<select id="selectAttMy" parameterType="Member" resultMap="attendanceResultSet">
@@ -60,14 +60,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="selectAttDay" parameterType="Attendance" resultMap="attDateResultSet">
-		SELECT DEPT_NAME, JOB_NAME, USER_NAME, ATT_DATE, ATT_INTIME, ATT_OUTTIME, RIGHT_NAME
+		SELECT EMP_ID, DEPT_NAME, JOB_NAME, USER_NAME, ATT_NO ,ATT_DATE, ATT_INTIME, ATT_OUTTIME, RIGHT_NAME
 		FROM EMPLOYEE 
 		JOIN JOB USING (JOB_CODE)
 		JOIN DEPARTMENT USING (DEPT_CODE)
 	    JOIN MEMBER USING (EMP_ID)
 	    JOIN ATTENDANCE USING (EMP_ID)
 	    JOIN RIGHT USING (RIGHT_NO)
-		WHERE TO_CHAR(ATT_DATE, 'YYYY-MM-dd') = TO_CHAR(#{attendanceDate}, 'YYYY-MM-dd')
+		WHERE TO_CHAR(ATT_DATE, 'YYYY-MM-dd') = TO_CHAR(#{attDate}, 'YYYY-MM-dd')
 	    AND ATT_STATUS_NO =#{attStatusNo} 
 	    <if test="orderBy.equals('dept_code')">
 	    	ORDER BY DEPT_CODE, ATT_DATE
@@ -91,5 +91,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    <if test="orderBy.equals('job_code')">
 	    	ORDER BY JOB_CODE, ATT_DATE
 	    </if>
-	</select> 
+	</select>
+	
+	<update id="updateDay" parameterType="Employee" >
+		update attendance set
+		ATT_INTIME = #{attInTime},
+		ATT_OUTTIME = #{attOutTime}
+		WHERE EMP_ID= #{empId} and  ATT_NO = #{attNo}
+	</update>
+	
+	<delete id="deleteDay" parameterType="_int">
+		delete from attendance where ATT_NO=#{attNo}
+	</delete>
 </mapper>

@@ -1,7 +1,9 @@
 package com.kh.spring.attendance.model.vo;
 
-import java.sql.Date;
-import java.sql.Timestamp;
+
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,15 +16,17 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+
 public class Attendance {
 	
-	private int attendanceNo;				//근태 번호
+	private int attNo;				//근태 번호
 	private String empId;					//사원 아이디
 	private int attStatusNo;				//현황 번호
-	private Date attendanceDate;			//날짜
+	
+	private Date attDate;			//날짜
 	private String attMonthDate;
-	private Timestamp attendanceInTime;		//출근 시간
-	private Timestamp attendanceOutTime;	//퇴근 시간
+	private String attInTime;		//출근 시간
+	private String attOutTime;	//퇴근 시간
 	
 	private String attStatusName;
 	private String orderBy;

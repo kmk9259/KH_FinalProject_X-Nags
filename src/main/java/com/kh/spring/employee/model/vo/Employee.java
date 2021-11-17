@@ -1,9 +1,6 @@
 package com.kh.spring.employee.model.vo;
 
-import java.sql.Timestamp;
 import java.util.Date;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,9 +33,10 @@ public class Employee {
 	
 	//Attendance 관련 속성
 	private String userName;
+	private int attNo;
 	private Date attDate;
-	private Timestamp attInTime;
-	private Timestamp attOutTime;
+	private String attInTime;
+	private String attOutTime;
 	private String changeName;
 	
 	
