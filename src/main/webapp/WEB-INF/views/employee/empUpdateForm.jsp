@@ -312,7 +312,7 @@
 															<tr>
 																<th scope="row">기본급</th>
 																<td><input type="text" class="form-control" id="money1"  onkeyup="inputNumberFormat(this)" value="${sal.basic }" >
-																<input type="hidden" class="form-control" id="money11" name="basic" value="${sal.basic }">
+																<input type="hidden" class="form-control" id="money11" name="basic">
 																</td>
 																
 																<th>소득세</th>
@@ -324,7 +324,7 @@
 															<tr>
 																<th scope="row">보너스</th>
 																<td><input type="text" class="form-control" id="money2"  onkeyup="inputNumberFormat(this)" value="${sal.commission }" >
-																<input type="hidden" class="form-control" id="money22" name="commission" value="${sal.commission }"></td>
+																<input type="hidden" class="form-control" id="money22" name="commission" ></td>
 																<th>고용 보험</th>
 																<td><input type="text" class="form-control" id="empIn"  onkeyup="inputNumberFormat(this)" value="${sal.empInsurance }" readonly >
 																<input type="hidden" class="form-control" id="empIn1" name="empInsurance" value="${sal.empInsurance }"></td>
@@ -333,7 +333,7 @@
 															<tr>
 																<th scope="row">식대</th>
 																<td><input type="text" class="form-control" id="money3"  onkeyup="inputNumberFormat(this)" value="${sal.meal }" >
-																<input type="hidden" class="form-control" id="money33" name="meal" value="${sal.meal }"></td>
+																<input type="hidden" class="form-control" id="money33" name="meal" ></td>
 																<th>국민 연금</th>
 																<td><input type="text" class="form-control" id="retirement"  onkeyup="inputNumberFormat(this)" value="${sal.retirement }" readonly >
 																<input type="hidden" class="form-control" id="retirement1" name="retirement" value="${sal.retirement }"></td>
@@ -357,14 +357,14 @@
 																<input type="hidden" class="form-control" id="sum011" name="total" value="${sal.total }"></td>
 																<th>공제 총액</th>
 																<td><input type="text" class="form-control"  id="result" onkeyup="inputNumberFormat(this)" value="${sal.inTotal}" readonly>
-																<input type="hidden" class="form-control" id="result1" name="inTotal" value="${sal.inTotal}"></td> 
+																<input type="hidden" class="form-control" id="inSum" name="inTotal" value="${sal.inTotal}"></td> 
 																
 															</tr>
 															
 															 <tr>
 															  <th colspan="2">차감 지급액</th> 
 																<td colspan="2"><input type="text" class="form-control" id="sum02"  onkeyup="inputNumberFormat(this)" value="${sal.subTotal}"readonly>
-																<input type="hidden" class="form-control" id="sum021" name="subTotal" value="${sal.subTotal}" ></td>
+																<input type="hidden" class="form-control" id="actualPay" name="subTotal" value="${sal.subTotal}" ></td>
 																
 																
 																
@@ -376,13 +376,13 @@
 													
 													<!--==========================숫자 패턴 함수 (회계관련)================= -->
 														<script>
-														
+								
 														function inputNumberFormat(obj) {
 														     obj.value = comma(uncomma(obj.value));
 														     
 														     var sum =document.getElementById('sum01');
 														     var sumh =document.getElementById('sum011');
-														     var sumh2 =document.getElementById('sum021');
+														     
 														     var sum2 =document.getElementById('sum02');
 														     var n1 = document.getElementById('money1');
 														     var n2 = document.getElementById('money2');
@@ -398,11 +398,14 @@
 														     var n7 = document.getElementById('health');
 														     
 														     
+														     
 														     var nh4 = document.getElementById('incometax1');
 														     var nh5 = document.getElementById('empIn1');
 														     var nh6 = document.getElementById('retirement1');
 														     var nh7 = document.getElementById('health1');
-														     var nh8 = document.getElementById('result1');
+														     
+														     var inSum = document.getElementById('inSum');
+														     var actualPay =document.getElementById('actualPay');
 														     
 														     var n8 = document.getElementById('result');
 														     
@@ -412,17 +415,22 @@
 														     var num2 = parseInt((n2.value).replace(/,/g,""));
 														     var num3 = parseInt((n3.value).replace(/,/g,""));
 														     
+														     
+														     
 														     /*히든으로 숫자값만 가지고 있을 input*/
 														     nh1.value= num1;
 														     nh2.value= num2;
 														     nh3.value= num3;
 														     
-														     console.log("numh1 "+nh1.value); 
+														     
+														     
+														     console.log("기본 급 numh1 "+nh1.value); 
+														     
 														     
 														     
 														    /*숫자로 변화한 필드값을 합침*/
 														     var total = num1 + num2 + num3; 
-														     /* console.log("숫자로? 콤마 없이 기본 총 지급액 "+total); */
+														     console.log("숫자로? 콤마 없이 기본 총 지급액 "+total); 
 														     
 														     /*4대 보험 계산*/
 														     var incometax = total * 0.033;
@@ -430,29 +438,30 @@
 														     var retirement = total * 0.045;
 														     var health = total * 0.0306;
 														     
+														     var inTotal = incometax + empIn + retirement +health;
+														     var subTotal = total - inTotal;
+														     console.log( "보험 합계 계산한 값이 담기니? "+ subTotal )
+														     console.log( "공제 총액 inTotal?? "+ inTotal)
 														     
+														     inSum.value = num4;
+														     actualPay.value =num5;
 														     
 														     /*히든으로 숫자값만 가지고 있을 input*/
 														     nh4.value= incometax;
 														     nh5.value= empIn;
 														     nh6.value= retirement;
-														     nh7.value= health; 
-														     nh8.value= inTotal;
+														     nh7.value= health;
+														     inSum.value= inTotal;
 														     
 														     sumh.value=total;
-														     sumh2.value=subTotal;
+														     actualPay.value=subTotal;
 														     
-														     
-														     var inTotal = incometax + empIn + retirement +health;
-														     var subTotal = total - inTotal;
-														     
-														     console.log("보험 합계 "+inTotal)
-														     
+														     console.log("여기가 중요!!! "+sumh.value)
+														     console.log("여기가 중요!!! "+ actualPay.value)
+														     console.log("여기가 중요!!! inSum.value "+ inSum.value)
 														     
 														     /*4대 보험 합산*/
 														     var total2 = incometax + empIn + retirement + health; 
-														     
-														     sum.value=total2;
 														     
 														     /* 지급액 - 공제액 */
 														     var finalresult = total - total2 ;
@@ -472,6 +481,14 @@
 														     
 														     /*차감 지급 총합(콤마 찍기)*/
 														     sum2.value = finalresult.toString().replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+														     
+														     
+														     var num4 = parseInt((n8.value).replace(/,/g,""));
+														     var num5 = parseInt((sum2.value).replace(/,/g,""));
+														     
+														     //console.log("resut1 아이디 값에 값? "+num4)
+														     console.log("n8.value 공제 금액 총 합 아이디 값에 값? "+num4)
+														     console.log("sum2.value  차감 지급 총합 아이디 값에 값? "+num5)
 														 }
 						
 														 function comma(str) {

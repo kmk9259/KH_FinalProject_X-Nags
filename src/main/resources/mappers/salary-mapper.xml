@@ -59,17 +59,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 
-
-	
-	<update id="updateSal" parameterType="Salary" >
+<update id="updateSal" parameterType="Salary" >
 	update Salary set
-	SAL_LEVEL = #{salLevel}, BASIC=#{basic}, COMMISSION = #{commission}, MEAL = #{meal},
+	SAL_LEVEL = #{salLevel}, BASIC = #{basic}, COMMISSION = #{commission}, MEAL = #{meal},
 	TOTAL = #{total}, INCOME_TAX = #{incomeTax},
 	EMP_INSURANCE = #{empInsurance}, RETIREMENT = #{retirement},
 	HEALTH_INSURANCE = #{healthInsurance}, IN_TOTAL = #{inTotal},
 	SUB_TOTAL = #{subTotal}
 	WHERE EMP_ID = #{empId}
+	
 	</update>
+
+	
+	<!-- <update id="updateSal" parameterType="Salary" >
+	update Salary set
+	SAL_LEVEL = #{salLevel}, BASIC = TO_NUMBER(#{basic}), COMMISSION = TO_NUMBER(#{commission}), MEAL = TO_NUMBER(#{meal}),
+	TOTAL = TO_NUMBER(#{total}), INCOME_TAX = TO_NUMBER(#{incomeTax}),
+	EMP_INSURANCE = TO_NUMBER(#{empInsurance}), RETIREMENT = TO_NUMBER(#{retirement}) ,
+	HEALTH_INSURANCE =TO_NUMBER(#{healthInsurance}) , IN_TOTAL = TO_NUMBER(#{inTotal}),
+	SUB_TOTAL = TO_NUMBER(#{subTotal})
+	WHERE EMP_ID = #{empId}
+	
+	</update> -->
 	
 	
 	

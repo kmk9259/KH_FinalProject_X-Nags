@@ -16,9 +16,9 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class Supplies {
+public class Return {
 	
-	
+	private int reNo;
 
 	private int suppliesNo;
 	private String suppliesCode;
@@ -32,18 +32,6 @@ public class Supplies {
 	//@DateTimeFormat(pattern ="yyyy-MM-dd")
 	private Date endDate;
 	private String status;
-	
-	public Supplies(String suppliesCode, String empId, String suppliesName, String counts, Date startDate, Date endDate,
-			String status) {
-		super();
-		this.suppliesCode = suppliesCode;
-		this.empId = empId;
-		this.suppliesName = suppliesName;
-		this.counts = counts;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.status = status;
-	}
 	
 
 	

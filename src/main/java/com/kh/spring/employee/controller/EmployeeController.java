@@ -16,6 +16,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -33,6 +35,7 @@ import com.kh.spring.member.model.vo.Member;
 import com.kh.spring.salary.model.service.SalaryService;
 import com.kh.spring.salary.model.vo.Salary;
 
+@SessionAttributes("loginUser")	
 
 @Controller
 public class EmployeeController {
@@ -86,6 +89,8 @@ public class EmployeeController {
 		
 	
 	}
+	
+	
 	
 	
 	@RequestMapping("enrollEmp.me")
@@ -249,6 +254,8 @@ public class EmployeeController {
 		Employee emp = employeeService.selectEmp(empId);
 		Member mem = memberService.selectMem(empId);
 		Salary sal = salaryService.selectSal(empId);
+		
+		System.out.println(" emp ? with empId " + emp );
 		
 		mv.addObject("emp", emp).setViewName("employee/empUpdateForm");
 		mv.addObject("mem", mem).setViewName("employee/empUpdateForm");

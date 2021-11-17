@@ -12,20 +12,29 @@
     <link rel="icon" type="image/png" sizes="32x32" href="${ pageContext.servletContext.contextPath }/resources/vendors/images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="${ pageContext.servletContext.contextPath }/resources/vendors/images/favicon-16x16.png">
 
+<style>
+.item{
+border : none;
+width: 80px;
+background-color: white;
+}
+.count{
+border : none;
+width: 20px;
+background-color: white;
+}
+#fromDate, #toDate{
+border : none;
+background-color: white;
+resize: vertical;
+width:80px;
+}
+
+
+</style>
 </head>
 <body>
-    <!-- <div class="pre-loader">
-        <div class="pre-loader-box">
-            <div class="loader-logo"><img src="vendors/images/deskapp-logo.svg" alt=""></div>
-            <div class='loader-progress' id="progress_div">
-                <div class='bar' id='bar1'></div>
-            </div>
-            <div class='percent' id='percent1'>0%</div>
-            <div class="loading-text">
-                Loading...
-            </div>
-        </div>
-    </div> -->
+
     <jsp:include page="../common/menubar.jsp"/>
 
     <div class="mobile-menu-overlay"></div>
@@ -102,6 +111,12 @@
                                         <li class="nav-item">
                                             <a class="nav-link active" data-toggle="tab" href="#setting" role="tab">Settings</a>
                                         </li>
+                                        <li class="nav-item">
+											<a class="nav-link" data-toggle="tab" href="#supplies" role="tab">비품 예약 관리</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" data-toggle="tab" href="#meetingRoom" role="tab">회의실 예약 현황</a>
+										</li>
                                     </ul>
                                     <div class="tab-content">
 
@@ -217,6 +232,142 @@
                                             </div>
                                         </div>
                                         <!-- Setting Tab End -->
+                                        <!-- supplies Tab start -->
+										<div class="tab-pane fade" id="supplies" role="tabpanel">
+											<div class="pd-20">
+												<div class="profile-timeline">
+												
+													
+													
+					
+														   <div class="clearfix mb-20">
+															<div class="pull-left">
+																<h4 class="text-blue h4">비품 예약 현황</h4>
+															</div>
+															
+														   </div>
+														
+														<table class="table table-bordered" id="myTable">
+															 <thead>
+															 	<tr>
+																	 <th style="vertical-align: center;">예약 날짜</th>
+																	<td colspan="" ><input id="fromDate"  name="startDate" value="${ loginEmp.StartDate }" readonly >												
+																</tr>
+																
+																<tr>
+																	 <th>반납 날짜</th>
+																	<td colspan="" ><input id="toDate"  name="endDate" readonly  value="${ loginEmp.endDate }"></td>
+																</tr>
+																<tr>
+																	
+																	<th scope="col">비품</th>
+																	<th scope="col">개수</th>
+																	
+																	
+																	
+						
+																</tr>
+																<tr>
+																<td>${loginEmp.suppliesName }</td>
+																<td>${loginEmp.counts }</td>
+																<tr>
+															</thead> 
+															<tbody>
+																
+																
+															</tbody>
+														</table>
+															
+													<button type="submit" class="btn btn-primary btn-lg btn-block" >기간 연장 신청</button>
+													
+												
+												</div><!-- 여기?  -->
+											</div>
+										</div>
+										<!-- supplies Tab End -->
+										<!-- meetingRoom Tab start -->
+										<div class="tab-pane fade" id="meetingRoom" role="tabpanel">
+											<div class="pd-20">
+												<div class="profile-timeline">
+													<div class="timeline-month">
+														<h5>August, 2020</h5>
+													</div>
+													<div class="profile-timeline-list">
+														<ul>
+															<li>
+																<div class="date">12 Aug</div>
+																<div class="task-name"><i class="ion-android-alarm-clock"></i> Task Added</div>
+																<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+																<div class="task-time">09:30 am</div>
+															</li>
+															<li>
+																<div class="date">10 Aug</div>
+																<div class="task-name"><i class="ion-ios-chatboxes"></i> Task Added</div>
+																<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+																<div class="task-time">09:30 am</div>
+															</li>
+															<li>
+																<div class="date">10 Aug</div>
+																<div class="task-name"><i class="ion-ios-clock"></i> Event Added</div>
+																<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+																<div class="task-time">09:30 am</div>
+															</li>
+															<li>
+																<div class="date">10 Aug</div>
+																<div class="task-name"><i class="ion-ios-clock"></i> Event Added</div>
+																<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+																<div class="task-time">09:30 am</div>
+															</li>
+														</ul>
+													</div>
+													<div class="timeline-month">
+														<h5>July, 2020</h5>
+													</div>
+													<div class="profile-timeline-list">
+														<ul>
+															<li>
+																<div class="date">12 July</div>
+																<div class="task-name"><i class="ion-android-alarm-clock"></i> Task Added</div>
+																<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+																<div class="task-time">09:30 am</div>
+															</li>
+															<li>
+																<div class="date">10 July</div>
+																<div class="task-name"><i class="ion-ios-chatboxes"></i> Task Added</div>
+																<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+																<div class="task-time">09:30 am</div>
+															</li>
+														</ul>
+													</div>
+													<div class="timeline-month">
+														<h5>June, 2020</h5>
+													</div>
+													<div class="profile-timeline-list">
+														<ul>
+															<li>
+																<div class="date">12 June</div>
+																<div class="task-name"><i class="ion-android-alarm-clock"></i> Task Added</div>
+																<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+																<div class="task-time">09:30 am</div>
+															</li>
+															<li>
+																<div class="date">10 June</div>
+																<div class="task-name"><i class="ion-ios-chatboxes"></i> Task Added</div>
+																<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+																<div class="task-time">09:30 am</div>
+															</li>
+															<li>
+																<div class="date">10 June</div>
+																<div class="task-name"><i class="ion-ios-clock"></i> Event Added</div>
+																<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+																<div class="task-time">09:30 am</div>
+															</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- Timeline Tab End -->
                                     </div>
                                 </div>
                             </div>
