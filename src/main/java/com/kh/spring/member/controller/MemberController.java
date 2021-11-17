@@ -85,9 +85,9 @@ public class MemberController {
 		Date todayDate = new Date();
 		String todayDay = sdf.format(todayDate);
 		
-		long gap = targetDate.getTime() - todayDate.getTime();
-		String dDay = "D + "+((gap / (24 * 60 * 60 * 1000)+1));
-		System.out.println() ;
+		long gap = todayDate.getTime()-targetDate.getTime();
+		String dDay = "D + "+((gap / (24 * 60 * 60 * 1000))+2);
+		System.out.println(dDay) ;
 		return dDay;
 		
 	}
@@ -95,7 +95,7 @@ public class MemberController {
 	public String logoutMember(SessionStatus status) {	
 		Attendance att = attendanceService.selectTime(loginEmp);
 		
-		if(att.getAttendanceOutTime() == null) {
+		if(att.getAttOutTime() == null) {
 			attendanceService.insertOuttime(loginEmp);
 		}
 		

@@ -132,14 +132,10 @@
 				  <tbody>				    
 				    <c:forEach items="${ attMyList }" var="att">
 	                    <tr>
-	                    	<c:set var="getIntime" value="${att.attendanceInTime}"/>
-	                    	<c:set var="inTime" value="${fn:substring(getIntime,11,19) }"/>
-	                    	<c:set var="getOuttime" value="${att.attendanceOutTime}"/>
-	                    	<c:set var="outTime" value="${fn:substring(getOuttime,11,19) }"/>
-	                    	
-	                        <td>${ att.attendanceDate }</td>
-	                        <td>${ inTime }</td>
-	                        <td>${ outTime }</td>
+	                    		                    	
+	                        <td>${ att.attDate }</td>
+	                        <td>${ att.attInTime }</td>
+	                        <td>${ att.attOutTime }</td>
 	                        <td>${ att.attStatusName }</td>
 	                        
 	                    </tr>
@@ -156,10 +152,9 @@
 							empId:"${sessionScope.loginUser.empId}"
 						},
 						success:function(att){
-							console.log("성공");
-							$("#inTime").html(att.attendanceInTime); 
-							if(att.attendanceOutTime !=null){
-								$("#outTime").html(att.attendanceOutTime); 
+							$("#inTime").html(att.attInTime); 
+							if(att.attTime !=null){
+								$("#outTime").html(att.attOutTime); 
 							}else{
 								$("#outTime").html("아직 퇴근 전입니다."); 
 							}

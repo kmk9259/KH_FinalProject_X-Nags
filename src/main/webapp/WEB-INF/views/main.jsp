@@ -50,13 +50,14 @@
 							<table class="table table-striped table-bordered employee" style="text-align: center;">				
 							  <thead>							    
 								<tr class="table-warning">
-								<th scope="col" width="60px">부서</th>
-								<th scope="col" width="60px">직급</th>
-								<th scope="col" width="60px">권한</th>
+								<th scope="col" width="50px">부서</th>
+								<th scope="col" width="50px">직급</th>
+								<th scope="col" width="50px">권한</th>
+								<th scope="col" width="100px">날짜</th>
 								<th scope="col" width="100px">출근</th>
 								<th scope="col" width="100px">퇴근</th>
 								<th scope="col" width="60px">근무일</th>
-								<th scope="col" width="60px">잔여 연차</th>
+								<th scope="col" width="50px">잔여 연차</th>
 								</tr>								
 							  </thead>
 							  <tbody>
@@ -64,6 +65,7 @@
 							      <th scope="row">${loginEmp.deptName}</th>
 							      <th scope="row">${loginEmp.jobName}</th>
 							      <th scope="row">${loginEmp.rightName}</th>
+							      <th scope="row" id="date"></th>
 							      <th scope="row" id="inTime"></th>
 							      <th scope="row" id="outTime"></th>
 							      <th scope="row">${dDay} </th>
@@ -87,10 +89,10 @@
 							empId:"${loginEmp.empId}"
 						},
 						success:function(att){
-							
-							$("#inTime").html(att.attendanceInTime); 
-							if(att.attendanceOutTime !=null){
-								$("#outTime").html(att.attendanceOutTime); 
+							$("#date").html(att.attDate); 
+							$("#inTime").html(att.attInTime); 
+							if(att.attOutTime !=null){
+								$("#outTime").html(att.attOutTime); 
 							}else{
 								$("#outTime").html("아직 퇴근 전입니다."); 
 							}

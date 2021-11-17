@@ -25,6 +25,10 @@ public interface AttendanceService {
 
 	ArrayList<Employee> selectAttMonth(Attendance att);
 
+	void updateDay(Employee emp);
+
+	void deleteDay(int attNo);
+
 	
 
 	

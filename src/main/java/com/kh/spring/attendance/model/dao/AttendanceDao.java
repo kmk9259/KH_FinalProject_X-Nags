@@ -41,6 +41,14 @@ public class AttendanceDao {
 		return (ArrayList)sqlSession.selectList("attendanceMapper.selectAttMonth",att);
 	}
 
+	public int updateDay(SqlSessionTemplate sqlSession, Employee emp) {
+		return sqlSession.update("attendanceMapper.updateDay",emp);
+	}
+
+	public int deleteDay(SqlSessionTemplate sqlSession, int attNo) {
+		return sqlSession.delete("attendanceMapper.deleteDay",attNo);
+	}
+
 	
 
 	
