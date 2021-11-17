@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>     
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +26,8 @@
 							<nav aria-label="breadcrumb" role="navigation">
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="">홈</a></li>
-									<li class="breadcrumb-item active" aria-current="page">받은 메일함</li>
+									<li class="breadcrumb-item">받은 메일함</li>
+									<li class="breadcrumb-item active" aria-current="page">받은 메일 보기</li>
 								</ol>
 							</nav>
 						</div>
@@ -35,108 +38,86 @@
 				<div class="pd-20 card-box mb-30">
 					<div class="clearfix mb-20">
 		            <div class="card-header">
-		              <h3 class="card-title">받은 메일</h3>
+		               <h3 class="mailbox-read-info">${m.title }</h3>
+			            <br>
+			            <h4 class="card-title">${m.receiver }
+                  		<span class="mailbox-read-time float-right">${m.date }</span>
+                  	  </h4>
 		            </div>
 				
 				<div class="card-body p-0">
-              <div class="mailbox-read-info">
-                <h5>제목</h5>
-                <h6>보낸사람
-                  <span class="mailbox-read-time float-right">날짜</span></h6>
-              </div>
+              
               <!-- /.mailbox-read-info -->
               <div class="mailbox-controls with-border text-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-default btn-sm" data-container="body" title="Delete">
-                    <i class="icon-copy ion-trash-a"></i>
-                  </button>
-                  <button type="button" class="btn btn-default btn-sm" data-container="body" title="Reply">
-                    <i class="icon-copy ion-paper-airplane"></i>
-                  </button>
-                  <button type="button" class="btn btn-default btn-sm" data-container="body" title="Forward">
-                    <i class="icon-copy ion-share"></i>
-                  </button>
-                </div>
-                <!-- /.btn-group -->
-                <button type="button" class="btn btn-default btn-sm" title="Print">
-                  <i class="icon-copy ion-printer"></i>
-                </button>
+                 
+              
               </div>
               <!-- /.mailbox-controls -->
               <div class="mailbox-read-message">
-                <P>메일내용</P>
+                <br>
+                <P>${m.content }</P>
               </div>
               <!-- /.mailbox-read-message -->
             </div>
             
             <!-- 첨부파일 부분 -->
-            <div class="card-footer bg-white">
-              <ul class="mailbox-attachments d-flex align-items-stretch clearfix">
-                <li>
-                  <span class="mailbox-attachment-icon"><i class="far fa-file-pdf"></i></span>
-
-                  <div class="mailbox-attachment-info">
-                    <a href="#" class="mailbox-attachment-name"><i class="fas fa-paperclip"></i> Sep2014-report.pdf</a>
-                        <span class="mailbox-attachment-size clearfix mt-1">
-                          <span>1,245 KB</span>
-                          <a href="#" class="btn btn-default btn-sm float-right"><i class="fas fa-cloud-download-alt"></i></a>
-                        </span>
-                  </div>
-                </li>
-                <li>
-                  <span class="mailbox-attachment-icon"><i class="far fa-file-word"></i></span>
-
-                  <div class="mailbox-attachment-info">
-                    <a href="#" class="mailbox-attachment-name"><i class="fas fa-paperclip"></i> App Description.docx</a>
-                        <span class="mailbox-attachment-size clearfix mt-1">
-                          <span>1,245 KB</span>
-                          <a href="#" class="btn btn-default btn-sm float-right"><i class="fas fa-cloud-download-alt"></i></a>
-                        </span>
-                  </div>
-                </li>
-                <li>
-                  <span class="mailbox-attachment-icon has-img"><img src="../../dist/img/photo1.png" alt="Attachment"></span>
-
-                  <div class="mailbox-attachment-info">
-                  
-                    <a href="#" class="mailbox-attachment-name"><i class="fas fa-camera"></i> photo1.png</a>
-                        <span class="mailbox-attachment-size clearfix mt-1">
-                          <span>2.67 MB</span>
-                          <a href="#" class="btn btn-default btn-sm float-right"><i class="icon-copy ion-cloud"></i></a>
-                        </span>
-                 
-                  </div>
-                </li>
-                <li>
-                  <span class="mailbox-attachment-icon has-img"><img src="../../dist/img/photo2.png" alt="Attachment"></span>
-
-                  <div class="mailbox-attachment-info">
-                    <a href="#" class="mailbox-attachment-name"><i class="fas fa-camera"></i> photo2.png</a>
-                        <span class="mailbox-attachment-size clearfix mt-1">
-                          <span>1.9 MB</span>
-                          <a href="#" class="btn btn-default btn-sm float-right"><i class="icon-copy ion-cloud"></i></a>
-                        </span>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="card-footer">
-              <div class="float-right">
-                <button type="button" class="btn btn-default"><i class="icon-copy ion-paper-airplane"></i> Reply</button>
-                <button type="button" class="btn btn-default"><i class="icon-copy ion-share"></i> Forward</button>
-              </div>
-              <button type="button" class="btn btn-default"><i class="icon-copy ion-trash-a"></i> Delete</button>
-              <button type="button" class="btn btn-default"><i class="icon-copy ion-printer"></i> Print</button>
-            </div>
-				
+            
+            <c:choose>
+            	<c:when test="${empty m.originName}">
+            		
+            	</c:when>
+            	<c:otherwise>
+            		<div class="card-footer bg-white">
+            			<a href="${ pageContext.servletContext.contextPath }/resources/mail_files/${m.changeName}" download="${ m.originName }">${ m.originName }</a>
+            			
+            		</div>
+            	</c:otherwise>
+            </c:choose>
+            
+            <form id="receiveMail" action="" method="post">
+            	<input type="hidden" name="empId" value="${ sessionScope.loginUser.empId }">
+            	<input type="hidden" name="mno" value="${m.mailNo }">
+            
+	            <div class="card-footer">
+	              <div class="float-right">
+	                <button type="button" onclick="reply();" class="btn btn-default"><i class="icon-copy ion-paper-airplane"></i> 답장</button>
+	                <button type="button" onclick="delivery();" class="btn btn-default"><i class="icon-copy ion-share"></i> 전달</button>
+	              </div>
+	              <button type="button" onclick="waste();" class="btn btn-default"><i class="icon-copy ion-trash-a"></i> 삭제</button>
+	              <button type="button" class="btn btn-default"><i class="icon-copy ion-printer"></i> 인쇄</button>
+	            </div>
+			</form>
+			
 				<!-- 중간내용 끝 -->
 				</div>
 				</div>
 				</div>
 				</div>
 				</div>
+<script>
+function reply() {
+	$("#receiveMail").attr("action", "sendReply.ml");
+	$("#receiveMail").submit();
+	return true;
+}
+function delivery(){
+	$("#receiveMail").attr("action", "sendDelivery.ml");
+	$("#receiveMail").submit();
+	return true;
+}
+function waste(){
+	var confirmVal = confirm("메일을 휴지통으로 이동하시겠습니까?");
+	
+	if(confirmVal){
+		$("#receiveMail").attr("action", "wasteReceiveMail.ml");
+		$("#receiveMail").submit();
+		return true;
+	}
+}
+
+</script>
 				
-				<jsp:include page="../common/footer.jsp" />
+<jsp:include page="../common/footer.jsp" />
 
 </body>
 </html>

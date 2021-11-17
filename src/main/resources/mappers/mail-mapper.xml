@@ -19,6 +19,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="receiver_status" property="receiverStatus"/>
 		<result column="origin_name" property="originName"/>
 		<result column="change_name" property="changeName"/>
+		<result column="writer_update_date" property="writerUpdate"/>
+		<result column="receiver_update_date" property="receiverUpdate"/>
 	</resultMap>
 	
 	<resultMap type="Mail" id="sendResultSet">
@@ -34,6 +36,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="receiver_status" property="receiverStatus"/>
 		<result column="origin_name" property="originName"/>
 		<result column="change_name" property="changeName"/>
+		<result column="writer_update_date" property="writerUpdate"/>
+		<result column="receiver_update_date" property="receiverUpdate"/>
 	</resultMap>
 	
 	<resultMap type="Mail" id="receiveResultSet">
@@ -49,6 +53,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="receiver_status" property="receiverStatus"/>
 		<result column="origin_name" property="originName"/>
 		<result column="change_name" property="changeName"/>
+		<result column="writer_update_date" property="writerUpdate"/>
+		<result column="receiver_update_date" property="receiverUpdate"/>
 	</resultMap>
 	
 	<resultMap id="employeeResultSet" type="Employee">
@@ -77,12 +83,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       <result property="changeName" column="CHANGE_NAME"/>
       <result property="status" column="STATUS"/>
    </resultMap>
+   
+   	<resultMap id="empListResultSet" type="Employee">
+		<id property="empId" column="EMP_ID"/>
+		<result property="jobName" column="JOB_NAME"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="rightName" column="RIGHT_NAME"/>
+	</resultMap>
 	
 	<!-- 메일 작성 -->
 	<insert id="insertMail" parameterType="Mail">
 		insert into mail
 		values(seq_mno.nextval, #{empId}, #{receiver}, #{title}, #{content}, sysdate, default,
-				#{importantFlag},  default, default, #{originName}, #{changeName})
+				#{importantFlag},  default, default, #{originName}, #{changeName}, null, null)
 	</insert>
 	
 	<!-- 보낸 메일함 갯수 -->
@@ -153,7 +166,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 받은메일리스트에서 휴지통 -->
 	<update id="wasteReceiveMail" parameterType="_int">
 		UPDATE MAIL
-		SET RECEIVER_STATUS=2
+		SET RECEIVER_STATUS=2, RECEIVER_UPDATE_DATE=SYSDATE
 		WHERE MAIL_NO=${mno}
 	</update>
 	
@@ -180,15 +193,91 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 보낸 메일 휴지통으로 이동 -->
 	<update id="wasteSendMail" parameterType="_int">
 		UPDATE MAIL
-		SET WRITER_STATUS=2
+		SET WRITER_STATUS=2, WRITER_UPDATE_DATE=SYSDATE
 		WHERE MAIL_NO=${mno}
 	</update>
 	
-	
-	<!--
-	<select id="selectEmpList" parameterType="Employee">
-		select empId
-		from employee
+	<!-- 휴지통개수 -->
+	<select id="selectWasteMailListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM MAIL
+		<where>
+			<if test="receiver == empId">
+				RECEIVER_STATUS=2
+			</if>
+			<if test="empId == empId">
+				OR WRITER_STATUS=2
+			</if>
+		</where>
 	</select>
-	  -->
+	
+	
+	<!-- 휴지통 리스트 -->
+	<select id="selectWasteMailList" resultMap="sendResultSet">
+		SELECT *
+		FROM MAIL A
+		JOIN MEMBER B ON A.MAIL_RECEIVER=B.EMP_ID
+		<where>
+			<if test="receiver == empId">
+				A.RECEIVER_STATUS=2
+			</if>
+			<if test="empId == empId">
+				OR A.WRITER_STATUS=2
+			</if>
+		</where>
+		ORDER BY A.MAIL_DATE DESC
+	</select>
+	
+	<!-- 받은메일 답장 -->
+	<insert id="insertReply" parameterType="Mail">
+		insert into mail
+		values(seq_mno.nextval, #{empId}, #{receiver}, #{title}, #{content}, sysdate, default,
+				#{importantFlag},  default, default, #{originName}, #{changeName})
+	
+	</insert>
+	
+	<!-- 보낸메일복구 -->
+	<update id="returnSendMail" parameterType="_int">
+		UPDATE MAIL
+		SET WRITER_STATUS=1
+		WHERE MAIL_NO=${mno}
+	</update>
+	
+	<!-- 받은 메일 복구 -->
+	<update id="returnReceiveMail" parameterType="_int">
+		UPDATE MAIL
+		SET RECEIVER_STATUS=1
+		WHERE MAIL_NO=${mno}
+	</update>
+	
+	<!-- 영구삭제 -->
+	<delete id="wasteMail" parameterType="_int">
+		DELETE MAIL
+		WHERE MAIL_NO=${mno}
+	</delete>
+	
+	<!-- 보낸메일3 -->
+	<update id="updateWriter" parameterType="_int">
+		UPDATE MAIL
+		SET WRITER_STATUS=3
+		WHERE MAIL_NO=${mno}
+	</update>
+	
+	<!-- 받은 메일 3 -->
+	<update id="updateReceiver" parameterType="_int">
+		UPDATE MAIL
+		SET RECEIVER_STATUS=3
+		WHERE MAIL_NO=${mno}
+	</update>
+	
+	<!-- 주소록  -->
+	<select id="selectEmployeeList" parameterType="String" resultMap="empListResultSet">
+		SELECT USER_NAME, EMP_ID, JOB_NAME, RIGHT_NAME
+		FROM EMPLOYEE 
+		JOIN MEMBER USING (EMP_ID)
+		JOIN JOB USING (JOB_CODE)
+		JOIN RIGHT USING (RIGHT_NO)
+		WHERE DEPT_CODE=#{deptCode}
+	</select>
+
 </mapper>

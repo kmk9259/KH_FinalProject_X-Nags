@@ -22,11 +22,14 @@ public class Holiday {
 		휴가 일수
 		잔여 휴가
 	 * */
-	private int holidayNo;				
+	private int holidayNo;	
+	private int appNo;
 	private String empId;					
 	private String holidayName;			
 	private Date holStartDay;
 	private Date holEndDay;		
 	private Double holDays;
+	
+	
 
 }

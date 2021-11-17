@@ -187,6 +187,69 @@ public class ApprovalServiceImpl implements ApprovalService {
 		
 	}
 
+	//결재 완료 문서함 수
+	@Override
+	public int selectProcessedAppListCount(String empId) {
+		
+		return approvalDao.selectProcessedAppListCount(sqlSession, empId);
+	}
+	
+	//결재완료문서함 리스트
+	@Override
+	public ArrayList<Approval> selectProcessedAppList(PageInfo pi, String empId) {
+
+		return approvalDao.selectProcessedAppList(sqlSession, pi, empId);
+	}
+
+	//결재완료문서보기
+	@Override
+	public Approval selectProcessedAppDetail(int ano) {
+		
+		return approvalDao.selectProcessedAppDetail(sqlSession, ano);
+	}
+	
+	//휴가정보 가져오기
+	@Override
+	public Holiday selectHoliday(int ano) {
+		
+		return approvalDao.selectHoliday(sqlSession, ano);
+	}
+	
+	//연차 되돌리기
+	@Override
+	public void increaseCount(Holiday hol) {
+		
+		int result = approvalDao.increaseCount(sqlSession, hol);
+		
+		if(result < 0) {
+			throw new CommException("연차개수 변경 실패");
+		}
+		
+	}
+	
+	//휴가정보삭제
+	@Override
+	public void deleteHoliday(int ano) {
+		
+		int result = approvalDao.deleteHoliday(sqlSession, ano);
+		
+		if(result < 0) {
+			throw new CommException("휴가 삭제 실패");
+		}
+		
+	}
+	
+	//결재문서 삭제
+	@Override
+	public void deleteProcessedApproval(int ano) {
+
+		int result = approvalDao.deleteProcessedApproval(sqlSession, ano);
+		
+		if(result < 0) {
+			throw new CommException("결재 완료 문서 삭제 실패");
+		}
+	}
+
 	
 
 	

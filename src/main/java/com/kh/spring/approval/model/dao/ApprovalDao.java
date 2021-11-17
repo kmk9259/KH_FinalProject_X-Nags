@@ -2,6 +2,7 @@ package com.kh.spring.approval.model.dao;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.jdbc.SQL;
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -121,10 +122,56 @@ public class ApprovalDao {
 		
 		return sqlSession.update("approvalMapper.updateApproval", app);
 	}
-
+	
+	//진행중 결재함 삭제
 	public int deleteProcessingApproval(SqlSessionTemplate sqlSession, int ano) {
 		
 		return sqlSession.update("approvalMapper.deleteProcessingApproval", ano);
+	}
+	
+	//완료결재함 수
+	public int selectProcessedAppListCount(SqlSessionTemplate sqlSession, String empId) {
+
+		return sqlSession.selectOne("approvalMapper.selectProcessedAppListCount", empId);
+	}
+	
+	//완료결재함 리스트
+	public ArrayList<Approval> selectProcessedAppList(SqlSessionTemplate sqlSession, PageInfo pi, String empId) {
+		
+		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit()); 
+		
+		return (ArrayList)sqlSession.selectList("approvalMapper.selectProcessedAppList", empId, rowBounds);
+	}
+	
+	//결재완료문서보기
+	public Approval selectProcessedAppDetail(SqlSessionTemplate sqlSession, int ano) {
+		
+		return sqlSession.selectOne("approvalMapper.selectProcessedAppDetail", ano);
+	}
+
+	//휴가정보 가져오기
+	public Holiday selectHoliday(SqlSessionTemplate sqlSession, int ano) {
+
+		return sqlSession.selectOne("approvalMapper.selectHoliday", ano);
+	}
+
+	//연차 되돌리기
+	public int increaseCount(SqlSessionTemplate sqlSession, Holiday hol) {
+
+		return sqlSession.update("approvalMapper.increaseCount", hol);
+	}
+
+	//휴가정보삭제
+	public int deleteHoliday(SqlSessionTemplate sqlSession, int ano) {
+
+		return sqlSession.delete("approvalMapper.deleteHoliday", ano);
+	}
+
+	//결재문서 삭제
+	public int deleteProcessedApproval(SqlSessionTemplate sqlSession, int ano) {
+
+		return sqlSession.delete("approvalMapper.deleteProcessedApproval", ano);
 	}
 	
 	

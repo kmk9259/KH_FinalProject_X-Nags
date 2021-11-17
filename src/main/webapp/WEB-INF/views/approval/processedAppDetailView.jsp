@@ -33,8 +33,8 @@
 							<nav aria-label="breadcrumb" role="navigation">
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="">홈</a></li>
-									<li class="breadcrumb-item">진행중 결재함</li>
-									<li class="breadcrumb-item active" aria-current="page">결재 문서 확인</li>
+									<li class="breadcrumb-item">결재 완료 문서함</li>
+									<li class="breadcrumb-item active" aria-current="page">결재 완료 문서 확인</li>
 								</ol>
 							</nav>
 						</div>
@@ -220,13 +220,8 @@
 	            			<input type="hidden" name="fileName" value="${ app.changeName }"> 
 		            		<div class="card-footer">
 				              <div class="float-right">
-				              	<c:if test="${app.midStatus eq 1 }">
-				              		<button type="button" onclick="change();" class="btn btn-default"><i class="icon-copy ion-refresh"></i> 수정</button>
-				              	</c:if>
-				              </div>
-				              	<c:if test="${app.finStatus eq 1 }">
-				              		<button type="button" onclick="deleteApp();" class="btn btn-default"><i class="icon-copy ion-trash-a"></i> 삭제</button>
-				              	</c:if>
+				              	<button type="button" onclick="deleteApp();" class="btn btn-default"><i class="icon-copy ion-trash-a"></i> 삭제</button>
+				              </div>	
 				              <!-- <button type="button" class="btn btn-default"><i class="icon-copy ion-printer"></i> 프린트</button> -->
 				            </div>
 		                </form>
@@ -243,16 +238,7 @@
 								<h4>중간 결재자 의견</h4>
 							</div>
 							<div>
-								<c:choose>
-									<c:when test="${app.midReply != null }">
-										<p>${app.midReply}</p>
-									</c:when>
-									<c:otherwise>
-										<p>중간 결재가 처리되지 않았습니다.</p>
-									</c:otherwise>
-								
-								</c:choose>
-								
+								<p>${app.midReply}</p>
 							</div>
 						</div>
 					</div>
@@ -264,14 +250,7 @@
 							<div class="title">
 								<h4>최종 결재자 의견</h4>
 							</div>
-							<c:choose>
-								<c:when test="${app.midStatus eq 1}">
-									<p>최종 결재가 처리되지 않았습니다.</p>
-								</c:when>
-								<c:otherwise>
-									<p>${app.finReply}</p>
-								</c:otherwise>
-							</c:choose>
+								<p>${app.finReply}</p>
 						</div>
 					</div>
 				</div>
@@ -281,22 +260,14 @@
 				</div>
 				
 <script >
-//수정
-function change(){
-	
-	$("#sendApp").attr("action", "change.ap");
-	$("#sendApp").submit();
-	return true;
-
-}
 
 //삭제
 function deleteApp(){
 	
-	var confirmVal = confirm("결재 문서를 삭제하시겠습니까?");
+	var confirmVal = confirm("결재가 승인된 문서를 삭제하시겠습니까?");
 	
 	if(confirmVal){
-		$("#sendApp").attr("action", "deleteApping.ap");
+		$("#sendApp").attr("action", "deleteApped.ap");
 		$("#sendApp").submit();
 		return true;
 	}

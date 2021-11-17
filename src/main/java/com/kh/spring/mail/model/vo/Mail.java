@@ -29,5 +29,8 @@ public class Mail {
 	private String originName;
 	private String changeName;
 	
+	private Date writerUpdate;
+	private Date receiverUpdate;
+	
 
 }

@@ -52,6 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<resultMap type="Holiday" id="holidayResultSet">
 		<id property="holidayNo" column="HOLIDAY_NO"/>
+		<result property="appNo" column="APP_NO"/>
 		<result property="empId" column="EMP_ID"/>
 		<result property="holidayName" column="HOLIDAY_NAME"/>
 		<result property="holStartDay" column="HOL_START_DAY"/>
@@ -185,11 +186,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE APP_NO=#{appNo}
 	</update>
 	
-	<!-- 하루휴가 -->
+	<!-- 휴가추가 -->
 	<insert id="insertHoliDay" parameterType="Holiday">
 		INSERT INTO HOLIDAY
 		VALUES
-		(SEQ_HNO.NEXTVAL, #{empId}, #{holidayName}, #{holStartDay}, #{holEndDay}, #{holDays})
+		(SEQ_HNO.NEXTVAL, #{appNo}, #{empId}, #{holidayName}, #{holStartDay}, #{holEndDay}, #{holDays})
 		
 	</insert>
 	
@@ -217,12 +218,77 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 진행중 문서 수정 -->
 	<update id="updateApproval" parameterType="Approval">
 		UPDATE APPROVAL
-		SET 
+		
+		<if test="endDate != null">
+			SET CATEGORY=#{category}, APP_TITLE=#{title}, APP_CONTENT=#{content}, APP_MID=#{appMid}, APP_FIN=#{appFin},
+			ORIGIN_NAME=#{originName}, CHANGE_NAME=#{changeName}, WRITE_DATE=SYSDATE, START_DATE=#{stayDate}, END_DATE=#{endDate}
+			
+		</if>
+		<if test="endDate == null">
+			SET CATEGORY=#{category}, APP_TITLE=#{title}, APP_CONTENT=#{content}, APP_MID=#{appMid}, APP_FIN=#{appFin},
+			ORIGIN_NAME=#{originName}, CHANGE_NAME=#{changeName}, WRITE_DATE=SYSDATE
+		</if>
+		
+		WHERE APP_NO=#{appNo}
+	
 	</update>
 	
 	<!-- 진행중 문서 삭제 -->
-	<delete id="deleteProcessingApproval">
+	<delete id="deleteProcessingApproval" parameterType="_int">
+		DELETE APPROVAL
+		WHERE APP_NO=#{appNo}
+	</delete>
+	
+	<!-- 완료 결재함 수 -->
+	<select id="selectProcessedAppListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM APPROVAL
+		WHERE
+		(EMP_ID=${empId} OR APP_MID=${empId} OR APP_FIN=${empId})
+		AND (MID_STATUS=3 OR FIN_STATUS IN (2,3))
+	</select>
+	
+	<!-- 완료 결재함 리스트 -->
+	<select id="selectProcessedAppList" resultMap="appResultSet">
 		
+		SELECT *
+		FROM APPROVAL
+		WHERE
+		(EMP_ID=${empId} OR APP_MID=${empId} OR APP_FIN=${empId})
+		AND (MID_STATUS=3 OR FIN_STATUS IN (2,3))
+		ORDER BY APP_NO DESC
+	</select>
+	
+	<!-- 결재완료문서보기 -->
+	<select id="selectProcessedAppDetail" parameterType="_int" resultMap="appResultSet">
+		SELECT *
+		FROM APPROVAL
+		WHERE APP_NO=${ano}
+	</select>
+	
+	<!-- 휴가정보불러오기 -->
+	<select id="selectHoliday" resultMap="holidayResultSet">
+		SELECT * FROM HOLIDAY
+		WHERE APP_NO=#{ano}
+	</select>
+	
+	<!-- 연차되돌리기 -->
+	<update id="increaseCount" parameterType="Holiday">
+		UPDATE EMPLOYEE
+		SET HOL_COUNT=HOL_COUNT+#{holDays}
+		WHERE EMP_ID=#{empId}
+	</update>
+	
+	<!-- 휴가정보삭제 -->
+	<delete id="deleteHoliday" parameterType="_int">
+		DELETE HOLIDAY
+		WHERE APP_NO=#{ano}
+	</delete>
+	
+	<!-- 결재문서 삭제 -->
+	<delete id="deleteProcessedApproval" parameterType="_int">
+		DELETE APPROVAL
+		WHERE APP_NO=#{ano}
 	</delete>
 	
 </mapper>

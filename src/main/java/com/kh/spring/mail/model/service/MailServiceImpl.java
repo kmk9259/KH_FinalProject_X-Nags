@@ -139,5 +139,96 @@ public class MailServiceImpl implements MailService {
 		
 	}
 
+
+	@Override
+	public int selectWasteMailListCount(String empId) {
+		
+		return mailDao.selectWasteMailListCount(sqlSession, empId);
+	}
+
+
+	@Override
+	public ArrayList<Mail> selectWasteMailList(PageInfo pi, String empId) {
+	
+		return mailDao.selectWasteMailList(sqlSession, pi, empId);
+	}
+
+
+	@Override
+	public void insertReply(Mail m) {
+		
+		int result = mailDao.insertReply(sqlSession, m);
+		
+		if(result < 0) {
+			throw new CommException("메일 답장 실패");
+		}
+		
+	}
+
+
+	@Override
+	public void returnSendMail(int mno) {
+		
+		int result = mailDao.returnSendMail(sqlSession, mno);
+		
+		if(result < 0) {
+			throw new CommException("returnSendMail 실패");
+		}
+		
+	}
+
+
+	@Override
+	public void returnReceiveMail(int mno) {
+
+		int result = mailDao.returnReceiveMail(sqlSession, mno);
+		
+		if(result < 0) {
+			throw new CommException("returnReceiveMail 실패");
+		}
+		
+	}
+
+	//메일 영구삭제
+	@Override
+	public void wasteMail(int mno) {
+		int result = mailDao.wasteMail(sqlSession, mno);
+		
+		if(result < 0) {
+			throw new CommException("wasteMail 실패");
+		}
+		
+	}
+
+	
+	@Override
+	public void updateWriter(int mno) {
+		
+		int result = mailDao.updateWriter(sqlSession, mno);
+		
+		if(result < 0) {
+			throw new CommException("updateWriter 실패");
+		}
+		
+	}
+
+
+	@Override
+	public void updateReceiver(int mno) {
+		
+		int result = mailDao.updateReceiver(sqlSession, mno);
+		
+		if(result < 0) {
+			throw new CommException("updateReceiver 실패");
+		}		
+	}
+
+
+	@Override
+	public ArrayList<Employee> selectEmployeeList(String deptCode) {
+		
+		return mailDao.selectEmployeeList(sqlSession, deptCode);
+	}
+
 	
 }
