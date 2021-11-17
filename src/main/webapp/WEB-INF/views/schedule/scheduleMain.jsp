@@ -7,7 +7,7 @@
 <head>
 <meta charset='utf-8' />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>X-Nomal Groupware Solution</title>
+<title>>X-Normal GroupWare Solution</title>
 
 
 <link rel="shortcut icon" href="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/image/favicon.ico">
@@ -21,9 +21,12 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/css/main.css">
-
 </head>
 <body>
+<script type="text/javascript">
+var empId = '${empId}';
+var username =  '${username}';
+</script>
 
 	<%-- <jsp:include page="../common/menubar.jsp" /> --%>
 
@@ -91,13 +94,13 @@
                                 <label class="col-xs-4" for="edit-type">구분</label>
                                 <select class="inputModal" type="text" name="edit-type" id="edit-type">
                                     <option value="카테고리1">내일정</option>
-                                    <option value="카테고리2">부서일정</option>
-                                    <option value="카테고리3">회사전체일정</option>
+                                    <!-- <option value="카테고리2">부서일정</option>
+                                    <option value="카테고리3">회사전체일정</option> -->
                                    
                                 </select>
                             </div>
                         </div>
-                        <div class="row">
+                         <div class="row">
                             <div class="col-xs-12">
                                 <label class="col-xs-4" for="edit-color">색상</label>
                                 <select class="inputModal" name="color" id="edit-color">
@@ -134,26 +137,26 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
-        <div class="panel panel-default">
+        <!-- <div class="panel panel-default">
 
             <div class="panel-heading">
                 <h3 class="panel-title">필터</h3>
             </div>
 
-            <div class="panel-body">
+             <div class="panel-body">
 
                 <div class="col-lg-6">
                     <label for="calendar_view">구분</label>
                     <div class="input-group">
                         <select class="filter" id="type_filter" multiple="multiple">
-                            <option value="카테고리1">내일정</option>
-                            <option value="카테고리2">부서일정</option>
-                            <option value="카테고리3">회사전체일정</option>
+                            <option value="1">내일정</option>
+                            <option value="2">부서일정</option>
+                            <option value="3">회사전체일정</option>
                         </select>
                     </div>
                 </div>
 
-                <div class="col-lg-6">
+               <div class="col-lg-6">
                     <label for="calendar_view">등록자별</label>
                     <div class="input-group">
                         <label class="checkbox-inline"><input class='filter' type="checkbox" value="정연"
@@ -167,10 +170,10 @@
                         <label class="checkbox-inline"><input class='filter' type="checkbox" value="지효"
                                 checked>지효</label>
                     </div>
-                </div>
+                </div> 
 
             </div>
-        </div>
+        </div> -->
         <!-- /.filter panel -->
     </div>
     <!-- /.container -->
@@ -186,6 +189,7 @@
     <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/js/addEvent.js"></script>
     <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/js/editEvent.js"></script>
     <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/js/etcSetting.js"></script>
+  <%--    <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/data.json"></script> --%>
 
 <%-- 	<jsp:include page="../common/footer.jsp" />--%>
 </body>

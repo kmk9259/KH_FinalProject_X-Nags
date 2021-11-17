@@ -1,10 +1,12 @@
 package com.kh.spring.schedule.model.dao;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.kh.spring.employee.model.vo.Employee;
-import com.kh.spring.member.model.vo.Member;
+import com.kh.spring.schedule.model.vo.ConvertScheduleVo;
 import com.kh.spring.schedule.model.vo.Schedule;
 
 @Repository
@@ -15,9 +17,16 @@ public class ScheduleDao {
 		return sqlSession.insert("scheduleMapper.insertSchedule", sc);
 	}
 
-	public Employee selectEmployee(SqlSessionTemplate sqlSession, Member mem) {
+	public ArrayList<Schedule> scheduleMain(SqlSessionTemplate sqlSession, Map<String, String> paramMap) {
 		
-		return sqlSession.selectOne("scheduleMapper.selectEmployee", mem);
+		return (ArrayList)sqlSession.selectList("scheduleMapper.scheduleMain", paramMap);
 	}
+
+//	public Employee selectEmployee(SqlSessionTemplate sqlSession, Member mem) {
+//		
+//		return sqlSession.selectOne("scheduleMapper.selectEmployee", mem);
+//	}
+
+
 
 }

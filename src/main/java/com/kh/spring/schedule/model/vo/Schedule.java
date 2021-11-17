@@ -20,14 +20,15 @@ public class Schedule {
 	private int scheduleNo;
 	private String empId;
 	private String scheduleTitle;
-	private Date scheduleStart;
-	private Date scheduleEnd;
-	private String scheduleDiscription;
+	private String scheduleStart;
+	private String scheduleEnd;
+	private String scheduleDescription;
 	private int scheduleTypeNo;
+	private String scheduleType;
 	private String scheduleBackground;
+	private String scheduleTextcolor;
 	private String scheduleAllDay;
 //	private String scheduleAlarm;
-	
 	private String userName;
 	private String deptName;
 

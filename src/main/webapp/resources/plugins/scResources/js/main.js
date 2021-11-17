@@ -107,14 +107,18 @@ var calendar = $('#calendar').fullCalendar({
   events: function (start, end, timezone, callback) {
     $.ajax({
       type: "get",
-      url: "data.json",
+      url: "mainSelect",
+      async : false,
+      dataType:'json',
+      contentType:'application/json; charset=utf-8',
+      
       data: {
         // 화면이 바뀌면 Date 객체인 start, end 가 들어옴
-        startDate : moment(start).format('YYYY-MM-DD'),
-        endDate   : moment(end).format('YYYY-MM-DD')
+    	 // startDate : moment(start).format('YYYY-MM-DD'),
+    	  //endDate   : moment(end).format('YYYY-MM-DD')
       },
       success: function (response) {
-        var fixedDate = response.map(function (array) {
+        var fixedDate = response.data.map(function (array) {
           if (array.allDay && array.start !== array.end) {
             array.end = moment(array.end).add(1, 'days'); // 이틀 이상 AllDay 일정인 경우 달력에 표기시 하루를 더해야 정상출력
           }
@@ -265,7 +269,7 @@ function getDisplayEventDate(event) {
 }
 
 function filtering(event) {
-  var show_username = true;
+  /*var show_username = true;
   var show_type = true;
 
   var username = $('input:checkbox.filter:checked').map(function () {
@@ -283,7 +287,8 @@ function filtering(event) {
     }
   }
 
-  return show_username && show_type;
+  return show_username && show_type;*/
+	return true;
 }
 
 function calDateWhenResize(event) {
