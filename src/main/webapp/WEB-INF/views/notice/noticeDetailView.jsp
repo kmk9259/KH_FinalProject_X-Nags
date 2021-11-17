@@ -203,7 +203,7 @@
  	            	rlist.push(obj);
  	                  value += "<tr style='background:white; '>"
  	                		 +"<td style = 'text-align : center'>"  + obj.replyNo + "</td>"
- 	                        +"<td style = 'text-align : center'>"  + obj.empId + "</td>" 
+ 	                        +"<td style = 'text-align : center'>"  + obj.userName + "</td>" 
  	                         +"<td  style = 'text-align : center'>" + obj.replyContent + "</td>" 
  	                        + "<td style = 'text-align : center'>" + obj.replyDate + "</td>"; 
  	                                               
@@ -228,7 +228,7 @@
  			if(replyNo == rlist[i].replyNo){
  				$("#replyNo").val(rlist[i].replyNo);
  				$("#updateContent").val(rlist[i].replyContent);
- 				$("#empId").val("익명"); 
+ 				$("#empId").val(rlist[i].userName); 
  				}	
  			}
 		 };

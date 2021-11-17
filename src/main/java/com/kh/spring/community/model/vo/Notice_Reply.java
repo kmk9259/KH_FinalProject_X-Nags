@@ -20,6 +20,6 @@ public class Notice_Reply {
 	private String replyContent;
 	private String empId;
 	private Date replyDate;
-	
+	private String userName;
 	
 }

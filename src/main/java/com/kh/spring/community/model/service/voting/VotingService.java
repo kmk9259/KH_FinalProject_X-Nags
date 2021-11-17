@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.kh.spring.community.model.vo.PageInfo;
 import com.kh.spring.community.model.vo.Voting;
 import com.kh.spring.community.model.vo.VotingA;
+import com.kh.spring.community.model.vo.VotingG;
 
 public interface VotingService {
 
@@ -19,6 +20,14 @@ public interface VotingService {
 	ArrayList<VotingA> selectList2(int bno);
 
 	void votingUpdate(VotingA va);
+
+	ArrayList<VotingG> selectVotingGrant(int bno);
+
+	void votingGrant(VotingG vg);
+
+	ArrayList<VotingG> selectVotingGrant2();
+
+
 
 
 

@@ -20,6 +20,7 @@
     <typeAlias type="com.kh.spring.community.model.vo.Notice" alias="Notice" /> 
     <typeAlias type="com.kh.spring.community.model.vo.Voting" alias="Voting" /> 
     <typeAlias type="com.kh.spring.community.model.vo.VotingA" alias="VotingA" /> 
+    <typeAlias type="com.kh.spring.community.model.vo.VotingG" alias="VotingG" /> 
 	<typeAlias type="com.kh.spring.community.model.vo.Notice_Reply" alias="Notice_Reply" /> 
 	<typeAlias type="com.kh.spring.meetingroom.model.vo.Mrooms" alias="Mrooms" /> 
 	<typeAlias type="com.kh.spring.employee.model.vo.Right" alias="Right"/>
@@ -29,6 +30,7 @@
 	<typeAlias type="com.kh.spring.holiday.model.vo.Holiday" alias="Holiday"/> 
 	<typeAlias type="com.kh.spring.supplies.model.vo.Supplies" alias="Supplies"/>
 	<typeAlias type="com.kh.spring.supplies.model.vo.Sitems" alias="Sitems"/>
+	<typeAlias type="com.kh.spring.supplies.model.vo.Return" alias="Return"/>
    </typeAliases>
 
 

@@ -42,7 +42,7 @@ public class BoardController {
 
 		ArrayList<Board> list = boardService.selectList(pi);
 
-		System.out.println(list + " 리스트");
+		
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		return "board/boardListView";

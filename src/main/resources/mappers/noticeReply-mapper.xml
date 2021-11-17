@@ -8,10 +8,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<resultMap id="noticeReplyResultSet" type="Notice_Reply">
 		<id column="REPLY_NO" property="replyNo" />
-		<result column="BOARD_NO" property="boardNo" />
+		<result column="NOTICE_NO" property="noticeNo" />
 		<result column="REPLY_CONTENT" property="replyContent" />
 		<result column="EMP_ID" property="empId" />
 		<result column="REPLY_DATE" property="replyDate" />
+		<result column="USER_NAME" property="userName" />
 	</resultMap>
 
 	<insert id="insertNoticeReply" parameterType="Notice_Reply">
@@ -23,10 +24,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="selectNoticeReplyList" parameterType="_int"
 		resultMap="noticeReplyResultSet">
-		SELECT *
-		FROM NOTICE_REPLY
-		WHERE NOTICE_NO=#{bno}
-		ORDER BY REPLY_NO DESC
+		SELECT R.REPLY_NO, R.NOTICE_NO, R.EMP_ID, R.REPLY_DATE, R.REPLY_CONTENT,M.USER_NAME
+		FROM NOTICE_REPLY R
+		JOIN MEMBER M ON R.EMP_ID = M.EMP_ID
+		WHERE R.NOTICE_NO=#{bno}
+		ORDER BY R.REPLY_NO DESC
 	
 	</select>
 	<update id = "updateNoticeReply" parameterType="Notice_Reply">

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix = "fmt" uri ="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,10 +29,11 @@
             <br><br>
             <form method = "post" action = "votingAction.vo">
            	<input type = "hidden" name = "votingNo" value = "${v.votingNo}">
+           	<input type = "hidden" name = "empId" value = "${loginUser.empId}">
             <table id="contentArea"  class="table">
              <tr>
                     <th width="100">작성자</th>
-                    <td colspan="3" >${ v.empId }</td>
+                    <td colspan="3" >${ v.userName }</td>
                 </tr>
                 <tr>
                     <th width="100">주제</th>
@@ -44,7 +46,7 @@
                     <td colspan="3"></td>
                 </tr>
                 <tr>
-            	<c:forEach var = "a" items ="${va }">
+            	<c:forEach var = "a" items ="${va}">
             	<tr >
             	
             	<td><input  type = "checkbox" name = "content" value = "${a.content }">${a.content }</td> 
@@ -53,11 +55,18 @@
             	</c:forEach>
                 
                 </tr>
-            </table>
-            <input type = "submit" value = "투표하기">
+            </table>    
+                   
+			 <c:choose>	
+ 		   <c:when test="${result == 1}">
+  			   <b>이미 투표 하셨습니다</b>
+   			 </c:when>	
+  			 <c:otherwise>
+    		<input type = "submit" value = "투표하기">
+  			 </c:otherwise>
+		</c:choose>                  
             </form>         	
-              <br>  
-           
+             <br>           
             <form id="postForm" action="votingResult.vo" method="post">
 			<input type="hidden" name="bno" value="${v.votingNo}">			  
 			<input type = "submit" value = "결과보기"> 

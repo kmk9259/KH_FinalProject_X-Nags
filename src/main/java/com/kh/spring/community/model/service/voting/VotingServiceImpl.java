@@ -6,11 +6,11 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kh.spring.common.exception.CommException;
 import com.kh.spring.community.model.dao.voting.VotingDao;
 import com.kh.spring.community.model.vo.PageInfo;
 import com.kh.spring.community.model.vo.Voting;
 import com.kh.spring.community.model.vo.VotingA;
+import com.kh.spring.community.model.vo.VotingG;
 
 @Service
 public class VotingServiceImpl implements VotingService {
@@ -66,13 +66,28 @@ public class VotingServiceImpl implements VotingService {
 	@Override
 	public void votingUpdate(VotingA va) {
 		int result = votingDao.votingUpdate(sqlSession, va);
-
-		if (result < 0) {
-			throw new CommException("updateVoting 실패");
-		}
+		System.out.println(result + "ㅇㅇㅇresult");
+		
 		
 	}
 
+	@Override
+	public ArrayList<VotingG> selectVotingGrant(int bno) {
+
+		return votingDao.selectVotingGrant(sqlSession, bno);
+		
+	}
+
+	@Override
+	public void votingGrant(VotingG vg) {
+		int result = votingDao.votingGrant(sqlSession, vg);
+		
+	}
+
+	@Override
+	public ArrayList<VotingG> selectVotingGrant2() {
+		return votingDao.selectVotingGrant2(sqlSession);
+	}
 
 
 }

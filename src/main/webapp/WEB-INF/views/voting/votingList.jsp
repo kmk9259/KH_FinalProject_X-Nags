@@ -80,17 +80,25 @@
 							<th>투표 주제</th>
 							<th>작성자</th>
 							<th>작성일</th>
-												
+							<th>투표 여부</th>		
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
 							<c:forEach items="${ list }" var="v">
 								<tr>
-									<td>${v.votingNo }</td>									
+									<td>${v.votingNo}</td>									
 									<td>${ v.votingTitle }</td>
-									<td>${loginUser.userName}</td>
-									<td>${ v.votingDate }</td>									
+									<td>${v.userName}</td>
+									<td>${ v.votingDate }</td>	
+									 <c:choose>	
+	 		 							  <c:when test="${v.result == 1}">
+	  										  <td>이미 투표 하셨습니다</td>
+	   									 </c:when>	
+	  									<c:otherwise>
+							    		<td>투표 가능</td>
+							  			 </c:otherwise>
+									</c:choose>           
 								</tr>
 							</c:forEach>
 
