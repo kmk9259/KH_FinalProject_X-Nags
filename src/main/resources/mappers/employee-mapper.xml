@@ -118,7 +118,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	JOIN JOB J  ON J.JOB_CODE = E.JOB_CODE
 	JOIN DEPARTMENT D ON D.DEPT_CODE = E.DEPT_CODE 
 	JOIN RIGHT R ON R.RIGHT_NO = E.RIGHT_NO
-	WHERE E.EMP_ID = #{empId} AND E.STATUS='Y'
+	WHERE E.EMP_ID = #{empId} 
 	</select>
 	
 	<select id="selectNextEmp" resultType="string">

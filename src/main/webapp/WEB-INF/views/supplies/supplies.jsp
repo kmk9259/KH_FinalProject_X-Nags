@@ -72,12 +72,24 @@ input[type=checkbox]:checked:disabled + label:before {
   border-color: #F7C28F;
 }
 
-#p1{
- border-color: #aaa;
- border : 1px solid black;
- witdh: 100%;
- height: 500px;
+
+.item{
+border : none;
+width: 80px;
+background-color: white;
 }
+.count{
+border : none;
+width: 20px;
+background-color: white;
+}
+#fromDate, #toDate{
+border : none;
+background-color: white;
+resize: vertical;
+width:80px;
+}
+
 
 
 </style>
@@ -119,12 +131,16 @@ input[type=checkbox]:checked:disabled + label:before {
 
 
 				<div class="pd-20 card-box mb-30">
-					<div class="clearfix mb-20">
-						<div class="pull-left">
-							<h4 class="text-blue h4">비품 예약하기</h4>
+						<div class="clearfix mb-20">
+							<div class="pull-left">
+								<h4 class="text-blue h4">비품 예약하기</h4>
+							</div>
 						</div>
-					</div>
+						
+					<form id="enrollForm" method="post" action="insertSup.su">
+					 <input type = "hidden" name = "empId" value = "${loginUser.empId }"> 
 					<div class="row">
+					
 						<div class="col-md-4 col-sm-12 dateRage">
 							
 								<div class="form-group ">
@@ -144,145 +160,125 @@ input[type=checkbox]:checked:disabled + label:before {
 						</div>
 						
 						<script>
-						
-
+	
 
 		                	   $( "#startDate" ).datepicker({
 		                    		dateFormat: "yyyy-mm-dd",
 		                    		minDate: new Date(),
 		                    		language:"kr",
 		                    		todaytHightlight : true
+
+		                   	   });  
+		                	
+		                	
+			                	$( "#endDate" ).datepicker({
+			                		minDate: new Date(),
+		                    		dateFormat: "yyyy-mm-dd",
+		                    		language:"kr",
+		                    		todaytHightlight : true
 		                			
 		                			
 		                    		
-		                    });  
+		                    	});  
 		                	
-		                	
-		                	$( "#endDate" ).datepicker({
-		                		minDate: new Date(),
-	                    		dateFormat: "yyyy-mm-dd",
-	                    		language:"kr",
-	                    		todaytHightlight : true
-	                			
-	                			
-	                    		
-	                    	});  
-		                	
-	                    	
-	                    	
-						
+
 						
 						function input1(){
-					
-							/* var length = $("input[name='supplies']:checked").length;
-							
-							console.log(length) */
 
 							
 	                    	    var startDate = document.getElementById("startDate").value;
 	                    	    var endDate = document.getElementById("endDate").value;
-	                    	    var p1 =document.getElementById("p1");
+	                    	  
+	                    	    var fromDate=document.getElementById("fromDate");
+	                    	    var toDate=document.getElementById("toDate");
 
 	                    	    if ((Date.parse(endDate) <= Date.parse(startDate))) {
 	                    	        alert("반납일은 시작일 이후여야 합니다.");
 	                    	        document.getElementById("endDate").value = "";
 	                    	        
 	                    	    }else{
-	                    	    	p1.innerHTML =startDate + " 부터  " + endDate + " 일 까지" ;
+	                    	    	
+	                    	    	fromDate.value = startDate;
+	                    	    	toDate.value = endDate;
+	                    	    	
 	                    	    }
 	                    	
-	                    	    
-								
-								
+	    
 							
 							} 
 						
-						    
-							/* var count1 = $("input[id='item01']").val();
-							console.log(count1)
-							var count2 = $("input[id='item02']").val();
-							console.log(count2) */
-						
-						
+
+	
 						
 						
 						</script>
 						
-						
-						<!-- private String suppliesCode;
-						private String suppliesName;
-						private int count; -->
+
 						
 						
-						
-						
-						
- 						<div class="col-md-4 col-sm-12">
- 						<fieldset class="outer" > <legend style="color: #1b00ff; font-weight: 700; width: 50%;"> 비품 목록</legend>
+ 						<div class="col-md-4 col-sm-12" style="padding-left: 50px; padding-right: 50px;">
+ 						<!-- <fieldset class="outer" >  -->
+ 						<!-- <legend style="color: #1b00ff; font-weight: 700; width: 50%;"> 비품 목록</legend> -->
+ 						
+ 									<div class="clearfix mb-20">
+										<div class="pull-left">
+											<h4 class="text-blue h4">비품 목록</h4>
+											
+										</div>
+										
+									</div>
+ 						
  						  <c:forEach items="${supList}" var="st" varStatus="status">
  						          <div class="mb-4">
+ 						          		<input type="hidden" id="suppliesCode${status.index +1}" value="${st.suppliesCode }">
 										<input type="checkbox" name="supplies" class="styled-checkbox" id="styled-checkbox-${status.index+1 }" value="${st.suppliesName}">
-										<label for="styled-checkbox-${status.index+1 }"class="it${status.index+1 }">${st.suppliesName} : ${st.count}</label>
+										<label for="styled-checkbox-${status.index+1 }"class="it${status.index+1 }">${st.suppliesName}</label>
 										<div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
 										<span class="input-group-btn input-group-prepend"></span>
-										<input id="item0${status.index +1}" type="text" value="0" name="demo3_22" "class="form-control" style="height: 30px; text-align: center;">
+										<input id="item0${status.index +1}" type="text" value="0" name="count" "class="form-control" style="height: 30px; text-align: center;">
 										<span class="input-group-btn input-group-append">
 										</span></div>
 									</div>
-						 	</c:forEach>
-					
-									
-									<br><br><br><br>
-									<button type="button" class="btn btn-success btn-lg btn-block" onclick="input2()">비품 선택 완료</button>
-									
-							</fieldset>		
+						 	
 								
 								
-								</div>
-								
-								
-								<script >
+								<script>
 								
 								
 								 $(document).ready(function() {
-									$('.styled-checkbox').on('click', function(){
+									$('#styled-checkbox-${status.index+1 }').on('click', function(){
 										if($(this).prop('checked')){
 											
 											var html = "";
-											
+											var count = $("#item0${status.index +1}").val();
 											
 											 html +='<tr>'; 
-											 html +='<td>'+ $(this).val()+ '</td>';
-											 html +='<td>' + $("input[name='demo3_22']").val()+ '</td>';
-											 html +='<td><button type="submit" class="btn btn-primary">삭제</button></td>';
+											 html +='<td  class="it${status.index +1}"><input type="hidden" id="code" name="suppliesCode" value="'+$("#suppliesCode${status.index +1}").val()+'"><input class="item" name="suppliesName" value="'+ $(this).val()+'"readonly/>'+ '</td>';
+											 html +='<td><input class="count" name="counts" value="'+count+'"readonly/>' +  '</td>';
+											/*  html +='<td><button type="submit" class="btn btn-primary">삭제</button></td>'; */
 											 html +='</tr>';
 											 
 											$("#myTable").append(html);
+											
 										}else{
-											
-											if($(".it1").text() == $(this).val()) {
-												var tr = $(this).parent();
+											//console.log($(".it${status.index+1}:eq(1) .item").val())
+											if($(".it${status.index+1}:eq(1) .item").val() === $(this).val()) {
+												var tr = $(".it${status.index+1}:eq(1)").parent();
 												tr.remove();
-											}
-												//alert($(this).val())
-												//alert("각 레이블 이름 값 " + $(".it1").text())
-												//alert($("#myTable tr:eq(1) td:eq(0)").text())
-												var tr = $("#myTable tbody tr:last");
-												tr.remove();
+											} 
+												
 											
 											
 											
-											//var t = $("#myTable").find("td:eq(0)").text();
-											var length = $("#myTable tbody tr").length;
+											
+											/* var length = $("#myTable tbody tr").length;
 											console.log("행 개수 "+length);
 											for(var i =0; i < length; i++ ){
-												//var t = $("#myTable tr:eq(1) td:eq(0)").text();
-												//console.log(i);
+												
 												console.log($("#myTable tr").length)
 												
-												//console.log("찾은 컬럼 명 "+t)
-												//console.log($(this).val())
-											}
+												
+											}  */
 										
 											
 											
@@ -296,47 +292,70 @@ input[type=checkbox]:checked:disabled + label:before {
 								
 								</script>
 								
+								</c:forEach>
+					
+									
+									
+									
+									
+							<!-- </fieldset> -->		
+								
+								
+								</div>
+								
 								
 						
 								
 								<div class="col-md-4 col-sm-12">
-								<p id ="p1" ></p>
 								
 								
-								<div class="pd-20 card-box mb-30">
-					<div class="clearfix mb-20">
-						<div class="pull-left">
-							<h4 class="text-blue h4">비품 예약</h4>
-							<p>선택한 비품 목록</p>
-						</div>
-						
-					</div>
-					<table class="table table-bordered" id="myTable">
-						 <thead>
-							<tr>
 								
-								<th scope="col">비품</th>
-								<th scope="col">개수</th>
-								<th scope="col">삭제</th>
-							</tr>
-						</thead> 
-						<tbody>
-							
-							
-						</tbody>
-					</table>
+								<!-- <div class="pd-20 card-box mb-30"> -->
+									<div class="clearfix mb-20">
+										<div class="pull-left">
+											<h4 class="text-blue h4">비품 예약</h4>
+											<p>선택한 비품 목록</p>
+										</div>
+										
+									</div>
+									
+									<table class="table table-bordered" id="myTable">
+										 <thead>
+										 	<tr>
+												 <th style="vertical-align: center;">예약 날짜</th>
+												<td colspan="" ><input id="fromDate"  name="startDate" readonly >
+												<%-- <input type = "hidden" name = "empId" value = "${loginUser.empId }"> --%></td>
+												
+											</tr>
+											
+											<tr>
+												 <th>반납 날짜</th>
+												<td colspan="" ><input id="toDate"  name="endDate" readonly></td>
+											</tr>
+											<tr>
+												
+												<th scope="col">비품</th>
+												<th scope="col">개수</th>
+												<!-- <th scope="col">삭제</th> -->
+											</tr>
+										</thead> 
+										<tbody>
+											
+											
+										</tbody>
+									</table>
 					
-				</div>
+								<!-- </div> -->
 								
 								
-								<button type="button" class="btn btn-primary btn-lg btn-block" >비품 예약 신청</button>
+								<button type="submit" class="btn btn-primary btn-lg btn-block" >비품 예약 신청</button>
 								</div>
 								
 							
-
-							</div>
 							
+							</div><!-- row end -->
 							
+							</form><!-- form end -->
 										
 							</div>
 
@@ -354,7 +373,7 @@ input[type=checkbox]:checked:disabled + label:before {
 	
 	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/slick/slick.min.js"></script>
 	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
-	<%-- <script src="${ pageContext.servletContext.contextPath }/resources/assets/js/momnet-locale-ko.js"></script> --%>
+	
 	
 	<script>
 		jQuery(document).ready(function() {
@@ -378,7 +397,7 @@ input[type=checkbox]:checked:disabled + label:before {
 				centerMode: true,
 				focusOnSelect: true
 			});
-			$("input[name='demo3_22']").TouchSpin({
+			$("input[name='count']").TouchSpin({
 				initval: 1
 			});
 		});

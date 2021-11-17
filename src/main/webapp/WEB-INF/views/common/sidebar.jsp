@@ -24,7 +24,7 @@
         
            <a href=""> 
                 <img src="${ pageContext.servletContext.contextPath }/resources/images/logo/logowhite.png" alt="" class="light-logo">
-                <input type="hidden" name="empId" value="${ sessionScope.loginUser.empId }">
+                <input class="test" type="hidden" name="empId" value="${ sessionScope.loginUser.empId }">
                 <input type="hidden" name="userPwd" value="${ sessionScope.loginUser.userPwd }"> 
                 
             </a>
@@ -113,6 +113,7 @@
 							<li><a href="enrollEmp.me">사원 등록 </a></li>
                             <li><a href="listEmp.me">사원 조회 </a></li>
                             <li><a href="supplies.me">비품 예약 </a></li>
+                            <li class="updateSup" type="button"><a>비품 기간 연장 </a></li>
                             <li><a href="return.me">비품 반납 </a></li>
                             <li><a href="meetingRoom.me">회의실 예약 </a></li>
                             
@@ -122,6 +123,20 @@
         	 </div>
       	</div>
    </div> 
+   <script>
+   $(function(){
+	   var test = $(".updateSup a").text()
+	   var empId = $(".test").val();
+	   console.log("empId   " + empId)
+	   console.log(" test " + test)
+	   $(".updateSup a").click(function(){
+		   location.href="updateSupForm.su?empId=" + ${ sessionScope.loginUser.empId }
+	   })
+   })
+   </script>
+ 
+   
+   
 <!--     <script>
     	$(function(){
     		$(".left-side-bar div img").click(function(){

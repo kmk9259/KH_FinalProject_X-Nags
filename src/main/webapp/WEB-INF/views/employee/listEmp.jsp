@@ -20,6 +20,11 @@
 	width: 30px;
 	z-index: 1;
 }
+
+ #employeeAll_paginate,
+#employeeAll_info{
+display: none;
+} 
 </style>
 </head>
 <body>
@@ -37,6 +42,22 @@
 	<div class="main-container" aria-labelledby="headingOne">
 		<div class="pd-ltr-20 xs-pd-20-10">
 			<div class="min-height-200px">
+			
+			<div class="page-header">
+					<div class="row">
+						<div class="col-md-6 col-sm-12">
+							<div class="title">
+								<h4>사원 목록</h4>
+							</div>
+							<nav aria-label="breadcrumb" role="navigation">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="">홈</a></li>
+									<li class="breadcrumb-item active" aria-current="page">사원 목록</li>
+								</ol>
+							</nav>
+						</div>
+					</div>
+				</div>
 
 
 
@@ -50,81 +71,33 @@
 					
 					</div>
 					
-					<div id="DataTables_Table_2_filter" class="dataTables_filter">
-					<label>검색
-					<input type="search" class="form-control form-control-sm" placeholder="Search" aria-controls="DataTables_Table_2">
-					</label>
-					</div><br>
 					
-					
-					
-					<!-- 목적별 선택 -->
-					
-					<div class="d-flex">	                                	
-	                                												
-											<div class="custom-control custom-radio mb-5 ">
-	                                        <input type="radio" name="attList" id="0" value="1" class="custom-control-input">
-	                                        <label class="custom-control-label " for="0">직급별&nbsp;&nbsp;</label>
-	                                    </div>
-																					
-											<div class="custom-control custom-radio mb-5 ">
-	                                        <input type="radio" name="attList" id="1" value="2" class="custom-control-input">
-	                                        <label class="custom-control-label " for="1">권한 순&nbsp;&nbsp;</label>
-	                                    </div>
-																					
-											<div class="custom-control custom-radio mb-5 ">
-	                                        <input type="radio" name="attList" id="2" value="3" class="custom-control-input">
-	                                        <label class="custom-control-label " for="2">부서별&nbsp;&nbsp;</label>
-	                                    </div>
-																					
-											<div class="custom-control custom-radio mb-5 ">
-	                                        <input type="radio" name="attList" id="3" value="4" class="custom-control-input">
-	                                        <label class="custom-control-label " for="3">입사일 기준&nbsp;&nbsp;</label>
-	                                    </div>
-																					
-											<div class="custom-control custom-radio mb-5 ">
-	                                        <input type="radio" name="attList" id="4" value="5" class="custom-control-input">
-	                                        <label class="custom-control-label " for="4">퇴사일 기준&nbsp;&nbsp;</label>
-	                                    </div>
-																					
-											
-																				
-	                                </div>
-					
-					
-					
-					
-					
-					
-					
-	
-					
-					
+
+
 					
 					<div class="table-responsive">
-						<table id="salary" class="table table-striped" style="text-align:center;">
+					
+						<table id="employeeAll" class=" table table-striped hover" style="text-align:center;">
 							<thead>
 								<tr>
-									<!-- <th scope="col">#</th> -->
-									<th scope="col">사원아이디</th>
-									<th scope="col">사원 이름</th>
-									<th scope="col">직급코드</th>
-									<th scope="col">권한</th>
-									<th scope="col">부서</th>
-									<th scope="col">급여등급</th>
-									<th scope="col">입사일</th>
-									<th scope="col">퇴사일</th>
-									<th scope="col">수정하기</th>
+									
+									<th class="table-plus datatable-nosort">사원아이디</th>
+									<th>사원 이름</th>
+									<th>직급코드</th>
+									<th>권한</th>
+									<th>부서</th>
+									<th>급여등급</th>
+									<th>입사일</th>
+									<th>퇴사일</th>
+									<th class="datatable-nosort" rowspan="1" colspan="1" aria-label="수정하기" >수정하기</th>
 								</tr>
 							</thead>
 							<tbody>
-							<c:forEach items="${list }" var="emp">
-							<%-- <form action="" id="postForm" method="post">
-							<input type="hidden" name="empId" value="${emp.empId }">
-							</form> --%>
+							<c:forEach items="${list}" var="emp">
+							
 								<tr> 
 								
-								<td>${emp.empId }</td>
+								<td>${emp.empId } </td>
 								<td>${emp.userName }</td>
 								<td>${emp.jobName }</td>
 								<td>${emp.rightName }</td>
@@ -134,8 +107,8 @@
 								<td><fmt:formatDate pattern="yyyy년 MM월 dd일" value="${emp.endDate }"/></td>
 								<td>
 								
-								
-								<c:if test="${emp.endDate eq null}">
+								<c:choose>
+								<c:when test="${emp.endDate eq null}">
 								<div class="dropdown">
 											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
 												<i class="dw dw-more"></i>
@@ -149,54 +122,89 @@
 												
 											</div>
 								</div>
-								</c:if>
+								</c:when>
 								
+								<c:otherwise>
+								<div class="dropdown">
+											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+												<i class="dw dw-more"></i>
+											</a>
+											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list" style="">
+											
+					
+												<a class="dropdown-item"><i class="dw dw-eye"></i> View</a>
+												
+												
+											</div>
+								</div>
+								</c:otherwise>
+								
+								</c:choose>
 								
 								</td>
 								</tr>
-							
+								
+								
 								</c:forEach>
+								
+
+							
+								
 							</tbody>
 						</table>
 					</div>
+			
 
 				</div><!-- 반응형 테이블 끝 -->
 		
 			<script>
 			$(function() {
-			    /*view*/
-			    var i = $("#salary tbody td:eq(8) .dropdown-menu-icon-list a:eq(0)").text();
+				
+				$('#employeeAll').dataTable({
+					  "bPaginate": false,
+					  "aaSorting": []
+					 });
+				
+				
+			    /*선택 목록이 view*/
+			    var i = $("#employeeAll tbody td:eq(8) .dropdown-menu-icon-list a:eq(0)").text();
 			    console.log(i); 
 			    
-			    
-			    
+			 
+		
 			    /*사원번호*/
-			    var aaa = $("#salary tbody td:eq(0)").text();
+			    var aaa = $("#employeeAll tbody td:eq(0)").text();
 			    console.log(aaa)
 			    
 			     /*사원번호2*/
-			    var bbb = $("#salary tbody tr:eq(1) td:eq(0)").text();
+			    var bbb = $("#employeeAll tbody tr:eq(1) td:eq(0)").text();
 			    console.log(bbb)
 			    
-			    /*사원번호*/
-			    var i1 = $("#salary tbody tr:eq(0) td:eq(8) .dropdown-menu-icon-list a:eq(0)").parent().parent().parent().parent().children().eq(0).text();
-			    console.log(i1);
-			    var i2 = $("#salary tbody tr:eq(1) td:eq(8) .dropdown-menu-icon-list a:eq(0)").parent().parent().parent().parent().children().eq(0).text();
-			    console.log(i2);
-			    var i3 = $("#salary tbody tr:eq(2) td:eq(8) .dropdown-menu-icon-list a:eq(0)").parent().parent().parent().parent().children().eq(0).text();
-			    console.log(i3);
-			    console.log($("#salary tbody tr").length);
+			
 			    
 
 			    
-			    var hh = $("#salary tbody tr").children().eq(0).text();
+			    var hh = $("#employeeAll tbody tr").children().eq(0).text();
 			    console.log("hh " + hh)
+			    
+				/*각각 테이블 tr 별로 for 문으로 인덱스 구해서 새로운 view 클릭 */
+			    
+			   /*  for(var i =0; i<$("#salary tbody tr").length; i++){
+			    	
+			    	$("#salary tbody tr:eq("+i+") td:eq(8) .dropdown-menu-icon-list a:eq(0)").click(function(){
+			    		
+			    		
+			    		location.href="empDetail.me?empId=" +  $(this).parent().parent().parent().parent().children().eq(0).text(); 
+				    });
+			    } */
+			    
+			    
 			    
 			    /*각각 테이블 tr 별로 for 문으로 인덱스 구해서*/
 			    
-			    for(var i =0; i<$("#salary tbody tr").length; i++){
+			    for(var i =0; i<$("#employeeAll tbody tr").length; i++){
 			    	
-			    	$("#salary tbody tr:eq("+i+") td:eq(8) .dropdown-menu-icon-list a:eq(0)").click(function(){
+			    	$("#employeeAll tbody tr:eq("+i+") td:eq(8) .dropdown-menu-icon-list a:eq(0)").click(function(){
 			    		
 			    		
 			    		location.href="empDetail.me?empId=" +  $(this).parent().parent().parent().parent().children().eq(0).text(); 
@@ -205,9 +213,9 @@
 			    
 				/*수정 폼으로 이동 하는 함수*/
 			    
-			    for(var i =0; i<$("#salary tbody tr").length; i++){
+			    for(var i =0; i<$("#employeeAll tbody tr").length; i++){
 			    	
-			    	$("#salary tbody tr:eq("+i+") td:eq(8) .dropdown-menu-icon-list a:eq(1)").click(function(){
+			    	$("#employeeAll tbody tr:eq("+i+") td:eq(8) .dropdown-menu-icon-list a:eq(1)").click(function(){
 			    
 			    		location.href="updateEmpForm.me?empId=" +  $(this).parent().parent().parent().parent().children().eq(0).text();  
 			    		
@@ -217,10 +225,10 @@
 				
 				/*삭제 하는 함수*/
 			    
-			     for(var i =0; i<$("#salary tbody tr").length; i++){
+			     for(var i =0; i<$("#employeeAll tbody tr").length; i++){
 			    	
 			    	
-			    	$("#salary tbody tr:eq("+i+") td:eq(8) .dropdown-menu-icon-list a:eq(2)").click(function(){
+			    	$("#employeeAll tbody tr:eq("+i+") td:eq(8) .dropdown-menu-icon-list a:eq(2)").click(function(){
 			    		/* $("#postForm").attr("action","deleteEmp.me"); */
 			    		location.href="deleteEmp.me?empId=" +  $(this).parent().parent().parent().parent().children().eq(0).text();  
 			    		
@@ -228,6 +236,23 @@
 			    } 
 			    
 			    
+				/* 테이블 정렬 관련 함수 시작 */
+				//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css
+				//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js
+				
+				 
+				/* $('#reset').click( function (e) {
+				    table.colReorder.reset();
+				} ); */
+				
+				 /* $('#employeeAll').DataTable({
+				        searchPanes: {
+				            viewTotal: true
+				        },
+				        dom: 'Plfrtip'
+				    }); */
+				    
+				
 			    
 			});
 			  
@@ -281,30 +306,20 @@
 	</div>
 
 	<!-- ======================================================================= -->
-	
-	<div class="main-container" aria-labelledby="headingOne">
-		<div class="pd-ltr-20 xs-pd-20-10">
-			<div class="min-height-200px">
-	
-	
-	
-	
-			
-				
-				</div>
-				</div>
-				</div>
+
 
 	
 	
 	<!-- js -->
+	<!-- <script src="//code.jquery.com/jquery-1.12.0.min.js"></script> -->
+    
 	
-	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
 	
-	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/jquery.dataTables.min.js"></script>
+	
+<%-- 	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/jquery.dataTables.min.js"></script>
 	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
 	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/dataTables.responsive.min.js"></script>
-	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
+	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/responsive.bootstrap4.min.js"></script> --%>
 	<!-- buttons for Export datatable -->
 	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/dataTables.buttons.min.js"></script>
 	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
