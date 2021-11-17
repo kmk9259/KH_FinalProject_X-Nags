@@ -149,21 +149,9 @@
 									
 				<!-- basic table  End -->
 				
-				<ul>
-		            <li><a href="receiveDetail.ml">보낸메일보기</a></li>
-		            <li><a href="sendDetail.ml">받은메일보기</a></li>
-				</ul>
-				
 				</div>
 				</div>
 				</div>
-				
-				
-            
-            <ul>
-	            <li><a href="sendDetail.ml">보낸메일보기</a></li>
-	            <li><a href="receiveDetail.ml">받은메일보기</a></li>
-			</ul>
 			
 			<script>
 				$(function(){

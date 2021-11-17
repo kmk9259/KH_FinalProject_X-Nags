@@ -45,6 +45,22 @@ public interface ApprovalService {
 
 	void deleteProcessingApproval(int ano);
 
+	int selectProcessedAppListCount(String empId);
+
+	ArrayList<Approval> selectProcessedAppList(PageInfo pi, String empId);
+
+	Approval selectProcessedAppDetail(int ano);
+
+	Holiday selectHoliday(int ano);
+
+	void increaseCount(Holiday hol);
+
+	void deleteHoliday(int ano);
+
+	void deleteProcessedApproval(int ano);
+
+	
+
 	
 
 	/* void insertHoliday(Approval app); */

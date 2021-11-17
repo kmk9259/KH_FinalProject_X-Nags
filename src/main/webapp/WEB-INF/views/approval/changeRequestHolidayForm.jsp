@@ -52,6 +52,7 @@ label {
 							<div class="title">
 								<h4 class="text-blue h4">결재선 지정</h4>
 								<input type="hidden" name="empId" value="${ sessionScope.loginUser.empId }">
+								<input type="hidden" name="appNo" value="${app.appNo}">
 							</div>
 							<div class="form-group">
 								<input class="form-control" type="text" required="required" name="appMid" value="${mid.userName }">
@@ -90,8 +91,7 @@ label {
 							이전 휴가기간 : <fmt:formatDate type="date" dateStyle="long" value="${app.stayDate }"/> - <fmt:formatDate type="date" dateStyle="long" value="${app.endDate }"/>
 							</p>
 							<input class="form-control datetimepicker-range" placeholder="휴가 기간 변경" type="text" name="reDate">
-							<input type="hidden" name="startDate" value="${app.stayDate }">
-							<input type="hidden" name="endDate" value="${app.endDate }">
+
 						</div>
 						
 
@@ -183,13 +183,11 @@ label {
                 	var appDate ="";
                 	$( ".datetimepicker-range" ).datepicker({
                     		dateFormat: "yyyy/mm/dd",
-                    		language:"en",
+                    		language:"ko",
                     		onSelect: function(dateText) {
                     			appDate = dateText
                     	    }
-                    		
                     });  	 
-            			
             	});
                 
                 function selectBox(){

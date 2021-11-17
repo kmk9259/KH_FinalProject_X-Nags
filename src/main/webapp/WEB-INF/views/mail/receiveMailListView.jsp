@@ -162,13 +162,21 @@
 			<script>
 				//상세보기로 넘어가야하는데 체크박스랑 충돌나서 바꾸려는데 잘 안됨,,,
 				$(function(){
+					$(".mailList tbody tr").click(function(){
+						console.log($(".mailList tbody tr").children().eq(1).text());
+						location.href="receiveDetail.ml?mno=" + $(this).children().eq(1).text();
+						
+					});
+				});
+				/* 
+				$(function(){
 					$(".mailList tbody tr").children().eq(5).click(function(){
 						console.log($(".mailList tbody tr").children().eq(1).text());
 						location.href="receiveDetail.ml?mno=" + $(this).children().eq(1).text();
 						
 					});
 				});
-				
+				 */
 				/* $(function(){
 					var table = document.getElementId("mailList").length();
 					

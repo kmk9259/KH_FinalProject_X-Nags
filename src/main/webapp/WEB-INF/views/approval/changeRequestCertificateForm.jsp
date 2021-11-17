@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,13 +53,15 @@ label {
 							<div class="title">
 								<h4 class="text-blue h4">결재선 지정</h4>
 								<input type="hidden" readonly class="form-control-plaintext" name="empId" value="${ sessionScope.loginUser.empId }">
+								<input type="hidden" name="appNo" value="${app.appNo}">
+								
 							</div>
 							<div class="form-group">
-								<input class="form-control" type="text" required="required" name="appMid" placeholder="중간 결제자를 입력해 주세요">
-								<input class="form-control" type="hidden" required="required" >
+								<input class="form-control" type="text" required="required" name="appMid" value="${ mid.userName }">
+								<input class="form-control" type="hidden" required="required" value="${mid.empId }">
 							</div>
-								<input class="form-control" type="text" required="required" name="appFin" placeholder="최종 결재자를 입력해 주세요">
-								<input class="form-control" type="hidden"  required="required">
+								<input class="form-control" type="text" required="required" name="appFin" value="${fin.userName }">
+								<input class="form-control" type="hidden"  required="required" value="${finempId }">
 							</div>
 						</div>
 					</div>
@@ -75,27 +79,50 @@ label {
 					
 						<div class="form-group">
 							<select class="custom-select col-6" name="category">
-								<option selected>증명서 선택</option>
-								<option value="4">재직증명서</option>
-								<option value="5">급여명세서</option>
-								<option value="6">기타</option>
+								<option>증명서 선택</option>
+								<c:choose>
+									<c:when test="${app.category eq 4 }">
+										<option value="4" selected="selected">재직증명서</option>
+										<option value="5">급여명세서</option>
+										<option value="6">기타</option>
+									</c:when>
+									<c:when test="${app.category eq 5 }">
+										<option value="4">재직증명서</option>
+										<option value="5" selected="selected">급여명세서</option>
+										<option value="6">기타</option>
+									</c:when>
+									<c:otherwise>
+										<option value="4">재직증명서</option>
+										<option value="5">급여명세서</option>
+										<option value="6" selected="selected">기타</option>
+									</c:otherwise>
+								</c:choose>
+								
 							</select>
 						</div>
 						
 						<div class="form-group">
-							<input class="form-control date-picker" name="date" placeholder="기안일 지정" type="text" required="required">
+							<p>이전 기안일 : <fmt:formatDate type="date" dateStyle="long" value="${app.endDate }"/> </p>
+							<input class="form-control date-picker" name="reDate" placeholder="기안일 변경" type="text">
 						</div>
 						
 
 						<div class="form-group">
-							<input class="form-control" type="text" name="title" required="required" placeholder="제목을 입력해주세요.">
+							<input class="form-control" type="text" name="title" required="required" value="${app.title }">
 						</div>
 						<div class="form-group">
-							<input type="file" class="form-control-file form-control height-auto" name="uploadFile">
+							<input type="file" class="form-control-file form-control height-auto" name="reUploadFile">
+							<c:if test="${!empty app.originName }">
+								현재 첨부된 파일 : ${app.originName } <br>
+	                            <input type="hidden" name="changeName" value="${ app.changeName }">
+	                            <input type="hidden" name="originName" value="${ app.originName }">
+							</c:if>
 						</div>
 						
 						<div class="form-group">
-							<textarea class="textarea_editor form-control border-radius-0" name="content" required="required" placeholder="내용을 입력해주세요."></textarea>
+							<textarea class="textarea_editor form-control border-radius-0" name="content" required="required">
+								${app.content }
+							</textarea>
 						</div>
 						<div class="clearfix">
 							<div class="pull-right">
@@ -167,7 +194,7 @@ label {
                 	var appDate ="";
                 	$( ".date-picker" ).datepicker({
                     		dateFormat: "yyyy/mm/dd",
-                    		language:"en",
+                    		language:"ko",
                     		onSelect: function(dateText) {
                     			appDate = dateText
                     	    }

@@ -9,16 +9,22 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.kh.spring.common.PaginationMail;
 import com.kh.spring.common.exception.CommException;
+import com.kh.spring.employee.model.vo.Employee;
 import com.kh.spring.mail.model.service.MailService;
 import com.kh.spring.mail.model.vo.Mail;
 import com.kh.spring.mail.model.vo.PageInfo;
@@ -32,7 +38,8 @@ public class MailController {
 
 	// 메일 작성 폼 열기
 	@RequestMapping("insertForm.ml")
-	public String insertMailForm() {
+	public String insertMailForm(Model m) {
+		
 		return "mail/mailInsertForm";
 	}
 
@@ -74,10 +81,8 @@ public class MailController {
 			file.transferTo(new File(savePath + changeName));
 
 		} catch (IllegalStateException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new CommException("file upload error");
-			// 에러가 났을 때 업로드를 시킬건지 말지 설계 시 결정
 		}
 
 		return changeName;
@@ -146,7 +151,7 @@ public class MailController {
 		return mv;
 	}
 
-	// 받은메일함에서 휴지통으로
+	// 받은메일함 리스트에서 휴지통으로
 	@RequestMapping("wasteCheckedReceiveMail.ml")
 	public ModelAndView wasteReceiveMail(ModelAndView mv, HttpServletRequest request,
 			@RequestParam(name = "checkList") String checkList) {
@@ -160,7 +165,6 @@ public class MailController {
 			for (int i = 0; i < list.length; i++) {
 
 				mailService.wasteReceiveMail(Integer.parseInt(list[i]));
-
 			}
 		}
 
@@ -190,7 +194,7 @@ public class MailController {
 		return "redirect:sendList.ml";
 	}
 
-	// 보낸메일 전달 화면
+	// 받은,보낸메일 전달 화면
 	@RequestMapping("sendDelivery.ml")
 	public ModelAndView sendDelivery(Mail m, HttpServletRequest request,
 			@RequestParam(name = "mno", required = false) int mno, ModelAndView mv) {
@@ -202,7 +206,7 @@ public class MailController {
 		return mv;
 	}
 
-	// 보낸메일 전달
+	// 받은,보낸메일 전달
 	@RequestMapping("insertSendDelivery.ml")
 	public String insertSendDelivery(Mail m, HttpServletRequest request, HttpSession session,
 			@RequestParam(name = "reUploadFile", required = false) MultipartFile file) {
@@ -247,10 +251,182 @@ public class MailController {
 
 	}
 
-	// 휴지통
+	// 휴지통 리스트
 	@RequestMapping("waste.ml")
-	public String selectWasteMailList() {
+	public String selectWasteMailList(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage, Model model,
+										HttpServletRequest request) {
+		
+		Member mem = (Member) request.getSession().getAttribute("loginUser");
+
+		int listCount = mailService.selectWasteMailListCount(mem.getEmpId());
+
+		PageInfo pi = PaginationMail.getPageInfo(listCount, currentPage, 10, 10);
+
+		ArrayList<Mail> wasteList = mailService.selectWasteMailList(pi, mem.getEmpId());
+
+		model.addAttribute("wasteList", wasteList);
+		model.addAttribute("pi", pi);
+		
 		return "mail/wasteMailListView";
 	}
+	
+	//받은메일에 답장폼
+	@RequestMapping("sendReply.ml")
+	public ModelAndView sendReply(Mail m, HttpServletRequest request,
+			@RequestParam(name = "mno", required = false) int mno, ModelAndView mv) {
 
+		Mail receiveMail = mailService.selectReceiveMail(mno);
+
+		mv.addObject("receiveMail", receiveMail).setViewName("mail/replyForm");
+
+		return mv;
+	}
+	
+	//받은 메일 답장보내기
+	@RequestMapping("insertReply.ml")
+	public String insertReply(Mail m, HttpServletRequest request, HttpSession session,
+								@RequestParam(name = "reUploadFile", required = false) MultipartFile file) {
+
+		if (!file.getOriginalFilename().equals("")) {
+			if (m.getChangeName() != null) {
+				deleteFile(m.getChangeName(), request);
+			}
+
+			String changeName = saveFile(file, request);
+			m.setOriginName(file.getOriginalFilename());
+			m.setChangeName(changeName);
+		}
+
+		mailService.insertReply(m);
+		
+		session.setAttribute("msg","답장을 성공적으로 전송했습니다.");
+
+		return "redirect:sendList.ml";
+	}
+	
+	//받은메일보기에서 휴지통으로 이동
+	@RequestMapping("wasteReceiveMail.ml")
+	public String wasteReceiveMail(@RequestParam(name = "mno") int mno, HttpSession session) {
+
+		mailService.wasteReceiveMail(mno);
+		
+		session.setAttribute("msg","메일을 휴지통으로 이동했습니다.");
+		
+		return "redirect:receiveList.ml";
+
+	}
+	
+	//휴지통메일 보기
+	@RequestMapping("wasteDetail.ml")
+	public ModelAndView selectWasteMail(int mno, ModelAndView mv) {
+
+		Mail m = mailService.selectSendMail(mno);
+
+		mv.addObject("m", m).setViewName("mail/wasteMailDetailView");
+
+		return mv;
+	}
+	
+	//휴지통에서 복구
+	@RequestMapping("returnMail.ml")
+	public String returnMail(int mno, String empId, HttpSession session) {
+
+		Mail m = mailService.selectSendMail(mno);
+		
+		//작성자인경우
+		if(m.getEmpId() == empId) {
+			
+			mailService.returnSendMail(mno);
+			
+			session.setAttribute("msg","메일을 휴지통에서 복구했습니다.");
+			
+			return "redirect:sendList.ml";
+			
+		//수신자인경우
+		}else{
+			
+			mailService.returnReceiveMail(mno);
+			
+			session.setAttribute("msg","메일을 휴지통에서 복구했습니다.");
+			
+			return "redirect:receiveList.ml";
+			
+		}
+	}
+	
+	//휴지통에서 영구삭제
+	@RequestMapping("wasteMail.ml")
+	public String wasteMail(int mno, String empId, HttpSession session) {
+
+		Mail m = mailService.selectSendMail(mno);
+		
+		//작성자인경우
+		if(m.getEmpId() == empId) {
+			
+			//수신자 상태확인
+			if(m.getReceiverStatus() == 3) {
+				
+				mailService.wasteMail(mno);
+				
+			}else {
+				
+				mailService.updateWriter(mno);
+				
+			}
+			
+		//수신자인경우
+		}else{
+			
+			//발신자상태확인
+			if(m.getWriterStatus() == 3) {
+				
+				mailService.wasteMail(mno);
+				
+			}else {
+				
+				mailService.updateReceiver(mno);
+				
+			}
+		}
+		
+		return "redirect:wasteList.ml";
+		
+	}
+	
+	//부서코드로 사원리스트 출력
+	@ResponseBody
+	@RequestMapping(value = "empList.ml", produces="text/plain; charset=UTF-8")
+	public String selectEmployeeList(String deptCode) {
+		
+		ArrayList<Employee> list = mailService.selectEmployeeList(deptCode);
+		
+		System.out.println("list ~~~ " + list);
+		
+		JSONArray jrr = new JSONArray();
+		JSONObject obj = new JSONObject();
+		
+		if(list != null) {
+			for(Employee emp : list) {
+				obj.put("userName", emp.getUserName());
+				obj.put("empId", emp.getEmpId());
+				obj.put("jobName", emp.getJobName());
+				obj.put("rightName", emp.getRightName());
+			 
+				jrr.put(obj);
+		 	}
+		}
+		
+		/*
+		 * Map<String, String> empMap = new HashMap<>();
+		 * 
+		 * empMap.put("userName", String.valueOf(list.get(0)));
+		 */
+		
+		System.out.println("jrr ~~ "+jrr);
+		System.out.println("jrr.toString() ~~ " + jrr.toString());
+		
+		return jrr.toString();
+	}
+		
+	
 }

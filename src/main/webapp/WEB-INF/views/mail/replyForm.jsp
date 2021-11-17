@@ -43,7 +43,7 @@ label {
 							<nav aria-label="breadcrumb" role="navigation">
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="">홈</a></li>
-									<li class="breadcrumb-item active" aria-current="page">보낸 메일 전달</li>
+									<li class="breadcrumb-item active" aria-current="page">메일 답장</li>
 								</ol>
 							</nav>
 						</div>
@@ -54,7 +54,7 @@ label {
 				<!-- 메일 폼 시작 -->
 				<div class="pd-20 card-box mb-30">
 					
-					<form action="insertSendDelivery.ml" method="post"
+					<form action="insertReply.ml" method="post"
 						enctype="multipart/form-data">
 						
 								<input type="hidden" readonly
@@ -80,7 +80,7 @@ label {
 									</div>
 								</div>
 								<br>
-									<input class="form-control" value="FW: ${sendMail.title }" type="text" name="title" required="required" placeholder="메일 제목을 입력해주세요.">
+									<input class="form-control" value="RE: ${receiveMail.title }" type="text" name="title" required="required" placeholder="메일 제목을 입력해주세요.">
 								<br>
 								<br>
 								
@@ -90,10 +90,10 @@ label {
 						</div>
 						<div class="form-group">
 							<input type="file" class="form-control-file form-control height-auto" name="reUploadFile">
-							<c:if test="${!empty sendMail.originName }">
-								현재 첨부된 파일 : ${sendMail.originName } <br>
-	                            <input type="hidden" name="changeName" value="${ sendMail.changeName }">
-	                            <input type="hidden" name="originName" value="${ sendMail.originName }">
+							<c:if test="${!empty receiveMail.originName }">
+								현재 첨부된 파일 : ${receiveMail.originName } <br>
+	                            <input type="hidden" name="changeName" value="${ receiveMail.changeName }">
+	                            <input type="hidden" name="originName" value="${ receiveMail.originName }">
 							</c:if>
 							</div>
 
@@ -101,12 +101,12 @@ label {
 						<div class="form-group">
 							<textarea class="textarea_editor form-control border-radius-0" name="content" required="required">
 								-----Original Message-----<br>
-								From : ${ sendMail.empId }<br>
-								To : ${sendMail.receiver }<br>
-								Sent : ${sendMail.date}<br>
-								Title : ${sendMail.title }<br>
+								From : ${ receiveMail.empId }<br>
+								To : ${receiveMail.receiver }<br>
+								Sent : ${receiveMail.date}<br>
+								Title : ${receiveMail.title }<br>
 								<br>
-								${sendMail.content }
+								${receiveMail.content }
 							
 							</textarea>
 						</div>

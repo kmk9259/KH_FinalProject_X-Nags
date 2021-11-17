@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,14 +17,19 @@
 	width: 100%;
 	margin-bottom: 0;
 }
+.selectReceiver {
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+	width: 100%;
+	margin-bottom: 0;
+}
 
 label {
 	font-weight: bold;
 }
 
-#title {
-	font-weight: bold;
-}
+
 </style>
 
 </head>
@@ -70,7 +76,7 @@ label {
 										name="receiver" required="required" placeholder="받는 사람">
 								</div>
 								<div class="form-group">
-									<button type="button" class="btn btn-primary" data-backdrop="static" data-toggle="modal" data-target="#member-modal">주소록</button>
+									<button type="button" class="btn btn-primary" data-backdrop="static" data-toggle="modal" data-target="#bd-example-modal-lg">주소록</button>
 								</div>
 								<div class="">
 									<div class="custom-control custom-checkbox mb-5">
@@ -117,7 +123,7 @@ label {
 	
 			
 			
-			<div class="modal fade" id="member-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<!-- <div class="modal fade" id="member-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered">
 					<div class="modal-content">
 						<div class="login-box bg-white box-shadow border-radius-10">
@@ -150,9 +156,7 @@ label {
 								<div class="row">
 									<div class="col-sm-12">
 										<div class="input-group mb-0">
-											
-											<input class="btn btn-primary btn-lg btn-block" type="submit" value="선택">
-											
+											<button class="btn btn-primary btn-lg btn-block" type="button" onclick="" value="선택"></button>
 										</div>
 									</div>
 								</div>
@@ -160,13 +164,118 @@ label {
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
+			
+			<div class="modal fade bs-example-modal-lg" id="bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+								<div class="modal-dialog modal-lg">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h4 class="modal-title" id="myLargeModalLabel">받는 사람 선택</h4>
+											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+										</div>
+										
+										
+							<div class="modal-body">
+								<div class="selectReceiver">
+								
+								
+									<div id="deptList">
+										<!-- 
+							            <select class="form-control form-control-lg" name="deptCode" id="selectCode">
+											<option>부서선택</option>
+											<option value="D1">인사관리부</option>
+											<option value="D2">회계관리부</option>
+											<option value="D3">마케팅부</option>
+											<option value="D4">국내영업부</option>
+											<option value="D5">해외영업부</option>
+											<option value="D6">기술지원부</option>
+											<option value="D7">총무부</option>
+										</select> -->
+										<input type="radio" name="deptCode" value="D1"> 인사관리부
+										<input type="radio" name="deptCode" value="D2"> 회계관리부
+										<input type="radio" name="deptCode" value="D3"> 마케팅부
+										<input type="radio" name="deptCode" value="D4"> 국내영업부
+										<input type="radio" name="deptCode" value="D5"> 해외영업부
+										<input type="radio" name="deptCode" value="D6"> 기술지원부
+										<input type="radio" name="deptCode" value="D7"> 총무부
+										
+							            <button id="searchEmp">조회</button>
+									</div>
+									<div id="empList">
+										<table border="1" class="table table-bordered border-primary" id="eList">
+											<thead class="table-primary">
+												<tr>
+													<th></th>
+													<th>이름</th>
+													<th>사번</th>
+													<th>직급</th>
+													<th>권한</th>
+												</tr>
+											</thead>
+											<tbody>
+												
+											</tbody>
+										</table>
+									</div>
+								
+								</div>
+							</div>
+										
+										
+										
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+											<button type="button" class="btn btn-primary">선텍</button>
+										</div>
+									</div>
+								</div>
+							</div>
+
+<script>
+$(function(){
+	$("#searchEmp").click(function(){
+		
+		var deptCode = $("input[name='deptCode']:checked").val();
+		
+		console.log(deptCode);
+		
+		$.ajax({
+			url:"empList.ml",
+			data:{deptCode:deptCode},
+			type:"get",
+			success:function(json){
+				console.log(json);
+				
+				var result = "";
+				if(json.length > 0){
+					$.each(json, function(i, emp){
+						
+						value += "<tr>"
+							  + "<td>" + "<td><input type='checkbox'></td>" + "</td>"
+							  + "<td>" + emp.userName + "</td>"
+							  + "<td>" + emp.empId + "</td>"
+							  + "<td>" + emp.jobName + "</td>"
+							  + "<td>" + emp.rightName + "</td>";
+						
+					});
+					$("tbody#eList").html(result);
+				}
+			},
+			error:function(e){
+				console.log("사원 리스트 조회 ajax 통신 실패");
+			}
+		
+		});
 	
+	});
+	
+});
 
 
-	<jsp:include page="../common/footer.jsp" />
+</script>	
 
 
+<jsp:include page="../common/footer.jsp" />
 
 </body>
 </html>

@@ -44,24 +44,7 @@ label {
 					</div>
 				</div>
 				<form action="insert.ap" method="post" enctype="multipart/form-data">
-				<%-- <div class="page-header">
-					<div class="row">
-						<div class="col-md-6 col-sm-12">
-							<div class="title">
-								<h4>작성자</h4>
-							</div>
-							<div class="form-group">
-							
-							<input type="text" readonly
-								class="form-control-plaintext"
-								value="${ sessionScope.loginUser.userName }">
-								<input type="hidden" readonly
-								class="form-control-plaintext" name="empId"
-								value="${ sessionScope.loginUser.empId }">
-							</div>
-						</div>
-					</div>
-				</div> --%>
+				
 				<div class="page-header">
 					<div class="row">
 						<div class="col-md-6 col-sm-12">
@@ -184,7 +167,7 @@ label {
                 	var appDate ="";
                 	$( ".date-picker" ).datepicker({
                     		dateFormat: "yyyy/mm/dd",
-                    		language:"en",
+                    		language:"ko",
                     		onSelect: function(dateText) {
                     			appDate = dateText
                     	    }
