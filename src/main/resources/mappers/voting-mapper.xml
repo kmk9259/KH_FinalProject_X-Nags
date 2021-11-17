@@ -9,7 +9,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="VOTING_CONTENT" property="votingContent"/>
 		<result column="EMP_ID" property="empId"/>
 		<result column="VOTING_DATE" property="votingDate"/>
-		
+		<result column="VO_CHECK" property="voCheck"/>		
+		<result column="USER_NAME" property="userName"/>
 		
 </resultMap> 
 
@@ -18,7 +19,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<result column="REF_NO" property="refNo"/>
 	<result column="CONTENT" property="content"/>
 	<result column="COUNT" property="count"/>
-		
+
+</resultMap>
+
+<resultMap id="votingGResultSet" type="VotingG">
+	<id column="GNO" property="gno"/>
+	<result column="GREF_NO" property="gRefNo"/>
+	<result column="EMP_ID" property="empId"/>
+	<result column="VGRANT" property="votingGrant"/>
 
 </resultMap>
 
@@ -28,9 +36,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="selectList"   resultMap="votingResultSet" >
-		SELECT *
-		FROM VOTING 
-		ORDER BY VOTING_NO DESC
+		SELECT M.USER_NAME, V.VOTING_NO, V.VOTING_TITLE, V.VOTING_CONTENT, V.EMP_ID, V.VOTING_DATE,
+		V.COUNT
+		FROM VOTING V
+		JOIN MEMBER M ON V.EMP_ID = M.EMP_ID
+		ORDER BY V.VOTING_NO DESC
 	</select>
 
 <insert id = "insertVoting" parameterType="Voting">
@@ -44,10 +54,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	VALUES(VA_SQE.NEXTVAL, VOTING_NO.CURRVAL, #{content},default)
 </insert>
 
-<select id="selectVoting" parameterType="_int" resultMap="votingResultSet" >
-		SELECT *
-		FROM VOTING 
-		WHERE VOTING_NO=#{bno} 	
+<select id="selectVoting" parameterType="_int" resultMap="votingResultSet" >		
+		SELECT M.USER_NAME, V.VOTING_NO, V.VOTING_TITLE, V.VOTING_CONTENT, V.EMP_ID, V.VOTING_DATE,
+		V.COUNT
+		FROM VOTING V
+		JOIN MEMBER M ON V.EMP_ID = M.EMP_ID
+		WHERE V.VOTING_NO=#{bno} 
+		ORDER BY V.VOTING_NO DESC
 	</select>
 	
 	<select id="selectList2" parameterType="_int" resultMap="votingAResultSet" >
@@ -64,4 +77,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	WHERE REF_NO =#{refNo} AND CONTENT=#{content}
 	</update>
 	
+	<insert id = "votingGrant" parameterType="VotingG">
+	INSERT INTO VOTING_GRANT
+	VALUES(VG_NO.NEXTVAL,#{gRefNo}, #{empId},default)
+	</insert>
+	
+	<select id = "selectVotingGrant" parameterType="_int"  resultMap="votingGResultSet" >
+	SELECT *
+	FROM VOTING_GRANT
+	WHERE GREF_NO = #{bno} 
+	</select>
+	
+	<select id = "selectVotingGrant2" resultMap="votingGResultSet" >
+	SELECT *
+	FROM VOTING_GRANT
+	
+	</select>
 </mapper>
