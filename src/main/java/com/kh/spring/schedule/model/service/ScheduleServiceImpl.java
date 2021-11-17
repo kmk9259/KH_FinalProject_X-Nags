@@ -1,13 +1,15 @@
 package com.kh.spring.schedule.model.service;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.spring.common.exception.CommException;
-import com.kh.spring.employee.model.vo.Employee;
-import com.kh.spring.member.model.vo.Member;
 import com.kh.spring.schedule.model.dao.ScheduleDao;
+import com.kh.spring.schedule.model.vo.ConvertScheduleVo;
 import com.kh.spring.schedule.model.vo.Schedule;
 
 @Service
@@ -30,10 +32,18 @@ public class ScheduleServiceImpl implements ScheduleService {
 	}
 
 	@Override
-	public Employee selectEmployee(Member mem) {
-	
-		return scheduleDao.selectEmployee(sqlSession, mem);
+	public ArrayList<Schedule> scheduleMain(Map<String, String> paramMap) {
+		
+		return scheduleDao.scheduleMain(sqlSession, paramMap);
 	}
+
+
+
+//	@Override
+//	public Employee selectEmployee(Member mem) {
+//	
+//		return scheduleDao.selectEmployee(sqlSession, mem);
+//	}
 
 //	@Override
 //	public int updateSchedule(Schedule sc) {

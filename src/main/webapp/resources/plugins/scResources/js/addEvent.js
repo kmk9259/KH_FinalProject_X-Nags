@@ -40,17 +40,17 @@ var newEvent = function (start, end, eventType) {
     $('#save-event').on('click', function () {
     	console.log("함수요");
         var eventData = {
-            _id: "${mem.empId}",
-            title: editTitle.val(),
-            start: editStart.val(),
-            end: editEnd.val(),
-            description: editDesc.val(),
-            type: editType.val(),
-            backgroundColor: editColor.val(),
-           // textColor: '#ffffff',
-            allDay: false,
-            username: "${emp.userName}",
-            deptname: "${emp.deptName}"
+        		empId: empId,
+        		scheduleTitle: editTitle.val(),
+        		scheduleStart: editStart.val(),
+        		scheduleEnd: editEnd.val(),
+        		scheduleDescription: editDesc.val(),
+        		scheduleType: editType.val(),
+        		scheduleBackground: editColor.val(),
+        		scheduleTextcolor: '#ffffff',
+        		scheduleAllDay: 0,
+        		userName: username
+            //deptname: "${emp.deptName}"
         };
         console.log(eventData);
         if (eventData.start > eventData.end) {
@@ -72,7 +72,7 @@ var newEvent = function (start, end, eventType) {
             //DB에 넣을때(선택)
             realEndDay = moment(eventData.end).format('YYYY-MM-DD');
 
-            eventData.allDay = true;
+            eventData.scheduleAllDay = 1;
         }
 
         $("#calendar").fullCalendar('renderEvent', eventData, true);
@@ -84,16 +84,17 @@ var newEvent = function (start, end, eventType) {
         //새로운 일정 저장
         $.ajax({
             type: "post",
-            url: "insert.sc",
-            data: eventData, 
+            url: "insertSchedule",
+            data: JSON.stringify(eventData), 
             dataType: "json",
+            contentType:'application/json; charset=utf-8',
             success: function (response) {
             	console.log(response)
                 //DB연동시 중복이벤트 방지를 위한
-//                $('#calendar').fullCalendar('removeEvents');
-//                $('#calendar').fullCalendar('refetchEvents');
+                $('#calendar').fullCalendar('removeEvents');
+                $('#calendar').fullCalendar('refetchEvents');
             },error:function(e){
-                console.log(" ajax 통신 실패");
+                console.log(" ajax 통신 실패1");
                 console.log(e);
             }
         
