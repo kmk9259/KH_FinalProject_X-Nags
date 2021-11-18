@@ -33,7 +33,6 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void insertBoard(Board b) {
 		int result = boardDao.insertBoard(sqlSession, b);
-
 		if (result < 0) {
 			throw new CommException("게시글 등록 실패");
 		}
@@ -43,13 +42,11 @@ public class BoardServiceImpl implements BoardService {
 	public Board selectBoard(int bno) {
 		Board b = null;
 		int result = boardDao.increaseCount(sqlSession, bno);
-
 		if (result < 0) {
 			throw new CommException("게시글 조회수 증가 실패");
 		} else {
 			b = boardDao.selectBoard(sqlSession, bno);
 		}
-
 		return b;
 	}
 
@@ -61,15 +58,11 @@ public class BoardServiceImpl implements BoardService {
 		}
 	}
 
-
 	@Override
 	public void updateBoard(Board b) {
 		int result = boardDao.updateBoard(sqlSession, b);
-
 		if (result < 0) {
 			throw new CommException("updateBoard 실패");
-		}
-		
+		}		
 	}
-
 }

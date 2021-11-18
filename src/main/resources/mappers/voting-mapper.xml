@@ -93,4 +93,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	FROM VOTING_GRANT
 	
 	</select>
+	
+	<delete id = "deleteVoting1"  parameterType="_int">
+	
+		DELETE FROM VOTING_GRANT
+		WHERE GREF_NO=#{bno}
+	</delete>
+	
+	<delete id = "deleteVoting2"  parameterType="_int">
+	
+		DELETE FROM VOTING_A
+		WHERE REF_NO=#{bno}
+	</delete>
+	
+	<delete id = "deleteVoting3"  parameterType="_int">
+	
+		DELETE FROM VOTING
+		WHERE VOTING_NO=#{bno}
+	</delete>
+	
 </mapper>

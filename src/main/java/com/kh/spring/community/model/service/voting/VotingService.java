@@ -27,6 +27,12 @@ public interface VotingService {
 
 	ArrayList<VotingG> selectVotingGrant2();
 
+	void deleteVoting1(int bno);
+
+	void deleteVoting2(int bno);
+
+	void deleteVoting3(int bno);
+
 
 
 

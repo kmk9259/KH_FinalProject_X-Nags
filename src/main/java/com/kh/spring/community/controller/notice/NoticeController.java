@@ -31,26 +31,19 @@ public class NoticeController {
 
 	@RequestMapping("notice.bo")
 	public String selectList(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
-			Model model) {	
-	
-	
+			Model model) {			
 		int listCount = noticeService.selectListCount();
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
 		ArrayList<Notice> list = noticeService.selectList(pi);
-
 		model.addAttribute("list", list);
-		model.addAttribute("pi", pi);
-		
+		model.addAttribute("pi", pi);		
 		return "notice/noticeListView";
 	}
 
 	@RequestMapping("noticedetail.bo")
 	public ModelAndView selectBoard(int bno, ModelAndView mv) {
-
 		Notice n = noticeService.selectNotice(bno);
-
 		mv.addObject("n", n).setViewName("notice/noticeDetailView");
-
 		return mv;
 	}
 
@@ -60,20 +53,15 @@ public class NoticeController {
 	}
 
 	@RequestMapping("noticeInsert.bo")
-	public String insertBoard(Notice n, HttpServletRequest request, Model model,
+	public String insertBoard(Notice n, HttpServletRequest request,
 			@RequestParam(name = "uploadFile", required = false) MultipartFile file) {
-		System.out.println(n);
-		System.out.println(file.getOriginalFilename());
-
 		if (!file.getOriginalFilename().equals("")) {
 			String changeName = saveFile(file, request);
-
 			if (changeName != null) {
 				n.setOriginFile(file.getOriginalFilename());
 				n.setChangeFile(changeName);
 			}
 		}
-
 		noticeService.insertNotice(n);
 		return "redirect:notice.bo";
 	}
@@ -86,9 +74,7 @@ public class NoticeController {
 
 	@RequestMapping("noticeUpdate.bo")
 	public ModelAndView updateBoard(Notice n, ModelAndView mv, HttpServletRequest request,
-
 			@RequestParam(name = "reUploadFile", required = false) MultipartFile file) {
-
 		if (!file.getOriginalFilename().equals("")) {
 			if (n.getChangeFile() != null) {
 				deleteFile(n.getChangeFile(), request);
@@ -97,7 +83,6 @@ public class NoticeController {
 			n.setOriginFile(file.getOriginalFilename());
 			n.setChangeFile(changeName);
 		}
-
 		if (!file.getOriginalFilename().equals("")) {
 			if (n.getChangeFile() != null) {
 				deleteFile(n.getChangeFile(), request);
@@ -108,7 +93,6 @@ public class NoticeController {
 		}
 		noticeService.updateNotice(n);
 		mv.addObject("bno", n.getNoticeNo()).setViewName("redirect:noticedetail.bo");
-
 		return mv;
 	}
 
@@ -124,34 +108,23 @@ public class NoticeController {
 	private void deleteFile(String fileName, HttpServletRequest request) {
 		String resources = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = resources + "\\upload_files\\";
-		System.out.println("savePath : " + savePath);
-
 		File deleteFile = new File(savePath + fileName);
 		deleteFile.delete();
-
 	}
 
 	private String saveFile(MultipartFile file, HttpServletRequest request) {
 		String resources = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = resources + "\\upload_files\\";
-		System.out.println("savePath : " + savePath);
-
 		String originName = file.getOriginalFilename();
 		String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-
 		String ext = originName.substring(originName.lastIndexOf("."));
-
 		String changeName = currentTime + ext;
-
 		try {
 			file.transferTo(new File(savePath + changeName));
 		} catch (IllegalStateException | IOException e) {
-
 			e.printStackTrace();
 			throw new CommException("File Upload Error");
 		}
 		return changeName;
-	}
-		
-
+	}		
 }

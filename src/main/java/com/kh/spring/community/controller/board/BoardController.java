@@ -34,15 +34,9 @@ public class BoardController {
 	@RequestMapping("list.bo")
 	public String selectList(@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
 			Model model) {
-
 		int listCount = boardService.selectListCount();
-		System.out.println(listCount);
-
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
-
-		ArrayList<Board> list = boardService.selectList(pi);
-
-		
+		ArrayList<Board> list = boardService.selectList(pi);		
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		return "board/boardListView";
@@ -56,37 +50,27 @@ public class BoardController {
 	@RequestMapping("insert.bo")
 	public String insertBoard(Board b, HttpServletRequest request,
 			@RequestParam(name = "uploadFile", required = false) MultipartFile file) {
-		
-
 		if (!file.getOriginalFilename().equals("")) {
 			String changeName = saveFile(file, request);
-
 			if (changeName != null) {
 				b.setOriginFile(file.getOriginalFilename());
 				b.setChangeFile(changeName);
 			}
 		}
-
 		boardService.insertBoard(b);
 		return "redirect:list.bo";
 	}
 
 	private String saveFile(MultipartFile file, HttpServletRequest request) {
 		String resources = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = resources + "\\upload_files\\";
-		System.out.println("savePath : " + savePath);
-
+		String savePath = resources + "\\upload_files\\";		
 		String originName = file.getOriginalFilename();
 		String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-
 		String ext = originName.substring(originName.lastIndexOf("."));
-
 		String changeName = currentTime + ext;
-
 		try {
 			file.transferTo(new File(savePath + changeName));
 		} catch (IllegalStateException | IOException e) {
-
 			e.printStackTrace();
 			throw new CommException("File Upload Error");
 		}
@@ -96,9 +80,7 @@ public class BoardController {
 	@RequestMapping("detail.bo")
 	public ModelAndView selectBoard(int bno, ModelAndView mv) {
 		Board b = boardService.selectBoard(bno);
-
 		mv.addObject("b", b).setViewName("board/boardDetailView");
-
 		return mv;
 	}
 
@@ -115,7 +97,6 @@ public class BoardController {
 		String resources = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = resources + "\\upload_files\\";
 		System.out.println("savePath : " + savePath);
-
 		File deleteFile = new File(savePath + fileName);
 		deleteFile.delete();
 
@@ -129,9 +110,7 @@ public class BoardController {
 
 	@RequestMapping("update.bo")
 	public ModelAndView updateBoard(Board b, ModelAndView mv, HttpServletRequest request,
-
 			@RequestParam(name = "reUploadFile", required = false) MultipartFile file) {
-
 		if (!file.getOriginalFilename().equals("")) {
 			if (b.getChangeFile() != null) {
 				deleteFile(b.getChangeFile(), request);
@@ -140,7 +119,6 @@ public class BoardController {
 			b.setOriginFile(file.getOriginalFilename());
 			b.setChangeFile(changeName);
 		}
-
 		if (!file.getOriginalFilename().equals("")) {
 			if (b.getChangeFile() != null) {
 				deleteFile(b.getChangeFile(), request);
@@ -151,8 +129,6 @@ public class BoardController {
 		}
 		boardService.updateBoard(b);
 		mv.addObject("bno", b.getBoardNo()).setViewName("redirect:detail.bo");
-
 		return mv;
 	}
-
 }

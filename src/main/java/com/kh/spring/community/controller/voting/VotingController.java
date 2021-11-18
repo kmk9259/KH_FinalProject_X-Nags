@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.spring.common.Pagination;
 import com.kh.spring.community.model.service.voting.VotingService;
+import com.kh.spring.community.model.vo.Board;
 import com.kh.spring.community.model.vo.PageInfo;
 import com.kh.spring.community.model.vo.Voting;
 import com.kh.spring.community.model.vo.VotingA;
@@ -30,8 +31,6 @@ public class VotingController {
 			Model model, HttpServletRequest request) {
 		Member m = (Member) request.getSession().getAttribute("loginUser");  
 		int listCount = votingService.selectListCount();
-		System.out.println(listCount);
-
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
 
 		ArrayList<Voting> list = votingService.selectList(pi);		
@@ -44,28 +43,20 @@ public class VotingController {
 					list.get(i).setResult(1);
 				}
 			}
-		}
-		
-		System.out.println(list + " 리스트");
-		model.addAttribute("list", list);
-		
-		model.addAttribute("pi", pi);
-		
-
+		}		
+		model.addAttribute("list", list);		
+		model.addAttribute("pi", pi);		
 		return "voting/votingList";
 	}
 
 	@RequestMapping("enrollVoting.vo")
-	public String enrollForm() {
-		
+	public String enrollForm() {		
 		return "voting/enrollVoting";
 	}
 
 	@RequestMapping("votingInsert.bo")
-	public String insertVoting( Voting v) {
-			
+	public String insertVoting( Voting v) {			
 			votingService.insertVoting(v);
-
 		return "redirect:voting.vo";
 	}
 
@@ -75,12 +66,10 @@ public class VotingController {
 		Voting v = votingService.selectVoting(bno);
 		ArrayList<VotingA> va = votingService.selectList2(bno);
 		ArrayList<VotingG> vg = votingService.selectVotingGrant(bno);
-		System.out.println(vg +"권한");
 		int result = 0;
-		for(int i = 0; i < vg.size(); i++) {
-			
+		for(int i = 0; i < vg.size(); i++) {			
 			if(m.getEmpId().equals(vg.get(i).getEmpId()) && vg.get(i).getVotingGrant() == 1) {
-				result = 1;
+				result = 1;				
 			}	
 		}
 		mv.addObject("v", v);
@@ -95,7 +84,6 @@ public class VotingController {
 	public String votingUpdate(@RequestParam(value = "votingNo") int votingNo,
 								@RequestParam(value = "content") String content,
 								@RequestParam(value = "empId") String empId) {
-
 		 VotingA va = new VotingA();
 		 va.setRefNo(votingNo);
 		 va.setContent(content);
@@ -103,23 +91,24 @@ public class VotingController {
 		 VotingG vg = new VotingG();
 		 vg.setGRefNo(votingNo);
 		 vg.setEmpId(empId);
-		 votingService.votingGrant(vg);
-		 
+		 votingService.votingGrant(vg);		 
 		return "redirect:voting.vo";
 	}
 
 	@RequestMapping("votingResult.vo")
 	public ModelAndView votingResult(@RequestParam(value = "bno") int bno, ModelAndView mv) {				
-		
-		System.out.println(bno + "222번호");	
 		Voting v = votingService.selectVoting(bno);
-		ArrayList<VotingA> va = votingService.selectList2(bno);
-		
+		ArrayList<VotingA> va = votingService.selectList2(bno);		
 		mv.addObject("v", v).setViewName("voting/resultPage");
-		mv.addObject("va",va).setViewName("voting/resultPage");
-	
+		mv.addObject("va",va).setViewName("voting/resultPage");	
 		return mv;
 	}
 	
-	
+	@RequestMapping("deleteVoting.vo")
+	public String deleteBoard(int bno) {
+		votingService.deleteVoting1(bno);
+		votingService.deleteVoting2(bno);
+		votingService.deleteVoting3(bno);
+		return "redirect:voting.vo";
+	}	
 }

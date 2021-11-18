@@ -28,20 +28,14 @@ public class Board_ReplyController {
 	@RequestMapping(value = "rlist.bo", produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String selectReplyList(int bno) {
-		System.out.println(bno + "bno");
 		ArrayList<Board_Reply> list = board_ReplyService.selectReplyList(bno);
-		System.out.println(list + "리스트");
-
 		return new GsonBuilder().setDateFormat("yyyy년 MM월 dd일 HH:mm").create().toJson(list);
 	}
 
 	@RequestMapping(value = "updateReply.bo")
 	@ResponseBody
 	public String updateReply(Board_Reply br) {
-
 		int result = board_ReplyService.updateReply(br);
-		System.out.println(br.getReplyNo() + "댓글번호");
-		System.out.println(result + "ffff");
 		return String.valueOf(result);
 	}
 
@@ -49,7 +43,6 @@ public class Board_ReplyController {
 	@ResponseBody
 	public String deleteReply(Board_Reply br) {
 		int result = board_ReplyService.deleteReply(br);
-		System.out.println(result + "ffff");
 		return String.valueOf(result);
 	}
 }

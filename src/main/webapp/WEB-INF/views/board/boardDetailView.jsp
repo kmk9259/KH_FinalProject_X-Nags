@@ -69,11 +69,16 @@
 					
 					if(num == 1){
 						postForm.attr("action", "updateForm.bo");
+						postForm.submit();
 					}else{
-						postForm.attr("action", "delete.bo");
-					}
-					postForm.submit();
-					
+						if(confirm("정말 삭제하시겠습니까?") == true){
+							postForm.attr("action", "delete.bo");
+							postForm.submit();
+							alert("삭제되었습니다");
+						}else{
+							return;
+							}					
+						}				
 					}
 				</script>
             </c:if> 
@@ -264,20 +269,26 @@
  	
  	function deleteReply(replyNo){
  		console.log(replyNo);
- 		$.ajax({
- 			url:"deleteReply.bo",
- 			type:"get",
- 			data:{replyNo:replyNo},
- 			success :function(result){
- 				if(result > 0){
- 					alert("삭제성공");
- 					selectReplyList();
- 				}else{
- 					alert("삭제 실패");
- 				}
- 			}
- 		});
+ 		if(confirm("정말 삭제하시겠습니까?") == true){
+ 			$.ajax({
+	 			url:"deleteReply.bo",
+	 			type:"get",
+	 			data:{replyNo:replyNo},
+	 			success :function(result){
+	 				if(result > 0){	
+	 						alert("삭제되었습니다");
+		 					selectReplyList();				 									
+	 				}else{
+	 					alert("삭제 실패");
+	 				}
+	 			}
+	 		});
+ 		}else{
+ 			return;
+ 		}		 			
  	}
+ 	
+	
     </script>
     <jsp:include page="../common/footer.jsp"/>
 </body>

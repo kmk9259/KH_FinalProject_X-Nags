@@ -53,8 +53,6 @@ public class VotingDao {
 		return (ArrayList)sqlSession.selectList("votingMapper.selectList4",bno);
 	}
 
-
-
 	public int votingGrant(SqlSessionTemplate sqlSession, VotingG vg) {
 		return sqlSession.insert("votingMapper.votingGrant",vg);
 	}
@@ -67,5 +65,16 @@ public class VotingDao {
 		return (ArrayList)sqlSession.selectList("votingMapper.selectVotingGrant2");
 	}
 
+	public int deleteVoting1(SqlSessionTemplate sqlSession, int bno) {
+		return sqlSession.delete("votingMapper.deleteVoting1",bno);
+	}
+
+	public int deleteVoting2(SqlSessionTemplate sqlSession, int bno) {
+		return sqlSession.delete("votingMapper.deleteVoting2",bno);
+	}
+
+	public int deleteVoting3(SqlSessionTemplate sqlSession, int bno) {
+		return sqlSession.delete("votingMapper.deleteVoting3",bno);
+	}
 	
 }

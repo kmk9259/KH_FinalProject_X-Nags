@@ -25,6 +25,4 @@ public class Notice_ReplyDao {
 	public int deleteNoticeReply(SqlSessionTemplate sqlSession, Notice_Reply nr) {
 		return sqlSession.delete("noticeReplyMapper.deleteNoticeReply",nr);
 	}
-
-	
 }
