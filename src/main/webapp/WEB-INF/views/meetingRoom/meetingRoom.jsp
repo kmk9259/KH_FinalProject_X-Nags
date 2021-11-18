@@ -76,10 +76,16 @@ input[type=checkbox]:checked:disabled + label:before {
  border-color: #aaa;
  border : 1px solid black;
  witdh: 100%;
- height: 500px;
+ height: 100px;
 }
 .toggle btn .btn-primary{
 height: 40px;
+}
+
+#fromTime, #toTime, #fromDate{
+/* border : none; */
+resize: vertical;
+width:120px;
 }
 
 </style>
@@ -155,13 +161,13 @@ height: 40px;
 						<div class="col-sm-4 col-sm-12">
 							<div class="form-group">
 								<label>시작 시간</label>
-								<input class="timepicker text-center form-control" >
+								<input class="timepicker text-center form-control" id="startTime">
 							</div>
 						</div>
 						<div class="col-sm-4 col-sm-12">
 							<div class="form-group">
 								<label>마침 시간</label>
-								<input class="timepicker text-center form-control" >
+								<input class="timepicker text-center form-control" id="endTime" >
 							</div>
 						</div>
 						
@@ -188,9 +194,10 @@ height: 40px;
 								dynamic: false,
 							    dropdown: true,
 							    scrollbar: true,
-							    /* data-show-2400="true" */
-							    
+
 						    });
+						    
+						   
 						   
 						});
 						
@@ -219,15 +226,22 @@ height: 40px;
 						function input1(){
 							
 							var startDate = document.getElementById("startDate").value;
+							var startTime = document.getElementById("startTime").value;
+							var endTime = document.getElementById("endTime").value;
 							
-							console.log(startDate)
+							var fromDate = document.getElementById("fromDate");
+							var fromTime = document.getElementById("fromTime");
+							var toTime = document.getElementById("toTime");
 							
-							//var p1 =document.getElementById("p1");
+							console.log(startDate);
+							console.log(startTime);
+							console.log(endTime);
 							
-							//p1.innerHTML =endDate + " 부터  " + startDate + " 일 까지" ;
+							fromDate.value = startDate;
+							fromTime.value = startTime;
+							toTime.value = endTime;
+							
 
-
-							
 							} 
 						
 						    
@@ -235,20 +249,15 @@ height: 40px;
 						
 						</script>
 						
-						
-						
-						
- 						 
- 						
-			 						                              	
+    	
 				                                												
 									<div class="col-md-4 col-sm-12">
 									<c:forEach items="${mrooms }" var="mr" varStatus="status">
 									    <div class="col-sm-12" >
 										<h4 class="text-gray h5 roomName${status.index }" style="display: inline-block; margin-right: 30px;" >   ${mr.roomName}</h4>
-										 <button type="button"  id="unavailable${status.index }" class="btn btn-success btn-opt" style="magrin-bottom: auto; display: none;">선택 됨</button>
+										 <button type="button"  id="using${status.index }" class="btn btn-success btn-opt selected" style="magrin-bottom: auto; display: none;" name="selected">선택 됨</button>
 										 
-										 <button type="button" id="use${status.index }" class="btn btn-outline-success">사용 가능</button>
+										 <button type="button" id="open${status.index }" class="btn btn-outline-success">사용 가능</button>
 										</div> <br>
 										
 										
@@ -256,19 +265,60 @@ height: 40px;
 												$(document).ready(function(){
 													
 													
-													$("#use${status.index }").click(function(){
-														$("#unavailable${status.index }").show();
-														$("#use${status.index }").hide();
+												// $("#myTable tbody tr").length
+												// console.log("tr 길이 "+$("#myTable tbody tr").length)
+													
+												   $("#open${status.index }").click(function(){
+														
+													   $("#using${status.index }").show();
+														$("#open${status.index }").hide();
 														var result = $(".roomName${status.index }").text();
 														 
 														 console.log(result);
 														 
+														 if($("#myTable tbody tr").length > 0){
+															 alert("이미 회의실을 선택하셨습니다.")
+															 
+														 }else{
+															 
+															 if($("#open${status.index}").css('display') === 'none'){
+																 var html ="";
+																 var mRoomName = $(".roomName${status.index }").text();
+																 
+																 html +='<tr>';
+																 html +='<td colspan="2">' + mRoomName + '</td>';
+																 html +='</tr>';
+																 
+																 $("#myTable").append(html);
+																
+																 console.log("tr 길이 "+$("#myTable tbody tr").length)
+															 }else if($("#using${status.index}").css('style.display') === 'none') {
+																 alert("취소됨?")
+																 
+															 }
+													 
+														 }
+																
+											
 													})
 													
-													$("#unavailable${status.index }").click(function(){
-														$("#use${status.index }").show();
-														$("#unavailable${status.index }").hide();
-													})
+													  $("#using${status.index }").click(function(){
+														$("#open${status.index }").show();
+														$("#using${status.index }").hide();
+														
+														$("#myTable tbody tr:eq(0)").remove();
+													})  
+													
+													
+													
+													 /* if($("#myTable tbody tr").length > 0){
+														 alert("이미 회의실을 선택하셨습니다.")
+													 }else{
+														
+													 }  */
+													
+													
+													
 												})
 												
 												</script>
@@ -281,86 +331,49 @@ height: 40px;
 									
 							        </div>
 												
-												
-												
-												
-						<script>
-						
-						
-								
-								function input2(){
-									
-									$("input[name='demo3_22']").each(function(e){
-										console.log($(this).val())
-										var count = $(this).val();
-										
-										if(count >0) {
-											var p1 =document.getElementById("p1");
-											p1.innerHTML += count + " 갯수" ;
-										}
-										
-										
-										
-									})
-									
-									
-								 	if ($('input[name="supplies"]').is(':checked') == true) {
-										
-								 		 $("input[name='supplies']:checked").each(function(e){
-											console.log($(this).val())
-											var items = $(this).val();
-											var p1 =document.getElementById("p1");
-											
-											p1.innerHTML += items ;
-											
-										}) 
-									
-								 
-										
-								 	}
-								}
-								
-								</script>
-								
-								
+
 						
 								
 								<div class="col-md-4 col-sm-12">
-								<p id ="p1" ></p>
+								
 								
 								
 								<div class="pd-20 card-box mb-30">
 					<div class="clearfix mb-20">
 						<div class="pull-left">
-							<h4 class="text-blue h4">비품 예약</h4>
-							<p>선택한 비품 목록</p>
+							<h4 class="text-blue h4">회의실 예약</h4>
+							<p>선택한 회의실 정보</p>
 						</div>
 						
 					</div>
-					<table class="table table-bordered">
-						<thead>
-							<tr>
-								<th scope="col">#</th>
-								<th scope="col">비품</th>
-								<th scope="col">갯수</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<th scope="row">1</th>
-								<td>Mark</td>
-								<td>Otto</td>
-								
-							</tr>
-							
-							
-						</tbody>
-					</table>
+									<table class="table table-bordered" id="myTable">
+									 <thead>
+										<tr>
+										<th style="vertical-align: center;">예약 날짜</th>
+										<td colspan="" ><input id="fromDate"  name="startDate" readonly ></td>
+										</tr>
+															
+										<tr>
+										<th>시간</th>
+										<td colspan="" >
+										<input id="fromTime"  name="fromTime" readonly> - 
+										<input id="toTime"  name="toTime" readonly></td>
+										</tr>
+										<tr>
+																
+											<th colspan="2" style="text-align: center;">회의실</th>			
+										</tr>
+									</thead> 
+									<tbody>
+															
+															
+									</tbody>
+									</table>
 					
 				</div>
 								
 								
-								<button type="button" class="btn btn-primary btn-lg btn-block" >비품 예약 신청</button>
+								<button type="button" class="btn btn-primary btn-lg btn-block" >회의실 예약</button>
 								</div>
 								
 							
