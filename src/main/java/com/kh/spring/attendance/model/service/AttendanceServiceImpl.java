@@ -81,6 +81,22 @@ public class AttendanceServiceImpl implements AttendanceService {
 		}		
 	}
 
+	@Override
+	public void updateMonth(Employee emp) {
+		int result = attendanceDao.updateMonth(sqlSession, emp);
+		if(result < 0) {
+			throw new CommException("근태 수정 실패");
+		}
+	}
+
+	@Override
+	public void deleteMonth(int attNo) {
+		int result = attendanceDao.deleteMonth(sqlSession, attNo);
+		if(result < 0) {
+			throw new CommException("근태 삭제 실패");
+		}		
+	}
+
 	
 
 	

@@ -216,7 +216,7 @@
                     		onSelect: function(dateText) {
                     			attDate = dateText;
                     	    }                    		
-                    });  delBtn
+                    });  
             		$("#btn").click(function(){            			
             			var right = '${loginEmp.rightName}';
             			var orderBy = $('input[name="item"]:checked').val();
@@ -235,7 +235,6 @@
             						orderBy : orderBy,
             						attStatusNo : attStatusNo
             					},
-            					dataType:"json",
             					success:function(list)
             					{
             						attlist=list;
@@ -270,23 +269,23 @@
             									$('input[name=userName]').attr('value',obj.userName);
             									$('input[name=attDate]').attr('value',obj.attDate);
             									$('input[name=empId]').attr('value',obj.empId);
-            									$('input[name=attNo]').attr('value',obj.attNo);            									
+            									$('input[name=attNo]').attr('value',obj.attNo); 
+            									$("#delBtn").click(function(){                			            			
+                			            			$.ajax({
+                			            				url:"deleteDay.att",
+                		            					type:"post",
+                		            					data:{
+                		            						attNo : obj.attNo,
+                		            						
+                		            					},
+                		            					success:function(){
+                		            						location.replace("attendanceDay.att");
+                		            					}
+                			            				
+                			            			});
+                			            		});
             								}
-            								$("#delBtn").click(function(){ 
-            			            			console.log("zz");
-            			            			$.ajax({
-            			            				url:"deleteDay.att",
-            		            					type:"post",
-            		            					data:{
-            		            						attNo : obj.attNo,
-            		            						
-            		            					},
-            		            					success:function(){
-            		            						console.log("dd");
-            		            					}
-            			            				
-            			            			})
-            			            		});
+            								
                							});         								
         							}else{
 										$.each(list, function(i, obj){

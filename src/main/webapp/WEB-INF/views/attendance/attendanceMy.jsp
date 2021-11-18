@@ -153,7 +153,7 @@
 						},
 						success:function(att){
 							$("#inTime").html(att.attInTime); 
-							if(att.attTime !=null){
+							if(att.attOutTime !=null){
 								$("#outTime").html(att.attOutTime); 
 							}else{
 								$("#outTime").html("아직 퇴근 전입니다."); 
