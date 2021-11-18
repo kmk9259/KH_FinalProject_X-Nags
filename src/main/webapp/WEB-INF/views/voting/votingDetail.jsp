@@ -50,7 +50,7 @@
             	<c:forEach var = "a" items ="${va}">
             	<tr >
             	
-            	<td><input  type = "checkbox" name = "content" value = "${a.content }">${a.content }</td> 
+            	<td><input id = "check" type = "checkbox" name = "content" value = "${a.content }">${a.content }</td> 
             	   	
             	</tr>
             	</c:forEach>
@@ -64,7 +64,7 @@
   			   <b>이미 투표 하셨습니다</b>
    			 </c:when>	
   			 <c:otherwise>
-    		<input type = "submit" value = "투표하기">
+    		<input id = "emptyCheck" type = "submit" value = "투표하기">
   			 </c:otherwise>
 		</c:choose>                  
             </form>         	
@@ -96,8 +96,14 @@
 						}else{
 							return;
 							}					
-						}				
-					
+						}									
+				$("#emptyCheck").click(function(){
+				if (!$("input:checked[id='check']").is(":checked")){ 
+					alert("반드시 하나의 항목은 투표해야합니다");
+					$("#box1").focus(); 
+					return false; 
+					}					
+			    });
 				</script>
             </c:if> 
             <br><br>

@@ -74,7 +74,7 @@
 
 			<div class="pb-20">
 				<table id="boardList" class="data-table table stripe hover nowrap">
-					<thead>
+					<thead class="bg-dark text-white">
 						<tr>
 							<th>글 번호</th>
 							<th>제목</th>
@@ -83,10 +83,10 @@
 							<th>첨부파일</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
+					<tbody  class="bg-light text-dark">
+						<tr >
 							<c:forEach items="${ list }" var="b">
-								<tr>
+								<tr class ="table-warning">
 									<td>${ b.boardNo }</td>
 									<td>${ b.boardTitle }</td>
 									<td>${ b.uploadDate }</td>
