@@ -21,10 +21,10 @@
 	z-index: 1;
 }
 
- #employeeAll_paginate,
+/*  #employeeAll_paginate,
 #employeeAll_info{
 display: none;
-} 
+}  */
 </style>
 </head>
 <body>
@@ -72,12 +72,14 @@ display: none;
 					</div>
 					
 					
+					
+					
 
 
 					
 					<div class="table-responsive">
 					
-						<table id="employeeAll" class=" table table-striped hover" style="text-align:center;">
+						<table id="suppliesAll" class=" table table-striped hover" style="text-align:center;">
 							<thead>
 								<tr>
 									<%-- <c:out value="${returnList}"></c:out> --%>
@@ -87,7 +89,7 @@ display: none;
 									<th>비품번호</th>
 									<th>비품코드</th>
 									<th>사원아이디</th>
-									<th>사원 이름</th>
+									<!-- <th>사원 이름</th> -->
 									<th>비품이름</th>
 									<th>갯수</th>
 									<th>예약 일</th>
@@ -95,135 +97,78 @@ display: none;
 									<th class="datatable-nosort"  >반납여부</th>
 								</tr>
 							</thead>
+							
 							<tbody>
+							
 							<c:forEach items="${returnList}" var="rtlist" varStatus="status">
 							
 								<tr> 
 								
-								<td>${ rtlist.reNo} </td>
+								<td class="reNo" value="${ rtlist.reNo}">${ rtlist.reNo} </td>
 								<td>${ rtlist.suppliesNo}</td>
 								<td>${ rtlist.suppliesCode}</td>
 								<td>${ rtlist.empId}</td>
-								<td>${ rtlist.empId}</td>
+								<%-- <td>${ rtlist.empId}</td> --%>
 								<td>${ rtlist.suppliesName}</td>
 								<td>${ rtlist.counts}</td>
 								<td>${ rtlist.startDate}</td>
 								<td>${ rtlist.endDate}</td>
-								<td><button class="btn btn-info">반납</button></td>
+								<td>
+								
+								<c:choose>
+								<c:when test="${rtlist.status eq 'Y'}">
+								<button class="btn btn-info" id="submit${status.index }">반납${status.index }</button>
+								</c:when>
+								<c:otherwise>
+								<button class="btn btn-secondary" disable>반납 됨</button>
+								</c:otherwise>
+								</c:choose>
+								</td>
 								
 								</tr>
-								
-								
+
 								</c:forEach>
 								
-
 							
-								
+							
+							 
 							</tbody>
+							
 						</table>
+						
+						<br><br>
 					</div>
 			
 
 				</div><!-- 반응형 테이블 끝 -->
 		
 			<script>
+			
+			for(var i =0; i< $("#suppliesAll tbody tr").length; i++){
+				$("#submit" + i).click(function(){
+					 console.log($(this).text())
+					 console.log($(this).parent().parent().children(".reNo").text())
+					 //console.log($("#suppliesAll tbody tr:eq(i) td:eq(0)").text())
+					
+					
+					 location.href="returnSup.su?reNo="+$(this).parent().parent().children(".reNo").text();  
+				})
+			}
+			
+			
 			$(function() {
 				
-				$('#employeeAll').dataTable({
-					  "bPaginate": false,
+				
+			
+				
+				$('#suppliesAll').dataTable({
+					  "bPaginate": true,
 					  "aaSorting": []
 					 });
 				
-				
-			    /*선택 목록이 view*/
-			    var i = $("#employeeAll tbody td:eq(8) .dropdown-menu-icon-list a:eq(0)").text();
-			    console.log(i); 
-			    
-			 
-		
-			    /*사원번호*/
-			    var aaa = $("#employeeAll tbody td:eq(0)").text();
-			    console.log(aaa)
-			    
-			     /*사원번호2*/
-			    var bbb = $("#employeeAll tbody tr:eq(1) td:eq(0)").text();
-			    console.log(bbb)
-			    
-			
-			    
 
 			    
-			    var hh = $("#employeeAll tbody tr").children().eq(0).text();
-			    console.log("hh " + hh)
-			    
-				/*각각 테이블 tr 별로 for 문으로 인덱스 구해서 새로운 view 클릭 */
-			    
-			   /*  for(var i =0; i<$("#salary tbody tr").length; i++){
-			    	
-			    	$("#salary tbody tr:eq("+i+") td:eq(8) .dropdown-menu-icon-list a:eq(0)").click(function(){
-			    		
-			    		
-			    		location.href="empDetail.me?empId=" +  $(this).parent().parent().parent().parent().children().eq(0).text(); 
-				    });
-			    } */
-			    
-			    
-			    
-			    /*각각 테이블 tr 별로 for 문으로 인덱스 구해서*/
-			    
-			    for(var i =0; i<$("#employeeAll tbody tr").length; i++){
-			    	
-			    	$("#employeeAll tbody tr:eq("+i+") td:eq(8) .dropdown-menu-icon-list a:eq(0)").click(function(){
-			    		
-			    		
-			    		location.href="empDetail.me?empId=" +  $(this).parent().parent().parent().parent().children().eq(0).text(); 
-				    });
-			    }
-			    
-				/*수정 폼으로 이동 하는 함수*/
-			    
-			    for(var i =0; i<$("#employeeAll tbody tr").length; i++){
-			    	
-			    	$("#employeeAll tbody tr:eq("+i+") td:eq(8) .dropdown-menu-icon-list a:eq(1)").click(function(){
-			    
-			    		location.href="updateEmpForm.me?empId=" +  $(this).parent().parent().parent().parent().children().eq(0).text();  
-			    		
-				    });
-			    }
-				
-				
-				/*삭제 하는 함수*/
-			    
-			     for(var i =0; i<$("#employeeAll tbody tr").length; i++){
-			    	
-			    	
-			    	$("#employeeAll tbody tr:eq("+i+") td:eq(8) .dropdown-menu-icon-list a:eq(2)").click(function(){
-			    		/* $("#postForm").attr("action","deleteEmp.me"); */
-			    		location.href="deleteEmp.me?empId=" +  $(this).parent().parent().parent().parent().children().eq(0).text();  
-			    		
-				    });
-			    } 
-			    
-			    
-				/* 테이블 정렬 관련 함수 시작 */
-				//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css
-				//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js
-				
-				 
-				/* $('#reset').click( function (e) {
-				    table.colReorder.reset();
-				} ); */
-				
-				 /* $('#employeeAll').DataTable({
-				        searchPanes: {
-				            viewTotal: true
-				        },
-				        dom: 'Plfrtip'
-				    }); */
-				    
-				
-			    
-			});
+			}); 
 			  
 
          </script>
@@ -233,11 +178,11 @@ display: none;
 				
 	<!-- 페이징 처리  -->
 	
-	<div id="pagingArea">
+	<%-- <div id="pagingArea">
                 <ul class="pagination">
                 	<c:choose>
                 		<c:when test="${ pi.currentPage ne 1 }">
-                			<li class="page-item"><a class="page-link" href="listEmp.me?currentPage=${ pi.currentPage-1 }">Previous</a></li>
+                			<li class="page-item"><a class="page-link" href="return.me?currentPage=${ pi.currentPage-1 }">Previous</a></li>
                 		</c:when>
                 		<c:otherwise>
                 			<li class="page-item disabled"><a class="page-link" href="">Previous</a></li>
@@ -247,7 +192,7 @@ display: none;
                     <c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
                     	<c:choose>
 	                		<c:when test="${ pi.currentPage ne p }">
-                    			<li class="page-item"><a class="page-link" href="listEmp.me?currentPage=${ p }">${ p }</a></li>
+                    			<li class="page-item"><a class="page-link" href="return.me?currentPage=${ p }">${ p }</a></li>
 	                		</c:when>
 	                		<c:otherwise>
 	                			<li class="page-item disabled"><a class="page-link" href="">${ p }</a></li>
@@ -268,7 +213,7 @@ display: none;
             </div>
             
             <!-- 페이징 처리 끝 --> <br><br><br><br><br>
-				
+				 --%>
 			</div>
 		</div>
 
@@ -280,16 +225,7 @@ display: none;
 	
 	
 	<!-- js -->
-	<!-- <script src="//code.jquery.com/jquery-1.12.0.min.js"></script> -->
-    
-	
-	
-	
-<%-- 	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/jquery.dataTables.min.js"></script>
-	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
-	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/dataTables.responsive.min.js"></script>
-	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/responsive.bootstrap4.min.js"></script> --%>
-	<!-- buttons for Export datatable -->
+
 	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/dataTables.buttons.min.js"></script>
 	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
 	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/buttons.print.min.js"></script>

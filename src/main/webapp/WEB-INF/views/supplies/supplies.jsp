@@ -217,8 +217,8 @@ width:80px;
 						
 						
  						<div class="col-md-4 col-sm-12" style="padding-left: 50px; padding-right: 50px;">
- 						<!-- <fieldset class="outer" >  -->
- 						<!-- <legend style="color: #1b00ff; font-weight: 700; width: 50%;"> 비품 목록</legend> -->
+ 						
+ 						
  						
  									<div class="clearfix mb-20">
 										<div class="pull-left">
@@ -268,17 +268,7 @@ width:80px;
 											} 
 												
 											
-											
-											
-											
-											/* var length = $("#myTable tbody tr").length;
-											console.log("행 개수 "+length);
-											for(var i =0; i < length; i++ ){
-												
-												console.log($("#myTable tr").length)
-												
-												
-											}  */
+
 										
 											
 											
@@ -298,7 +288,7 @@ width:80px;
 									
 									
 									
-							<!-- </fieldset> -->		
+									
 								
 								
 								</div>
@@ -308,9 +298,7 @@ width:80px;
 								
 								<div class="col-md-4 col-sm-12">
 								
-								
-								
-								<!-- <div class="pd-20 card-box mb-30"> -->
+					
 									<div class="clearfix mb-20">
 										<div class="pull-left">
 											<h4 class="text-blue h4">비품 예약</h4>
@@ -344,8 +332,7 @@ width:80px;
 											
 										</tbody>
 									</table>
-					
-								<!-- </div> -->
+
 								
 								
 								<button type="submit" class="btn btn-primary btn-lg btn-block" >비품 예약 신청</button>
@@ -369,8 +356,6 @@ width:80px;
 	<jsp:include page="../common/footer.jsp" />
 	<script src="${ pageContext.servletContext.contextPath }/resources/assets/js/bootstrap-datepicker.js"></script>
 	<script src="${ pageContext.servletContext.contextPath }/resources/assets/js/bootstrap-datepicker.kr.min.js"></script>
-	
-	
 	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/slick/slick.min.js"></script>
 	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
 	

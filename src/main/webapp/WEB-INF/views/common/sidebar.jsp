@@ -125,12 +125,13 @@
    </div> 
    <script>
    $(function(){
-	   var test = $(".updateSup a").text()
-	   var empId = $(".test").val();
-	   console.log("empId   " + empId)
-	   console.log(" test " + test)
+	   var test = $(".updateSup a").text();
+	   var empId = $(".test").text();
+	   console.log("empId   " + empId);
+	   console.log(" test " + test);
+	   
 	   $(".updateSup a").click(function(){
-		   location.href="updateSupForm.su?empId=" + ${ sessionScope.loginUser.empId }
+		   location.href="updateSupForm.su?empId=" + ${ loginUser.empId }
 	   })
    })
    </script>

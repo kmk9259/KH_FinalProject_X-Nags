@@ -86,8 +86,10 @@ height: 40px;
 
 </head>
 
-
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
 <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+<link href="${ pageContext.servletContext.contextPath }/resources/assets/js/bootstrap-datepicker3.css" rel="stylesheet" />
+<link href="${ pageContext.servletContext.contextPath }/resources/assets/js/bootstrap-datepicker3.standalone.css" rel="stylesheet" />
 
 
 <body>
@@ -132,15 +134,18 @@ height: 40px;
 						<div class="col-md-4 col-sm-12">
 							
 								<div class="form-group ">
-									<label>예약 날짜</label> <input class="form-control date-picker"
-										placeholder="Select Date" id="startDate" type="text">
+									<label>예약 날짜</label>
+
+									<input type="text" id="startDate" class="form-control startDate">
+									
+									
 								</div>
 
 								
 		<br><br><br><br>
 						
 						
-				<!-- 	<div class="pd-20 card-box mb-30"> -->
+				
 					<div class="clearfix mb-20">
 						<div class="pull-left">
 							<h4 class="text-blue h4">시간</h4>
@@ -150,13 +155,13 @@ height: 40px;
 						<div class="col-sm-4 col-sm-12">
 							<div class="form-group">
 								<label>시작 시간</label>
-								<input class="form-control time-picker-default" placeholder="time" type="text">
+								<input class="timepicker text-center form-control" >
 							</div>
 						</div>
 						<div class="col-sm-4 col-sm-12">
 							<div class="form-group">
 								<label>마침 시간</label>
-								<input class="form-control time-picker-default" placeholder="time" type="text">
+								<input class="timepicker text-center form-control" >
 							</div>
 						</div>
 						
@@ -172,34 +177,61 @@ height: 40px;
 						</div>
 						
 						<script>
+						$(document).ready(function(){
+						    $('input.timepicker').timepicker({
+						    	timeFormat: 'H:mm p',
+							    interval: 60,
+							    minTime: '10',
+							    maxTime: '18:00',
+							    defaultTime: '10',
+								startTime: '10:00',
+								dynamic: false,
+							    dropdown: true,
+							    scrollbar: true,
+							    /* data-show-2400="true" */
+							    
+						    });
+						   
+						});
+						
+						/* $('.timepicker').timepicker({
+						    timeFormat: 'h:mm p',
+						    interval: 60,
+						    minTime: '10',
+						    maxTime: '6:00pm',
+						    defaultTime: '11',
+						    startTime: '10:00',
+						    dynamic: false,
+						    dropdown: true,
+						    scrollbar: true
+						}); */
+						
+						
+						 $( "#startDate" ).datepicker({
+	                    		dateFormat: "yyyy-mm-dd",
+	                    		minDate: new Date(),
+	                    		language:"kr",
+	                    		todaytHightlight : true
+
+	                   	   }); 
+						
+						
 						function input1(){
 							
 							var startDate = document.getElementById("startDate").value;
-							var endDate = document.getElementById("endDate").value;
-							console.log(startDate)
-							console.log(endDate)
-							var p1 =document.getElementById("p1");
 							
-							p1.innerHTML =endDate + " 부터  " + startDate + " 일 까지" ;
+							console.log(startDate)
+							
+							//var p1 =document.getElementById("p1");
+							
+							//p1.innerHTML =endDate + " 부터  " + startDate + " 일 까지" ;
 
 
 							
 							} 
 						
 						    
-						$(function(){
-		                	var selectDate ="";
-		                	$( ".date-picker" ).datepicker({
-		                    		dateFormat: "yyyy-mm-dd",
-		                    		language:"ko",
-		                    		onSelect: function(dateText) {
-		                    			selectDate = dateText;
-		                    			/* consoloe(selectDate); */
-		                    	    }
-		                    		
-		                    }); 
 						
-						 }); 
 						
 						</script>
 						
@@ -253,6 +285,8 @@ height: 40px;
 												
 												
 						<script>
+						
+						
 								
 								function input2(){
 									
@@ -346,6 +380,11 @@ height: 40px;
 
 	<jsp:include page="../common/footer.jsp" />
 	
+	<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+	<script src="${ pageContext.servletContext.contextPath }/resources/assets/js/bootstrap-datepicker.js"></script>
+	<script src="${ pageContext.servletContext.contextPath }/resources/assets/js/bootstrap-datepicker.kr.min.js"></script>
+<%-- 	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/slick/slick.min.js"></script>
+	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script> --%>
 
 	
 <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>

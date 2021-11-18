@@ -82,20 +82,29 @@ SELECT * FROM RETURN_LIST WHERE EMP_ID=#{empId}
 
 
 
+
 	<select id="selectReSuplist" parameterType="Return" resultMap="ReturnResultSet">
 	SELECT * FROM RETURN_LIST 
 	</select>
 	
-	<update id="updateDate" parameterType="Return">
-	UPDATE RETURN_LIST SET
-	END_DATE = #{endDate} WHERE EMP_ID = #{empId}
-	</update>
 	
 	
-	<update id="updateDateSecond" parameterType="java.util.ArrayList">
+	
+	<update id="updateSupplies" parameterType="java.util.ArrayList">
 	UPDATE RETURN_LIST SET
-	END_DATE = #{endDate} WHERE EMP_ID = #{empId}
+	
+	END_DATE = #{endDate} WHERE RENO = #{reNo}
+	
 	</update>
+	
+	<update id="returnSup" parameterType="_int" >
+	UPDATE RETURN_LIST SET STATUS='N' WHERE RENO = #{reNo}
+	</update>
+	
+	<select id="selectListCount" resultType="_int">
+	SELECT COUNT(*)
+	FROM RETURN_LIST
+	</select>
 	
 	
 </mapper>

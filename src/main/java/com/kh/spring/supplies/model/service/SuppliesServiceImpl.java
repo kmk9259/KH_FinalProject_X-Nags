@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.spring.common.exception.CommException;
+import com.kh.spring.supplies.model.vo.PageInfo;
 import com.kh.spring.member.model.dao.MemberDao;
 import com.kh.spring.member.model.vo.Member;
 import com.kh.spring.supplies.model.dao.SuppliesDao;
@@ -85,24 +86,66 @@ public class SuppliesServiceImpl implements SuppliesService {
 	}
 
 	@Override
+	public Return updateSupplies(Return re) {
+		int result = suppliesDao.updateSupplies(sqlSession, re);
+		
+		System.out.println("임플에 들오오는 객체 형태는? " + re);
+		
+		
+		if (result < 0) {
+			throw new CommException("날짜 연장 실패");
+		}
+		return re;
+	}
+	
+
+	
+	
+
+	@Override
 	public ArrayList<Return> selectReSuplist() {
 		
 		return suppliesDao.selectReSuplist(sqlSession);
 	}
 
 	@Override
+	public void returnSup(int reNo) {
+		int result = suppliesDao.returnSup(sqlSession, reNo);
+		if(result <0) {
+			throw new CommException("비품반납 실패");
+		}
+		
+	}
+
+	@Override
+	public int selectListCount() {
+		// TODO Auto-generated method stub
+		return suppliesDao.selectListCount(sqlSession);
+	}
+
+
+	
+	/*
+	@Override
 	public Return updateDate(Return re) {
-		int result = suppliesDao.updateDateFirst(sqlSession, re);
+		int result = suppliesDao.selectSupList(sqlSession, re);
+		
+		System.out.println("임플에서는 머 ? " +result);
 		
 		if(result >0) {
 			String[] empIdL = re.getEmpId().split(",");
 			for(int i=0; i< empIdL.length; i++) {
+				
+				
+				
 				String empId = re.getEmpId();
-				empId += empIdL[i];
+				empId = empIdL[i];
+				
+				System.out.println("aaa " + empId);
 				
 				ArrayList<Return> reList = new ArrayList<Return>();
 				
-				Return reT = new Return(re.getReNo(),re.getSuppliesNo(),re.getSuppliesCode(), re.getEmpId(), re.getSuppliesName(),re.getCounts(),re.getStartDate(),re.getEndDate(),re.getStatus());
+				Return reT = new Return(re.getReNo(),re.getSuppliesNo(),re.getSuppliesCode(), empId, re.getSuppliesName(),re.getCounts(),re.getStartDate(),re.getEndDate(),re.getStatus());
 				
 				reList.add(reT);
 				
@@ -110,13 +153,13 @@ public class SuppliesServiceImpl implements SuppliesService {
 				
 				reList = suppliesDao.updateDate(sqlSession, reList);
 			}
-		}
+		} 
 		if(result <0) {
 			throw new CommException("날짜 연장 실패 ");
 		}
 		return re;
 	}
-
+*/
 
 
 
