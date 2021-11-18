@@ -30,34 +30,32 @@ public class ScheduleServiceImpl implements ScheduleService {
 		
 		return result;
 	}
+	
+	@Override
+	public int updateSchedule(Schedule sc) {
+		int result = scheduleDao.updateSchedule(sqlSession, sc);
+		
+		if(result < 0 ) {
+			throw new CommException("일정 수정에 실패하였습니다.");
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public int deleteSchedule(Schedule sc) {
+		int result = scheduleDao.deleteSchedule(sqlSession, sc);
+		
+		if(result < 0 ) {
+			throw new CommException("일정 수정에 실패하였습니다.");
+		}
+		
+		return result;
+	}
 
 	@Override
 	public ArrayList<Schedule> scheduleMain(Map<String, String> paramMap) {
 		
 		return scheduleDao.scheduleMain(sqlSession, paramMap);
 	}
-
-
-
-//	@Override
-//	public Employee selectEmployee(Member mem) {
-//	
-//		return scheduleDao.selectEmployee(sqlSession, mem);
-//	}
-
-//	@Override
-//	public int updateSchedule(Schedule sc) {
-//		// TODO Auto-generated method stub
-//		return 0;
-//	}
-//
-//	@Override
-//	public int deleteSchedule(Schedule sc) {
-//		// TODO Auto-generated method stub
-//		return 0;
-//	}
-//	
-	
-	
-
 }

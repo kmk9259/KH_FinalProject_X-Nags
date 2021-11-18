@@ -28,8 +28,8 @@ var empId = '${empId}';
 var username =  '${username}';
 </script>
 
-	<%-- <jsp:include page="../common/menubar.jsp" /> --%>
-
+<%-- 	<jsp:include page="../common/menubar.jsp" /> 
+ --%>
 
 	  <div class="container">
 
@@ -89,17 +89,6 @@ var username =  '${username}';
                                 <input class="inputModal" type="text" name="edit-end" id="edit-end" />
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <label class="col-xs-4" for="edit-type">구분</label>
-                                <select class="inputModal" type="text" name="edit-type" id="edit-type">
-                                    <option value="카테고리1">내일정</option>
-                                    <!-- <option value="카테고리2">부서일정</option>
-                                    <option value="카테고리3">회사전체일정</option> -->
-                                   
-                                </select>
-                            </div>
-                        </div>
                          <div class="row">
                             <div class="col-xs-12">
                                 <label class="col-xs-4" for="edit-color">색상</label>
@@ -121,6 +110,17 @@ var username =  '${username}';
                                 <label class="col-xs-4" for="edit-desc">설명</label>
                                 <textarea rows="4" cols="50" class="inputModal" name="edit-desc"
                                     id="edit-desc"></textarea>
+                            </div>
+                        </div>
+                         <div class="row" style="visibility:hidden;">
+                            <div class="col-xs-12">
+                                <label class="col-xs-4" for="edit-type">구분</label>
+                                <select class="inputModal" type="text" name="edit-type" id="edit-type" value="카테고리1">
+                                    <option value="카테고리1" selected>내일정</option>
+                                    <!-- <option value="카테고리2">부서일정</option>
+                                    <option value="카테고리3">회사전체일정</option> -->
+                                   
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -179,12 +179,17 @@ var username =  '${username}';
     <!-- /.container -->
     
     <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/jquery.min.js"></script>
-    <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/bootstrap.min.js"></script>
-    <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/moment.min.js"></script>
+     <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/bootstrap.min.js"></script>
+     
+  	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/moment.min.js"></script>
+  
     <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/fullcalendar.min.js"></script>
     <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/ko.js"></script>
-    <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/select2.min.js"></script>
     <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/bootstrap-datetimepicker.min.js"></script>
+    
+    
+    <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/select2.min.js"></script>
+     
     <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/js/main.js"></script>
     <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/js/addEvent.js"></script>
     <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/js/editEvent.js"></script>

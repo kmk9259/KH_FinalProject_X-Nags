@@ -29,9 +29,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</resultMap>
 	
 	 <insert id="insertSchedule" parameterType="Schedule" >
-	INSERT INTO SCHEDULE
-	VALUES (SCHEDULE_NO.NEXTVAL, #{empId}, #{scheduleTitle}, #{scheduleStart}, #{scheduleEnd}, #{scheduleDescription}, 
-	#{scheduleType}, #{scheduleBackground},#{scheduleTextcolor} , #{scheduleAllDay})	
+		INSERT INTO SCHEDULE
+		VALUES (SCHEDULE_NO.NEXTVAL, #{empId}, #{scheduleTitle}, #{scheduleStart}, #{scheduleEnd}, #{scheduleDescription}, 
+		#{scheduleType}, #{scheduleBackground},#{scheduleTextcolor} , #{scheduleAllDay})	
+	</insert>
+	
+	<insert id="updateSchedule" parameterType="Schedule" >
+		UPDATE 
+			SCHEDULE
+		SET 
+			EMP_ID = #{empId},
+			SCHEDULE_TITLE = #{scheduleTitle},
+			SCHEDULE_START =  #{scheduleStart},
+			SCHEDULE_END =  #{scheduleEnd},
+			SCHEDULE_DESCRIPTION =  #{scheduleDescription}, 
+			SCHEDULE_TYPE = #{scheduleType}, 
+			SCHEDULE_BACKGROUNDCOLOR = #{scheduleBackground},
+			SCHEDULE_TEXTCOLOR = #{scheduleTextcolor},
+			SCHEDULE_ALLDAY =  #{scheduleAllDay}
+		WHERE
+			1 = 1
+		AND 
+			SCHEDULE_NO = #{scheduleNo}
+	</insert>
+	
+	<insert id="deleteSchedule" parameterType="Schedule" >
+		DELETE FROM SCHEDULE WHERE SCHEDULE_NO = #{scheduleNo}
 	</insert>
 
 	<!-- <select id="selectEmployee" parameterType="Member" resultMap="empResultSet">
@@ -60,8 +83,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			WHERE 
 		        1 = 1
 		        AND EMP_ID = #{empId}
-		   		AND SCHEDULE_START >= #{startDate}
-		        AND SCHEDULE_END < #{endDate}
+		   		AND SCHEDULE_START >= #{scheduleStart}
+		        AND SCHEDULE_END < #{scheduleEnd}
 	        ]]> 
 	</select>
 	

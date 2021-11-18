@@ -3,6 +3,7 @@ package com.kh.spring.schedule.controller;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,18 +57,18 @@ public class ScheduleController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="mainSelect", method=RequestMethod.GET)
-	public ResultVo scheduleMainSelect(Model m, HttpServletRequest request) {
+	@RequestMapping(value="mainSelect", method=RequestMethod.POST)
+	public ResultVo scheduleMainSelect(@RequestBody Schedule sc, Model m, HttpServletRequest request) {
 		Member mem = (Member) request.getSession().getAttribute("loginUser");
-		Calendar cal = Calendar.getInstance();
-		
-		cal.set(Calendar.DAY_OF_MONTH, 1);
-
-		String startDate = getStartDate(cal, sdf);
-		String endDate = getEndDate(cal, sdf);
+//		Calendar cal = Calendar.getInstance();
+//		
+//	
+//		cal.set(Calendar.DAY_OF_MONTH, 1);
+//		String startDate = getStartDate(cal, sdf);
+//		String endDate = getEndDate(cal, sdf);
 		Map<String, String> paramMap = new HashMap<String, String>();
-		paramMap.put("startDate", startDate);
-		paramMap.put("endDate", endDate);
+		paramMap.put("scheduleStart", sc.getScheduleStart());
+		paramMap.put("scheduleEnd", sc.getScheduleEnd());
 		paramMap.put("empId", mem.getEmpId());
 
 		
@@ -154,24 +155,42 @@ public class ScheduleController {
 		return resultVo;
 	}
 	
-//	//일정수정
-//	@ResponseBody
-//	@RequestMapping(value = "update.sc")
-//	public String updateSchedule(Schedule sc) {
-//		int result = scheduleService.updateSchedule(sc);
-//		
-//		return String.valueOf(result);
-//	}
-//	
-//	//일정삭제
-//	@ResponseBody
-//	@RequestMapping(value = "delete.sc")
-//	public String deleteSchedule(Schedule sc) {
-//		int result = scheduleService.deleteSchedule(sc);
-//		
-//		return String.valueOf(result);
-//	}
-//	
+	//일정수정
+	@ResponseBody
+	@RequestMapping(value = "updateSchedule", method=RequestMethod.POST)
+	public ResultVo updateSchedule(@RequestBody Schedule sc) {
+		int result = scheduleService.updateSchedule(sc);
+		ResultVo resultVo = new ResultVo();
+		resultVo.setData(result);
+		if ( result > 0 ) {
+			resultVo.setStatus(HttpStatus.OK);
+		}
+		else {
+			resultVo.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		return resultVo;
+	}
+	
+	//일정수정
+	@ResponseBody
+	@RequestMapping(value = "deleteSchedule", method=RequestMethod.POST)
+	public ResultVo deleteSchedule(@RequestBody Schedule sc) {
+		int result = scheduleService.deleteSchedule(sc);
+		ResultVo resultVo = new ResultVo();
+		resultVo.setData(result);
+		if ( result > 0 ) {
+			resultVo.setStatus(HttpStatus.OK);
+		}
+		else {
+			resultVo.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		return resultVo;
+	}
+		
+	
+
 	
 	public static void main(String[] args) {
 		Calendar cal = Calendar.getInstance();

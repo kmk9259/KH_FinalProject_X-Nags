@@ -16,16 +16,21 @@ public class ScheduleDao {
 		
 		return sqlSession.insert("scheduleMapper.insertSchedule", sc);
 	}
+	
+	public int updateSchedule(SqlSessionTemplate sqlSession, Schedule sc) {
+		
+		return sqlSession.update("scheduleMapper.updateSchedule", sc);
+	}
+	
+	public int deleteSchedule(SqlSessionTemplate sqlSession, Schedule sc) {
+		
+		return sqlSession.delete("scheduleMapper.deleteSchedule", sc);
+	}
 
 	public ArrayList<Schedule> scheduleMain(SqlSessionTemplate sqlSession, Map<String, String> paramMap) {
 		
 		return (ArrayList)sqlSession.selectList("scheduleMapper.scheduleMain", paramMap);
 	}
-
-//	public Employee selectEmployee(SqlSessionTemplate sqlSession, Member mem) {
-//		
-//		return sqlSession.selectOne("scheduleMapper.selectEmployee", mem);
-//	}
 
 
 

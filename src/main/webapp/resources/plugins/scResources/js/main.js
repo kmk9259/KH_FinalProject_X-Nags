@@ -105,18 +105,21 @@ var calendar = $('#calendar').fullCalendar({
    *  일정 받아옴 
    * ************** */
   events: function (start, end, timezone, callback) {
+	var scheduleStart = moment(start).format('YYYY-MM-DD');
+	var scheduleEnd	=  moment(end).format('YYYY-MM-DD');
+	
     $.ajax({
-      type: "get",
+      type: "post",
       url: "mainSelect",
       async : false,
       dataType:'json',
       contentType:'application/json; charset=utf-8',
-      
-      data: {
+      data:JSON.stringify({
         // 화면이 바뀌면 Date 객체인 start, end 가 들어옴
-    	 // startDate : moment(start).format('YYYY-MM-DD'),
-    	  //endDate   : moment(end).format('YYYY-MM-DD')
-      },
+    	  scheduleStart : scheduleStart,
+    	  scheduleEnd : scheduleEnd
+    	  
+      }),
       success: function (response) {
         var fixedDate = response.data.map(function (array) {
           if (array.allDay && array.start !== array.end) {

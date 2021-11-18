@@ -3,6 +3,7 @@
  * ************** */
 var editEvent = function (event, element, view) {
 
+	console.log('scheduleNo : ' + event.scheduleNo);
     $('#deleteEvent').data('id', event._id); //클릭한 이벤트 ID
 
     $('.popover.fade.top').remove();
@@ -53,21 +54,23 @@ var editEvent = function (event, element, view) {
         var startDate;
         var endDate;
         var displayDate;
-
+        var scheduleAllDay = 0;
         if (editAllDay.is(':checked')) {
             statusAllDay = true;
             startDate = moment(editStart.val()).format('YYYY-MM-DD');
             endDate = moment(editEnd.val()).format('YYYY-MM-DD');
             displayDate = moment(editEnd.val()).add(1, 'days').format('YYYY-MM-DD');
+            scheduleAllDay = 1;
         } else {
             statusAllDay = false;
             startDate = editStart.val();
             endDate = editEnd.val();
             displayDate = endDate;
+            scheduleAllDay = 0;
         }
 
         eventModal.modal('hide');
-
+        	
         event.allDay = statusAllDay;
         event.title = editTitle.val();
         event.start = startDate;
@@ -76,49 +79,74 @@ var editEvent = function (event, element, view) {
         event.backgroundColor = editColor.val();
         event.description = editDesc.val();
 
-        $("#calendar").fullCalendar('updateEvent', event);
+       
 
         //일정 업데이트
         $.ajax({
-            type: "get",
-            url: "update.sc",
-            data: {
-            	_id: eventId,
-                title: editTitle.val(),
-                start: editStart.val(),
-                end: editEnd.val(),
-                description: editDesc.val(),
-                type: editType.val(),
-                username: '사나',
-                backgroundColor: editColor.val(),
-                textColor: '#ffffff',
-                allDay: false
-            },
+            type: "post",
+            url: "updateSchedule",
+            data: JSON.stringify({
+            	scheduleNo:event.scheduleNo,
+            	empId: empId,
+        		scheduleTitle: editTitle.val(),
+        		scheduleStart: editStart.val(),
+        		scheduleEnd: editEnd.val(),
+        		scheduleDescription: editDesc.val(),
+        		scheduleType: $('#edit-type > option').val(),
+        		scheduleBackground: editColor.val(),
+        		scheduleTextcolor: '#ffffff',
+        		scheduleAllDay: scheduleAllDay,
+        		userName: username
+            }),
+            dataType: "json",
+            contentType:'application/json; charset=utf-8',
             success: function (response) {
                 alert('수정되었습니다.')
+                //$("#calendar").fullCalendar('updateEvent', event);
+                $('#calendar').fullCalendar('removeEvents');
+                $('#calendar').fullCalendar('refetchEvents');
+            }
+        });
+
+    });
+    
+ // 삭제버튼
+    $('#deleteEvent').on('click', function () {
+        
+        $('#deleteEvent').unbind();
+        $("#calendar").fullCalendar('removeEvents', $(this).data('id'));
+        eventModal.modal('hide');
+
+       
+        //삭제시
+        $.ajax({
+            type: "post",
+            url: "deleteSchedule",
+            data: JSON.stringify({
+            	scheduleNo:event.scheduleNo,
+            }),
+            dataType: "json",
+            contentType:'application/json; charset=utf-8',
+            success: function (response) {
+                alert('삭제되었습니다.');
+                $('#calendar').fullCalendar('removeEvents');
+                $('#calendar').fullCalendar('refetchEvents');
             }
         });
 
     });
 };
 
-// 삭제버튼
-$('#deleteEvent').on('click', function () {
-    
-    $('#deleteEvent').unbind();
-    $("#calendar").fullCalendar('removeEvents', $(this).data('id'));
-    eventModal.modal('hide');
-
-    //삭제시
-    $.ajax({
-        type: "get",
-        url: "delets.sc",
-        data: {
-            
-        },
-        success: function (response) {
-            alert('삭제되었습니다.');
+/*function goAjaxPost(url, data, callback) {
+	$.ajax({
+		url:url,
+		data:data,
+		dataType: "json",
+        contentType:'application/json; charset=utf-8',
+        success:function(response) {
+        	callback(response);
         }
-    });
+	});
+}*/
 
-});
+

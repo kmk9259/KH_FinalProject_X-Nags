@@ -45,7 +45,7 @@ var newEvent = function (start, end, eventType) {
         		scheduleStart: editStart.val(),
         		scheduleEnd: editEnd.val(),
         		scheduleDescription: editDesc.val(),
-        		scheduleType: editType.val(),
+        		scheduleType: $('#edit-type > option').val(),
         		scheduleBackground: editColor.val(),
         		scheduleTextcolor: '#ffffff',
         		scheduleAllDay: 0,
