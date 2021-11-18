@@ -20,39 +20,59 @@
         <div class="innerOuter">
             <h2>게시글 작성하기</h2>
             <br>
-			
+			<div class="html-editor pd-20 card-box mb-30">
 			<!-- 첨부파일도 등록할꺼니깐 Multipart/form-data encType 지정!! -->
             <form id="enrollForm" method="post" action="insert.bo" enctype="multipart/form-data">
              <input type = "hidden" name = "empId" value = "${loginUser.empId }">
-                <table style = "text-align: center">             
+              <div class="form-group">
+     			 <label><b style="font-size : 20px">제목 :</b></label>
+    				  <input style = "height: 40px" type="text" class="form-control" id="check" name="boardTitle">
+   						 </div>
+   						 <div class="form-group">
+     						 <label><b style="font-size : 20px">첨부파일</b></label>
+     			 <input type="file" class="form-control-file border" id="upfile"  name="uploadFile">
+   							 </div>
+                <table style = "text-align: center">                            
                     <tr>
-                        <th><label for="title">제목</label></th>
-                        <td><input type="text" id="title" class="form-control" name="boardTitle" required></td>
+                        <th colspan="2"><label for="content"><b style="font-size : 20px">내용</b></label></th>
                     </tr>
-
-                    <tr>
-                        <th><label for="upfile">첨부파일</label></th>
-                        <td><input type="file" id="upfile" class="form-control-file border" name="uploadFile"></td>
-                    </tr>
-                    <tr>
-                        <th colspan="2"><label for="content">내용</label></th>
-                    </tr>
-                    <tr>
-                        <th colspan="2"><textarea class="form-control" required name="boardContent" id="content" rows="10" style="resize:none;"></textarea></th>
+                     <tr>
+                        <th colspan="2"><textarea id = "contentCheck"class="textarea_editor form-control border-radius-0"  name = "boardContent"  ></textarea>
+                        </th>
                     </tr>
                 </table>
                 <br>
 
                 <div align="center">
-                    <button type="submit" class="btn btn-primary">등록하기</button>
+                    <button type="submit" id = "emptyCheck" class="btn btn-primary">등록하기</button>
                     <button type="reset" class="btn btn-danger">취소하기</button>
                 </div>
             </form>
+            </div>
         </div>
         <br><br>
     </div>
 </div>
+<script>
+$("#emptyCheck").click(function(){
+	if($("#check").val() == ''){
+		alert("제목을 작성해 주세요");
+		return false;
+	}else{
+		return true;
+	}
+})
 
+
+$("#emptyCheck").click(function(){
+	if($("#contentCheck").val() == ''){
+		alert("내용 좀 작성해 주세요");
+		return false;
+	}else{
+		return true;
+	}
+})
+</script>
     <jsp:include page="../common/footer.jsp"/>
 </body>
 </html>

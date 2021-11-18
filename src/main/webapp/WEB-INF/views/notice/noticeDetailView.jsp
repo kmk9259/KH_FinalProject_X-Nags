@@ -17,14 +17,12 @@
 
 	<div class="main-container">
     <div class="content">
-        <br><br>
+        <br>
         <div class="innerOuter">
-            <h2>공지사항 상세보기</h2>
+            <h2 >공지사항 상세보기</h2>                  
             <br>
-            
-            <br><br>
-            <table id="contentArea" align="center" class="table">
-             <tr>
+            <table id="contentArea" align="center" class="table ">
+             <tr >
                     <th width="100">작성자</th>
                     <td colspan="3">${ n.userName }</td>
                 </tr>
@@ -32,11 +30,11 @@
                     <th width="100">제목</th>
                     <td colspan="3">${ n.noticeTitle }</td>
                 </tr>
-                <tr>
+                <tr >
                     <th>작성일</th>
                     <td>${ n.uploadDate }</td>
                 </tr>
-                <tr>
+                <tr  >
                     <th>첨부파일</th>
                     <td colspan="3">
                     	<c:if test="${ !empty n.originFile }">
@@ -47,19 +45,18 @@
                         </c:if>
                     </td>
                 </tr>
-                <tr>
+                <tr >
                     <th>내용</th>
                     <td colspan="3"></td>
                 </tr>
                 <tr>
-                    <td  colspan="4"><p style="height:150px">${ n.noticeContent }</p></td>
+                    <td colspan="4">${ n.noticeContent }</td>
                 </tr>
             </table>
-            <br>
-		
+
 			<c:if test="${ loginUser.rightNo == 3 }">
 	            <div align="center">
-	                <button class="btn btn-primary" onclick="postFormSubmit(1);">수정하기</button>
+	                <button class="btn btn-info" onclick="postFormSubmit(1);">수정하기</button>
 	                <button class="btn btn-danger" onclick="postFormSubmit(2);">삭제하기</button>
 	            </div>
 	            
@@ -86,17 +83,18 @@
 				}
 				</script>
             </c:if> 
-      
-            <br><br>
+      </div>
+        </div>
+            <br>
 
             <table id="replyArea" class="table"  >
                 <thead>
                     <tr>
                     	<c:if test="${ !empty loginUser }">
 	                        <th colspan="2" style="width:75%">
-	                            <textarea class="form-control" id="replyContent" rows="2" style="resize:none; width:100%" placeholder="댓글을 입력해주세요"></textarea>
+	                            <textarea class="form-control" id="replyContent" rows="1" style="resize:none; width:100%" placeholder="댓글을 입력해주세요"></textarea>
 	                        </th>
-	                        <th style="vertical-align: middle"><button class="btn btn-secondary" id="addReply">등록하기</button></th>
+	                        <th style="vertical-align: middle"><button class="btn btn-dark" id="addReply">등록하기</button></th>
                         </c:if>
                         
                     </tr>
@@ -108,22 +106,22 @@
                 
                 </tbody>
             </table>
-            <table id="replyArea1" class="table" style ="width:75%;  background :white">
-            <thead>
-            <tr style = "background : yellow">
-            <th style ="width:15%">댓글 번호</th> 
-            <th style ="width:10% ;text-align : center" >작성자</th>
-            <th style ="width:60% ; text-align : center">내용</th>
-            <th style ="width:15%; text-align : center">작성일</th>
-       		<th style ="width:15%"></th> 
+           <table id="replyArea1" class="table" >
+            <thead class ="thead-dark">
+            <tr >
+            <th style = 'text-align : center' >댓글 번호</th> 
+            <th  style = 'text-align : center'>작성자</th>
+            <th style = 'text-align : center'>내용</th>
+            <th style = 'text-align : center' >작성일</th>
+       		<th></th>
+       		<th></th>
             </tr>
             </thead>
             <tbody >
 		
             </tbody>
             </table>
-        </div>
-        </div>
+        
         <br><br>
     </div>
 <div class="modal fade" id="modifyModal" role="dialog">
@@ -149,7 +147,7 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default pull-left"
+					<button type="button" class="btn btn-dark"
 						data-dismiss="modal">닫기</button>
 					<button type="button"  class="btn btn-success modalModBtn">수정</button>
 					
@@ -205,15 +203,15 @@
  	            var value="";
  	            $.each(list, function(i, obj){
  	            	rlist.push(obj);
- 	                  value += "<tr style='background:white; '>"
+ 	                  value += "<tr class = 'table-warning'>"
  	                		 +"<td style = 'text-align : center'>"  + obj.replyNo + "</td>"
  	                        +"<td style = 'text-align : center'>"  + obj.userName + "</td>" 
- 	                         +"<td  style = 'text-align : center'>" + obj.replyContent + "</td>" 
+ 	                         +"<td style = 'text-align : center'>" + obj.replyContent + "</td>" 
  	                        + "<td style = 'text-align : center'>" + obj.replyDate + "</td>"; 
- 	                                               
+ 	                       
  	               if("${loginUser.empId}" == obj.empId){
- 	            	  value +="<td style = 'text-align : center '><button class = 'btn btn-success modalModBtn' onclick = 'deleteReply("+obj.replyNo+");' style ='width:70px; background :red'>삭제</button> </td>"
-              	    	 + "<td style = 'text-align : center '><button style ='width:70px'; onclick = 'updateForm("+obj.replyNo+");'type='button' class='btn btn-xs btn-success' data-toggle='modal' data-target='#modifyModal'>수정 </button>"
+ 	            	  value +="<td><button class = 'btn btn-outline-info' onclick = 'updateForm("+obj.replyNo+");'type='button'data-toggle='modal' data-target='#modifyModal'>수정</button> </td>"
+              	    	 + "<td><button class = 'btn btn-outline-danger' onclick = 'deleteReply("+obj.replyNo+");'>삭제 </button>"
                				 + "</td></tr>"; 
  	               }else{
  	                  value += "</tr>";

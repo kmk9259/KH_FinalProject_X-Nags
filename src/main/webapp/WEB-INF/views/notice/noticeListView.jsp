@@ -65,17 +65,18 @@
 		<!-- Simple Datatable start -->
 		<div class="card-box mb-30">
 			<div class="pd-20">
-				<h4 class="text-blue h4">공지사항 게시판</h4>
+				<h4 class="text-dark">공지사항 게시판</h4>
 				<c:if test="${ loginUser.rightNo == 3 }">
-					<a class="btn btn-secondary" style="float: right"
+			
+					<a class="btn btn-dark"style="float: right"
 						href="noticeEnrollForm.bo">글쓰기</a>
 				</c:if>
+				<br>
 			</div>
-
 			<div class="pb-20">
 				<table id="boardList" class="data-table table stripe hover nowrap">
-					<thead>
-						<tr>
+					<thead class="bg-dark text-white">
+						<tr >
 							<th>글 번호</th>
 							<th>작성자</th>
 							<th>제목</th>
@@ -84,10 +85,10 @@
 							<th>첨부파일</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody class="bg-light text-dark">
 						<tr>
 							<c:forEach items="${ list }" var="b">
-								<tr>
+								<tr class ="table-warning">
 									<td>${ b.noticeNo }</td>
 									<td>${loginUser.userName}</td>
 									<td>${ b.noticeTitle }</td>
