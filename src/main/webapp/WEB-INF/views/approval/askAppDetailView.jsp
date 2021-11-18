@@ -25,6 +25,12 @@ table{
 #appBtn{
 display: flex;
 }
+#ok{
+color: green;
+}
+#no{
+color: red;
+}
 </style>
 </head>
 <body>
@@ -145,10 +151,10 @@ display: flex;
 													<td><i class="icon-copy ion-ios-circle-outline"></i></td>
 												</c:when>
 												<c:when test="${ app.midStatus eq 2}">
-													<td><i class="icon-copy ion-ios-checkmark"></i></td>
+													<td><i class="icon-copy ion-ios-checkmark" id="ok"></i></td>
 												</c:when>
 												<c:when test="${ app.midStatus eq 3}">
-													<td><i class="icon-copy ion-ios-close"></i></td>
+													<td><i class="icon-copy ion-ios-close" id="no"></i></td>
 												</c:when>
 											</c:choose>
 											<c:choose>
@@ -156,10 +162,10 @@ display: flex;
 													<td><i class="icon-copy ion-ios-circle-outline"></i></td>
 												</c:when>
 												<c:when test="${ app.finStatus eq 2}">
-													<td><i class="icon-copy ion-ios-checkmark"></i></td>
+													<td><i class="icon-copy ion-ios-checkmark" id="ok"></i></td>
 												</c:when>
 												<c:when test="${ app.finStatus eq 3}">
-													<td><i class="icon-copy ion-ios-close"></i></td>
+													<td><i class="icon-copy ion-ios-close" id="no"></i></td>
 												</c:when>
 											</c:choose>
 										</tr>
@@ -191,7 +197,7 @@ display: flex;
 							              		<h3 class="mailbox-read-info">반차 신청서</h3>
 							              	</c:when>
 							              	<c:when test="${app.category eq 3 }">
-							              		<h3 class="mailbox-read-info">연장근무 신청서</h3>
+							              		<h3 class="mailbox-read-info">외근 신청서</h3>
 							              	</c:when>
 							              	<c:when test="${app.category eq 4 }">
 							              		<h3 class="mailbox-read-info">증명서 신청서(재직증명서)</h3>
@@ -222,28 +228,56 @@ display: flex;
 					            <tr>
 					                <td>기안일</td>
 					                <td><fmt:formatDate type="date" dateStyle="long" value="${app.endDate }"/></td>
-					                <td></td>
-					                <td></td>
+					                <c:choose>
+										<c:when test="${ app.midStatus eq 1}">
+											<td><i class="icon-copy ion-ios-circle-outline"></i></td>
+										</c:when>
+										<c:when test="${ app.midStatus eq 2}">
+											<td><i class="icon-copy ion-ios-checkmark" id="ok"></i></td>
+										</c:when>
+										<c:when test="${ app.midStatus eq 3}">
+											<td><i class="icon-copy ion-ios-close" id="no"></i></td>
+										</c:when>
+									</c:choose>
+									<c:choose>
+										<c:when test="${ app.finStatus eq 1}">
+											<td><i class="icon-copy ion-ios-circle-outline"></i></td>
+										</c:when>
+										<c:when test="${ app.finStatus eq 2}">
+											<td><i class="icon-copy ion-ios-checkmark" id="ok"></i></td>
+										</c:when>
+										<c:when test="${ app.finStatus eq 3}">
+											<td><i class="icon-copy ion-ios-close" id="no"></i></td>
+										</c:when>
+									</c:choose>
 					            </tr>
 					            
 					            <c:if test="${app.category eq 1 || app.category eq 2}">
 					            <tr>
 					                <td>휴가시작</td>
-					                <td></td>
+					                <td><fmt:formatDate type="date" dateStyle="long" value="${app.stayDate }"/></td>
 					                <td>휴가종료</td>
-					                <td></td>
+					                <td><fmt:formatDate type="date" dateStyle="long" value="${app.endDate }"/></td>
+					            </tr>
+					            </c:if>
+					            <c:if test="${app.category eq 3}">
+					            <tr>
+					                <td>외근일</td>
+					                <td><fmt:formatDate type="date" dateStyle="long" value="${app.endDate }"/></td>
+					                <td colspan="1"></td>
 					            </tr>
 					            </c:if>
 					            
+					            
 					            <tr height="400px">
-					                <td colspan="4"></td>
+					                <td colspan="4">${app.content }</td>
 					            </tr>
 					
 					        </tbody>
 					        <tfoot>
 					            <tr>
 					                <td colspan="3"></td>
-					                <td align="right"><fmt:formatDate type="date" dateStyle="long" value="${app.writeDate }"/></td>
+					                <td align="right"><fmt:formatDate type="date" dateStyle="short" value="${app.writeDate }"/></td>
 					            </tr>
 					            <tr>
 					                <td colspan="3"></td>
@@ -252,66 +286,6 @@ display: flex;
 					        </tfoot>
 					    </table>
 					   </div>
-					<%-- <div class="clearfix mb-20">
-			            <div class="card-header">
-			              <c:choose>
-			              	<c:when test="${app.category eq 1 }">
-			              		<h3 class="mailbox-read-info">연차 신청서</h3>
-			              	</c:when>
-			              	<c:when test="${app.category eq 2 }">
-			              		<h3 class="mailbox-read-info">반차 신청서</h3>
-			              	</c:when>
-			              	<c:when test="${app.category eq 3 }">
-			              		<h3 class="mailbox-read-info">연장근무 신청서</h3>
-			              	</c:when>
-			              	<c:when test="${app.category eq 4 }">
-			              		<h3 class="mailbox-read-info">증명서 신청서(재직증명서)</h3>
-			              	</c:when>
-			              	<c:when test="${app.category eq 5 }">
-			              		<h3 class="mailbox-read-info">증명서 신청서(급여명세서)</h3>
-			              	</c:when>
-			              	<c:when test="${app.category eq 6 }">
-			              		<h3 class="mailbox-read-info">증명서 신청서(기타)</h3>
-			              	</c:when>
-			              </c:choose>
-			              
-			              <br>
-			              <h4 class="card-title">제목 : ${app.title }
-			              	<c:choose>
-			              		<c:when test="${app.category eq 1 }">
-			              			<span class="mailbox-read-time float-right">시작일 : <fmt:formatDate type="date" dateStyle="long" value="${app.stayDate }"/></span>
-			              			<br>
-			              			<span class="mailbox-read-time float-right">종료일 : <fmt:formatDate type="date" dateStyle="long" value="${app.endDate }"/></span>
-			              		</c:when>
-			              		<c:when test="${app.category eq 2 }">
-			              			
-			              		</c:when>
-			              	</c:choose>
-	                  	  </h4>
-			            </div>
-				
-						<div class="card-body p-10">
-			              <div class="mailbox-read-message">
-			              	<br>
-			                <P>${app.content }</P>
-			              </div>
-           			 	</div>
-            
-            			<!-- 첨부파일 부분 -->
-			            <c:choose>
-			            	<c:when test="${empty app.originName}">
-			            	
-			            	</c:when>
-			            	<c:otherwise>
-			            		<div class="card-footer bg-white">
-			            			<a href="${ pageContext.servletContext.contextPath }/resources/approval_files/${app.changeName}" download="${ app.originName }">${ app.originName }</a>
-								</div>
-			            	</c:otherwise>
-			            </c:choose>
-            
-				<!-- 중간내용 끝 -->
-					</div> --%>
-					
 				</div>
 				</div>
 			
@@ -401,7 +375,6 @@ display: flex;
 				
 				<script>
 					function midConfirm(){
-						
 						
 						var confirmVal = confirm("결재를 승인하시겠습니까?");
 						

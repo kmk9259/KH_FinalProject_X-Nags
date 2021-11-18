@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.spring.approval.model.dao.ApprovalDao;
 import com.kh.spring.approval.model.vo.Approval;
+import com.kh.spring.approval.model.vo.Outwork;
 import com.kh.spring.common.exception.CommException;
 import com.kh.spring.employee.model.vo.Employee;
 import com.kh.spring.holiday.model.vo.Holiday;
@@ -248,6 +249,29 @@ public class ApprovalServiceImpl implements ApprovalService {
 		if(result < 0) {
 			throw new CommException("결재 완료 문서 삭제 실패");
 		}
+	}
+	
+	//외근 승인시 db에 추가
+	@Override
+	public void insertOutwork(Outwork out) {
+		
+		int result = approvalDao.insertOutwork(sqlSession, out);
+		
+		if(result < 0) {
+			throw new CommException("외근 추가 실패");
+		}
+	}
+	
+	//외근내역 삭제
+	@Override
+	public void deleteOutwork(int ano) {
+		
+		int result = approvalDao.deleteOutwork(sqlSession, ano);
+		
+		if(result < 0) {
+			throw new CommException("외근 삭제 실패");
+		}
+		
 	}
 
 	

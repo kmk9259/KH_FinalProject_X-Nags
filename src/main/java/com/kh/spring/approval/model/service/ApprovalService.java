@@ -3,6 +3,7 @@ package com.kh.spring.approval.model.service;
 import java.util.ArrayList;
 
 import com.kh.spring.approval.model.vo.Approval;
+import com.kh.spring.approval.model.vo.Outwork;
 import com.kh.spring.employee.model.vo.Employee;
 import com.kh.spring.holiday.model.vo.Holiday;
 import com.kh.spring.approval.model.vo.PageInfo;
@@ -58,6 +59,10 @@ public interface ApprovalService {
 	void deleteHoliday(int ano);
 
 	void deleteProcessedApproval(int ano);
+
+	void insertOutwork(Outwork out);
+
+	void deleteOutwork(int ano);
 
 	
 

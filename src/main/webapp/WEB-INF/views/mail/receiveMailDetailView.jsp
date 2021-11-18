@@ -76,7 +76,7 @@
 	                <button type="button" onclick="delivery();" class="btn btn-default"><i class="icon-copy ion-share"></i> 전달</button>
 	              </div>
 	              <button type="button" onclick="waste();" class="btn btn-default"><i class="icon-copy ion-trash-a"></i> 삭제</button>
-	              <button type="button" class="btn btn-default"><i class="icon-copy ion-arrow-left-c"></i> 목록으로</button>
+	              <button type="button" onclick="list();" class="btn btn-default"><i class="icon-copy ion-arrow-left-c"></i> 목록으로</button>
 	            </div>
 			</form>
 			
@@ -105,6 +105,11 @@ function waste(){
 		$("#receiveMail").submit();
 		return true;
 	}
+}
+function list(){
+	$("#receiveMail").attr("action", "receiveList.ml");
+	$("#receiveMail").submit();
+	return true; 
 }
 
 </script>

@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.spring.approval.model.vo.Approval;
+import com.kh.spring.approval.model.vo.Outwork;
 import com.kh.spring.employee.model.vo.Employee;
 import com.kh.spring.holiday.model.vo.Holiday;
 import com.kh.spring.approval.model.vo.PageInfo;
@@ -172,6 +173,17 @@ public class ApprovalDao {
 	public int deleteProcessedApproval(SqlSessionTemplate sqlSession, int ano) {
 
 		return sqlSession.delete("approvalMapper.deleteProcessedApproval", ano);
+	}
+	
+	//외근 추가
+	public int insertOutwork(SqlSessionTemplate sqlSession, Outwork out) {
+		
+		return sqlSession.insert("approvalMapper.insertOutwork", out);
+	}
+
+	public int deleteOutwork(SqlSessionTemplate sqlSession, int ano) {
+		
+		return sqlSession.delete("approvalMapper.deleteOutwork", ano);
 	}
 	
 	

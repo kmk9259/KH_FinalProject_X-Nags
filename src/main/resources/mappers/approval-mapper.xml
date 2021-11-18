@@ -60,6 +60,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="holDays" column="HOL_DAYS"/>
 	</resultMap>
 
+	<resultMap type="Outwork" id="outworkResultSet">
+		<id property="outNo" column="OUTWORK_NO"/>
+		<result property="appNo" column="APP_NO"/>
+		<result property="empId" column="EMP_ID"/>
+		<result property="outDate" column="OW_DATE"/>
+	</resultMap>
+
 	
 	<!-- 결재 전송 -->
 	<insert id="insertApproval" parameterType="Approval">
@@ -91,7 +98,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT COUNT(*)
 		FROM APPROVAL
 		WHERE EMP_ID=#{empId}
-		AND MID_STATUS=1
 		AND FIN_STATUS=1
 		ORDER BY APP_NO DESC
 	</select>
@@ -101,7 +107,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT *
 		FROM APPROVAL
 		WHERE EMP_ID=#{empId}
-		AND MID_STATUS=1
 		AND FIN_STATUS=1
 		ORDER BY APP_NO DESC
 	</select>
@@ -119,7 +124,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM APPROVAL
 		WHERE 
 		(APP_MID=${empId} OR APP_FIN=${empId})
-		AND MID_STATUS IN (1,2)
 		AND FIN_STATUS=1
 	</select>
 	
@@ -130,7 +134,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		JOIN MEMBER B ON A.EMP_ID=B.EMP_ID
 		WHERE 
 		(APP_MID=${empId} OR APP_FIN=${empId})
-		AND A.MID_STATUS IN (1,2)
 		AND A.FIN_STATUS=1
 		ORDER BY A.APP_NO DESC
 	</select>
@@ -245,17 +248,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM APPROVAL
 		WHERE
 		(EMP_ID=${empId} OR APP_MID=${empId} OR APP_FIN=${empId})
-		AND (MID_STATUS=3 OR FIN_STATUS IN (2,3))
+		AND FIN_STATUS IN (2,3)
 	</select>
 	
 	<!-- 완료 결재함 리스트 -->
 	<select id="selectProcessedAppList" resultMap="appResultSet">
-		
 		SELECT *
 		FROM APPROVAL
 		WHERE
 		(EMP_ID=${empId} OR APP_MID=${empId} OR APP_FIN=${empId})
-		AND (MID_STATUS=3 OR FIN_STATUS IN (2,3))
+		AND FIN_STATUS IN (2,3)
 		ORDER BY APP_NO DESC
 	</select>
 	
@@ -288,6 +290,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 결재문서 삭제 -->
 	<delete id="deleteProcessedApproval" parameterType="_int">
 		DELETE APPROVAL
+		WHERE APP_NO=#{ano}
+	</delete>
+	
+	<!-- 외근추가 -->
+	<insert id="insertOutwork">
+		INSERT INTO OUTWORK
+		VALUES
+		(OUTWORK_NO.NEXTVAL, #{appNo}, #{empId}, #{outDate})
+	</insert>
+	
+	<!-- 외근 삭제 -->
+	<delete id="deleteOutwork" parameterType="_int">
+		DELETE OUTWORK
 		WHERE APP_NO=#{ano}
 	</delete>
 	

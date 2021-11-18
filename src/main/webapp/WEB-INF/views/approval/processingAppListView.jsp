@@ -82,7 +82,7 @@
 											<td scope="row">반차 신청서</td>
 										</c:when>
 			              				<c:when test="${app.category eq 3 }">
-											<td scope="row">연장근무 신청서</td>
+											<td scope="row">외근 신청서</td>
 										</c:when>
 			              				<c:when test="${app.category eq 4 }">
 											<td scope="row">증명서 신청서(재직증명서)</td>

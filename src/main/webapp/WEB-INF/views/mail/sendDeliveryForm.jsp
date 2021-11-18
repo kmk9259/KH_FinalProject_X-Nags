@@ -68,9 +68,9 @@ label {
 
 						<div class="form-group">
 							<div class="mailReceiver">
-								<div class="form-group">
-									<input class="form-control" value="" type="text"
-										name="receiverName" required="required" placeholder="받는 사람">
+								<div class="form-group"> 
+									<input class="form-control" type="text" data-toggle="tooltip" title="주소록에서 선택해 주세요."
+										name="receiverName" readonly="readonly" placeholder="받는 사람">
 									<input type="hidden" name="receiver">
 								</div>
 								<div class="form-group">
@@ -106,7 +106,7 @@ label {
 						<div class="form-group">
 							<textarea class="textarea_editor form-control border-radius-0" name="content" required="required">
 								-----Original Message-----<br>
-								From : ${ sendMail.empId }<br>
+								From : ${ sessionScope.loginUser.userName }<br>
 								To : ${sendMail.receiver }<br>
 								Sent : ${sendMail.date}<br>
 								Title : ${sendMail.title }<br>
