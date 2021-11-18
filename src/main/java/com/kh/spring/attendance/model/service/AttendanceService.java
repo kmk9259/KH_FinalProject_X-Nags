@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.kh.spring.attendance.model.vo.AttStatus;
 import com.kh.spring.attendance.model.vo.Attendance;
 import com.kh.spring.employee.model.vo.Employee;
+import com.kh.spring.holiday.model.vo.Holiday;
 import com.kh.spring.member.model.vo.Member;
 
 public interface AttendanceService {
@@ -32,6 +33,12 @@ public interface AttendanceService {
 	void updateMonth(Employee emp);
 
 	void deleteMonth(int attNo);
+
+	void updateStatus(Attendance att);
+
+	ArrayList<Holiday> selectHoliday(String empId);
+
+	void insertAnnual(Attendance a);
 
 	
 

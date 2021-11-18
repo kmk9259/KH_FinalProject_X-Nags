@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.spring.attendance.model.vo.AttStatus;
 import com.kh.spring.attendance.model.vo.Attendance;
 import com.kh.spring.employee.model.vo.Employee;
+import com.kh.spring.holiday.model.vo.Holiday;
 import com.kh.spring.member.model.vo.Member;
 
 @Repository
@@ -56,6 +57,20 @@ public class AttendanceDao {
 	public int deleteMonth(SqlSessionTemplate sqlSession, int attNo) {
 		return sqlSession.delete("attendanceMapper.deleteMonth",attNo);
 	}
+
+	public int updateStatus(SqlSessionTemplate sqlSession, Attendance att) {
+		return sqlSession.update("attendanceMapper.updateStatus",att);
+	}
+
+	public ArrayList<Holiday> selectHoliday(SqlSessionTemplate sqlSession, String empId) {
+		return (ArrayList)sqlSession.selectList("attendanceMapper.selectHoliday",empId);
+	}
+
+	public int insertAnnual(SqlSessionTemplate sqlSession, Attendance a) {
+		return sqlSession.insert("attendanceMapper.insertAnnual",a);
+	}
+
+
 
 	
 

@@ -11,6 +11,7 @@ import com.kh.spring.attendance.model.vo.AttStatus;
 import com.kh.spring.attendance.model.vo.Attendance;
 import com.kh.spring.common.exception.CommException;
 import com.kh.spring.employee.model.vo.Employee;
+import com.kh.spring.holiday.model.vo.Holiday;
 import com.kh.spring.member.model.vo.Member;
 
 @Service
@@ -96,6 +97,30 @@ public class AttendanceServiceImpl implements AttendanceService {
 			throw new CommException("근태 삭제 실패");
 		}		
 	}
+
+	@Override
+	public void updateStatus(Attendance att) {
+		int result = attendanceDao.updateStatus(sqlSession, att);
+		if(result < 0) {
+			throw new CommException("근태 현황 수정 실패");
+		}	
+	}
+
+	@Override
+	public ArrayList<Holiday> selectHoliday(String empId) {
+		return attendanceDao.selectHoliday(sqlSession, empId);
+	}
+
+	@Override
+	public void insertAnnual(Attendance a) {
+		int result = attendanceDao.insertAnnual(sqlSession, a);
+		if(result < 0) {
+			throw new CommException("근태 연차 실패");
+		}
+		
+	}
+
+
 
 	
 

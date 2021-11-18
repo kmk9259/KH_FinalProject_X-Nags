@@ -1,11 +1,12 @@
 package com.kh.spring.attendance.controller;
 
 
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -22,6 +23,7 @@ import com.kh.spring.attendance.model.vo.AttStatus;
 import com.kh.spring.attendance.model.vo.Attendance;
 import com.kh.spring.employee.model.service.EmployeeService;
 import com.kh.spring.employee.model.vo.Employee;
+import com.kh.spring.holiday.model.vo.Holiday;
 import com.kh.spring.member.model.vo.Member;
 
 @Controller
@@ -95,25 +97,98 @@ public class AttendanceController {
 			return new GsonBuilder().setDateFormat("yyyy-mm-dd").create().toJson(att);			
 		}else {
 			att = attendanceService.selectTime(emp);
-			System.out.println("att : "+att);
 			attCheck(att);
 			return new GsonBuilder().setDateFormat("yyyy-mm-dd").create().toJson(att);
 		}		
 	}
 	public void attCheck(Attendance att) {
+		
 		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-		String str = sdf.format(date);
-		int hour = Integer.parseInt(att.getAttInTime().substring(0, 2));
-		int minute =Integer.parseInt(att.getAttInTime().substring(3, 5));
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String today = sdf.format(date);
+		String todayDate =today.substring(0,10);
+		int todayHour = Integer.parseInt(today.substring(11,13));
+		int todayminute = Integer.parseInt(today.substring(14,16));
 		
-		System.out.println("hour : "+hour);
-		System.out.println("minute : "+minute);
+		//정상 : 출근 시간 9시간 전, 퇴근 시간이 제대로 찍혔을 경우
+		//지각 : 출근시간 9시간 이후일때
+		//결근  : 오늘 날짜에, 현재시간이 9시 부터 6시까지 att.getAttInTime이 null이면  emplyoee 리스트에서 att가 없는 사람들을 조회
+		//		그 사람들을 결근 처리
+		//외근 :  외근 신청서 승인 후 9-6시로 고정
+		//반차 : 휴가 신청서 승인 후 근무시간이 8시간이면 4시간만 근무하기 
+		//연차 : 휴가 신청서 승인 후 하루 쉬기
 		
-		if(hour >=9) {
-			System.out.println("현재 시각 : "+str);
-			System.out.println("지각입니다.");
+		ArrayList<AttStatus> status = attendanceService.selectAttStatus();
+		ArrayList<Holiday> holiday = attendanceService.selectHoliday(att.getEmpId());
+		
+		System.out.println("holidayyyyy : "+holiday);
+		System.out.println("atttttt : "+att);
+		if(!att.getAttInTime().equals("연차") || !att.getAttInTime().equals("반차")) 
+		{
+			int attHour = Integer.parseInt(att.getAttInTime().substring(0, 2));
+			int attMinute =Integer.parseInt(att.getAttInTime().substring(3, 5));
+			//정상과 지각은 출퇴근 시간이 필요 : 출퇴근 시간이 찍혀 있다면
+			if(att.getAttInTime() != null && att.getAttOutTime() !=null) {
+				//출근 시간이 오전 9시보다 이전이면
+				if(attHour <9) {
+					System.out.println("현재 시각 : "+today.substring(11,19));
+					System.out.println("정상입니다.");
+					//정상
+					att.setAttStatusNo(status.get(0).getAttStatusNo());				
+					attendanceService.updateStatus(att);
+				}//출근 시간이 오전 9시보다 이후이면
+				else {
+					System.out.println("현재 시각 : "+today.substring(11,19));
+					System.out.println("지각입니다.");
+					//지각
+					att.setAttStatusNo(status.get(1).getAttStatusNo());				
+					attendanceService.updateStatus(att);
+				}
+			}//출퇴근 시간 둘 중 하나라도 안찍혀있으면
+			else if(att.getAttInTime()== null || att.getAttOutTime()== null) {
+				System.out.println("결근입니다.");
+				//결근
+				att.setAttStatusNo(status.get(2).getAttStatusNo());				
+				attendanceService.updateStatus(att);
+			}
+			//반차 : 휴가 신청 승인 후 4시간 근무하고 퇴근시간 찍히고 반차라고 업데이트해주기
+			//조건 :empId가 holiday와 att랑 같아야 하고, holStartDay가 attDate랑 같아야 하며
+					//attOutTime = attInTime + 4Hour;
+			//연차 : 휴가 신청 승인 후 holStartDay에서 holEndDay만큼 연차라고 업데이트해주기
+			//조건 : empId가 holiday와 att가 같고, holStartDay에서 holEndDay만큼 attDate에서
+					// attInTime, attOutTime, attStatusNo 연차라고 바꿔주기
+			for(Holiday h : holiday) {	
+				String holStartDay = sdf.format(h.getHolStartDay()).substring(0, 10);
+				String holEndDay = sdf.format(h.getHolEndDay()).substring(0, 10);
+				
+				if(todayDate.equals(holStartDay) && h.getHolidayName().equals("반차")) {
+					String attOutTime = String.valueOf(attHour+4)+att.getAttInTime().substring(2, 8);
+					
+					att.setAttOutTime(attOutTime);
+					att.setAttStatusNo(status.get(4).getAttStatusNo());				
+					attendanceService.updateStatus(att);
+				}else if(h.getHolidayName().equals("연차")) {
+					System.out.println("holStartDay" +holStartDay+"holEndDay"+holEndDay);
+					int sDay = Integer.parseInt(holStartDay.substring(8, 10));
+					int eDay = Integer.parseInt(holEndDay.substring(8, 10));
+					String yMonth = holStartDay.substring(0, 8);
+					
+					for(int i=sDay ; i<=eDay; i++) {
+						System.out.println(yMonth+i);
+						Attendance a = new Attendance();
+						a.setEmpId(h.getEmpId());
+						a.setAttDate(yMonth+i);
+						a.setAttInTime("연차");
+						a.setAttOutTime("연차");
+						a.setAttStatusNo(5);
+						attendanceService.insertAnnual(a);
+					}
+				}
+			}
 		}
+		
+		
+		
 	}
 	
 	//일별 근태 현황 조회

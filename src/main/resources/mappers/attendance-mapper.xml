@@ -31,6 +31,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="ATT_STATUS_NAME" property="attStatusName"/>			
 	</resultMap>
 
+	<resultMap type="Holiday" id="holidayResultSet">
+		<id property="holidayNo" column="HOLIDAY_NO"/>
+		<result property="appNo" column="APP_NO"/>
+		<result property="empId" column="EMP_ID"/>
+		<result property="holidayName" column="HOLIDAY_NAME"/>
+		<result property="holStartDay" column="HOL_START_DAY"/>
+		<result property="holEndDay" column="HOL_END_DAY"/>
+		<result property="holDays" column="HOL_DAYS"/>
+	</resultMap>
+	
 	<select id="selectAttStatus" resultMap="attStatusResultSet">
 		SELECT * FROM ATT_STATUS	
 	</select>
@@ -115,4 +125,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteMonth" parameterType="_int">
 		delete from attendance where ATT_NO=#{attNo}
 	</delete>
+	
+	<update id="updateStatus" parameterType="Attendance" >
+		update attendance set
+		ATT_STATUS_NO = #{attStatusNo}		
+		WHERE EMP_ID= #{empId} and  ATT_NO = #{attNo}
+	</update>
+	
+	<select id="selectHoliday" parameterType="string" resultMap="holidayResultSet">
+		SELECT * FROM HOLIDAY
+		WHERE EMP_ID=#{empId}
+	</select>
+	
+	<insert id="insertAnnual" parameterType="Attendance">
+		insert into attendance
+		values(SEQ_ATNO.nextval,#{empId},#{attStatusNo},#{attDate},#{attInTime},#{attOutTime})
+	</insert>
+
 </mapper>
