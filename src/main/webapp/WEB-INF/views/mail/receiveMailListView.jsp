@@ -52,7 +52,7 @@
 				<div class="pd-20 card-box mb-30">
 					<div class="clearfix mb-20">
 						<div class="pull-left">
-							<input type="radio" onclick="important();"><label>중요메일만보기</label>
+							<!-- <input type="radio" onclick="important();"><label>중요메일만보기</label> -->
 						</div>
 						<div class="pull-right">
 							<button type="button" onclick="waste();" class="btn btn-default"><i class="icon-copy ion-ios-trash"></i></button>
@@ -61,7 +61,7 @@
 						</div>
 					</div>
 					<div id="mailList">
-					<table class="table mailList" id="mailList">
+					<table class="table table-striped hover mailList" id="mailList">
 						<thead>
 							<tr>
 								<th scope="col"><input type="checkbox" id="allCheck" name="allCheck" onclick="allCheck(event)"></th>

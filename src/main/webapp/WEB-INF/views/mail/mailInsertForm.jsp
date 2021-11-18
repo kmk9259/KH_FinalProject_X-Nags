@@ -68,8 +68,8 @@ label {
 						<div class="form-group">
 							<div class="mailReceiver">
 								<div class="form-group">
-									<input class="form-control" value="" type="text"
-										name="receiverName" required="required" placeholder="받는 사람">
+									<input class="form-control" type="text" data-toggle="tooltip" title="주소록에서 선택해 주세요."
+										name="receiverName" readonly="readonly" placeholder="받는 사람">
 									<input type="hidden" name="receiver">
 								</div>
 								<div class="form-group">
@@ -84,7 +84,7 @@ label {
 								</div>
 								<br>
 								
-								<input class="form-control" value=""
+								<input class="form-control"
 								type="text" name="title" required="required" placeholder="메일 제목을 입력해주세요.">
 								<br>
 								<br>
@@ -107,7 +107,7 @@ label {
 					
 						<div class="clearfix">
 							<div class="pull-right">
-								<!-- <button type="button" onclick="" class="btn btn-outline-danger">취소</button> -->
+								<!-- <button type="button" onclick="history.go(-1)" class="btn btn-outline-danger">취소</button> -->
 								<button type="submit" class="btn btn-primary">메일 전송</button>
 							</div>
 						</div>

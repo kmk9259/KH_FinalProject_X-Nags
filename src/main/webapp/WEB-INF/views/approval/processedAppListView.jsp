@@ -15,6 +15,7 @@
 	cursor: pointer;
 }
 
+
 </style>
 </head>
 <body>
@@ -55,8 +56,8 @@
 							
 						</div>
 					</div>
-					<div id="mailList">
-					<table class="table appList" id="appList">
+					<div class="table-responsive" id="appList">
+					<table class="table table-striped hover appList" id="appList" style="text-align:center;">
 						<thead>
 							<tr>
 								<th scope="col">문서 번호</th>
@@ -195,7 +196,11 @@
 							location.href="appedDetail.ap?ano=" + $(this).children().eq(0).text();
 						});
 					});
+					
+					
 				</script>
 
+	
+<jsp:include page="../common/footer.jsp" />
 </body>
 </html>

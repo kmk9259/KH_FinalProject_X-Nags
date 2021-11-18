@@ -4,10 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.spring.approval.model.service.ApprovalService;
 import com.kh.spring.approval.model.vo.Approval;
+import com.kh.spring.approval.model.vo.Outwork;
 import com.kh.spring.approval.model.vo.PageInfo;
 import com.kh.spring.common.PaginationApp;
 import com.kh.spring.common.exception.CommException;
@@ -48,10 +46,10 @@ public class ApprovalController {
 		return "approval/requestHolidayForm";
 	}
 
-	// 연장근무 신청 작성 폼 열기
+	// 외근 신청 작성 폼 열기
 	@RequestMapping("overtimeForm.ap")
 	public String requestOvertimeForm() {
-		return "approval/requestOvertimeForm";
+		return "approval/requestOutsideWorkForm";
 	}
 
 	// 전자 결재 신청
@@ -94,10 +92,7 @@ public class ApprovalController {
 				app.setStayDate(sDate);
 				app.setEndDate(eDate);
 				
-				/*
-				 * app.setStartDate(str[0]); app.setAppDate(str[1]);
-				 */
-
+				
 			} else {
 				System.out.println("하루 : " + date);
 				app.setStayDate(oneDay);
@@ -107,6 +102,7 @@ public class ApprovalController {
 		} else {
 
 			System.out.println("하루 : " + date);
+			app.setStayDate(oneDay);
 			app.setEndDate(oneDay);
 		}
 
@@ -115,40 +111,6 @@ public class ApprovalController {
 
 		return "redirect:apping.ap";
 	}
-
-	/*
-	 * // 휴가 신청
-	 * 
-	 * @RequestMapping("holiday.ap") public String insertHoliday(Approval app,
-	 * HttpServletRequest request, Model model,
-	 * 
-	 * @RequestParam(name = "uploadFile", required = false) MultipartFile file,
-	 * 
-	 * @RequestParam(name = "date", required = false) String date) {
-	 * 
-	 * if (!file.getOriginalFilename().equals("")) { String changeName =
-	 * saveFile(file, request);
-	 * 
-	 * if (changeName != null) { app.setOriginName(file.getOriginalFilename());
-	 * app.setChangeName(changeName); } }
-	 * 
-	 * if (app.getCategory() == 1) {
-	 * 
-	 * if (date.length() > 10) { System.out.println("여러날 : " + date);
-	 * 
-	 * String[] str = date.split(" - "); System.out.println(str[0]);
-	 * System.out.println(str[1]);
-	 * 
-	 * app.setStartDate(str[0]); app.setAppDate(str[1]);
-	 * 
-	 * } else { System.out.println("하루 : " + date); app.setAppDate(date); }
-	 * 
-	 * }
-	 * 
-	 * approvalService.insertHoliday(app);
-	 * 
-	 * return null; }
-	 */
 
 	//파일 저장
 	private String saveFile(MultipartFile file, HttpServletRequest request) {
@@ -305,11 +267,12 @@ public class ApprovalController {
 		app.setFinReply(finReply);
 		
 		Holiday hol = new Holiday();
+		Outwork out = new Outwork();
 		
 		if(category == 1) {
 			//휴가일수계산
 			//하루휴가
-			if(app.getStayDate() == null) {
+			if(app.getStayDate() == app.getEndDate()) {
 				
 				hol.setEmpId(app.getEmpId());
 				hol.setHolidayName("연차");
@@ -318,6 +281,13 @@ public class ApprovalController {
 				hol.setHolDays(1.0);
 				
 				System.out.println("하루휴가");
+				
+				//연차 감소
+				approvalService.decreaseCount(hol);
+				
+				//휴가 추가
+				hol.setAppNo(ano);
+				approvalService.insertHoliday(hol);
 			
 			//휴가가 여러일일때
 			}else{
@@ -326,14 +296,6 @@ public class ApprovalController {
 				long diff = app.getEndDate().getTime() - app.getStayDate().getTime();
 				int diffDays = Long.valueOf(diff / (24 * 60 * 60 * 1000)).intValue() +1;
 				
-				/*
-				 * SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
-				 * 
-				 * Date sDate = app.getStayDate();
-				 * 
-				 * int dayOfWeekNumber = sDate.getDay();
-				 */
-				
 				hol.setEmpId(empId);
 				hol.setHolidayName("연차");
 				hol.setHolStartDay(app.getStayDate());
@@ -341,6 +303,13 @@ public class ApprovalController {
 				hol.setHolDays(diffDays*1.0);
 				
 				System.out.println("휴가");
+				
+				//연차 감소
+				approvalService.decreaseCount(hol);
+				
+				//휴가 추가
+				hol.setAppNo(ano);
+				approvalService.insertHoliday(hol);
 			}
 		
 		//반차
@@ -353,14 +322,25 @@ public class ApprovalController {
 			hol.setHolDays(0.5);
 			
 			System.out.println("반차");
+			
+			//연차 감소
+			approvalService.decreaseCount(hol);
+			
+			//휴가 추가
+			hol.setAppNo(ano);
+			approvalService.insertHoliday(hol);
+		
+		//외근
+		}else if(category == 3){
+			
+			out.setAppNo(ano);
+			out.setEmpId(empId);
+			out.setOutDate(app.getEndDate());
+			
+			//외근내역추가
+			approvalService.insertOutwork(out);
+			
 		}
-		
-		//연차 감소
-		approvalService.decreaseCount(hol);
-		
-		//휴가 추가
-		hol.setAppNo(ano);
-		approvalService.insertHoliday(hol);
 		
 		//결재 승인
 		approvalService.finConfirm(app);
@@ -412,6 +392,9 @@ public class ApprovalController {
 		if(category == 1 || category == 2) {
 			return "approval/changeRequestHolidayForm";
 			
+		}else if(category == 3) {
+			return "approval/changeRequestOutworkForm";
+		
 		}else {
 			return "approval/changeRequestCertificateForm";
 			
@@ -485,7 +468,6 @@ public class ApprovalController {
 				oneDay = sdf.parse(reDate);
 
 				System.out.println("하루 : " + reDate);
-				app.setStayDate(oneDay);
 				app.setEndDate(oneDay);
 			}
 		
@@ -595,11 +577,15 @@ public class ApprovalController {
 			//휴가 삭제
 			approvalService.deleteHoliday(ano);
 			
+		}else if(category == 3) {
+			
+			//외근내역 삭제
+			approvalService.deleteOutwork(ano);
+			
 		}
 		
 		//결재문서 삭제
 		approvalService.deleteProcessedApproval(ano);
-		
 		
 		session.setAttribute("msg", "결재를 성공적으로 삭제하였습니다.");
 		

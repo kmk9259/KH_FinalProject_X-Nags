@@ -9,17 +9,22 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>X-Nomal Groupware Solution</title>
+<style type="text/css">
+
+table{
+	margin-bottom: 10;
+}
+#ok{
+color: green;
+}
+#no{
+color: red;
+}
+</style>
 </head>
 <body>
 
 <jsp:include page="../common/menubar.jsp" />
-
-<c:if test="${ !empty msg }">
-	<script>
-		alert("${msg}");
-	</script>
-	<c:remove var="msg" scope="session"/>
-</c:if>
 
 	<div class="main-container">
 		<div class="pd-ltr-20 xs-pd-20-10">
@@ -127,10 +132,10 @@
 													<td><i class="icon-copy ion-ios-circle-outline"></i></td>
 												</c:when>
 												<c:when test="${ app.midStatus eq 2}">
-													<td><i class="icon-copy ion-ios-checkmark"></i></td>
+													<td><i class="icon-copy ion-ios-checkmark" id="ok"></i></td>
 												</c:when>
 												<c:when test="${ app.midStatus eq 3}">
-													<td><i class="icon-copy ion-ios-close"></i></td>
+													<td><i class="icon-copy ion-ios-close" id="no"></i></td>
 												</c:when>
 											</c:choose>
 											<c:choose>
@@ -138,10 +143,10 @@
 													<td><i class="icon-copy ion-ios-circle-outline"></i></td>
 												</c:when>
 												<c:when test="${ app.finStatus eq 2}">
-													<td><i class="icon-copy ion-ios-checkmark"></i></td>
+													<td><i class="icon-copy ion-ios-checkmark" id="ok"></i></td>
 												</c:when>
 												<c:when test="${ app.finStatus eq 3}">
-													<td><i class="icon-copy ion-ios-close"></i></td>
+													<td><i class="icon-copy ion-ios-close" id="no"></i></td>
 												</c:when>
 											</c:choose>
 										</tr>
@@ -157,63 +162,125 @@
 				<div class="pd-20 card-box mb-30">
 					<div class="clearfix mb-20">
 			            <div class="card-header">
-			              <c:choose>
-			              	<c:when test="${app.category eq 1 }">
-			              		<h3 class="mailbox-read-info">연차 신청서</h3>
-			              	</c:when>
-			              	<c:when test="${app.category eq 2 }">
-			              		<h3 class="mailbox-read-info">반차 신청서</h3>
-			              	</c:when>
-			              	<c:when test="${app.category eq 3 }">
-			              		<h3 class="mailbox-read-info">연장근무 신청서</h3>
-			              	</c:when>
-			              	<c:when test="${app.category eq 4 }">
-			              		<h3 class="mailbox-read-info">증명서 신청서(재직증명서)</h3>
-			              	</c:when>
-			              	<c:when test="${app.category eq 5 }">
-			              		<h3 class="mailbox-read-info">증명서 신청서(급여명세서)</h3>
-			              	</c:when>
-			              	<c:when test="${app.category eq 6 }">
-			              		<h3 class="mailbox-read-info">증명서 신청서(기타)</h3>
-			              	</c:when>
-			              </c:choose>
-			              
-			              <br>
-			              <h4 class="card-title">제목 : ${app.title }
-			              	<c:choose>
-			              		<c:when test="${app.category eq 1 }">
-			              			<span class="mailbox-read-time float-right">시작일 : <fmt:formatDate type="date" dateStyle="long" value="${app.stayDate }"/></span>
-			              			<br>
-			              			<span class="mailbox-read-time float-right">종료일 : <fmt:formatDate type="date" dateStyle="long" value="${app.endDate }"/></span>
-			              		</c:when>
-			              		<c:when test="${app.category eq 2 }">
-			              			
-			              		</c:when>
-			              	</c:choose>
-	                  	  </h4>
-			            </div>
+						<h3 class="mailbox-read-info">결재 문서</h3>
+					</div>
 				
 						<div class="card-body p-10">
-			              <div class="mailbox-read-message">
-			              	<br>
-			                <P>${app.content }</P>
-			              </div>
-           			 	</div>
+						<table class="table table-bordered border-secondary">
+					        <thead class="table-Default">
+					            <tr>
+					            	<td colspan="4" align="center">
+						            	<c:choose>
+							              	<c:when test="${app.category eq 1 }">
+							              		<h3 class="mailbox-read-info">연차 신청서</h3>
+							              	</c:when>
+							              	<c:when test="${app.category eq 2 }">
+							              		<h3 class="mailbox-read-info">반차 신청서</h3>
+							              	</c:when>
+							              	<c:when test="${app.category eq 3 }">
+							              		<h3 class="mailbox-read-info">외근 신청서</h3>
+							              	</c:when>
+							              	<c:when test="${app.category eq 4 }">
+							              		<h3 class="mailbox-read-info">증명서 신청서(재직증명서)</h3>
+							              	</c:when>
+							              	<c:when test="${app.category eq 5 }">
+							              		<h3 class="mailbox-read-info">증명서 신청서(급여명세서)</h3>
+							              	</c:when>
+							              	<c:when test="${app.category eq 6 }">
+							              		<h3 class="mailbox-read-info">증명서 신청서(기타)</h3>
+							              	</c:when>
+						              	</c:choose>
+					                </td>
+					            </tr>
+					        </thead>
+					        <tbody>
+					            <tr>
+					                <td width="300px">문서번호</td>
+					                <td width="300px">${app.appNo }</td>
+					                <td width="300px">중간 결재자</td>
+					                <td width="300px">최종 결재자</td>
+					            </tr>
+					            <tr>
+					                <td>기안자</td>
+					                <td>${writer.userName}</td>
+					                <td>${mid.userName }</td>
+					                <td>${fin.userName }</td>
+					            </tr>
+					            <tr>
+					                <td>기안일</td>
+					                <td><fmt:formatDate type="date" dateStyle="long" value="${app.endDate }"/></td>
+					                <c:choose>
+										<c:when test="${ app.midStatus eq 1}">
+											<td><i class="icon-copy ion-ios-circle-outline"></i></td>
+										</c:when>
+										<c:when test="${ app.midStatus eq 2}">
+											<td><i class="icon-copy ion-ios-checkmark" id="ok"></i></td>
+										</c:when>
+										<c:when test="${ app.midStatus eq 3}">
+											<td><i class="icon-copy ion-ios-close" id="no"></i></td>
+										</c:when>
+									</c:choose>
+									<c:choose>
+										<c:when test="${ app.finStatus eq 1}">
+											<td><i class="icon-copy ion-ios-circle-outline"></i></td>
+										</c:when>
+										<c:when test="${ app.finStatus eq 2}">
+											<td><i class="icon-copy ion-ios-checkmark" id="ok"></i></td>
+										</c:when>
+										<c:when test="${ app.finStatus eq 3}">
+											<td><i class="icon-copy ion-ios-close" id="no"></i></td>
+										</c:when>
+									</c:choose>
+					            </tr>
+					            
+					            <c:if test="${app.category eq 1 || app.category eq 2}">
+					            <tr>
+					                <td>휴가시작</td>
+					                <td><fmt:formatDate type="date" dateStyle="long" value="${app.stayDate }"/></td>
+					                <td>휴가종료</td>
+					                <td><fmt:formatDate type="date" dateStyle="long" value="${app.endDate }"/></td>
+					            </tr>
+					            </c:if>
+					            <c:if test="${app.category eq 3}">
+					            <tr>
+					                <td>외근일</td>
+					                <td><fmt:formatDate type="date" dateStyle="long" value="${app.endDate }"/></td>
+					                <td colspan="2"></td>
+					            </tr>
+					            </c:if>
+					            
+					            
+					            <tr height="400px">
+					                <td colspan="4">${app.content }</td>
+					            </tr>
+					
+					        </tbody>
+					        <tfoot>
+					        	<tr>
+					        		<c:choose>
+						            	<c:when test="${empty app.originName}">
+						            		<td colspan="4">첨부파일이 없습니다.</td>
+						            	</c:when>
+						            	<c:otherwise>
+						            		
+						            		<td colspan="4" align="left"><a href="${ pageContext.servletContext.contextPath }/resources/approval_files/${app.changeName}" download="${ app.originName }">${ app.originName }</a></td>
+											
+						            	</c:otherwise>
+						            </c:choose>
+					        	</tr>
+					            <tr>
+					                <td colspan="3"></td>
+					                <td align="right"><fmt:formatDate type="date" dateStyle="short" value="${app.writeDate }"/></td>
+					            </tr>
+					            <tr>
+					                <td colspan="3"></td>
+					                <td align="right">x-nags</td>
+					            </tr>
+					        </tfoot>
+					    </table>
+					   </div>
             
-            			<!-- 첨부파일 부분 -->
-			            <c:choose>
-			            	<c:when test="${empty app.originName}">
-			            	
-			            	</c:when>
-			            	<c:otherwise>
-			            		<div class="card-footer bg-white">
-			            			<a href="${ pageContext.servletContext.contextPath }/resources/approval_files/${app.changeName}" download="${ app.originName }">${ app.originName }</a>
-								</div>
-			            	</c:otherwise>
-			            </c:choose>
-			            
-			            
-			            
+            			
 				        <form id="sendApp" action="" method="post"> 
 	            			<input type="hidden" name="ano" value="${app.appNo }">
 	            			<input type="hidden" name="category" value="${app.category }">
@@ -221,6 +288,7 @@
 		            		<div class="card-footer">
 				              <div class="float-right">
 				              	<c:if test="${app.midStatus eq 1 }">
+				              		<button type="button" onclick="" class="btn btn-default"><i class="icon-copy ion-arrow-left-c"></i> 목록으로</button>
 				              		<button type="button" onclick="change();" class="btn btn-default"><i class="icon-copy ion-refresh"></i> 수정</button>
 				              	</c:if>
 				              </div>

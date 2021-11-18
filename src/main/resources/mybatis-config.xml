@@ -31,6 +31,7 @@
 	<typeAlias type="com.kh.spring.supplies.model.vo.Supplies" alias="Supplies"/>
 	<typeAlias type="com.kh.spring.supplies.model.vo.Sitems" alias="Sitems"/>
 	<typeAlias type="com.kh.spring.supplies.model.vo.Return" alias="Return"/>
+	<typeAlias type="com.kh.spring.approval.model.vo.Outwork" alias="Outwork"/>
    </typeAliases>
 
 
