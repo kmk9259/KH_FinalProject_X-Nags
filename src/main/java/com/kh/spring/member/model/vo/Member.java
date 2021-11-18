@@ -28,4 +28,6 @@ public class Member {
 	private String originName;
 	private String changeName;
 	private int rightNo;
+	
+	
 }

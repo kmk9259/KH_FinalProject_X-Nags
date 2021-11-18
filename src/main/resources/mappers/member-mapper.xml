@@ -18,6 +18,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       <result property="changeName" column="CHANGE_NAME"/>
       <result property="status" column="STATUS"/>
    	<result property="rightNo" column="RIGHT_NO"/>
+ 	
    </resultMap>
 
 	<select id="loginMember" parameterType="Member" resultMap="memberResultSet">

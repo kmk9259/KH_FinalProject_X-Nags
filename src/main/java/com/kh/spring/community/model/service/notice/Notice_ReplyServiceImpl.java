@@ -29,12 +29,10 @@ public class Notice_ReplyServiceImpl implements Notice_ReplyService {
 		return result;
 	}
 
-
 	@Override
 	public ArrayList<Notice_Reply> selectNoticeReplyList(int bno) {
 		return notice_ReplyDao.selectNoticeReplyList(sqlSession, bno);
 	}
-
 
 	@Override
 	public int updateNoticeReply(Notice_Reply nr) {
@@ -42,14 +40,12 @@ public class Notice_ReplyServiceImpl implements Notice_ReplyService {
 		return result;
 	}
 
-
 	@Override
 	public int deleteNoticeReply(Notice_Reply nr) {
 		int result = notice_ReplyDao.deleteNoticeReply(sqlSession, nr);
 		if (result < 0) {
 			throw new CommException("댓글 삭제 실패");
 		}
-		return result;
-	
+		return result;	
 	}
 }

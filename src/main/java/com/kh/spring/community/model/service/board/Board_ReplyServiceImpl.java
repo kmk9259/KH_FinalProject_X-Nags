@@ -21,7 +21,6 @@ public class Board_ReplyServiceImpl implements Board_ReplyService {
 	@Override
 	public int insertReply(Board_Reply br) {
 		int result = board_ReplyDao.insertReply(sqlSession, br);
-
 		if (result < 0) {
 			throw new CommException("insertReply 실패");
 		}
@@ -47,5 +46,4 @@ public class Board_ReplyServiceImpl implements Board_ReplyService {
 		}
 		return result;
 	}
-
 }

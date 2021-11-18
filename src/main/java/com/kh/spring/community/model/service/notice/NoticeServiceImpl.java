@@ -35,20 +35,17 @@ public class NoticeServiceImpl implements NoticeService {
 	public Notice selectNotice(int bno) {
 		Notice n = null;
 		int result = noticeDao.increaseCount(sqlSession, bno);
-
 		if (result < 0) {
 			throw new CommException("게시글 조회수 증가 실패");
 		} else {
 			n = noticeDao.selectNotice(sqlSession, bno);
 		}
-
 		return n;
 	}
 
 	@Override
 	public void insertNotice(Notice n) {
 		int result = noticeDao.insertNotice(sqlSession, n);
-
 		if (result < 0) {
 			throw new CommException("게시글 등록 실패");
 		}
@@ -57,11 +54,9 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public void updateNotice(Notice n) {
 		int result = noticeDao.updateNotice(sqlSession, n);
-
 		if (result < 0) {
 			throw new CommException("updateNotice 실패");
 		}
-
 	}
 
 	@Override
@@ -70,12 +65,5 @@ public class NoticeServiceImpl implements NoticeService {
 		if (result < 0) {
 			throw new CommException("공지사항 삭제 실패");
 		}
-
 	}
-
-	/*
-	 * @Override public ArrayList<Notice> noticeWriter(Notice writer) { return
-	 * noticeDao.noticeWriter(sqlSession, writer); }
-	 */
-
 }

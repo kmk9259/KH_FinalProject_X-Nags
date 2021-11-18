@@ -73,13 +73,17 @@
 					
 					if(num == 1){
 						postForm.attr("action", "noticeUpdateForm.bo");
-						
+						postForm.submit();				
 					}else{
-						postForm.attr("action", "noticeDelete.bo");
+						if(confirm("정말 삭제하시겠습니까?") == true){
+							postForm.attr("action", "noticeDelete.bo");
+							postForm.submit();
+							alert("삭제되었습니다");
+						}else{
+							return;
+						}				
 					}
-					postForm.submit();
-					
-					}
+				}
 				</script>
             </c:if> 
       
@@ -258,19 +262,23 @@
  	   
 		 	function deleteReply(replyNo){
 		 		console.log(replyNo);
-		 		$.ajax({
-		 			url:"deleteNoticeReply.bo",
-		 			type:"get",
-		 			data:{replyNo:replyNo},
-		 			success :function(result){
-		 				if(result > 0){
-		 					alert("삭제성공");
-		 					selectReplyList();
-		 				}else{
-		 					alert("삭제 실패");
-		 				}
-		 			}
-		 		});
+		 		if(confirm("정말 삭제하시겠습니까?") == true){
+		 			$.ajax({
+			 			url:"deleteNoticeReply.bo",
+			 			type:"get",
+			 			data:{replyNo:replyNo},
+			 			success :function(result){
+			 				if(result > 0){	
+			 						alert("삭제되었습니다");
+				 					selectReplyList();				 									
+			 				}else{
+			 					alert("삭제 실패");
+			 				}
+			 			}
+			 		});
+		 		}else{
+		 			return;
+		 		}		 			
 		 	}
     </script>
 	

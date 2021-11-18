@@ -31,6 +31,7 @@
            	<input type = "hidden" name = "votingNo" value = "${v.votingNo}">
            	<input type = "hidden" name = "empId" value = "${loginUser.empId}">
             <table id="contentArea"  class="table">
+            <c:if test ="${result == 0 }">
              <tr>
                     <th width="100">작성자</th>
                     <td colspan="3" >${ v.userName }</td>
@@ -55,6 +56,7 @@
             	</c:forEach>
                 
                 </tr>
+                </c:if>
             </table>    
                    
 			 <c:choose>	
@@ -68,11 +70,36 @@
             </form>         	
              <br>           
             <form id="postForm" action="votingResult.vo" method="post">
-			<input type="hidden" name="bno" value="${v.votingNo}">			  
-			<input type = "submit" value = "결과보기"> 
+			<input type="hidden" name="bno" value="${v.votingNo}">	
+			<c:if test ="${result == 1 }">	  
+			<input type = "submit" value = "결과보러가기">
+			  
+			 </c:if>
 			</form>
             <br>  
-           
+           <c:if test="${ loginUser.empId eq v.empId }">
+	            <div align="center">
+
+	                <button class="btn btn-danger" onclick="postFormSubmit(2);">삭제하기</button>
+	            </div>
+	            
+	            <form id="postForm" action="" method="post">
+					<input type="hidden" name="bno" value="${ v.votingNo }">				
+				</form>
+				<script>
+				function postFormSubmit(){
+					var postForm = $("#postForm");
+						if(confirm("정말 삭제하시겠습니까?") == true){
+							postForm.attr("action", "deleteVoting.vo");
+							postForm.submit();
+							alert("삭제되었습니다");
+						}else{
+							return;
+							}					
+						}				
+					
+				</script>
+            </c:if> 
             <br><br>
 		</div>
         </div>
