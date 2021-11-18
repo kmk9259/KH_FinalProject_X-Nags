@@ -20,8 +20,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.kh.spring.common.PaginationMail;
 import com.kh.spring.common.exception.CommException;
 import com.kh.spring.employee.model.vo.Employee;
@@ -389,13 +387,13 @@ public class MailController {
 			}
 		}
 		
-		return "redirect:wasteList.ml";
+		return "redirect:waste.ml";
 		
 	}
 	
 	//부서코드로 사원리스트 출력
 	@ResponseBody
-	@RequestMapping(value = "empList.ml", produces="text/plain; charset=UTF-8")
+	@RequestMapping(value = "empList.ml", produces="application/json; charset=UTF-8")
 	public String selectEmployeeList(String deptCode) {
 		
 		ArrayList<Employee> list = mailService.selectEmployeeList(deptCode);
@@ -403,10 +401,13 @@ public class MailController {
 		System.out.println("list ~~~ " + list);
 		
 		JSONArray jrr = new JSONArray();
-		JSONObject obj = new JSONObject();
+		
+		JSONObject obj = null;
 		
 		if(list != null) {
 			for(Employee emp : list) {
+				obj = new JSONObject();
+				
 				obj.put("userName", emp.getUserName());
 				obj.put("empId", emp.getEmpId());
 				obj.put("jobName", emp.getJobName());
@@ -416,16 +417,24 @@ public class MailController {
 		 	}
 		}
 		
-		/*
-		 * Map<String, String> empMap = new HashMap<>();
-		 * 
-		 * empMap.put("userName", String.valueOf(list.get(0)));
-		 */
+		JSONObject jsonMap = null;
+		
+		if(deptCode != null && jrr != null) {
+			jsonMap = new JSONObject();
+			
+			jsonMap.put("jrr", jrr);
+			jsonMap.put("deptCode", deptCode);
+		}
+		
+		System.out.println("jsonMap ~~ "+jsonMap);
+		System.out.println("jsonMap.toString() ~~ "+jsonMap.toString());
+		
 		
 		System.out.println("jrr ~~ "+jrr);
 		System.out.println("jrr.toString() ~~ " + jrr.toString());
 		
-		return jrr.toString();
+		
+		return jsonMap.toString();
 	}
 		
 	

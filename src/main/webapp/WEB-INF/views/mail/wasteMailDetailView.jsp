@@ -80,13 +80,18 @@
             
 	            <div class="card-footer">
 	              <div class="float-right">
+	              	<button type="button"  class="btn btn-default"><i class="icon-copy ion-arrow-left-c"></i> 목록으로</button>
 	                <button type="button" onclick="returnMail();" class="btn btn-default"><i class="icon-copy ion-refresh"></i> 복구</button>
+	                	
 	              </div>
+	              
 	              <button type="button" onclick="waste();" class="btn btn-default"><i class="icon-copy ion-trash-a"></i> 영구삭제</button>
 	              <button type="button" class="btn btn-default"><i class="icon-copy ion-printer"></i> 인쇄</button>
 	            </div>
+	            
 			</form>
 				<!-- 중간내용 끝 -->
+				
 				</div>
 				</div>
 				</div>

@@ -45,20 +45,12 @@
                   	  </h4>
 		            </div>
 				
-				<div class="card-body p-0">
-              
-              <!-- /.mailbox-read-info -->
-              <div class="mailbox-controls with-border text-center">
-                 
-              
-              </div>
-              <!-- /.mailbox-controls -->
-              <div class="mailbox-read-message">
-                <br>
-                <P>${m.content }</P>
-              </div>
-              <!-- /.mailbox-read-message -->
-            </div>
+				<div class="card-body p-10">
+	              <div class="mailbox-read-message">
+	              	<br>
+	                <P>${m.content }</P>
+	              </div>
+	            </div>
             
             <!-- 첨부파일 부분 -->
             
@@ -84,7 +76,7 @@
 	                <button type="button" onclick="delivery();" class="btn btn-default"><i class="icon-copy ion-share"></i> 전달</button>
 	              </div>
 	              <button type="button" onclick="waste();" class="btn btn-default"><i class="icon-copy ion-trash-a"></i> 삭제</button>
-	              <button type="button" class="btn btn-default"><i class="icon-copy ion-printer"></i> 인쇄</button>
+	              <button type="button" class="btn btn-default"><i class="icon-copy ion-arrow-left-c"></i> 목록으로</button>
 	            </div>
 			</form>
 			
@@ -103,7 +95,7 @@ function reply() {
 function delivery(){
 	$("#receiveMail").attr("action", "sendDelivery.ml");
 	$("#receiveMail").submit();
-	return true;
+	return true; 
 }
 function waste(){
 	var confirmVal = confirm("메일을 휴지통으로 이동하시겠습니까?");

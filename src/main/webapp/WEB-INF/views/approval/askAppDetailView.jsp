@@ -22,6 +22,9 @@
 table{
 	margin-bottom: 10;
 }
+#appBtn{
+display: flex;
+}
 </style>
 </head>
 <body>
@@ -171,6 +174,85 @@ table{
 				
 				<div class="pd-20 card-box mb-30">
 					<div class="clearfix mb-20">
+					
+					<div class="card-header">
+						<h3 class="mailbox-read-info">결재 문서</h3>
+					</div>
+					<div class="card-body p-10">
+						<table class="table table-bordered border-secondary">
+					        <thead class="table-Default">
+					            <tr>
+					            	<td colspan="4" align="center">
+						            	<c:choose>
+							              	<c:when test="${app.category eq 1 }">
+							              		<h3 class="mailbox-read-info">연차 신청서</h3>
+							              	</c:when>
+							              	<c:when test="${app.category eq 2 }">
+							              		<h3 class="mailbox-read-info">반차 신청서</h3>
+							              	</c:when>
+							              	<c:when test="${app.category eq 3 }">
+							              		<h3 class="mailbox-read-info">연장근무 신청서</h3>
+							              	</c:when>
+							              	<c:when test="${app.category eq 4 }">
+							              		<h3 class="mailbox-read-info">증명서 신청서(재직증명서)</h3>
+							              	</c:when>
+							              	<c:when test="${app.category eq 5 }">
+							              		<h3 class="mailbox-read-info">증명서 신청서(급여명세서)</h3>
+							              	</c:when>
+							              	<c:when test="${app.category eq 6 }">
+							              		<h3 class="mailbox-read-info">증명서 신청서(기타)</h3>
+							              	</c:when>
+						              	</c:choose>
+					                </td>
+					            </tr>
+					        </thead>
+					        <tbody>
+					            <tr>
+					                <td width="300px">문서번호</td>
+					                <td width="300px">${app.appNo }</td>
+					                <td width="300px">중간 결재자</td>
+					                <td width="300px">최종 결재자</td>
+					            </tr>
+					            <tr>
+					                <td>기안자</td>
+					                <td>${writer.userName}</td>
+					                <td>${mid.userName }</td>
+					                <td>${fin.userName }</td>
+					            </tr>
+					            <tr>
+					                <td>기안일</td>
+					                <td><fmt:formatDate type="date" dateStyle="long" value="${app.endDate }"/></td>
+					                <td></td>
+					                <td></td>
+					            </tr>
+					            
+					            <c:if test="${app.category eq 1 || app.category eq 2}">
+					            <tr>
+					                <td>휴가시작</td>
+					                <td></td>
+					                <td>휴가종료</td>
+					                <td></td>
+					            </tr>
+					            </c:if>
+					            
+					            <tr height="400px">
+					                <td colspan="4"></td>
+					            </tr>
+					
+					        </tbody>
+					        <tfoot>
+					            <tr>
+					                <td colspan="3"></td>
+					                <td align="right"><fmt:formatDate type="date" dateStyle="long" value="${app.writeDate }"/></td>
+					            </tr>
+					            <tr>
+					                <td colspan="3"></td>
+					                <td align="right">x-nags</td>
+					            </tr>
+					        </tfoot>
+					    </table>
+					   </div>
+					<%-- <div class="clearfix mb-20">
 			            <div class="card-header">
 			              <c:choose>
 			              	<c:when test="${app.category eq 1 }">
@@ -228,7 +310,9 @@ table{
 			            </c:choose>
             
 				<!-- 중간내용 끝 -->
-					</div>
+					</div> --%>
+					
+				</div>
 				</div>
 			
 				
@@ -247,12 +331,14 @@ table{
 										<div class="appMid">
 											<form id="midReply" action="" method="post">
 								            	<input type="hidden" name="ano" value="${app.appNo }">
-												<div class="form-group">
-													<input class="form-control" type="text" name="midReply" placeholder="의견을 입력해 주세요" required="required"/>
-												</div>
-												<div class="form-group">
-													<button class="btn btn-default" type="button" onclick="midConfirm();"><i class="icon-copy ion-checkmark-circled"></i></button>
-													<button class="btn btn-default" type="button" onclick="midReject();"><i class="icon-copy ion-close-circled"></i></button>
+												<div id="appBtn">
+													<div class="form-group">
+														<input class="form-control" type="text" name="midReply" placeholder="의견을 입력해 주세요" required="required"/>
+													</div>
+													<div class="form-group">
+														<button class="btn btn-default" type="button" onclick="midConfirm();"><i class="icon-copy ion-checkmark-circled"></i></button>
+														<button class="btn btn-default" type="button" onclick="midReject();"><i class="icon-copy ion-close-circled"></i></button>
+													</div>
 												</div>
 											</form>
 										</div>
@@ -290,12 +376,14 @@ table{
 							            	<input type="hidden" name="ano" value="${app.appNo }">
 											<input type="hidden" name="category" value="${app.category }">	
 											<input type="hidden" name="empId" value="${writer.empId }">	
-											<div class="form-group">
-												<input class="form-control" type="text" name="finReply" placeholder="의견을 입력해 주세요" required="required"/>
-											</div>
-											<div class="form-group">
-												<button class="btn btn-default" type="button" onclick="finConfirm();"><i class="icon-copy ion-checkmark-circled"></i></button>
-												<button class="btn btn-default" type="button" onclick="finReject();"><i class="icon-copy ion-close-circled"></i></button>
+											<div id="appBtn">
+												<div class="form-group">
+													<input class="form-control" type="text" name="finReply" placeholder="의견을 입력해 주세요" required="required"/>
+												</div>
+												<div class="form-group">
+													<button class="btn btn-default" type="button" onclick="finConfirm();"><i class="icon-copy ion-checkmark-circled"></i></button>
+													<button class="btn btn-default" type="button" onclick="finReject();"><i class="icon-copy ion-close-circled"></i></button>
+												</div>
 											</div>
 										</form>
 									</div>	

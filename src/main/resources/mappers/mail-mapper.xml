@@ -123,7 +123,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    *
 		FROM MAIL A
 		JOIN MEMBER B ON A.MAIL_RECEIVER=B.EMP_ID
-		WHERE A.WRITER_STATUS=1
 		AND A.MAIL_NO=#{mno}
 	</select>
 	
@@ -152,7 +151,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    *
 		FROM MAIL A
 		JOIN MEMBER B ON A.EMP_ID=B.EMP_ID
-		WHERE A.RECEIVER_STATUS=1
 		AND A.MAIL_NO=#{mno}
 	</select>
 	
@@ -174,7 +172,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="resendMail" parameterType="Mail">
 		insert into mail
 		values(seq_mno.nextval, #{empId}, #{receiver}, #{title}, #{content}, sysdate, default,
-				#{importantFlag},  default, default, #{originName}, #{changeName})
+				#{importantFlag},  default, default, #{originName}, #{changeName}, null, null)
 	</insert>
 	
 	<!-- 아름으로 아이디 불러오기 -->
@@ -187,7 +185,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="insertSendDelivery" parameterType="Mail">
 		insert into mail
 		values(seq_mno.nextval, #{empId}, #{receiver}, #{title}, #{content}, sysdate, default,
-				#{importantFlag},  default, default, #{originName}, #{changeName})
+				#{importantFlag},  default, default, #{originName}, #{changeName}, null, null)
 	</insert>
 	
 	<!-- 보낸 메일 휴지통으로 이동 -->
@@ -232,7 +230,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="insertReply" parameterType="Mail">
 		insert into mail
 		values(seq_mno.nextval, #{empId}, #{receiver}, #{title}, #{content}, sysdate, default,
-				#{importantFlag},  default, default, #{originName}, #{changeName})
+				#{importantFlag},  default, default, #{originName}, #{changeName}, null, null)
 	
 	</insert>
 	

@@ -52,7 +52,7 @@
 				<div class="pd-20 card-box mb-30">
 					<div class="clearfix mb-20">
 						<div class="pull-left">
-							
+							<input type="radio" onclick="important();"><label>중요메일만보기</label>
 						</div>
 						<div class="pull-right">
 							<button type="button" onclick="waste();" class="btn btn-default"><i class="icon-copy ion-ios-trash"></i></button>
@@ -99,7 +99,7 @@
 									</c:choose>
 									
 									<td>${s.empId }</td>
-									<td>${s.title }</td>
+									<td id="title">${s.title }</td>
 									<td>${s.date }</td>
 								</tr>
 							</c:forEach>
@@ -168,28 +168,7 @@
 						
 					});
 				});
-				/* 
-				$(function(){
-					$(".mailList tbody tr").children().eq(5).click(function(){
-						console.log($(".mailList tbody tr").children().eq(1).text());
-						location.href="receiveDetail.ml?mno=" + $(this).children().eq(1).text();
-						
-					});
-				});
-				 */
-				/* $(function(){
-					var table = document.getElementId("mailList").length();
-					
-					for(var i = 1; i<table; i++){
-						$(".mailList tbody tr").children().eq(i).click(function(){
-							console.log($(".mailList tbody tr").children().eq(1).text());
-							console.log(table);
-							
-							location.href="receiveDetail.ml?mno=" + $(".mailList tbody tr").children().eq(1).text();
-						});
-						
-					}
-				}); */
+				
 				
 				//전체선택
 				function allCheck(e){
@@ -246,6 +225,8 @@
 						
 					}
 				}
+				
+				
 				
 				//선택 메일 답장
 				function reply(){

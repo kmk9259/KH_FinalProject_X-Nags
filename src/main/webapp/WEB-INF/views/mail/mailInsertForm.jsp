@@ -17,18 +17,15 @@
 	width: 100%;
 	margin-bottom: 0;
 }
-.selectReceiver {
-	display: flex;
-	flex-flow: row wrap;
-	align-items: center;
-	width: 100%;
-	margin-bottom: 0;
-}
+
 
 label {
 	font-weight: bold;
 }
-
+.selectReceiver{
+	overflow: auto;
+	min-height:500px;
+}
 
 </style>
 
@@ -57,7 +54,6 @@ label {
 					</div>
 				</div>
 
-
 				<!-- 메일 폼 시작 -->
 				<div class="pd-20 card-box mb-30">
 					
@@ -73,7 +69,8 @@ label {
 							<div class="mailReceiver">
 								<div class="form-group">
 									<input class="form-control" value="" type="text"
-										name="receiver" required="required" placeholder="받는 사람">
+										name="receiverName" required="required" placeholder="받는 사람">
+									<input type="hidden" name="receiver">
 								</div>
 								<div class="form-group">
 									<button type="button" class="btn btn-primary" data-backdrop="static" data-toggle="modal" data-target="#bd-example-modal-lg">주소록</button>
@@ -121,155 +118,125 @@ label {
 		</div>
 	</div>
 	
-			
-			
-			<!-- <div class="modal fade" id="member-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered">
+			<div class="modal fade bs-example-modal-lg" id="bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-lg">
 					<div class="modal-content">
-						<div class="login-box bg-white box-shadow border-radius-10">
-							<div class="login-title">
-								<h2 class="text-center text-primary">받는 사람 선택</h2>
+						<div class="modal-header">
+							<h4 class="modal-title" id="myLargeModalLabel">받는 사람 선택</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						</div>
+										
+						<div class="modal-body">
+							<div class="selectReceiver">
+								<div class="form-group" id="deptList">
+									
+									<select id="selectDept" class="custom-select col-6">
+										<option>부서 선택</option>
+										<option value="D1">인사관리부</option>
+										<option value="D2">회계관리부</option>
+										<option value="D3">마케팅부</option>
+										<option value="D4">국내영업부</option>
+										<option value="D5">해외영업부</option>
+										<option value="D6">기술지원부</option>
+										<option value="D7">총무부</option>
+									</select>
+									
+						            <button class="btn btn-primary" id="searchEmp">조회</button>
+								
+								</div>
+								
+								<div id="empList">
+									<table border="1" class="table table-bordered border-primary" id="eList">
+										<thead class="table-primary">
+											<tr>
+												<th></th>
+												<th>이름</th>
+												<th>사번</th>
+												<th>직급</th>
+												<th>권한</th>
+											</tr>
+										</thead>
+										<tbody>
+											
+										</tbody>
+									</table>
+								</div>
+							
 							</div>
-							<form>
-								
-								<div class="input-group custom">
-									
-									<select class="form-control form-control-lg">
-										<option>부서선택</option>
-										<option>2</option>
-										<option>3</option>
-										<option>4</option>
-									</select>
-									
-								</div>
-								<div class="input-group custom">
-								
-									<select class="form-control form-control-lg">
-										<option>이름선택</option>
-										<option>2</option>
-										<option>3</option>
-										<option>4</option>
-									</select>
-								
-								</div>
-								
-								<div class="row">
-									<div class="col-sm-12">
-										<div class="input-group mb-0">
-											<button class="btn btn-primary btn-lg btn-block" type="button" onclick="" value="선택"></button>
-										</div>
-									</div>
-								</div>
-							</form>
+						</div>
+										
+										
+										
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+							<button type="button" class="btn btn-primary" onclick="selectReceiver();">선텍</button>
 						</div>
 					</div>
 				</div>
-			</div> -->
-			
-			<div class="modal fade bs-example-modal-lg" id="bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-								<div class="modal-dialog modal-lg">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h4 class="modal-title" id="myLargeModalLabel">받는 사람 선택</h4>
-											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-										</div>
-										
-										
-							<div class="modal-body">
-								<div class="selectReceiver">
-								
-								
-									<div id="deptList">
-										<!-- 
-							            <select class="form-control form-control-lg" name="deptCode" id="selectCode">
-											<option>부서선택</option>
-											<option value="D1">인사관리부</option>
-											<option value="D2">회계관리부</option>
-											<option value="D3">마케팅부</option>
-											<option value="D4">국내영업부</option>
-											<option value="D5">해외영업부</option>
-											<option value="D6">기술지원부</option>
-											<option value="D7">총무부</option>
-										</select> -->
-										<input type="radio" name="deptCode" value="D1"> 인사관리부
-										<input type="radio" name="deptCode" value="D2"> 회계관리부
-										<input type="radio" name="deptCode" value="D3"> 마케팅부
-										<input type="radio" name="deptCode" value="D4"> 국내영업부
-										<input type="radio" name="deptCode" value="D5"> 해외영업부
-										<input type="radio" name="deptCode" value="D6"> 기술지원부
-										<input type="radio" name="deptCode" value="D7"> 총무부
-										
-							            <button id="searchEmp">조회</button>
-									</div>
-									<div id="empList">
-										<table border="1" class="table table-bordered border-primary" id="eList">
-											<thead class="table-primary">
-												<tr>
-													<th></th>
-													<th>이름</th>
-													<th>사번</th>
-													<th>직급</th>
-													<th>권한</th>
-												</tr>
-											</thead>
-											<tbody>
-												
-											</tbody>
-										</table>
-									</div>
-								
-								</div>
-							</div>
-										
-										
-										
-										<div class="modal-footer">
-											<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-											<button type="button" class="btn btn-primary">선텍</button>
-										</div>
-									</div>
-								</div>
-							</div>
+			</div>
 
 <script>
 $(function(){
 	$("#searchEmp").click(function(){
 		
-		var deptCode = $("input[name='deptCode']:checked").val();
-		
+		var deptCode = $("option:selected").val();
 		console.log(deptCode);
 		
 		$.ajax({
 			url:"empList.ml",
 			data:{deptCode:deptCode},
 			type:"get",
-			success:function(json){
-				console.log(json);
+			success:function(map){
+				console.log(map);
+				console.log(map["jrr"])
 				
-				var result = "";
-				if(json.length > 0){
-					$.each(json, function(i, emp){
-						
-						value += "<tr>"
-							  + "<td>" + "<td><input type='checkbox'></td>" + "</td>"
-							  + "<td>" + emp.userName + "</td>"
-							  + "<td>" + emp.empId + "</td>"
-							  + "<td>" + emp.jobName + "</td>"
-							  + "<td>" + emp.rightName + "</td>";
-						
-					});
-					$("tbody#eList").html(result);
-				}
+				var $tableBody = $("#eList tbody");
+				$tableBody.html("");
+				
+				$.each(map["jrr"], function(i, emp){
+					console.log("emp ~~~ "+ emp);
+					
+					var $tr = $("<tr>");
+					var $ckTd = $("<td><input type='checkBox' class='checkEmp' name='checkEmp'></td>");
+					var $nameTd = $("<td>").text(emp.userName);
+					var $idTd = $("<td>").text(emp.empId);
+					var $jobTd = $("<td>").text(emp.jobName);
+					var $rightTd = $("<td>").text(emp.rightName);
+					
+					$tr.append($ckTd);
+					$tr.append($nameTd);
+					$tr.append($idTd);
+					$tr.append($jobTd);
+					$tr.append($rightTd);
+					
+					$tableBody.append($tr);
+					
+				})
+
 			},
 			error:function(e){
 				console.log("사원 리스트 조회 ajax 통신 실패");
 			}
 		
-		});
+		})
 	
-	});
+	})
 	
-});
+})
+
+function selectReceiver(){
+	var tr = $("input[class=checkEmp]:checked").parent().parent().eq(0);
+	var td = tr.children();
+	var userName = td.eq(1).text();
+	var empId = td.eq(2).text();
+	
+	console.log("userName : " + userName);
+	console.log("empId : " + empId);
+	
+	$("input[name=receiverName]").val(userName);
+	$("input[name=receiver]").val(empId);
+	$("#bd-example-modal-lg").modal("hide");	
+}
 
 
 </script>	
