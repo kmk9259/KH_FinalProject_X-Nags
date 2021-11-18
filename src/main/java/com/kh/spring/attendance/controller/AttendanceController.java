@@ -41,19 +41,19 @@ public class AttendanceController {
 		
 		System.out.println("attMyList :   "+attMyList);
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yy/mm/dd");
-		for(Attendance att : attMyList) {
-			
-			try {
-				String d = sdf.format(att.getAttDate());
-				System.out.println(d);			
-				att.setAttDate(sdf.parse(d));
-				System.out.println(att);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//		for(Attendance att : attMyList) {
+//			
+//			try {
+//				String d = sdf.format(att.getAttDate());
+//				System.out.println("포맷 변경한 STRING : "+d);			
+//				att.setAttDate(sdf.parse(d));
+//				System.out.println("다시  ㅇㅇㅇㅇㅇ: "+att);
+//			} catch (ParseException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
 		m.addAttribute("attMyList",attMyList);
 		return "attendance/attendanceMy";
 	}
@@ -85,37 +85,67 @@ public class AttendanceController {
 	@ResponseBody 
 	@RequestMapping(value="attTime.att", produces = "application/json; charset=utf-8")
 	public String selectIntime(Employee emp) {
+		
 		Attendance att = attendanceService.selectTime(emp);
 		
 		if(att==null) {
 			attendanceService.insertIntime(emp);
-			att = attendanceService.selectTime(emp);			
-			return new GsonBuilder().setDateFormat("yy/MM/dd").create().toJson(att);			
+			att = attendanceService.selectTime(emp);
+			attCheck(att);
+			return new GsonBuilder().setDateFormat("yyyy-mm-dd").create().toJson(att);			
 		}else {
 			att = attendanceService.selectTime(emp);
 			System.out.println("att : "+att);
-			return new GsonBuilder().setDateFormat("yy/MM/dd").create().toJson(att);
+			attCheck(att);
+			return new GsonBuilder().setDateFormat("yyyy-mm-dd").create().toJson(att);
 		}		
+	}
+	public void attCheck(Attendance att) {
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+		String str = sdf.format(date);
+		int hour = Integer.parseInt(att.getAttInTime().substring(0, 2));
+		int minute =Integer.parseInt(att.getAttInTime().substring(3, 5));
+		
+		System.out.println("hour : "+hour);
+		System.out.println("minute : "+minute);
+		
+		if(hour >=9) {
+			System.out.println("현재 시각 : "+str);
+			System.out.println("지각입니다.");
+		}
 	}
 	
 	//일별 근태 현황 조회
 	@ResponseBody
 	@RequestMapping(value="selectAttDay.att", produces = "application/json; charset=utf-8")
-	public String selectAttDay(Attendance att) {
+	public String selectAttDay(String attDate, String orderBy, int attStatusNo) {
 		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Attendance att =null;
+		att = new Attendance();
+		att.setAttDate(attDate);
+		att.setOrderBy(orderBy);
+		att.setAttStatusNo(attStatusNo);
 		ArrayList<Employee> attlist = attendanceService.selectAttDay(att);
+		
 			
-		return new GsonBuilder().setDateFormat("yy/MM/dd").create().toJson(attlist);
+		return new GsonBuilder().setDateFormat("yyyy-mm-dd").create().toJson(attlist);
 	}
 	
 	//월별 근태 현황 조회
 	@ResponseBody
 	@RequestMapping(value="selectAttMonth.att", produces = "application/json; charset=utf-8")
-	public String selectAttMonth(Attendance att) {
-		System.out.println("monthAtt : "+att);
+	public String selectAttMonth(String attMonthDate, String orderBy, int attStatusNo) {
+		
+		Attendance att = new Attendance();
+		att.setAttMonthDate(attMonthDate);
+		att.setOrderBy(orderBy);
+		att.setAttStatusNo(attStatusNo);
+		System.out.println("att@@@ : "+att);
 		ArrayList<Employee> attlist = attendanceService.selectAttMonth(att);
-			
-		return new GsonBuilder().setDateFormat("yyyy년 MM월 dd일").create().toJson(attlist);
+		System.out.println("attlist"+attlist);
+		return new GsonBuilder().setDateFormat("yyyy-mm-dd").create().toJson(attlist);
 	}
 	
 	//일별 근태 수정 (관리자)
@@ -136,13 +166,41 @@ public class AttendanceController {
 	}
 	
 	//월별 근태 현황 조회
-		@ResponseBody
-		@RequestMapping(value="deleteDay.att")
-		public String deleteDay(int attNo) {
-			System.out.println("attNo : "+attNo);
-			attendanceService.deleteDay(attNo);
+	@ResponseBody
+	@RequestMapping(value="deleteDay.att")
+	public String deleteDay(int attNo) {
+		System.out.println("attNo : "+attNo);
+		attendanceService.deleteDay(attNo);
+		
+		return "redirect:attendanceDay.att";
+		
+	}
+	//월별 근태 수정 (관리자)
+		@RequestMapping("updateMonth.att")
+		public String updateMonth(@RequestParam("empId") String empId,
+								@RequestParam("attNo") int attNo,
+								@RequestParam("attInTime") String attInTime,
+								@RequestParam("attOutTime") String attOutTime) {
 			
-			return "redirect:attendanceDay.att";
+			Employee emp = new Employee();
+			emp.setEmpId(empId); 
+			emp.setAttNo(attNo);
+			emp.setAttInTime(attInTime); 
+			emp.setAttOutTime(attOutTime);
+			System.out.println(emp);
+			attendanceService.updateMonth(emp); 
+			
+			return "redirect:attendanceMonth.att";
+		}
+		
+		//월별 근태 현황 조회
+		@ResponseBody
+		@RequestMapping(value="deleteMonth.att")
+		public String deleteMonth(int attNo) {
+			System.out.println("attNo : "+attNo);
+			attendanceService.deleteMonth(attNo);
+			
+			return "redirect:attendanceMonth.att";
 			
 		}
 }

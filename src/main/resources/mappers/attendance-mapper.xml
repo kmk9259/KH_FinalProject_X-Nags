@@ -37,22 +37,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<insert id="insertIntime" parameterType="Employee">
 		insert into attendance (ATT_NO,EMP_ID,ATT_DATE,ATT_INTIME)
-		values(SEQ_ATNO.nextval,#{empId},sysdate,TO_CHAR(SYSDATE,'hh24:MI:SS'))
+		values(SEQ_ATNO.nextval,#{empId},TO_CHAR(SYSDATE,'YYYY-MM-DD'),TO_CHAR(SYSDATE,'hh24:MI:SS'))
 	</insert>
 	
 	<update id="insertOuttime" parameterType="Employee">
 		update attendance set
 		ATT_OUTTIME = TO_CHAR(SYSDATE,'hh24:MI:SS')
-		WHERE EMP_ID= #{empId} and TO_CHAR(SYSDATE, 'YY/MM/DD') = TO_CHAR(ATT_DATE, 'YY/MM/DD')
+		WHERE EMP_ID= #{empId} and TO_CHAR(SYSDATE, 'YYYY-MM-DD') = ATT_DATE
 	</update>
 	
 	<select id="selectTime" parameterType="Employee" resultMap="attendanceResultSet">
 		SELECT * FROM ATTENDANCE 
-		WHERE EMP_ID=#{empId} and TO_CHAR(SYSDATE, 'YY/MM/DD') = TO_CHAR(ATT_DATE, 'YY/MM/DD')
+		WHERE EMP_ID=#{empId} and TO_CHAR(SYSDATE, 'YYYY-MM-DD')=ATT_DATE
 	</select>
 	
 	<select id="selectAttMy" parameterType="Member" resultMap="attendanceResultSet">
-		SELECT EMP_ID, ATT_STATUS_NAME, ATT_DATE, ATT_INTIME, ATT_OUTTIME
+		SELECT ATT_NO, EMP_ID, ATT_STATUS_NAME, ATT_DATE, ATT_INTIME, ATT_OUTTIME
 		FROM ATTENDANCE 
 		JOIN ATT_STATUS USING (ATT_STATUS_NO)
 		WHERE EMP_ID=#{empId}
@@ -67,7 +67,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    JOIN MEMBER USING (EMP_ID)
 	    JOIN ATTENDANCE USING (EMP_ID)
 	    JOIN RIGHT USING (RIGHT_NO)
-		WHERE TO_CHAR(ATT_DATE, 'YYYY-MM-dd') = TO_CHAR(#{attDate}, 'YYYY-MM-dd')
+		WHERE ATT_DATE = #{attDate}
 	    AND ATT_STATUS_NO =#{attStatusNo} 
 	    <if test="orderBy.equals('dept_code')">
 	    	ORDER BY DEPT_CODE, ATT_DATE
@@ -77,13 +77,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    </if>
 	</select> 
 	<select id="selectAttMonth" parameterType="Attendance" resultMap="attDateResultSet">
-		SELECT DEPT_NAME, JOB_NAME, USER_NAME, ATT_DATE, ATT_INTIME, ATT_OUTTIME
+		SELECT EMP_ID, DEPT_NAME, JOB_NAME, USER_NAME, ATT_NO ,ATT_DATE, ATT_INTIME, ATT_OUTTIME, RIGHT_NAME
 		FROM EMPLOYEE 
 		JOIN JOB USING (JOB_CODE)
 		JOIN DEPARTMENT USING (DEPT_CODE)
 	    JOIN MEMBER USING (EMP_ID)
 	    JOIN ATTENDANCE USING (EMP_ID)
-		WHERE TO_CHAR(ATT_DATE, 'YYYY-MM') =#{attMonthDate}
+		JOIN RIGHT USING (RIGHT_NO)
+		WHERE ATT_DATE like '%' ||  #{attMonthDate} || '%'
 	    AND ATT_STATUS_NO =#{attStatusNo} 
 	    <if test="orderBy.equals('dept_code')">
 	    	ORDER BY DEPT_CODE, ATT_DATE
@@ -101,6 +102,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<delete id="deleteDay" parameterType="_int">
+		delete from attendance where ATT_NO=#{attNo}
+	</delete>
+	
+	<update id="updateMonth" parameterType="Employee" >
+		update attendance set
+		ATT_INTIME = #{attInTime},
+		ATT_OUTTIME = #{attOutTime}
+		WHERE EMP_ID= #{empId} and  ATT_NO = #{attNo}
+	</update>
+	
+	<delete id="deleteMonth" parameterType="_int">
 		delete from attendance where ATT_NO=#{attNo}
 	</delete>
 </mapper>

@@ -23,7 +23,7 @@ public class Attendance {
 	private String empId;					//사원 아이디
 	private int attStatusNo;				//현황 번호
 	
-	private Date attDate;			//날짜
+	private String attDate;			//날짜
 	private String attMonthDate;
 	private String attInTime;		//출근 시간
 	private String attOutTime;	//퇴근 시간

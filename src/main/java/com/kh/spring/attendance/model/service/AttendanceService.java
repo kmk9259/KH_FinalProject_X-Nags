@@ -29,6 +29,10 @@ public interface AttendanceService {
 
 	void deleteDay(int attNo);
 
+	void updateMonth(Employee emp);
+
+	void deleteMonth(int attNo);
+
 	
 
 	

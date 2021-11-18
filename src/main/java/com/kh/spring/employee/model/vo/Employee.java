@@ -34,7 +34,7 @@ public class Employee {
 	//Attendance 관련 속성
 	private String userName;
 	private int attNo;
-	private Date attDate;
+	private String attDate;
 	private String attInTime;
 	private String attOutTime;
 	private String changeName;
