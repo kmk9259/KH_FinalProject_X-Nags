@@ -10,9 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.spring.common.PaginationSup;
+import com.kh.spring.supplies.model.vo.PageInfo;
 import com.kh.spring.member.model.service.MemberService;
 import com.kh.spring.member.model.vo.Member;
 import com.kh.spring.supplies.model.service.SuppliesService;
@@ -50,22 +53,26 @@ public class SuppliesController {
 	@RequestMapping("return.me")
 	public String selectReSuplist(Model model) {
 		
+
 		ArrayList<Return> returnList = suppliesService.selectReSuplist();
 		
 		model.addAttribute("returnList", returnList);
+		
 		
 		return "supplies/return";
 	}
 	
 	@RequestMapping("insertSup.su")
-	public String insertSupplies(Supplies supplies, HttpServletRequest req)
+	public ModelAndView insertSupplies(int empId, ModelAndView mv, Supplies supplies, HttpServletRequest req)
    {
 		
 		suppliesService.insertSupplies(supplies);
 			
-		//System.out.println("스트링 값 컨드롤러? " +supplies );
+		ArrayList<Return> returnList = suppliesService.updateForm(empId);
 		
-		return "supplies/updateSupplies";
+		mv.addObject("returnList", returnList).setViewName("supplies/updateSupplies");
+		
+		return mv;
 		
 	}
 	
@@ -76,7 +83,7 @@ public class SuppliesController {
 		
 		ArrayList<Return> returnList = suppliesService.updateForm(empId);
 		
-		//System.out.println(" ???? " + returnList);
+		System.out.println(" ???? " + returnList);
 		
 		mv.addObject("returnList", returnList).setViewName("supplies/updateSupplies");
 		
@@ -85,17 +92,42 @@ public class SuppliesController {
 	}
 	
 	@RequestMapping("updateDate.su")
-	public ModelAndView updateDate(Return re, ModelAndView mv, HttpServletRequest request, Model model ) {
+	public String updateSupplies(int empId, int reNo, Return re, ModelAndView mv, HttpServletRequest request, Model model ) {
 		
-		Return reInfo = suppliesService.updateDate(re);
-		model.addAttribute("reInfo", reInfo);
+		Return returnInfo = suppliesService.updateSupplies(re);
 		
-		System.out.println("머가 스트링? " + reInfo);
-		
-		mv.addObject("empId", re.getEmpId()).setViewName("redirect:updateSupForm.su");
+		ArrayList<Return> returnList = suppliesService.updateForm(reNo);
 		
 		
-		return mv;
+		System.out.println(" returnInfo " + returnInfo);
+		
+		model.addAttribute("returnInfo", returnInfo);
+		
+		//for(int i =0; i<returnList.size(); i++) {
+		//	mv.addObject("reno", returnList.get(i).getReNo()).setViewName("supplies/updateSupplies");
+		//	System.out.println(" reno 순차적으로 필요!" + returnList.get(i).getReNo());
+			mv.addObject("returnList", returnList).setViewName("supplies/updateSupplies");
+			
+		//}
+		
+		
+		
+		return "member/myPage";
+		
+	}
+	
+	@RequestMapping("returnSup.su")
+	public String returnSup(int reNo, HttpServletRequest request, Model model) 
+	{
+		
+	
+		suppliesService.returnSup(reNo);
+		
+		ArrayList<Return> returnList = suppliesService.selectReSuplist();
+		
+		model.addAttribute("returnList", returnList);
+		
+		return "supplies/return";
 	}
 
 }

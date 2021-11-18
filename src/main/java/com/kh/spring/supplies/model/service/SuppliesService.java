@@ -2,6 +2,7 @@ package com.kh.spring.supplies.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.spring.supplies.model.vo.PageInfo;
 import com.kh.spring.member.model.vo.Member;
 import com.kh.spring.supplies.model.vo.Return;
 import com.kh.spring.supplies.model.vo.Sitems;
@@ -17,15 +18,15 @@ public interface SuppliesService {
 
 	ArrayList<Return> selectReSuplist();
 
-	Return updateDate(Return sup);
+	Return updateSupplies(Return re);
 
+	void returnSup(int reNo);
 
-
-
-
-	
-
+	int selectListCount();
 
 	
+
+
+
 
 }
