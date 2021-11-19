@@ -4,40 +4,50 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="mRoomsMapper">
 
-	<resultMap id="mRoomsResultSet" type="mRooms">
-		<id property="roomNo" column="MR_NO"/>
-		<result property="roomName" column="MR_NAME"/>
+
+
+	<resultMap id="TAResultSet" type="TimeTable_A">
+		<id property="mrNo" column="MR_NO"/>
+		<result property="timeA" column="TIME_A"/>
+		<result property="statusA" column="STATUS_A"/>
+	</resultMap>
+	
+	<resultMap id="TBResultSet" type="TimeTable_B">
+		<id property="mrNo" column="MR_NO"/>
+		<result property="timeB" column="TIME_B"/>
+		<result property="statusB" column="STATUS_B"/>
+	</resultMap>
+	
+	<resultMap id="TCResultSet" type="TimeTable_C">
+		<id property="mrNo" column="MR_NO"/>
+		<result property="timeC" column="TIME_C"/>
+		<result property="statusC" column="STATUS_C"/>
+	</resultMap>
+	
+	<resultMap id="TDResultSet" type="TimeTable_D">
+		<id property="mrNo" column="MR_NO"/>
+		<result property="timeD" column="TIME_D"/>
+		<result property="statusD" column="STATUS_D"/>
 	</resultMap>
 	
 
 
 	
-	<select id="selectRooms" parameterType="mRooms" resultMap="mRoomsResultSet">
-	SELECT * FROM MROOMS
-	</select>
-	
-<!-- 	<select id="selectdept" parameterType="Employee" resultMap="deptResultSet">
-	SELECT * FROM DEPARTMENT WHERE DEPT_CODE=#{deptCode}
-	</select> -->
-	
-	<!--  
-	<update id="updateMember" parameterType="Member">
-	update member set
-	EMAIL = #{email}, GENDER = #{gender}, AGE = #{age}, PHONE = #{phone}, ADDRESS = #{address}, modify_DATE = sysdate
-	WHERE user_ID = #{userId} 	
-	</update>
-	
-	<delete id="deleteMember" parameterType="string">
-		update member set
-		STATUS = 'N'
-		WHERE user_ID = #{userId}
-	</delete>
-	
-	<update id="updatePwd" parameterType="Member">
-	update member set
-	user_pwd=#{userPwd}
-	WHERE user_ID = #{userId} 	
-	</update> -->
+ <select id="selectTimeTableA" parameterType="TimeTable_A" resultMap="TAResultSet">
+  SELECT * FROM TIMETABLE_A
+ </select>
+ 
+ <select id="selectTimeTableB" parameterType="TimeTable_B" resultMap="TBResultSet">
+  SELECT * FROM TIMETABLE_B
+ </select>
+ 
+ <select id="selectTimeTableC" parameterType="TimeTable_C" resultMap="TCResultSet">
+  SELECT * FROM TIMETABLE_C
+ </select>
+ 
+ <select id="selectTimeTableD" parameterType="TimeTable_D" resultMap="TDResultSet">
+  SELECT * FROM TIMETABLE_D
+ </select>
 	
 	
 </mapper>

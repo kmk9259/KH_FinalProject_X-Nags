@@ -19,26 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="subTotal" column="SUB_TOTAL"/>
 	</resultMap>
 	
-	<!-- <resultMap id="jobResultSet" type="Job">
-		<id property="jobCode" column="JOB_CODE"/>
-		<result property="jobName" column="JOB_NAME"/>
-	</resultMap>
-	
-	<resultMap id="deptResultSet" type="Department">
-		<id property="deptCode" column="DEPT_CODE"/>
-		<result property="deptName" column="DEPT_NAME"/>
-	</resultMap>
-	
-	<resultMap id="rightResultSet" type="Right">
-		<id property="rightNo" column="RIGHT_NO"/>
-		<result property="rightName" column="RIGHT_NAME"/>
-	</resultMap>
-	
-	<resultMap id="salGradeResultSet" type="SalGrade">
-		<id property="salLevel" column="SAL_LEVEL"/>
-		<result property="minSal" column="MIN_SAL"/>
-		<result property="maxSal" column="MAX_SAL"/>
-	</resultMap> -->
+
 
 
 	

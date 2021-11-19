@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,12 +84,16 @@ input[type=checkbox]:checked:disabled + label:before {
 height: 40px;
 }
 
-#fromTime, #toTime, #fromDate{
-/* border : none; */
+#meetingRoom{
+border : none;
 resize: vertical;
 width:120px;
 }
 
+
+#reserve1{
+text-align: center;
+}
 </style>
 
 </head>
@@ -112,7 +118,7 @@ width:120px;
 			<div class="min-height-200px">
 			
 			
-			<div class="page-header">
+			 <div class="page-header">
 					<div class="row">
 						<div class="col-md-6 col-sm-12">
 							<div class="title">
@@ -128,261 +134,267 @@ width:120px;
 					</div>
 				</div>
 
-
-
-				<div class="pd-20 card-box mb-30">
-					<div class="clearfix mb-20">
-						<div class="pull-left">
-							<h4 class="text-blue h4">회의실 예약하기</h4>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-4 col-sm-12">
-							
-								<div class="form-group ">
-									<label>예약 날짜</label>
-
-									<input type="text" id="startDate" class="form-control startDate">
-									
-									
-								</div>
-
-								
-		<br><br><br><br>
-						
-						
-				
-					<div class="clearfix mb-20">
-						<div class="pull-left">
-							<h4 class="text-blue h4">시간</h4>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-4 col-sm-12">
-							<div class="form-group">
-								<label>시작 시간</label>
-								<input class="timepicker text-center form-control" id="startTime">
-							</div>
-						</div>
-						<div class="col-sm-4 col-sm-12">
-							<div class="form-group">
-								<label>마침 시간</label>
-								<input class="timepicker text-center form-control" id="endTime" >
-							</div>
-						</div>
-						
-					</div>
-				<!-- </div> -->
-				<button type="button" class="btn btn-success btn-lg btn-block" id="btn1" onclick="input1()">회의실 예약 시간 등록</button>
-						
-						
-						<br><br>
-						
-						
-								
-						</div>
-						
-						<script>
-						$(document).ready(function(){
-						    $('input.timepicker').timepicker({
-						    	timeFormat: 'H:mm p',
-							    interval: 60,
-							    minTime: '10',
-							    maxTime: '18:00',
-							    defaultTime: '10',
-								startTime: '10:00',
-								dynamic: false,
-							    dropdown: true,
-							    scrollbar: true,
-
-						    });
-						    
-						   
-						   
-						});
-						
-						/* $('.timepicker').timepicker({
-						    timeFormat: 'h:mm p',
-						    interval: 60,
-						    minTime: '10',
-						    maxTime: '6:00pm',
-						    defaultTime: '11',
-						    startTime: '10:00',
-						    dynamic: false,
-						    dropdown: true,
-						    scrollbar: true
-						}); */
-						
-						
-						 $( "#startDate" ).datepicker({
-	                    		dateFormat: "yyyy-mm-dd",
-	                    		minDate: new Date(),
-	                    		language:"kr",
-	                    		todaytHightlight : true
-
-	                   	   }); 
-						
-						
-						function input1(){
-							
-							var startDate = document.getElementById("startDate").value;
-							var startTime = document.getElementById("startTime").value;
-							var endTime = document.getElementById("endTime").value;
-							
-							var fromDate = document.getElementById("fromDate");
-							var fromTime = document.getElementById("fromTime");
-							var toTime = document.getElementById("toTime");
-							
-							console.log(startDate);
-							console.log(startTime);
-							console.log(endTime);
-							
-							fromDate.value = startDate;
-							fromTime.value = startTime;
-							toTime.value = endTime;
-							
-
-							} 
-						
-						    
-						
-						
-						</script>
-						
-    	
-				                                												
-									<div class="col-md-4 col-sm-12">
-									<c:forEach items="${mrooms }" var="mr" varStatus="status">
-									    <div class="col-sm-12" >
-										<h4 class="text-gray h5 roomName${status.index }" style="display: inline-block; margin-right: 30px;" >   ${mr.roomName}</h4>
-										 <button type="button"  id="using${status.index }" class="btn btn-success btn-opt selected" style="magrin-bottom: auto; display: none;" name="selected">선택 됨</button>
-										 
-										 <button type="button" id="open${status.index }" class="btn btn-outline-success">사용 가능</button>
-										</div> <br>
-										
-										
-												<script>
-												$(document).ready(function(){
-													
-													
-												// $("#myTable tbody tr").length
-												// console.log("tr 길이 "+$("#myTable tbody tr").length)
-													
-												   $("#open${status.index }").click(function(){
-														
-													   $("#using${status.index }").show();
-														$("#open${status.index }").hide();
-														var result = $(".roomName${status.index }").text();
-														 
-														 console.log(result);
-														 
-														 if($("#myTable tbody tr").length > 0){
-															 alert("이미 회의실을 선택하셨습니다.")
-															 
-														 }else{
-															 
-															 if($("#open${status.index}").css('display') === 'none'){
-																 var html ="";
-																 var mRoomName = $(".roomName${status.index }").text();
-																 
-																 html +='<tr>';
-																 html +='<td colspan="2">' + mRoomName + '</td>';
-																 html +='</tr>';
-																 
-																 $("#myTable").append(html);
-																
-																 console.log("tr 길이 "+$("#myTable tbody tr").length)
-															 }else if($("#using${status.index}").css('style.display') === 'none') {
-																 alert("취소됨?")
-																 
-															 }
-													 
-														 }
-																
-											
-													})
-													
-													  $("#using${status.index }").click(function(){
-														$("#open${status.index }").show();
-														$("#using${status.index }").hide();
-														
-														$("#myTable tbody tr:eq(0)").remove();
-													})  
-													
-													
-													
-													 /* if($("#myTable tbody tr").length > 0){
-														 alert("이미 회의실을 선택하셨습니다.")
-													 }else{
-														
-													 }  */
-													
-													
-													
-												})
-												
-												</script>
-										
-		
-										
-										
-									</c:forEach>									
-										
-									
-							        </div>
-												
-
-						
-								
-								<div class="col-md-4 col-sm-12">
-								
-								
-								
-								<div class="pd-20 card-box mb-30">
-					<div class="clearfix mb-20">
-						<div class="pull-left">
-							<h4 class="text-blue h4">회의실 예약</h4>
-							<p>선택한 회의실 정보</p>
-						</div>
-						
-					</div>
-									<table class="table table-bordered" id="myTable">
-									 <thead>
-										<tr>
-										<th style="vertical-align: center;">예약 날짜</th>
-										<td colspan="" ><input id="fromDate"  name="startDate" readonly ></td>
-										</tr>
-															
-										<tr>
-										<th>시간</th>
-										<td colspan="" >
-										<input id="fromTime"  name="fromTime" readonly> - 
-										<input id="toTime"  name="toTime" readonly></td>
-										</tr>
-										<tr>
-																
-											<th colspan="2" style="text-align: center;">회의실</th>			
-										</tr>
-									</thead> 
-									<tbody>
-															
-															
-									</tbody>
-									</table>
+					<div class="pd-20 card-box mb-30">
 					
-				</div>
-								
-								
-								<button type="button" class="btn btn-primary btn-lg btn-block" >회의실 예약</button>
-								</div>
-								
-							
+					
+					<div id="accordion">
+					
+					  <div class="card"><!-- card 01 -->
+					    <div class="card-header" id="headingOne">
+					      <h5 class="mb-0">
+					        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+					         	<strong>회의실 1 예약 상황 보기 </strong>
+					        </button>
+					      </h5>
+					    </div>
+					
+					    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+					      <div class="card-body">
+					       
+					       
+					       
+					       							<div class="row">
+															
+															<!-- 1번 -->
+															<div class="col-md-6 col-sm-12">
+															<div class="pd-20 card-box mb-30">
+															<c:forEach items="${TimeTableA }" var="time" varStatus="status">
 
-							</div>
-							
-							
-										
-							</div>
+															<table class="table table-bordered" id="meetingRoom1">
+															
+															
+															
+															<tbody>
+															<tr>
+															<td colspan="">${time.timeA }</td>
+															<td>
+															
+															<c:choose>
+															<c:when test="${time.statusA eq 'Y'}">
+															<button type="button"  class="btn btn-outline-success usable${status.index }" >사용 가능</button>
+															<button type="button"  class="btn btn-success using${status.index }" style="display : none; " >선택 됨</button>
+															</c:when>
+															<c:otherwise>
+															<button type="button"  class="btn btn-secondary using${status.index }">사용 중</button>
+															</c:otherwise>
+															</c:choose>
+															
+															</td>
+															</tr>
+															</tbody>
+															
+
+															</table>
+															
+															
+															<script>
+															$(".usable${status.index }").click(function(){
+																$(this).hide()
+																$(this).next().css("display", "block");
+																
+																var time = $(this).parent().prev().text()
+																console.log(time)
+																
+																var html="";
+																
+																html +='<tr >'; 
+																html +='<td  class="it'+ ${status.index}+ ' ><input type="hidden" name="timeA" >'+time+'</td>';
+																html +='</tr>';
+																
+																$("#reserve1").append(html);
+																
+																if($(this).next().css('display')=='block'){
+																$(this).next().click(function(){
+																		
+																		$(this).hide();
+																		$(this).prev().show();
+																		
+																		var tr = $(".it${status.index}").text();
+																		console.log(tr)
+																		//console.log("? " + $(this).parent().prev().text())
+																		if($(".it${status.index}").text() == $(this).parent().prev().text() ){
+																			$(".it${status.index}").parent().remove();
+																		}
+																	});
+																	
+																}
+															})
+															</script>
+															</c:forEach>
+					
+															
+													</div>
+													</div>
+															
+													
+													<div class="col-md-6 col-sm-12">
+													<div class="pd-20 card-box mb-30">		
+														<div class="clearfix mb-20">
+															<div class="pull-left">
+																<h4 class="text-blue h4">회의실 예약하기</h4>
+															</div>
+														</div>
+														
+														<form id="" method="post" action="insertMeeting.me">
+					 									<input type = "hidden" name = "empId" value = "${loginUser.empId }"> 
+														<table class="table table-bordered" id="reserve1">
+														 <thead>
+															<tr>
+															<th colspan="">회의실 1
+															<input type="hidden"   name="mrNo" value="1"  />
+															</th>
+															</tr>
+
+														</thead> 
+														<tbody>
+																				
+																				
+														</tbody>
+														</table>
+														
+														
+														<button type="button" class="btn btn-primary btn-lg btn-block" >회의실 예약</button>
+													    </form>
+													
+													</div>
+													</div>	
+													
+													</div>
+													
+													
+															
+															
+															
+					       
+       
+       
+       
+				      </div>
+				    </div>
+				  </div>
+				</div>
+				 
+				   <div class="card"><!-- card 02 -->
+					    <div class="card-header" id="headingTwo">
+					      <h5 class="mb-0">
+					        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseOne">
+					         	회의실 2 예약 상황 보기 
+					        </button>
+					      </h5>
+					    </div>
+					
+					    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+					      <div class="card-body">
+					       
+					       
+					       
+					       				<div class="row">
+															
+															<!-- 1번 -->
+															<div class="col-md-6 col-sm-12">
+															<div class="pd-20 card-box mb-30">
+															
+
+															<table class="table table-bordered" id="myTable">
+															<thead><tr><th colspan="2"> 회의실 2 </th><tr></thead>
+															
+															<c:forEach items="${TimeTableB }" var="time" varStatus="status">
+															<tbody>
+															<tr>
+															<td colspan="">${time.timeB }</td>
+															<td>
+															
+															<c:choose>
+															<c:when test="${time.statusB eq 'Y'}">
+															<button type="button"  class="btn btn-outline-success usable${status.index }">사용 가능</button>
+															</c:when>
+															<c:otherwise>
+															<button type="button"  class="btn btn-secondary using${status.index }">사용 중</button>
+															</c:otherwise>
+															</c:choose>
+															
+															</td>
+															</tr>
+															</tbody>
+															</c:forEach>
+															
+															
+															</table>
+															
+
+															
+															
+															<!-- <script>
+															$(".usable${s1.index }").click(function(){
+																
+																$(this).hide()
+																$(this).next().css("display", "block");
+																
+																/*시간 가져오기*/
+																var time = $(this).parent().prev().text()
+																console.log(time)
+																var html="";
+																
+																html +='<tr >'; 
+																html +='<td colspan="2" class="it${s1.index +1} ><input type="hidden" name="Time_A">'+time+'</td>';
+																html +='</tr>';
+																
+																$("#reserve").append(html);
+																
+																console.log("길이 ?"+ $("#reserve tbody tr").length)
+																
+																
+																/*회의실 이름 가져오기*/
+																var mName = $(this).parent().parent().parent().children().children(".title").text();
+																console.log(mName)
+																
+																if($(this).next().css('display')=='block'){
+																	$(this).next().click(function(){
+																		
+																		$(this).hide();
+																		$(this).prev().show();
+																		
+																			var i = $("#reserve tbody tr:eq(i) td:eq(0)").text();
+																			class="it${status.index +1}
+																			
+																			
+																			console.log("찾는 값?" + i)
+																			var u = $(this).parent().prev().text();
+																			console.log("u " + u)
+																		
+																		
+																	})
+																}
+															})
+															
+
+															</script> -->
+															
+															
+					
+															
+													</div>
+													</div>
+															
+															
+														
+															
+													</div>
+															
+															
+					       
+       
+       
+       
+				      </div>
+				    </div>
+				  </div>
+				  
+				</div><!-- accordion end -->
+					
+					
+	
+
 
 
 					</div>
