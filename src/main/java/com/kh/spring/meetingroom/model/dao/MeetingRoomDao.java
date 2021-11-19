@@ -41,10 +41,8 @@ public class MeetingRoomDao {
 	}
 
 	public ArrayList<MeetingRoom> updateStatus(SqlSessionTemplate sqlSession, ArrayList<MeetingRoom> mrList) {
-		for (MeetingRoom meetingRoom : mrList) {
-			sqlSession.selectList("mRoomsMapper.updateStatus", mrList);
-		}
-		return mrList;
+		
+		return (ArrayList)sqlSession.selectList("mRoomsMapper.updateStatus", mrList);
 		
 	}
 
