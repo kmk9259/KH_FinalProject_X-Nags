@@ -57,22 +57,7 @@
 							<h2 class="text-center text-primary">Login To DeskApp</h2>
 						</div>
 						<form action="main.xnags" method="post">
-							<div class="select-role">
-								<div class="btn-group btn-group-toggle" data-toggle="buttons">
-									<label class="btn active">
-										<input type="radio" name="admin" id="admin">
-										<div class="icon"><img src="${ pageContext.servletContext.contextPath }/resources/vendors/images/briefcase.svg" class="svg" alt=""></div>
-										<span>I'm</span>
-										Manager
-									</label>
-									<label class="btn">
-										<input type="radio" name="user" id="user">
-										<div class="icon"><img src="${ pageContext.servletContext.contextPath }/resources/vendors/images/person.svg" class="svg" alt=""></div>
-										<span>I'm</span>
-										Employee
-									</label>
-								</div>
-							</div>
+							
 							<div class="input-group custom">
 								<input type="text" name="empId" class="form-control form-control-lg" placeholder="Employee Id">
 								<div class="input-group-append custom">
