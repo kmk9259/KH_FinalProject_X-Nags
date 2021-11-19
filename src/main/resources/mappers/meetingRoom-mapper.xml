@@ -7,30 +7,49 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 	<resultMap id="TAResultSet" type="TimeTable_A">
-		<id property="mrNo" column="MR_NO"/>
-		<result property="timeA" column="TIME_A"/>
-		<result property="statusA" column="STATUS_A"/>
+		<id property="taNo" column="TANO"/>
+		<result property="mrNo" column="MR_NO"/>
+		<result property="time" column="TIME"/>
+		<result property="status" column="STATUS"/>
 	</resultMap>
 	
 	<resultMap id="TBResultSet" type="TimeTable_B">
-		<id property="mrNo" column="MR_NO"/>
-		<result property="timeB" column="TIME_B"/>
-		<result property="statusB" column="STATUS_B"/>
+		<id property="tbNo" column="TBNO"/>
+		<result property="mrNo" column="MR_NO"/>
+		<result property="time" column="TIME"/>
+		<result property="status" column="STATUS"/>
 	</resultMap>
 	
 	<resultMap id="TCResultSet" type="TimeTable_C">
-		<id property="mrNo" column="MR_NO"/>
-		<result property="timeC" column="TIME_C"/>
-		<result property="statusC" column="STATUS_C"/>
+		<id property="tcNo" column="TCNO"/>
+		<result property="mrNo" column="MR_NO"/>
+		<result property="time" column="TIME"/>
+		<result property="status" column="STATUS"/>
 	</resultMap>
 	
 	<resultMap id="TDResultSet" type="TimeTable_D">
-		<id property="mrNo" column="MR_NO"/>
-		<result property="timeD" column="TIME_D"/>
-		<result property="statusD" column="STATUS_D"/>
+		<id property="tdNo" column="TDNO"/>
+		<result property="mrNo" column="MR_NO"/>
+		<result property="time" column="TIME"/>
+		<result property="status" column="STATUS"/>
 	</resultMap>
 	
-
+	<resultMap id="MrResultSet" type="MeetingRoom">
+		<id property="mroomNo" column="MROOM_NO"/>
+		<result property="mrNo" column="MR_NO"/>
+		<result property="empId" column="EMP_ID"/>
+		<result property="time" column="TIME"/>
+		<result property="status" column="STATUS"/>
+	</resultMap>
+	
+<update id="updateStatus" parameterType="TimeTable_A">
+<!-- <foreach collection="list" item="item" index="index"> -->
+	 UPDATE TIMETABLE_A SET
+	 STATUS = 'N'
+	 WHERE TIME = #{time}
+	<!--  </foreach> -->
+	
+</update>
 
 	
  <select id="selectTimeTableA" parameterType="TimeTable_A" resultMap="TAResultSet">
@@ -48,6 +67,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  <select id="selectTimeTableD" parameterType="TimeTable_D" resultMap="TDResultSet">
   SELECT * FROM TIMETABLE_D
  </select>
+ 
+ <insert id="insertMeetingA" parameterType="MeetingRoom">
+ INSERT INTO MEETING_ROOM
+ VALUES(SEQ_MRNO.NEXTVAL, #{mrNo}, #{empId}, #{time}, default)
+ </insert>
 	
 	
 </mapper>
