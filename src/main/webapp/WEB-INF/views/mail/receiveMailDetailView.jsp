@@ -40,7 +40,9 @@
 		            <div class="card-header">
 		               <h3 class="mailbox-read-info">${m.title }</h3>
 			            <br>
-			            <h4 class="card-title">${m.receiver }
+			            <h4 class="card-title">to : ${loginUser.userName }
+			            <br>
+			            from : ${sendEmp.userName }
                   		<span class="mailbox-read-time float-right">${m.date }</span>
                   	  </h4>
 		            </div>
@@ -75,17 +77,43 @@
 	                <button type="button" onclick="reply();" class="btn btn-default"><i class="icon-copy ion-paper-airplane"></i> 답장</button>
 	                <button type="button" onclick="delivery();" class="btn btn-default"><i class="icon-copy ion-share"></i> 전달</button>
 	              </div>
-	              <button type="button" onclick="waste();" class="btn btn-default"><i class="icon-copy ion-trash-a"></i> 삭제</button>
+	              <button type="button" data-backdrop="static" data-toggle="modal" data-target="#mailDeleteConfirm" class="btn btn-default"><i class="icon-copy ion-trash-a"></i> 삭제</button>
 	              <button type="button" onclick="list();" class="btn btn-default"><i class="icon-copy ion-arrow-left-c"></i> 목록으로</button>
 	            </div>
 			</form>
 			
 				<!-- 중간내용 끝 -->
 				</div>
+				
+			
+						<div class="modal fade" id="mailDeleteConfirm" tabindex="-1" role="dialog" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content">
+									<div class="modal-body text-center font-18">
+										<h4 class="padding-top-30 mb-30 weight-500">메일을 휴지통으로 이동하시겠습니까?</h4>
+										<div class="padding-bottom-30 row" style="max-width: 170px; margin: 0 auto;">
+											<div class="col-6">
+												<button type="button" class="btn btn-secondary border-radius-100 btn-block confirmation-btn" data-dismiss="modal"><i class="fa fa-times"></i></button>
+												취소
+											</div>
+											<div class="col-6">
+												<button type="button" onclick="waste();" class="btn btn-primary border-radius-100 btn-block confirmation-btn" data-dismiss="modal"><i class="fa fa-check"></i></button>
+												삭제
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
-				</div>
-				</div>
-				</div>
+			</div>
+			</div>
+				
+				
+				
+				
+				
 <script>
 function reply() {
 	$("#receiveMail").attr("action", "sendReply.ml");
@@ -93,18 +121,16 @@ function reply() {
 	return true;
 }
 function delivery(){
-	$("#receiveMail").attr("action", "sendDelivery.ml");
+	$("#receiveMail").attr("action", "receiveDelivery.ml");
 	$("#receiveMail").submit();
 	return true; 
 }
 function waste(){
-	var confirmVal = confirm("메일을 휴지통으로 이동하시겠습니까?");
 	
-	if(confirmVal){
-		$("#receiveMail").attr("action", "wasteReceiveMail.ml");
-		$("#receiveMail").submit();
-		return true;
-	}
+	$("#receiveMail").attr("action", "wasteReceiveMail.ml");
+	$("#receiveMail").submit();
+	return true;
+
 }
 function list(){
 	$("#receiveMail").attr("action", "receiveList.ml");
@@ -113,6 +139,8 @@ function list(){
 }
 
 </script>
+
+<script src="${ pageContext.servletContext.contextPath }/resources/plugins/sweetalert2/sweetalert2.all.js"></script>
 				
 <jsp:include page="../common/footer.jsp" />
 

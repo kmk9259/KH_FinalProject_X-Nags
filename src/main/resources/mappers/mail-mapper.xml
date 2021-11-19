@@ -91,6 +91,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="rightName" column="RIGHT_NAME"/>
 	</resultMap>
 	
+	<resultMap id="empResultSet" type="Member">
+		<id property="empId" column="EMP_ID"/>
+		<result property="userName" column="USER_NAME"/>
+	</resultMap>
+	
 	<!-- 메일 작성 -->
 	<insert id="insertMail" parameterType="Mail">
 		insert into mail
@@ -123,6 +128,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    *
 		FROM MAIL A
 		JOIN MEMBER B ON A.MAIL_RECEIVER=B.EMP_ID
+		WHERE A.WRITER_STATUS=1
 		AND A.MAIL_NO=#{mno}
 	</select>
 	
@@ -151,6 +157,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    *
 		FROM MAIL A
 		JOIN MEMBER B ON A.EMP_ID=B.EMP_ID
+		WHERE A.RECEIVER_STATUS=1
 		AND A.MAIL_NO=#{mno}
 	</select>
 	
@@ -276,6 +283,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		JOIN JOB USING (JOB_CODE)
 		JOIN RIGHT USING (RIGHT_NO)
 		WHERE DEPT_CODE=#{deptCode}
+	</select>
+	
+	<!-- 메일 작성자 -->
+	<select id="selectSendEmp" parameterType="_int" resultMap="empResultSet">
+		SELECT E.EMP_ID, E.USER_NAME
+		FROM MEMBER E
+		JOIN MAIL M ON E.EMP_ID=M.EMP_ID
+		WHERE M.MAIL_NO=#{mno}
 	</select>
 
 </mapper>

@@ -75,17 +75,17 @@
             
             <!-- 버튼들 -->
             <form id="sendMail" action="" method="post">
-            	<input type="hidden" name="empId" value="${ sessionScope.loginUser.empId }">
+            	<input type="hidden" name="empId" value="${ loginUser.empId }">
             	<input type="hidden" name="mno" value="${m.mailNo }">
             
 	            <div class="card-footer">
 	              <div class="float-right">
 	              	<button type="button"  class="btn btn-default"><i class="icon-copy ion-arrow-left-c"></i> 목록으로</button>
-	                <button type="button" onclick="returnMail();" class="btn btn-default"><i class="icon-copy ion-refresh"></i> 복구</button>
+	                <button type="button" data-backdrop="static" data-toggle="modal" data-target="#mailRecovery" class="btn btn-default"><i class="icon-copy ion-refresh"></i> 복구</button>
 	                	
 	              </div>
 	              
-	              <button type="button" onclick="waste();" class="btn btn-default"><i class="icon-copy ion-trash-a"></i> 영구삭제</button>
+	              <button type="button" data-backdrop="static" data-toggle="modal" data-target="#delete" class="btn btn-default"><i class="icon-copy ion-trash-a"></i> 영구삭제</button>
 	              <button type="button" class="btn btn-default"><i class="icon-copy ion-printer"></i> 인쇄</button>
 	            </div>
 	            
@@ -98,31 +98,64 @@
 				</div>
 				</div>
 				
+				<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-body text-center font-18">
+								<h4 class="padding-top-30 mb-30 weight-500">메일을 영구 삭제하시겠습니까?</h4>
+								<div class="padding-bottom-30 row" style="max-width: 170px; margin: 0 auto;">
+									<div class="col-6">
+										<button type="button" class="btn btn-secondary border-radius-100 btn-block confirmation-btn" data-dismiss="modal"><i class="fa fa-times"></i></button>
+										취소
+									</div>
+									<div class="col-6">
+										<button type="button" onclick="waste();" class="btn btn-primary border-radius-100 btn-block confirmation-btn" data-dismiss="modal"><i class="fa fa-check"></i></button>
+										삭제
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="modal fade" id="mailRecovery" tabindex="-1" role="dialog" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-body text-center font-18">
+								<h4 class="padding-top-30 mb-30 weight-500">메일을 복구하시겠습니까?</h4>
+								<div class="padding-bottom-30 row" style="max-width: 170px; margin: 0 auto;">
+									<div class="col-6">
+										<button type="button" class="btn btn-secondary border-radius-100 btn-block confirmation-btn" data-dismiss="modal"><i class="fa fa-times"></i></button>
+										취소
+									</div>
+									<div class="col-6">
+										<button type="button" onclick="returnMail();" class="btn btn-primary border-radius-100 btn-block confirmation-btn" data-dismiss="modal"><i class="fa fa-check"></i></button>
+										복구
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
 				
 <script >
 //메일 다시 보내기
 function returnMail(){
-	var confirmVal = confirm("메일을 복구하시겠습니까?");
+	$("#sendMail").attr("action", "returnMail.ml");
+	$("#sendMail").submit();
 	
-	if(confirmVal){
-		$("#sendMail").attr("action", "returnMail.ml");
-		$("#sendMail").submit();
-		return true;
-	}
 }
 
 //영구삭제
 function waste(){
-	var confirmVal = confirm("메일을 영구적으로 삭제하시겠습니까?");
-	
-	if(confirmVal){
-		$("#sendMail").attr("action", "wasteMail.ml");
-		$("#sendMail").submit();
-		return true;
-	}
+	$("#sendMail").attr("action", "wasteMail.ml");
+	$("#sendMail").submit();
+
 }
 </script>
 				
+<script src="${ pageContext.servletContext.contextPath }/resources/plugins/sweetalert2/sweetalert2.all.js"></script>
 				
 <jsp:include page="../common/footer.jsp" />
 

@@ -63,7 +63,6 @@
 						<thead>
 							<tr>
 								<th scope="col"></th>
-								<th scope="col"></th>
 								<th scope="col"><i class="icon-copy ion-star"></i></th>
 								<th scope="col"><i class="icon-copy ion-ios-email"></i></th>
 								<th scope="col">받는 사람</th>
@@ -74,7 +73,6 @@
 						<tbody>
 							<c:forEach items="${ sendList }" var="s">
 								<tr>
-									<td><input type="checkbox"></td>
 									<td scope="row">${ s.mailNo }</td>
 									
 									<c:choose>
@@ -153,13 +151,13 @@
 				</div>
 				</div>
 			
-			<script>
-				$(function(){
-					$(".mailList tbody tr").click(function(){
-						location.href="sendDetail.ml?mno=" + $(this).children().eq(1).text();
-					});
-				});
-			</script>
+<script>
+$(function(){
+	$(".mailList tbody tr").click(function(){
+		location.href="sendDetail.ml?mno=" + $(this).children().eq(0).text();
+	});
+});
+</script>
 			
 			
 <jsp:include page="../common/footer.jsp" />

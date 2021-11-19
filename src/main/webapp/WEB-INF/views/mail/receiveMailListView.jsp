@@ -140,34 +140,25 @@
                 </ul>
             <!-- 페이징끝 -->
 					</div>
-					
-										
-				
-            
             </div>
 			</div>
-									
-									
-				<!-- basic table  End -->
-				
-				
-				</div>
-				</div>
+		</div>
+		</div>
 				
 				
 			
+
+<script>
+	
+	$(function(){
+		$(".mailList tbody tr").click(function(){
+			console.log($(".mailList tbody tr").children().eq(0).text());
+			location.href="receiveDetail.ml?mno=" + $(this).children().eq(0).text();
 			
-			<script>
-				
-				$(function(){
-					$(".mailList tbody tr").click(function(){
-						console.log($(".mailList tbody tr").children().eq(0).text());
-						location.href="receiveDetail.ml?mno=" + $(this).children().eq(0).text();
-						
-					});
-				});
-				
-			</script>
+		});
+	});
+	
+</script>
 			
 			
 <jsp:include page="../common/footer.jsp" />

@@ -16,7 +16,6 @@
 	width: 100%;
 	margin-bottom: 0;
 }
-
 label {
 	font-weight: bold;
 }
@@ -106,7 +105,7 @@ label {
 						<div class="form-group">
 							<textarea class="textarea_editor form-control border-radius-0" name="content" required="required">
 								-----Original Message-----<br>
-								From : ${ sessionScope.loginUser.userName }<br>
+								From : ${ loginUser.userName }<br>
 								To : ${sendMail.receiver }<br>
 								Sent : ${sendMail.date}<br>
 								Title : ${sendMail.title }<br>
@@ -194,6 +193,19 @@ $(function(){
 		var deptCode = $("option:selected").val();
 		console.log(deptCode);
 		
+		if(deptCode == "부서 선택"){
+			
+			swal(
+	               {
+	                   type: 'error',
+	                   title: 'Oops...',
+	                   text: '부서를 선택해 주세요',
+	               }
+	           )
+	           
+			return false;
+		}
+		
 		$.ajax({
 			url:"empList.ml",
 			data:{deptCode:deptCode},
@@ -236,6 +248,17 @@ function selectReceiver(){
 	var userName = td.eq(1).text();
 	var empId = td.eq(2).text();
 	
+	if(tr.val() == null){
+		swal(
+               {
+                   type: 'error',
+                   title: 'Oops...',
+                   text: '받는 사람을 선택해 주세요',
+               }
+           )
+		return false;
+	}
+	
 	console.log("userName : " + userName);
 	console.log("empId : " + empId);
 	
@@ -246,12 +269,43 @@ function selectReceiver(){
 
 function sendDelivery(){
 	var receiver = $("#sendDelivery input[name=receiverName]");
+	var title = $("#sendDelivery input[name=title]");
+	var content = $("#sendDelivery input[name=content]");
 	console.log(receiver);
 	if(receiver.val()=="" || receiver.val()==null){
-		alert("받는 사람을 입력해주세요.");
+		
+	 swal(
+               {
+                   type: 'error',
+                   title: 'Oops...',
+                   text: '받는 사람을 입력해 주세요',
+               }
+           )
 		return false;
+	 
+	}else if(title.val()=="" || title.val()==null){
+		
+		swal(
+	               {
+	                   type: 'error',
+	                   title: 'Oops...',
+	                   text: '제목을 입력해 주세요',
+	               }
+	           )
+			return false;
+		
+	}else if(content.val()=="" || content.val()==null){
+	
+		swal(
+	               {
+	                   type: 'error',
+	                   title: 'Oops...',
+	                   text: '내용을 입력해 주세요',
+	               }
+	           )
+			return false;
 	}else{
-		$("#sendDelivery").attr("action", "insertSendDelivery.ml");
+		$("#sendDelivery").attr("action", "insertDelivery.ml");
 		$("#sendDelivery").submit();
 		return true;
 	}
@@ -259,6 +313,8 @@ function sendDelivery(){
 
 
 </script>	
+<script src="${ pageContext.servletContext.contextPath }/resources/plugins/sweetalert2/sweetalert2.all.js"></script>
+
 <jsp:include page="../common/footer.jsp" />
 
 </body>
