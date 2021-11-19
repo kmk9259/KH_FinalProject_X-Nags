@@ -16,10 +16,18 @@ import lombok.ToString;
 @Getter
 @ToString
 public class MeetingRoom {
-	private int roomNo;
+	private int mroomNo;
+	private int mrNo;
 	private String empId;
-	private Date date;
-	private Timestamp timeIn;
-	private Timestamp timeOut;
+	private String time;
 	private String status;
+	
+	public MeetingRoom(int mrNo, String time, String status) {
+		super();
+		this.mrNo = mrNo;
+		this.time = time;
+		this.status = status;
+	}
+	
+	
 }

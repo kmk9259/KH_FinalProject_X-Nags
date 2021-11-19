@@ -151,14 +151,15 @@ text-align: center;
 					    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
 					      <div class="card-body">
 					       
-					       
+					       							<form method="post" action="insertMeetingA.me">
+					 								<input type = "hidden" name = "empId" value = "${loginUser.empId }"> 
 					       
 					       							<div class="row">
 															
 															<!-- 1번 -->
 															<div class="col-md-6 col-sm-12">
 															<div class="pd-20 card-box mb-30">
-															<c:forEach items="${TimeTableA }" var="time" varStatus="status">
+															<c:forEach items="${TimeTableA }" var="m" varStatus="status">
 
 															<table class="table table-bordered" id="meetingRoom1">
 															
@@ -166,11 +167,11 @@ text-align: center;
 															
 															<tbody>
 															<tr>
-															<td colspan="">${time.timeA }</td>
+															<td colspan="">${m.time }</td>
 															<td>
 															
 															<c:choose>
-															<c:when test="${time.statusA eq 'Y'}">
+															<c:when test="${m.status eq 'Y'}">
 															<button type="button"  class="btn btn-outline-success usable${status.index }" >사용 가능</button>
 															<button type="button"  class="btn btn-success using${status.index }" style="display : none; " >선택 됨</button>
 															</c:when>
@@ -189,16 +190,16 @@ text-align: center;
 															
 															<script>
 															$(".usable${status.index }").click(function(){
-																$(this).hide()
+																$(this).hide();
 																$(this).next().css("display", "block");
 																
-																var time = $(this).parent().prev().text()
-																console.log(time)
+																var time = $(this).parent().prev().text();
+																console.log(time);
 																
 																var html="";
 																
 																html +='<tr >'; 
-																html +='<td  class="it'+ ${status.index}+ ' ><input type="hidden" name="timeA" >'+time+'</td>';
+																html +='<td  class="it'+ ${status.index}+ '" ><input type="hidden" name="time" value="'+ time+'">'+time+'</td>';
 																html +='</tr>';
 																
 																$("#reserve1").append(html);
@@ -235,8 +236,7 @@ text-align: center;
 															</div>
 														</div>
 														
-														<form id="" method="post" action="insertMeeting.me">
-					 									<input type = "hidden" name = "empId" value = "${loginUser.empId }"> 
+														
 														<table class="table table-bordered" id="reserve1">
 														 <thead>
 															<tr>
@@ -253,13 +253,15 @@ text-align: center;
 														</table>
 														
 														
-														<button type="button" class="btn btn-primary btn-lg btn-block" >회의실 예약</button>
-													    </form>
+														<button type="submit" class="btn btn-primary btn-lg btn-block" >회의실 예약</button>
+													   
 													
 													</div>
 													</div>	
 													
 													</div>
+													
+													 </form>
 													
 													
 															
@@ -298,14 +300,14 @@ text-align: center;
 															<table class="table table-bordered" id="myTable">
 															<thead><tr><th colspan="2"> 회의실 2 </th><tr></thead>
 															
-															<c:forEach items="${TimeTableB }" var="time" varStatus="status">
+															<c:forEach items="${TimeTableB }" var="m" varStatus="status">
 															<tbody>
 															<tr>
-															<td colspan="">${time.timeB }</td>
+															<td colspan="">${m.time }</td>
 															<td>
 															
 															<c:choose>
-															<c:when test="${time.statusB eq 'Y'}">
+															<c:when test="${m.status eq 'Y'}">
 															<button type="button"  class="btn btn-outline-success usable${status.index }">사용 가능</button>
 															</c:when>
 															<c:otherwise>
