@@ -52,18 +52,27 @@ public class MemberController {
 	}
 
 	@RequestMapping("main.xnags")
-	public String loginMember(Member m, Model model) {
+	public String loginMember(Member m, String empId,Model model) {
 		
-		Member loginUser;
+		Member loginUser = null;
 		
 		
 		try {
-			loginUser = memberService.loginMember(bCryptPasswordEncoder,m);
-			loginEmp = employeeService.loginEmployee(m);	
-
+			if(m== null) {	//얼굴인식 화면
+				loginUser = memberService.loginMember2(empId);
+				loginEmp = employeeService.loginEmployee(empId);
+				System.out.println("얼굴 인식 로그인 loginUser: "+loginUser);
+				System.out.println("얼굴 인식 로그인 loginEmp : "+loginEmp);
+				
+			}else {
+				loginUser = memberService.loginMember(bCryptPasswordEncoder,m);
+				loginEmp = employeeService.loginEmployee(m.getEmpId());
+				System.out.println("일반 로그인 loginUser: "+loginUser);
+				System.out.println("일반 로그인 loginEmp : "+loginEmp);
+			}
+			
 			String dDay = dDAY(loginEmp);
-			System.out.println("loginUser: "+loginUser);
-			System.out.println("loginEmp : "+loginEmp);
+			
 			
 			model.addAttribute("loginUser", loginUser);	
 			model.addAttribute("loginEmp", loginEmp);	

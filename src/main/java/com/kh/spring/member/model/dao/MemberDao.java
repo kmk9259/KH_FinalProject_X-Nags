@@ -8,8 +8,8 @@ import com.kh.spring.member.model.vo.Member;
 @Repository
 public class MemberDao {
 
-	public Member loginMember(SqlSessionTemplate sqlSession, Member m) {
-		Member m1 = sqlSession.selectOne("memberMapper.loginMember",m);
+	public Member loginMember(SqlSessionTemplate sqlSession, String empId) {
+		Member m1 = sqlSession.selectOne("memberMapper.loginMember",empId);
 
 		return m1;
 	}

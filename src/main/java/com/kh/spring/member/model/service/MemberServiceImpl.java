@@ -22,16 +22,28 @@ public class MemberServiceImpl implements MemberService {
 	 
 	@Override
 	public Member loginMember(BCryptPasswordEncoder bCryptPasswordEncoder, Member m) {
-		Member loginUser = memberDao.loginMember(sqlSession, m);
+		Member loginUser = memberDao.loginMember(sqlSession, m.getEmpId());
 		if(loginUser == null) {
 			throw new CommException("loginUser null");
 		}
-		//matches(평문, 암호화)->true, false 반환
-		if(!bCryptPasswordEncoder.matches(m.getUserPwd(), loginUser.getUserPwd())) {
-			//복호화랑 일치하지 않으면
-			throw new CommException("암호불일치");
-						
+		if(m.getUserPwd() != null) {
+			//matches(평문, 암호화)->true, false 반환
+			if(!bCryptPasswordEncoder.matches(m.getUserPwd(), loginUser.getUserPwd())) {
+				//복호화랑 일치하지 않으면
+				throw new CommException("암호불일치");
+							
+			}
 		}
+		return loginUser;
+	}
+	//얼굴인식 로그인
+	@Override
+	public Member loginMember2(String empId) {
+		Member loginUser = memberDao.loginMember(sqlSession, empId);
+		if(loginUser == null) {
+			throw new CommException("loginUser null");
+		}
+		
 		return loginUser;
 	}
 
@@ -62,7 +74,7 @@ public class MemberServiceImpl implements MemberService {
 		int result = memberDao.updateMember(sqlSession,m);
 		
 		if(result>0) {
-			Member loginUser = memberDao.loginMember(sqlSession, m);
+			Member loginUser = memberDao.loginMember(sqlSession, m.getEmpId());
 			return loginUser;
 		}else {
 			throw new Exception("회원 수정 실패");

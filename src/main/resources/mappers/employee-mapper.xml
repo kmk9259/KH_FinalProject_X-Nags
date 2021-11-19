@@ -72,7 +72,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ORDER BY EMP_ID DESC		
 	</select>
 	
-	<select id="loginEmployee" parameterType="Member" resultMap="employeeResultSet">
+	<select id="loginEmployee" parameterType="String" resultMap="employeeResultSet">
 	SELECT EMP_ID, JOB_NAME, RIGHT_NAME, DEPT_NAME, SAL_LEVEL, HIRE_DATE, MODIFIY_DATE, END_DATE, HOL_COUNT
 	FROM EMPLOYEE 
 	JOIN JOB USING (JOB_CODE)

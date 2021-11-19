@@ -25,6 +25,7 @@
     <link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/resources/vendors/styles/style.css">
+    <link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/resources/plugins/sweetalert2/sweetalert2.css">
 
      <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
@@ -93,6 +94,14 @@
                     </div>
                 </div>
             </div>
+           <!--  <div class="col-lg-4 col-md-6 col-sm-12 mb-30">
+                <div class="pd-20 card-box text-center height-100-p">                    
+                    <div class="max-width-200 mx-auto">
+                        <button type="button" class="btn mb-20 btn-primary btn-block" id="sa-basic">Click me</button>
+                    </div>
+                </div>
+            </div> -->
+           
             <c:if test="${ !empty sessionScope.loginUser }">
             <div class="user-info-dropdown">
                 <div class="dropdown">
@@ -134,6 +143,30 @@
                     </div>
 					<script>
 						$('#confirmation-modal').appendTo("body");
+						!function ($) {
+						    "use strict";
+
+						    var SweetAlert = function () {
+						    };
+
+						    //examples
+						    SweetAlert.prototype.init = function () {
+
+						        //Basic
+						        $('#sa-basic').on('click', function () {
+						            swal('test')
+						        });
+
+						    },
+						        //init
+						        $.SweetAlert = new SweetAlert, $.SweetAlert.Constructor = SweetAlert
+						}(window.jQuery),
+
+						//initializing
+						    function ($) {
+						        "use strict";
+						        $.SweetAlert.init()
+						    }(window.jQuery);
 					</script> 
 
                 </div>
@@ -156,6 +189,9 @@
     <script src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/dataTables.responsive.min.js"></script>
     <script src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
     <%-- <script src="${ pageContext.servletContext.contextPath }/resources/vendors/scripts/dashboard.js"></script> --%>
+    <!-- add sweet alert js & css in footer -->
+    <script src="${ pageContext.servletContext.contextPath }/resources/plugins/sweetalert2/sweetalert2.all.js"></script>
+<%--     <script src="${ pageContext.servletContext.contextPath }/resources/plugins/sweetalert2/sweet-alert.init.js"></script> --%>
     
 </body>
 </html>

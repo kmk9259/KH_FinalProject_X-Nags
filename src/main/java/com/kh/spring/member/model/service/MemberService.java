@@ -14,6 +14,8 @@ public interface MemberService {
 
 	void insertMember(Member m);
 
+	Member loginMember2(String empId);
+	
 	Member selectMem(int empId);
 
 	//void deleteMember(String userId);

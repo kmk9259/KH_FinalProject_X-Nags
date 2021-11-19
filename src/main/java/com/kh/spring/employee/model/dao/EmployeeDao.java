@@ -35,8 +35,8 @@ public class EmployeeDao {
 		return (ArrayList)sqlSession.selectList("employeeMapper.selectList", null, rowBounds);
 	}
 
-	public Employee loginEmployee(SqlSessionTemplate sqlSession, Member m) {
-		return sqlSession.selectOne("employeeMapper.loginEmployee",m);
+	public Employee loginEmployee(SqlSessionTemplate sqlSession, String empId) {
+		return sqlSession.selectOne("employeeMapper.loginEmployee",empId);
 	}
 
 	public Job selectJob(SqlSessionTemplate sqlSession, Employee loginEmp) {

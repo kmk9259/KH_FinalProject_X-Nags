@@ -19,7 +19,7 @@ public interface EmployeeService {
 
 	ArrayList<Employee> selectList(PageInfo pi);
 
-	Employee loginEmployee(Member m);
+	Employee loginEmployee(String empId);
 
 	Job selectJob(Employee loginEmp);
 
