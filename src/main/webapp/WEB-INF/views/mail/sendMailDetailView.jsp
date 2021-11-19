@@ -40,7 +40,9 @@
 		            <div class="card-header">
 		              <h3 class="mailbox-read-info">${m.title }</h3>
 		              <br>
-		              <h4 class="card-title">${m.receiver }
+		              <h4 class="card-title">to : ${m.receiver }
+		              <br>
+		              from : ${loginUser.userName }
                   		<span class="mailbox-read-time float-right">${m.date }</span>
                   	  </h4>
 		            </div>
@@ -77,7 +79,7 @@
 	                <button type="button" onclick="delivery();" class="btn btn-default"><i class="icon-copy ion-share"></i> 전달</button>
 	              </div>
 	              <button type="button" onclick="waste();" class="btn btn-default"><i class="icon-copy ion-trash-a"></i> 삭제</button>
-	              <button type="button" onclick="history.go(-1)" class="btn btn-default"><i class="icon-copy ion-arrow-left-c"></i> 목록으로</button>
+	              <button type="button" onclick="goList();" class="btn btn-default"><i class="icon-copy ion-arrow-left-c"></i> 목록으로</button>
 	            </div>
 			</form>
 				<!-- 중간내용 끝 -->
@@ -115,6 +117,11 @@ function waste(){
 		$("#sendMail").submit();
 		return true;
 	}
+}
+function goList() {
+	$("#sendMail").attr("action", "sendList.ml");
+	$("#sendMail").submit();
+	return true;
 }
 
 
