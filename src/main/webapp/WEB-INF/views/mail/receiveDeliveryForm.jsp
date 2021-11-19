@@ -58,19 +58,14 @@ label {
 				<!-- 메일 폼 시작 -->
 				<div class="pd-20 card-box mb-30">
 					
-					<form action="re.ml" method="post"
-						enctype="multipart/form-data">
+					<form action="" method="post" enctype="multipart/form-data" id="sendDelivery">
 						
-								<input type="hidden" readonly
-								class="form-control-plaintext" name="empId"
-								value="${ sessionScope.loginUser.empId }">
+						<input type="hidden" name="empId" value="${ sessionScope.loginUser.empId }">
 						
-
 						<div class="form-group">
 							<div class="mailReceiver">
 								<div class="form-group">
-									<input class="form-control" type="text" data-toggle="tooltip" title="주소록에서 선택해 주세요."
-										name="receiverName" readonly="readonly" required="required" placeholder="받는 사람">
+									<input class="form-control" type="text" data-toggle="tooltip" title="주소록에서 선택해 주세요." name="receiverName" readonly="readonly" placeholder="받는 사람">
 									<input type="hidden" name="receiver">
 								</div>
 								<div class="form-group">
@@ -120,7 +115,7 @@ label {
 						<div class="clearfix">
 							<div class="pull-right">
 								<button type="button" class="btn btn-outline-danger" onclick="history.go(-1)">취소</button>
-								<button type="submit" class="btn btn-primary">메일 전달</button>
+								<button type="button" onclick="sendMail()" class="btn btn-primary">메일 전달</button>
 							</div>
 						</div>
 					</form>
@@ -196,6 +191,19 @@ $(function(){
 		var deptCode = $("option:selected").val();
 		console.log(deptCode);
 		
+		if(deptCode == "부서 선택"){
+			
+			swal(
+	               {
+	                   type: 'error',
+	                   title: 'Oops...',
+	                   text: '부서를 선택해 주세요',
+	               }
+	           )
+	           
+			return false;
+		}
+		
 		$.ajax({
 			url:"empList.ml",
 			data:{deptCode:deptCode},
@@ -244,6 +252,17 @@ function selectReceiver(){
 	var userName = td.eq(1).text();
 	var empId = td.eq(2).text();
 	
+	if(tr.val() == null){
+		swal(
+               {
+                   type: 'error',
+                   title: 'Oops...',
+                   text: '받는 사람을 선택해 주세요',
+               }
+           )
+		return false;
+	}
+	
 	console.log("userName : " + userName);
 	console.log("empId : " + empId);
 	
@@ -251,10 +270,55 @@ function selectReceiver(){
 	$("input[name=receiver]").val(empId);
 	$("#bd-example-modal-lg").modal("hide");	
 }
-
+function sendMail(){
+	var receiver = $("#sendDelivery input[name=receiverName]");
+	var title = $("#sendDelivery input[name=title]");
+	var content = $("#sendDelivery input[name=content]");
+	
+	if(receiver.val()=="" || receiver.val()==null){
+		
+	 swal(
+               {
+                   type: 'error',
+                   title: 'Oops...',
+                   text: '받는 사람을 입력해 주세요',
+               }
+           )
+		return false;
+	 
+	}else if(title.val()=="" || title.val()==null){
+		
+		swal(
+	               {
+	                   type: 'error',
+	                   title: 'Oops...',
+	                   text: '제목을 입력해 주세요',
+	               }
+	           )
+			return false;
+		
+	}else if(content.val()=="" || content.val()==null){
+	
+		swal(
+	               {
+	                   type: 'error',
+	                   title: 'Oops...',
+	                   text: '내용을 입력해 주세요',
+	               }
+	           )
+			return false;
+		
+	
+	}else{
+		$("#sendDelivery").attr("action", "insertDelivery.ml");
+		$("#sendDelivery").submit();
+		return true;
+	}
+}
 
 </script>	
 
+<script src="${ pageContext.servletContext.contextPath }/resources/plugins/sweetalert2/sweetalert2.all.js"></script>
 
 <jsp:include page="../common/footer.jsp" />
 

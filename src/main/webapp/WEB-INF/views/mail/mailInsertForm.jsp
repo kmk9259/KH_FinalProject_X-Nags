@@ -17,8 +17,6 @@
 	width: 100%;
 	margin-bottom: 0;
 }
-
-
 label {
 	font-weight: bold;
 }
@@ -26,13 +24,11 @@ label {
 	overflow: auto;
 	min-height:500px;
 }
-
 </style>
 
 </head>
 <body>
-
-	<jsp:include page="../common/menubar.jsp" />
+<jsp:include page="../common/menubar.jsp" />
 
 	<div class="main-container">
 		<div class="pd-ltr-20 xs-pd-20-10">
@@ -46,8 +42,7 @@ label {
 							<nav aria-label="breadcrumb" role="navigation">
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="">홈</a></li>
-									<li class="breadcrumb-item active" aria-current="page">메일
-										작성</li>
+									<li class="breadcrumb-item active" aria-current="page">메일 작성</li>
 								</ol>
 							</nav>
 						</div>
@@ -57,14 +52,9 @@ label {
 				<!-- 메일 폼 시작 -->
 				<div class="pd-20 card-box mb-30">
 					
-					<form action="" method="post"
-						enctype="multipart/form-data" id="insertMail">
+					<form action="" method="post" enctype="multipart/form-data" id="insertMail">
+						<input type="hidden" readonly class="form-control-plaintext" name="empId" value="${ sessionScope.loginUser.empId }">
 						
-								<input type="hidden" readonly
-								class="form-control-plaintext" name="empId"
-								value="${ sessionScope.loginUser.empId }">
-						
-
 						<div class="form-group">
 							<div class="mailReceiver">
 								<div class="form-group">
@@ -77,34 +67,24 @@ label {
 								</div>
 								<div class="">
 									<div class="custom-control custom-checkbox mb-5">
-										<input type="checkbox" class="custom-control-input"
-												id="customCheck1" name="importantFlag" value="1"> <label
-												class="custom-control-label" for="customCheck1">중요 메일</label>
+										<input type="checkbox" class="custom-control-input" id="customCheck1" name="importantFlag" value="1"> 
+										<label class="custom-control-label" for="customCheck1">중요 메일</label>
 									</div>
 								</div>
 								<br>
-								
-								<input class="form-control"
-								type="text" name="title" required="required" placeholder="메일 제목을 입력해주세요.">
+								<input class="form-control" type="text" name="title" required="required" placeholder="메일 제목을 입력해주세요.">
 								<br>
 								<br>
-								
-								
 							</div>
-							
 						</div>
 						<div class="form-group">
-							<input type="file"
-								class="form-control-file form-control height-auto"
-								name="uploadFile">
-							</div>
+							<input type="file" class="form-control-file form-control height-auto" name="uploadFile">
+						</div>
 
-						
 						<div class="form-group">
 							<textarea class="textarea_editor form-control border-radius-0" name="content" required="required" placeholder="메일 내용을 입력해주세요."></textarea>
 						</div>
 						
-					
 						<div class="clearfix">
 							<div class="pull-right">
 								<!-- <button type="button" onclick="history.go(-1)" class="btn btn-outline-danger">취소</button> -->
@@ -182,6 +162,18 @@ $(function(){
 		var deptCode = $("option:selected").val();
 		console.log(deptCode);
 		
+		if(deptCode == "부서 선택"){
+				
+			swal(
+	               {
+	                   type: 'error',
+	                   title: 'Oops...',
+	                   text: '부서를 선택해 주세요',
+	               }
+	           )
+			return false;
+		}
+		
 		$.ajax({
 			url:"empList.ml",
 			data:{deptCode:deptCode},
@@ -230,6 +222,17 @@ function selectReceiver(){
 	var userName = td.eq(1).text();
 	var empId = td.eq(2).text();
 	
+	if(tr.val() == null){
+		swal(
+               {
+                   type: 'error',
+                   title: 'Oops...',
+                   text: '받는 사람을 선택해 주세요',
+               }
+           )
+		return false;
+	}
+	
 	console.log("userName : " + userName);
 	console.log("empId : " + empId);
 	
@@ -240,22 +243,49 @@ function selectReceiver(){
 
 function sendMail(){
 	var receiver = $("#insertMail input[name=receiverName]");
-	console.log(receiver);
+	var title = $("#insertMail input[name=title]");
+	var content = $("#insertMail input[name=content]");
+	
 	if(receiver.val()=="" || receiver.val()==null){
 		
-		
-		
-		alert("받는 사람을 입력해주세요.");
+	 swal(
+               {
+                   type: 'error',
+                   title: 'Oops...',
+                   text: '받는 사람을 입력해 주세요',
+               }
+           )
 		return false;
+	 
+	}else if(title.val()=="" || title.val()==null){
+		
+		swal(
+	               {
+	                   type: 'error',
+	                   title: 'Oops...',
+	                   text: '제목을 입력해 주세요',
+	               }
+	           )
+			return false;
+		
+	}else if(content.val()=="" || content.val()==null){
+	
+		swal(
+	               {
+	                   type: 'error',
+	                   title: 'Oops...',
+	                   text: '내용을 입력해 주세요',
+	               }
+	           )
+			return false;
+		
+	
 	}else{
-		$("#sendDelivery").attr("action", "insert.ml");
-		$("#sendDelivery").submit();
+		$("#insertMail").attr("action", "insert.ml");
+		$("#insertMail").submit();
 		return true;
 	}
 }
-
-
-
 </script>	
 
 <script src="${ pageContext.servletContext.contextPath }/resources/plugins/sweetalert2/sweetalert2.all.js"></script>

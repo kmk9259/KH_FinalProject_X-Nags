@@ -154,4 +154,9 @@ public class MailDao {
 		return (ArrayList)sqlSession.selectList("mailMapper.selectEmployeeList", deptCode);
 	}
 
+	public Member selectSendEmp(SqlSessionTemplate sqlSession, int mno) {
+	
+		return sqlSession.selectOne("mailMapper.selectSendEmp", mno);
+	}
+
 }

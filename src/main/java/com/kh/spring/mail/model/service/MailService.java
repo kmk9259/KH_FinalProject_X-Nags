@@ -51,6 +51,9 @@ public interface MailService {
 
 	ArrayList<Employee> selectEmployeeList(String deptCode);
 
+	Member selectSendEmp(int mno);
+
+
 
 
 

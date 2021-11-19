@@ -139,14 +139,18 @@ public class MailController {
 
 	// 받은 메일 보기
 	@RequestMapping("receiveDetail.ml")
-	public ModelAndView selectReceiveMail(int mno, ModelAndView mv) {
+	public String selectReceiveMail(int mno, Model model, HttpServletRequest request) {
 
 		// 조회수 올려서 읽음처리하기
 		Mail m = mailService.selectReceiveMail(mno);
+		
+		//보낸사람
+		Member sendEmp = mailService.selectSendEmp(mno);
+		
+		model.addAttribute("sendEmp", sendEmp);
+		model.addAttribute("m", m);
 
-		mv.addObject("m", m).setViewName("mail/receiveMailDetailView");
-
-		return mv;
+		return "mail/receiveMailDetailView";
 	}
 
 	// 받은메일함 리스트에서 휴지통으로
@@ -203,9 +207,22 @@ public class MailController {
 
 		return mv;
 	}
+	
+	// 받은,보낸메일 전달 화면
+	@RequestMapping("receiveDelivery.ml")
+	public ModelAndView receiveDelivery(Mail m, HttpServletRequest request,
+			@RequestParam(name = "mno", required = false) int mno, ModelAndView mv) {
+
+		Mail receiveMail = mailService.selectSendMail(mno);
+
+		mv.addObject("receiveMail", receiveMail).setViewName("mail/receiveDeliveryForm");
+
+		return mv;
+	}
+	
 
 	// 받은,보낸메일 전달
-	@RequestMapping("insertSendDelivery.ml")
+	@RequestMapping("insertDelivery.ml")
 	public String insertSendDelivery(Mail m, HttpServletRequest request, HttpSession session,
 			@RequestParam(name = "reUploadFile", required = false) MultipartFile file) {
 
@@ -221,7 +238,7 @@ public class MailController {
 
 		mailService.insertSendDelivery(m);
 		
-		session.setAttribute("msg","메일을 성공적으로 전달했습니다.");
+		//session.setAttribute("msg","메일을 성공적으로 전달했습니다.");
 
 		return "redirect:sendList.ml";
 	}
@@ -243,7 +260,7 @@ public class MailController {
 
 		mailService.wasteSendMail(mno);
 		
-		session.setAttribute("msg","메일을 휴지통으로 이동했습니다.");
+		//session.setAttribute("msg","메일을 휴지통으로 이동했습니다.");
 		
 		return "redirect:sendList.ml";
 
@@ -270,14 +287,18 @@ public class MailController {
 	
 	//받은메일에 답장폼
 	@RequestMapping("sendReply.ml")
-	public ModelAndView sendReply(Mail m, HttpServletRequest request,
-			@RequestParam(name = "mno", required = false) int mno, ModelAndView mv) {
+	public String sendReply(Mail m, HttpServletRequest request,
+			@RequestParam(name = "mno", required = false) int mno, Model model) {
 
 		Mail receiveMail = mailService.selectReceiveMail(mno);
+		
+		//보낸사람
+		Member sendEmp = mailService.selectSendEmp(mno);
 
-		mv.addObject("receiveMail", receiveMail).setViewName("mail/replyForm");
+		model.addAttribute("receiveMail", receiveMail);
+		model.addAttribute("sendEmp", sendEmp);
 
-		return mv;
+		return "mail/replyForm";
 	}
 	
 	//받은 메일 답장보내기
@@ -297,7 +318,7 @@ public class MailController {
 
 		mailService.insertReply(m);
 		
-		session.setAttribute("msg","답장을 성공적으로 전송했습니다.");
+		//session.setAttribute("msg","답장을 성공적으로 전송했습니다.");
 
 		return "redirect:sendList.ml";
 	}
@@ -308,7 +329,7 @@ public class MailController {
 
 		mailService.wasteReceiveMail(mno);
 		
-		session.setAttribute("msg","메일을 휴지통으로 이동했습니다.");
+		//session.setAttribute("msg","메일을 휴지통으로 이동했습니다.");
 		
 		return "redirect:receiveList.ml";
 
@@ -336,7 +357,7 @@ public class MailController {
 			
 			mailService.returnSendMail(mno);
 			
-			session.setAttribute("msg","메일을 휴지통에서 복구했습니다.");
+			//session.setAttribute("msg","메일을 휴지통에서 복구했습니다.");
 			
 			return "redirect:sendList.ml";
 			
@@ -345,7 +366,7 @@ public class MailController {
 			
 			mailService.returnReceiveMail(mno);
 			
-			session.setAttribute("msg","메일을 휴지통에서 복구했습니다.");
+			//session.setAttribute("msg","메일을 휴지통에서 복구했습니다.");
 			
 			return "redirect:receiveList.ml";
 			

@@ -230,6 +230,13 @@ public class MailServiceImpl implements MailService {
 		return mailDao.selectEmployeeList(sqlSession, deptCode);
 	}
 
+
+	@Override
+	public Member selectSendEmp(int mno) {
+		
+		return mailDao.selectSendEmp(sqlSession, mno);
+	}
+
 	
 
 
