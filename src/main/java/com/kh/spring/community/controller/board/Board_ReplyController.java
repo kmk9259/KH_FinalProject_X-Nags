@@ -29,7 +29,7 @@ public class Board_ReplyController {
 	@ResponseBody
 	public String selectReplyList(int bno) {
 		ArrayList<Board_Reply> list = board_ReplyService.selectReplyList(bno);
-		return new GsonBuilder().setDateFormat("yyyy년 MM월 dd일 HH:mm").create().toJson(list);
+		return new GsonBuilder().setDateFormat("yyyy년 MM월 dd일").create().toJson(list);
 	}
 
 	@RequestMapping(value = "updateReply.bo")

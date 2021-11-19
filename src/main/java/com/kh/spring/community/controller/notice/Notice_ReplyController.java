@@ -29,7 +29,7 @@ public class Notice_ReplyController {
 	@ResponseBody
 	public String selectReplyList(int bno) {
 		ArrayList<Notice_Reply> list = notice_ReplyService.selectNoticeReplyList(bno);		
-		return new GsonBuilder().setDateFormat("yyyy년 MM월 dd일 HH:mm").create().toJson(list);
+		return new GsonBuilder().setDateFormat("yyyy년 MM월 dd일").create().toJson(list);
 	}
 	@RequestMapping(value = "updateNoticeReply.bo")
 	@ResponseBody

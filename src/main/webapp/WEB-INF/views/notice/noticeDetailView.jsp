@@ -13,12 +13,15 @@
 </head>
 <body style = "background : white">
     <jsp:include page="../common/menubar.jsp"/>
+    <div class="main-container">
 	<div class="mobile-menu-overlay"></div>
 
-	<div class="main-container">
+	
     <div class="content">
+    <div class="card-box mb-30">
         <br>
         <div class="innerOuter">
+        
             <h2 >공지사항 상세보기</h2>                  
             <br>
             <table id="contentArea" align="center" class="table ">
@@ -59,7 +62,7 @@
 	                <button class="btn btn-info" onclick="postFormSubmit(1);">수정하기</button>
 	                <button class="btn btn-danger" onclick="postFormSubmit(2);">삭제하기</button>
 	            </div>
-	            
+	            <br><br>
 	            <form id="postForm" action="" method="post">
 					<input type="hidden" name="bno" value="${ n.noticeNo }">
 				<input type="hidden" name="fileName" value="${ n.changeFile }">  
@@ -85,8 +88,9 @@
             </c:if> 
       </div>
         </div>
+        </div>
             <br>
-
+	<div class="card-box mb-30">
             <table id="replyArea" class="table"  >
                 <thead>
                     <tr>
@@ -105,7 +109,9 @@
                 <tbody >
                 
                 </tbody>
-            </table>
+            </table>           
+            </div>
+           <div class="card-box mb-30">
            <table id="replyArea1" class="table" >
             <thead class ="thead-dark">
             <tr >
@@ -120,9 +126,10 @@
             <tbody >
 		
             </tbody>
-            </table>
-        
-        <br><br>
+            </table>   
+             <br> 
+        </div>
+       
     </div>
 <div class="modal fade" id="modifyModal" role="dialog">
 		<div class="modal-dialog">
