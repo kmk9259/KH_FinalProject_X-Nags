@@ -80,13 +80,13 @@
 									<div class="col-md-3 col-sm-12">
 										<ul class="nav flex-column nav-pills vtabs" role="tablist">
 											<li class="nav-item">
-												<a class="nav-link active" data-toggle="tab" href="#home7" role="tab" aria-selected="true"><i class="fa fa-vcard"></i></a>
+												<a class="nav-link active" data-toggle="tab" href="#home7" role="tab" aria-selected="true"><i class="fa fa-vcard"></i>&nbsp;&nbsp;&nbsp;개인 정보</a>
 											</li>
 											<li class="nav-item">
-												<a class="nav-link" data-toggle="tab" href="#profile7" role="tab" aria-selected="false"><i class="fa fa-users"></i></a>
+												<a class="nav-link" data-toggle="tab" href="#profile7" role="tab" aria-selected="false"><i class="fa fa-users"></i>&nbsp;&nbsp;&nbsp;사원 정보</a>
 											</li>
 											<li class="nav-item">
-												<a class="nav-link" data-toggle="tab" href="#contact7" role="tab" aria-selected="false"><i class="fa fa-envelope-o"></i></a>
+												<a class="nav-link" data-toggle="tab" href="#contact7" role="tab" aria-selected="false"><i class="fa fa-envelope-o"></i>&nbsp;&nbsp;&nbsp;회계 정보</a>
 											</li>
 											
 										</ul>

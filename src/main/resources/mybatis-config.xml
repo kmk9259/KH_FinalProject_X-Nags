@@ -22,7 +22,10 @@
     <typeAlias type="com.kh.spring.community.model.vo.VotingA" alias="VotingA" /> 
     <typeAlias type="com.kh.spring.community.model.vo.VotingG" alias="VotingG" /> 
 	<typeAlias type="com.kh.spring.community.model.vo.Notice_Reply" alias="Notice_Reply" /> 
-	<typeAlias type="com.kh.spring.meetingroom.model.vo.Mrooms" alias="Mrooms" /> 
+	<typeAlias type="com.kh.spring.meetingroom.model.vo.TimeTable_A" alias="TimeTable_A" /> 
+	<typeAlias type="com.kh.spring.meetingroom.model.vo.TimeTable_B" alias="TimeTable_B" />
+	<typeAlias type="com.kh.spring.meetingroom.model.vo.TimeTable_C" alias="TimeTable_C" />
+	<typeAlias type="com.kh.spring.meetingroom.model.vo.TimeTable_D" alias="TimeTable_D" />
 	<typeAlias type="com.kh.spring.employee.model.vo.Right" alias="Right"/>
 	<typeAlias type="com.kh.spring.employee.model.vo.SalGrade" alias="SalGrade"/>     
 	<typeAlias type="com.kh.spring.salary.model.vo.Salary" alias="Salary"/>  
