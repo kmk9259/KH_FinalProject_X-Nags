@@ -1,12 +1,13 @@
 package com.kh.spring.attendance.controller;
 
 
-import java.text.ParseException;
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Locale;
-import java.util.concurrent.TimeUnit;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,11 +17,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.google.gson.GsonBuilder;
 import com.kh.spring.attendance.model.service.AttendanceService;
 import com.kh.spring.attendance.model.vo.AttStatus;
 import com.kh.spring.attendance.model.vo.Attendance;
+import com.kh.spring.common.exception.CommException;
 import com.kh.spring.employee.model.service.EmployeeService;
 import com.kh.spring.employee.model.vo.Employee;
 import com.kh.spring.holiday.model.vo.Holiday;
@@ -33,7 +37,46 @@ public class AttendanceController {
 	
 	@Autowired 
 	private EmployeeService employeeService;
-	
+	@ResponseBody
+	@RequestMapping("attImage.att")
+	public String saveCapture(@RequestParam HashMap<Object, Object> param,  MultipartHttpServletRequest filelist) {
+	    //param  --> 넘어온 파라미터
+	    //filelist --> 넘어온 파일 리스트
+	    //MultipartFile로 이름을 주어서 따로 받을 수 있다. ajax로 file1로 보냈으니 받을 때 MultipartFile file1 이런식으로도 가능하다.
+	    //MultipartHttpServletRequest로 받으면 한번에 객체를 통째로 받아서 나름 편하다.
+	    Iterator<String> iter = filelist.getFileNames(); 
+	    MultipartFile mfile = null; 
+	    String fieldName = "";
+	    String changeName="";
+	    while (iter.hasNext()) { 
+	        fieldName = (String) iter.next(); //파일이름, 위에서 file1과 file2로 보냈으니 file1, file2로 나온다.
+	        mfile = filelist.getFile(fieldName);  //저장된 파일 객체
+	        changeName = saveFile(mfile, filelist);
+	        System.out.println(fieldName);
+	    }
+	    return changeName;
+	}
+	private String saveFile(MultipartFile file, HttpServletRequest request) {
+		String resources = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = resources + "\\attCapture_files\\";
+		System.out.println("savePath : " + savePath);
+
+		String originName = file.getOriginalFilename();
+		String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+
+		String ext = originName.substring(originName.lastIndexOf("."));
+
+		String changeName = currentTime + ext;
+		System.out.println("changeName : "+changeName);
+		try {
+			file.transferTo(new File(savePath + changeName));
+		} catch (IllegalStateException | IOException e) {
+
+			e.printStackTrace();
+			throw new CommException("File Upload Error");
+		}
+		return changeName;
+	}
 	//내 근태 현황 페이지
 	@RequestMapping("attendanceMy.att")
 	public String myAttendance(Model m, HttpServletRequest request) {
@@ -64,7 +107,7 @@ public class AttendanceController {
 	public String DayAttendance(Model model,HttpServletRequest request) {
 		ArrayList<AttStatus> attList = attendanceService.selectAttStatus();
 		Member m = (Member) request.getSession().getAttribute("loginUser");		
-		Employee loginEmp = employeeService.loginEmployee(m);
+		Employee loginEmp = employeeService.loginEmployee(m.getEmpId());
 		
 		model.addAttribute("attList",attList);
 		model.addAttribute("loginEmp",loginEmp);
@@ -76,7 +119,7 @@ public class AttendanceController {
 	public String monthAttendance(Model model,HttpServletRequest request) {
 		ArrayList<AttStatus> attList = attendanceService.selectAttStatus();
 		Member m = (Member) request.getSession().getAttribute("loginUser");		
-		Employee loginEmp = employeeService.loginEmployee(m);
+		Employee loginEmp = employeeService.loginEmployee(m.getEmpId());
 		
 		model.addAttribute("attList",attList);
 		model.addAttribute("loginEmp",loginEmp);		
@@ -123,7 +166,10 @@ public class AttendanceController {
 		
 		System.out.println("holidayyyyy : "+holiday);
 		System.out.println("atttttt : "+att);
-		if(!att.getAttInTime().equals("연차") || !att.getAttInTime().equals("반차")) 
+		if(att.getAttInTime().equals("연차") || att.getAttInTime().equals("반차")) {
+			System.out.println("옿늘 휴가");
+		}
+		else if(!att.getAttInTime().equals("연차") || !att.getAttInTime().equals("반차")) 
 		{
 			int attHour = Integer.parseInt(att.getAttInTime().substring(0, 2));
 			int attMinute =Integer.parseInt(att.getAttInTime().substring(3, 5));

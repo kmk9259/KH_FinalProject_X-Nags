@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	
    </resultMap>
 
-	<select id="loginMember" parameterType="Member" resultMap="memberResultSet">
+	<select id="loginMember" parameterType="string" resultMap="memberResultSet">
 	SELECT  M.USER_NO, M.EMP_ID, M.USER_PWD, M.USER_NAME, M.USER_SSN, M.EMAIL, M.PHONE, M.ADDRESS, M.GENDER,
 		   M.ORIGIN_NAME, M.CHANGE_NAME, M.STATUS, E.RIGHT_NO
 	FROM MEMBER M

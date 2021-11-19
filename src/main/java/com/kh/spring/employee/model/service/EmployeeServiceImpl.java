@@ -48,8 +48,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 
 	@Override
-	public Employee loginEmployee(Member m) {
-		return employeeDao.loginEmployee(sqlSession,m);
+	public Employee loginEmployee(String empId) {
+		return employeeDao.loginEmployee(sqlSession,empId);
 	}
 
 	@Override
