@@ -16,9 +16,10 @@ import lombok.ToString;
 @ToString
 public class TimeTable_C {
 
+	private int tcNo;
 	private int mrNo;
-	private String timeC;
-	private String statusC;
+	private String time;
+	private String status;
 	
 
 	

@@ -26,6 +26,7 @@
 	<typeAlias type="com.kh.spring.meetingroom.model.vo.TimeTable_B" alias="TimeTable_B" />
 	<typeAlias type="com.kh.spring.meetingroom.model.vo.TimeTable_C" alias="TimeTable_C" />
 	<typeAlias type="com.kh.spring.meetingroom.model.vo.TimeTable_D" alias="TimeTable_D" />
+	<typeAlias type="com.kh.spring.meetingroom.model.vo.MeetingRoom" alias="MeetingRoom" />
 	<typeAlias type="com.kh.spring.employee.model.vo.Right" alias="Right"/>
 	<typeAlias type="com.kh.spring.employee.model.vo.SalGrade" alias="SalGrade"/>     
 	<typeAlias type="com.kh.spring.salary.model.vo.Salary" alias="Salary"/>  

@@ -16,9 +16,17 @@ import lombok.ToString;
 @ToString
 public class TimeTable_A {
 
+	private int taNo;
 	private int mrNo;
-	private String timeA;
-	private String statusA;
+	private String time;
+	private String status;
+	
+	public TimeTable_A(int mrNo, String time, String status) {
+		super();
+		this.mrNo = mrNo;
+		this.time = time;
+		this.status = status;
+	}
 	
 
 	
