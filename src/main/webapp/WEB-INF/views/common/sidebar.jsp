@@ -8,7 +8,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1">
 <style>
-.logo>a>img{
+.logo> form > .light-logo{
  margin-left: 60px;
  margin-bottom: 20px;
  margin-top: 50px;
@@ -22,12 +22,11 @@
     <div class="left-side-bar">
         <div class="logo">
         
-           <a href=""> 
-                <img src="${ pageContext.servletContext.contextPath }/resources/images/logo/logowhite.png" alt="" class="light-logo">
-                <input class="test" type="hidden" name="empId" value="${ sessionScope.loginUser.empId }">
-                <input type="hidden" name="userPwd" value="${ sessionScope.loginUser.userPwd }"> 
+           <form action="main.xnags" method="post"> 
+                <input type="image"  src="${ pageContext.servletContext.contextPath }/resources/images/logo/logowhite.png" onClick="login(e);" class="light-logo">
+				<input type="hidden" name="empId" value="${ sessionScope.loginUser.empId }">
                 
-            </a>
+           </form>
             
             <div class="close-sidebar" data-toggle="left-sidebar-close">
                 <i class="ion-close-round"></i>
