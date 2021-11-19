@@ -65,17 +65,15 @@
 		<!-- Simple Datatable start -->
 		<div class="card-box mb-30">
 			<div class="pd-20">
-				<h4 class="text-blue h4">익명게시판</h4>
-				<c:if test="${ !empty loginUser }">
-					<a class="btn btn-secondary" style="float: right"
+				<h4 class="text-dark">익명 게시판</h4>	
+					<a class="btn btn-dark"style="float: right"
 						href="enrollForm.bo">글쓰기</a>
-				</c:if>
+				<br>
 			</div>
-
 			<div class="pb-20">
 				<table id="boardList" class="data-table table stripe hover nowrap">
 					<thead class="bg-dark text-white">
-						<tr>
+						<tr >
 							<th>글 번호</th>
 							<th>제목</th>
 							<th>작성일</th>
@@ -83,12 +81,12 @@
 							<th>첨부파일</th>
 						</tr>
 					</thead>
-					<tbody  class="bg-light text-dark">
-						<tr >
+					<tbody class="bg-light text-dark">
+						<tr>
 							<c:forEach items="${ list }" var="b">
 								<tr class ="table-warning">
-									<td>${ b.boardNo }</td>
-									<td>${ b.boardTitle }</td>
+									<td>${b.boardNo}</td>
+									<td>${ b.boardTitle  }</td>
 									<td>${ b.uploadDate }</td>
 									<td>${b.count }</td>
 									<c:if test="${ !empty b.originFile }">
@@ -182,6 +180,5 @@
 	<script
 		src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
 --%>
-	<jsp:include page="../common/footer.jsp" />
-	</body>
+	<jsp:include page="../common/footer.jsp" /></body>
 </html>

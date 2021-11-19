@@ -5,34 +5,35 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>X-Nomal Groupware Solution</title>
 <style>
 	#contentArea{width:100%}
 	#contentArea *{margin:5px }
 </style>
 </head>
-<body>
+<body style = "background : white">
     <jsp:include page="../common/menubar.jsp"/>
+    <div class="main-container">
 	<div class="mobile-menu-overlay"></div>
 
-	<div class="main-container">
+	
     <div class="content">
-        <br><br>
+    <div class="card-box mb-30">
+        <br>
         <div class="innerOuter">
-            <h2>게시글 상세보기</h2>
+        
+            <h2 >공지사항 상세보기</h2>                  
             <br>
-            
-            <br><br>
-            <table id="contentArea" align="center" class="table">
+            <table id="contentArea" align="center" class="table ">
                 <tr>
                     <th width="100">제목</th>
-                    <td colspan="3">${ b.boardTitle }</td>
+                    <td colspan="3">${b.boardTitle }</td>
                 </tr>
-                <tr>
+                <tr >
                     <th>작성일</th>
                     <td>${ b.uploadDate }</td>
                 </tr>
-                <tr>
+                <tr  >
                     <th>첨부파일</th>
                     <td colspan="3">
                     	<c:if test="${ !empty b.originFile }">
@@ -43,22 +44,21 @@
                         </c:if>
                     </td>
                 </tr>
-                <tr>
+                <tr >
                     <th>내용</th>
                     <td colspan="3"></td>
                 </tr>
                 <tr>
-                    <td colspan="4"><p style="height:150px">${ b.boardContent }</p></td>
+                    <td colspan="4">${b.boardContent }</td>
                 </tr>
             </table>
-            <br>
-		
+
 			<c:if test="${ loginUser.empId eq b.empId }">
 	            <div align="center">
-	                <button class="btn btn-primary" onclick="postFormSubmit(1);">수정하기</button>
+	                <button class="btn btn-info" onclick="postFormSubmit(1);">수정하기</button>
 	                <button class="btn btn-danger" onclick="postFormSubmit(2);">삭제하기</button>
 	            </div>
-	            
+	            <br><br>
 	            <form id="postForm" action="" method="post">
 					<input type="hidden" name="bno" value="${ b.boardNo }">
 				<input type="hidden" name="fileName" value="${ b.changeFile }">  
@@ -68,30 +68,33 @@
 					var postForm = $("#postForm");
 					
 					if(num == 1){
-						postForm.attr("action", "updateForm.bo");
-						postForm.submit();
+						postForm.attr("action", "UpdateForm.bo");
+						postForm.submit();				
 					}else{
 						if(confirm("정말 삭제하시겠습니까?") == true){
-							postForm.attr("action", "delete.bo");
+							postForm.attr("action", "Delete.bo");
 							postForm.submit();
 							alert("삭제되었습니다");
 						}else{
 							return;
-							}					
 						}				
 					}
+				}
 				</script>
             </c:if> 
-      
-            <br><br>                        
+      </div>
+        </div>
+        </div>
+            <br>
+	<div class="card-box mb-30">
             <table id="replyArea" class="table"  >
                 <thead>
                     <tr>
                     	<c:if test="${ !empty loginUser }">
 	                        <th colspan="2" style="width:75%">
-	                            <textarea class="form-control" id="replyContent" rows="2" style="resize:none; width:100%" placeholder="댓글을 입력해주세요"></textarea>
+	                            <textarea class="form-control" id="replyContent" rows="1" style="resize:none; width:100%" placeholder="댓글을 입력해주세요"></textarea>
 	                        </th>
-	                        <th style="vertical-align: middle"><button class="btn btn-secondary" id="addReply">등록하기</button></th>
+	                        <th style="vertical-align: middle"><button class="btn btn-dark" id="addReply">등록하기</button></th>
                         </c:if>
                         
                     </tr>
@@ -102,28 +105,27 @@
                 <tbody >
                 
                 </tbody>
-            </table>
-            <table id="replyArea1" class="table" style ="width:75% ; background :white">
-            <thead >
-            
-
-            <tr style = "background : yellow">
-            <th style ="width:10%; text-align : center">댓글번호</th>
-            <th style ="width:10% ;text-align : center" >작성자</th>
-            <th style ="width:50% ; text-align : center">내용</th>
-            <th style ="width:25%; text-align : center">작성일</th>
-       		<th style ="width:10%"></th>
-       		
-       		
+            </table>           
+            </div>
+           <div class="card-box mb-30">
+           <table id="replyArea1" class="table" >
+            <thead class ="thead-dark">
+            <tr >
+            <th style = 'text-align : center' >댓글 번호</th> 
+            <th  style = 'text-align : center'>작성자</th>
+            <th style = 'text-align : center'>내용</th>
+            <th style = 'text-align : center' >작성일</th>
+       		<th></th>
+       		<th></th>
             </tr>
             </thead>
             <tbody >
-
+		
             </tbody>
-            </table>
+            </table>   
+             <br> 
         </div>
-        </div>
-        <br><br>
+       
     </div>
 <div class="modal fade" id="modifyModal" role="dialog">
 		<div class="modal-dialog">
@@ -143,12 +145,11 @@
 					</div>
 					<div class="form-group">
 						<label for="reply_writer">댓글 작성자</label> <input
-							class="form-control" id="empId" name="empId"
-							readonly>
+							class="form-control" id="empId" name="empId" readonly>
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default pull-left"
+					<button type="button" class="btn btn-dark"
 						data-dismiss="modal">닫기</button>
 					<button type="button"  class="btn btn-success modalModBtn">수정</button>
 					
@@ -156,12 +157,9 @@
 			</div>
 		</div>
 	</div>
-	
-
      <script>
      var rlist = [];
  	$(function(){
- 		
 		selectReplyList();
 		
 		$("#addReply").click(function(){
@@ -190,48 +188,43 @@
 				});
 				
 			}else{
-				alert("댓글등록하셈");
+				alert("오류남");
 			}
 			
 		});
 	});
  	function selectReplyList(){
  	      var bno = ${b.boardNo};
- 	    
- 	    
  	      $.ajax({
  	         url:"rlist.bo",
  	         data:{bno:bno},
  	         type:"get",
  	         success:function(list){
- 	            $("#rcount").text(list.length);	           
- 	            var value="";     
+ 	            $("#rcount").text(list.length);
+ 	            
+ 	            var value="";
  	            $.each(list, function(i, obj){
- 	            	rlist.push(obj);           	
-                  value += "<tr style='background:white;'>"
- 	                		 +"<td style = 'text-align : center'>"  + obj.replyNo + "</td>" 
+ 	            	rlist.push(obj);
+ 	                  value += "<tr class = 'table-warning'>"
+ 	                		 +"<td style = 'text-align : center'>"  + obj.replyNo + "</td>"
  	                        +"<td style = 'text-align : center'> 익명 </td>" 
- 	                         +"<td  style = 'text-align : center'>" + obj.replyContent + "</td>" 
+ 	                         +"<td style = 'text-align : center'>" + obj.replyContent + "</td>" 
  	                        + "<td style = 'text-align : center'>" + obj.replyDate + "</td>"; 
- 	                                               
+ 	                       
  	               if("${loginUser.empId}" == obj.empId){
- 	            	  
- 	                  value +="<td style = 'text-align : center '><button class = 'btn btn-success modalModBtn' onclick = 'deleteReply("+obj.replyNo+");' style ='width:70px; background :red'>삭제</button> </td>"
- 	                	     + "<td style = 'text-align : center '><button style ='width:70px'; onclick = 'updateForm("+obj.replyNo+");'type='button' class='btn btn-xs btn-success' data-toggle='modal' data-target='#modifyModal'>수정 </button>"
- 	                 				 + "</td></tr>"; 
+ 	            	  value +="<td><button class = 'btn btn-outline-info' onclick = 'updateForm("+obj.replyNo+");'type='button'data-toggle='modal' data-target='#modifyModal'>수정</button> </td>"
+              	    	 + "<td><button class = 'btn btn-outline-danger' onclick = 'deleteReply("+obj.replyNo+");'>삭제 </button>"
+               				 + "</td></tr>"; 
  	               }else{
- 	                  value += "</tr>";	                  
- 	               }  
- 	             
+ 	                  value += "</tr>";
+ 	               }               
  	            });
  	            $("#replyArea1 tbody").html(value);
- 	          
  	         },error:function(){
  	            console.log("댓글 리스트조회용 ajax 통신 실패");
  	         }
- 	      });      
+ 	      }); 	      	      
  	   }
- 	
  	
  	function updateForm(replyNo){	 
  		console.log(replyNo);
@@ -243,53 +236,52 @@
  				}	
  			}
 		 };
- 	
- 	$(".modalModBtn").on("click", function(){
- 		var reply = $(this).parent().parent();
- 		var replyNo = reply.find("#replyNo").val();
- 		var replyContent = reply.find("#updateContent").val();
- 		console.log(replyNo);
- 		$.ajax({
-			url:"updateReply.bo",
- 			type:"get",
- 			data:{replyContent:replyContent,
- 					replyNo:replyNo},				
- 					success :function(result){ 						
- 						if(result > 0){
- 							alert("댓글수정 성공");
- 							$("#modifyModal").modal("hide");	
- 							selectReplyList();
- 						}else{
- 							alert("댓글 수정 실패");
- 						}
- 				
- 					}
- 			});
- 	});
- 	
- 	function deleteReply(replyNo){
- 		console.log(replyNo);
- 		if(confirm("정말 삭제하시겠습니까?") == true){
- 			$.ajax({
-	 			url:"deleteReply.bo",
-	 			type:"get",
-	 			data:{replyNo:replyNo},
-	 			success :function(result){
-	 				if(result > 0){	
-	 						alert("삭제되었습니다");
-		 					selectReplyList();				 									
-	 				}else{
-	 					alert("삭제 실패");
-	 				}
-	 			}
-	 		});
- 		}else{
- 			return;
- 		}		 			
- 	}
- 	
-	
+
+		 	$(".modalModBtn").on("click", function(){
+		 		var reply = $(this).parent().parent();
+		 		var replyNo = reply.find("#replyNo").val();
+		 		var replyContent = reply.find("#updateContent").val();
+		 		console.log(replyNo);
+		 		$.ajax({
+					url:"updateReply.bo",
+		 			type:"get",
+		 			data:{replyContent:replyContent,
+		 					replyNo:replyNo},				
+		 					success :function(result){ 						
+		 						if(result > 0){
+		 							alert("댓글수정 성공");
+		 							$("#modifyModal").modal("hide");	
+		 							selectReplyList();
+		 						}else{
+		 							alert("댓글 수정 실패");
+		 						}
+		 				
+		 					}
+		 			});
+		 	});
+ 	   
+		 	function deleteReply(replyNo){
+		 		console.log(replyNo);
+		 		if(confirm("정말 삭제하시겠습니까?") == true){
+		 			$.ajax({
+			 			url:"deleteReply.bo",
+			 			type:"get",
+			 			data:{replyNo:replyNo},
+			 			success :function(result){
+			 				if(result > 0){	
+			 						alert("삭제되었습니다");
+				 					selectReplyList();				 									
+			 				}else{
+			 					alert("삭제 실패");
+			 				}
+			 			}
+			 		});
+		 		}else{
+		 			return;
+		 		}		 			
+		 	}
     </script>
+	
     <jsp:include page="../common/footer.jsp"/>
 </body>
 </html>
