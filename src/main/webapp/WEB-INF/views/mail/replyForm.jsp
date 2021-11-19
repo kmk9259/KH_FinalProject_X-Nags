@@ -276,7 +276,7 @@ function selectReceiver(){
 function sendDelivery(){
 	var receiver = $("#sendDelivery input[name=receiverName]");
 	var title = $("#sendDelivery input[name=title]");
-	var content = $("#sendDelivery input[name=content]");
+	var content = $("#sendDelivery textarea[name=content]");
 	console.log(receiver);
 	if(receiver.val()=="" || receiver.val()==null){
 		
