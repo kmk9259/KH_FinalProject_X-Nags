@@ -13,10 +13,10 @@
 <link rel="shortcut icon" href="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/image/favicon.ico">
 
 <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/css/fullcalendar.min.css" />
-<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/css/bootstrap.min.css">
+<%-- <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/css/bootstrap.min.css"> --%>
 <link rel="stylesheet" href='${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/css/select2.min.css' />
-<link rel="stylesheet" href='${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/css/bootstrap-datetimepicker.min.css' />
-
+<%-- <link rel="stylesheet" href='${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/css/bootstrap-datetimepicker.min.css' />
+ --%>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,600">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
@@ -28,8 +28,8 @@ var empId = '${empId}';
 var username =  '${username}';
 </script>
 
-<%-- 	<jsp:include page="../common/menubar.jsp" /> 
- --%>
+	<jsp:include page="../common/menubar.jsp" /> 
+
 
 	  <div class="container">
 
@@ -178,14 +178,14 @@ var username =  '${username}';
     </div>
     <!-- /.container -->
     
-    <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/jquery.min.js"></script>
-     <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/bootstrap.min.js"></script>
+  <%--   <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/jquery.min.js"></script>
+     <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/bootstrap.min.js"></script> --%>
      
   	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/moment.min.js"></script>
   
     <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/fullcalendar.min.js"></script>
     <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/ko.js"></script>
-    <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/bootstrap-datetimepicker.min.js"></script>
+   <%--  <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/bootstrap-datetimepicker.min.js"></script> --%>
     
     
     <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/select2.min.js"></script>
@@ -196,6 +196,6 @@ var username =  '${username}';
     <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/js/etcSetting.js"></script>
   <%--    <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/data.json"></script> --%>
 
-<%-- 	<jsp:include page="../common/footer.jsp" />--%>
+ 	<jsp:include page="../common/footer.jsp" />
 </body>
 </html>
