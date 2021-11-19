@@ -95,7 +95,9 @@ label {
 				</div>
 				<!-- 메일 폼 끝 -->
 			</div>
+			<jsp:include page="../common/footer.jsp" />
 		</div>
+		
 	</div>
 	
 			<div class="modal fade bs-example-modal-lg" id="bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -152,6 +154,7 @@ label {
 							<button type="button" class="btn btn-primary" onclick="selectReceiver();">선텍</button>
 						</div>
 					</div>
+					
 				</div>
 			</div>
 
@@ -244,7 +247,7 @@ function selectReceiver(){
 function sendMail(){
 	var receiver = $("#insertMail input[name=receiverName]");
 	var title = $("#insertMail input[name=title]");
-	var content = $("#insertMail input[name=content]");
+	var content = $("#insertMail textarea[name=content]");
 	
 	if(receiver.val()=="" || receiver.val()==null){
 		
@@ -289,7 +292,7 @@ function sendMail(){
 </script>	
 
 <script src="${ pageContext.servletContext.contextPath }/resources/plugins/sweetalert2/sweetalert2.all.js"></script>
-<jsp:include page="../common/footer.jsp" />
+
 
 </body>
 </html>
