@@ -58,8 +58,8 @@ label {
 				<!-- 메일 폼 시작 -->
 				<div class="pd-20 card-box mb-30">
 					
-					<form action="insertSendDelivery.ml" method="post"
-						enctype="multipart/form-data">
+					<form action="" method="post"
+						enctype="multipart/form-data" id="sendDelivery">
 						
 								<input type="hidden" readonly
 								class="form-control-plaintext" name="empId"
@@ -69,9 +69,9 @@ label {
 						<div class="form-group">
 							<div class="mailReceiver">
 								<div class="form-group"> 
-									<input class="form-control" type="text" data-toggle="tooltip" title="주소록에서 선택해 주세요."
-										name="receiverName" readonly="readonly" placeholder="받는 사람">
-									<input type="hidden" name="receiver">
+									<input class="form-control" id="receiver" type="text" data-toggle="tooltip" title="주소록에서 선택해 주세요."
+										name="receiverName" readonly="readonly" required="required" placeholder="받는 사람">
+									<input type="hidden" name="receiver" required="required">
 								</div>
 								<div class="form-group">
 									<button type="button" class="btn btn-primary" data-backdrop="static" data-toggle="modal" data-target="#bd-example-modal-lg">주소록</button>
@@ -120,7 +120,7 @@ label {
 						<div class="clearfix">
 							<div class="pull-right">
 								<button type="button" class="btn btn-outline-danger" onclick="history.go(-1)">취소</button>
-								<button type="submit" class="btn btn-primary">메일 전달</button>
+								<button type="button" class="btn btn-primary" onclick="sendDelivery();">메일 전달</button>
 							</div>
 						</div>
 					</form>
@@ -222,20 +222,14 @@ $(function(){
 					$tr.append($rightTd);
 					
 					$tableBody.append($tr);
-					
 				})
-
 			},
 			error:function(e){
 				console.log("사원 리스트 조회 ajax 통신 실패");
 			}
-		
 		})
-	
 	})
-	
 })
-
 function selectReceiver(){
 	var tr = $("input[class=checkEmp]:checked").parent().parent().eq(0);
 	var td = tr.children();
@@ -247,12 +241,24 @@ function selectReceiver(){
 	
 	$("input[name=receiverName]").val(userName);
 	$("input[name=receiver]").val(empId);
-	$("#bd-example-modal-lg").modal("hide");	
+	$("#bd-example-modal-lg").modal("hide");
+}
+
+function sendDelivery(){
+	var receiver = $("#sendDelivery input[name=receiverName]");
+	console.log(receiver);
+	if(receiver.val()=="" || receiver.val()==null){
+		alert("받는 사람을 입력해주세요.");
+		return false;
+	}else{
+		$("#sendDelivery").attr("action", "insertSendDelivery.ml");
+		$("#sendDelivery").submit();
+		return true;
+	}
 }
 
 
 </script>	
-
 <jsp:include page="../common/footer.jsp" />
 
 </body>

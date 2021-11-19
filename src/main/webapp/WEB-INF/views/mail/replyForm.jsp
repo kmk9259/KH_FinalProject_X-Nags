@@ -70,7 +70,7 @@ label {
 							<div class="mailReceiver">
 								<div class="form-group">
 									<input class="form-control" type="text" data-toggle="tooltip" title="주소록에서 선택해 주세요."
-										name="receiverName" readonly="readonly" placeholder="받는 사람">
+										name="receiverName" readonly="readonly" required="required" placeholder="받는 사람">
 									<input type="hidden" name="receiver">
 								</div>
 								<div class="form-group">

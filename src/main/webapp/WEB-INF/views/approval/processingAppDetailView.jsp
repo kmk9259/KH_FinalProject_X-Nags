@@ -195,19 +195,19 @@ color: red;
 					        </thead>
 					        <tbody>
 					            <tr>
-					                <td width="300px">문서번호</td>
+					                <td width="300px"><b>문서번호</b></td>
 					                <td width="300px">${app.appNo }</td>
-					                <td width="300px">중간 결재자</td>
-					                <td width="300px">최종 결재자</td>
+					                <td width="300px"><b>중간 결재자</b></td>
+					                <td width="300px"><b>최종 결재자</b></td>
 					            </tr>
 					            <tr>
-					                <td>기안자</td>
+					                <td><b>기안자</b></td>
 					                <td>${writer.userName}</td>
 					                <td>${mid.userName }</td>
 					                <td>${fin.userName }</td>
 					            </tr>
 					            <tr>
-					                <td>기안일</td>
+					                <td><b>기안일</b></td>
 					                <td><fmt:formatDate type="date" dateStyle="long" value="${app.endDate }"/></td>
 					                <c:choose>
 										<c:when test="${ app.midStatus eq 1}">
@@ -235,15 +235,15 @@ color: red;
 					            
 					            <c:if test="${app.category eq 1 || app.category eq 2}">
 					            <tr>
-					                <td>휴가시작</td>
+					                <td><b>휴가시작</b></td>
 					                <td><fmt:formatDate type="date" dateStyle="long" value="${app.stayDate }"/></td>
-					                <td>휴가종료</td>
+					                <td><b>휴가종료</b></td>
 					                <td><fmt:formatDate type="date" dateStyle="long" value="${app.endDate }"/></td>
 					            </tr>
 					            </c:if>
 					            <c:if test="${app.category eq 3}">
 					            <tr>
-					                <td>외근일</td>
+					                <td><b>외근일</b></td>
 					                <td><fmt:formatDate type="date" dateStyle="long" value="${app.endDate }"/></td>
 					                <td colspan="2"></td>
 					            </tr>

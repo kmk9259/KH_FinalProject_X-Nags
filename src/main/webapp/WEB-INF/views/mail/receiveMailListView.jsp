@@ -15,6 +15,7 @@
 #mailList>tbody>tr:hover {
 	cursor: pointer;
 }
+
 </style>
 
 </head>
@@ -52,19 +53,16 @@
 				<div class="pd-20 card-box mb-30">
 					<div class="clearfix mb-20">
 						<div class="pull-left">
-							<!-- <input type="radio" onclick="important();"><label>중요메일만보기</label> -->
+							
 						</div>
 						<div class="pull-right">
-							<button type="button" onclick="waste();" class="btn btn-default"><i class="icon-copy ion-ios-trash"></i></button>
-							<button type="button" onclick="reply();" class="btn btn-default"><i class="icon-copy ion-paper-airplane"></i></button>
 												
 						</div>
 					</div>
-					<div id="mailList">
+					
 					<table class="table table-striped hover mailList" id="mailList">
 						<thead>
 							<tr>
-								<th scope="col"><input type="checkbox" id="allCheck" name="allCheck" onclick="allCheck(event)"></th>
 								<th scope="col"></th>
 								<th scope="col"><i class="icon-copy ion-star"></i></th>
 								<th scope="col"><i class="icon-copy ion-ios-email"></i></th>
@@ -76,7 +74,6 @@
 						<tbody>
 							<c:forEach items="${ receiveList }" var="s">
 								<tr>
-									<td><input type="checkbox" class="checkMail" name="checkMail" onclick="checkMail(event)"></td>
 									
 									<td scope="row">${ s.mailNo }</td>
 									
@@ -107,11 +104,8 @@
 							
 						</tbody>
 					</table>
-					</div>
 					
-					
-										
-				<!-- 페이징 시작 -->							
+					<!-- 페이징 시작 -->							
 				 <div id="pagingArea">
                 <ul class="pagination">
                 	<c:choose>
@@ -145,6 +139,10 @@
                 	</c:choose>
                 </ul>
             <!-- 페이징끝 -->
+					</div>
+					
+										
+				
             
             </div>
 			</div>
@@ -155,86 +153,19 @@
 				
 				</div>
 				</div>
-				</div>
+				
 				
 			
 			
 			<script>
-				//상세보기로 넘어가야하는데 체크박스랑 충돌나서 바꾸려는데 잘 안됨,,,
+				
 				$(function(){
 					$(".mailList tbody tr").click(function(){
-						console.log($(".mailList tbody tr").children().eq(1).text());
-						location.href="receiveDetail.ml?mno=" + $(this).children().eq(1).text();
+						console.log($(".mailList tbody tr").children().eq(0).text());
+						location.href="receiveDetail.ml?mno=" + $(this).children().eq(0).text();
 						
 					});
 				});
-				
-				
-				//전체선택
-				function allCheck(e){
-					if(e.target.checked){
-						document.querySelectorAll(".checkMail").forEach(function(v, i){
-							v.checked = true;
-						});
-					}else{
-						document.querySelectorAll(".checkMail").forEach(function(v, i){
-							v.checked = false;
-						});
-					}
-				}
-				
-				//부분선택으로 전체 선택하면 전체선택 켜짐
-				function checkMail(e){
-					var checkCount = 0;
-					document.querySelectorAll(".checkMail").forEach(function(v, i){
-						if(v.checked == false){
-							checkCount++;
-						}
-						
-					});
-					if(checkCount > 0){
-						document.getElementById("allCheck").checked = false;
-					}else if(checkCount == 0){
-						document.getElementById("allCheck").checked = true;
-					}
-				}
-				
-				//휴지통이동
-				function waste(){
-					var confirmVal = confirm("선택한 메일을 휴지통으로 이동하시겠습니까?");
-					
-					if(confirmVal){
-						var wasteList = new Array();
-						var checkList = new Array();
-						var checkMail = $("input[class=checkMail]:checked");
-						
-						checkMail.each(function(i){
-							var tr = checkMail.parent().parent().eq(i);
-							var td = tr.children();
-							
-							wasteList.push(tr.text());
-							
-							var mno = td.eq(1).text();
-							
-							checkList.push(mno);
-							
-						})
-						
-						location.href="wasteCheckedReceiveMail.ml?checkList="+checkList;
-						alert("메일을 휴지통으로 이동했습니다.");
-						
-					}
-				}
-				
-				
-				
-				//선택 메일 답장
-				function reply(){
-					//체크박스 여러개 선택했을 때 경고창
-					
-					
-					
-				}
 				
 			</script>
 			

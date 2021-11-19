@@ -17,7 +17,12 @@
 table{
 	text-align: center;
 }
-
+#ok{
+color: green;
+}
+#no{
+color: red;
+}
 </style>
 </head>
 <body>
@@ -112,25 +117,23 @@ table{
 										<td scope="row"><i class="icon-copy ion-ios-circle-outline"></i></td>
 									</c:if>
 									<c:if test="${app.midStatus eq 2}">
-										<td scope="row"><i class="icon-copy ion-ios-checkmark"></i></td>
+										<td scope="row"><i class="icon-copy ion-ios-checkmark" id="ok"></i></td>
 									</c:if>
 									<c:if test="${app.midStatus eq 3}">
-										<td scope="row"><i class="icon-copy ion-ios-close"></i></td>
+										<td scope="row"><i class="icon-copy ion-ios-close" id="no"></i></td>
 									</c:if>
 									
 									<c:if test="${app.finStatus eq 1}">
 										<td scope="row"><i class="icon-copy ion-ios-circle-outline"></i></td>
 									</c:if>
 									<c:if test="${app.finStatus eq 2}">
-										<td scope="row"><i class="icon-copy ion-ios-checkmark"></i></td>
+										<td scope="row"><i class="icon-copy ion-ios-checkmark" id="ok"></i></td>
 									</c:if>
 									<c:if test="${app.finStatus eq 3}">
-										<td scope="row"><i class="icon-copy ion-ios-close"></i></td>
+										<td scope="row"><i class="icon-copy ion-ios-close" id="no"></i></td>
 									</c:if>
 								</tr>
 							</c:forEach>
-							 
-							
 						</tbody>
 					</table>
 					</div>

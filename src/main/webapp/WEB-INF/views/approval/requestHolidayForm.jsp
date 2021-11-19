@@ -59,11 +59,11 @@ label {
 								<input type="hidden" name="empId" value="${ sessionScope.loginUser.empId }">
 							</div>
 							<div class="form-group">
-								<input class="form-control" type="text" required="required" name="appMidName" placeholder="중간 결제자를 입력해 주세요">
-								<input class="form-control" type="hidden" name="appMid" required="required" >
+								<input class="form-control" type="text" required="required" readonly="readonly" name="appMidName" data-toggle="tooltip" title="주소록에서 선택해 주세요." placeholder="중간 결제자를 입력해 주세요">
+								<input class="form-control" type="hidden" name="appMid" required="required" readonly="readonly">
 							</div>
-								<input class="form-control" type="text" required="required" name="appFinName" placeholder="최종 결재자를 입력해 주세요">
-								<input class="form-control" type="hidden" name="appFin" required="required">
+								<input class="form-control" type="text" required="required" readonly="readonly" name="appFinName" data-toggle="tooltip" title="주소록에서 선택해 주세요." placeholder="최종 결재자를 입력해 주세요">
+								<input class="form-control" type="hidden" name="appFin" required="required" readonly="readonly">
 							</div>
 							<div class="form-group full-right">
 								<button type="button" class="btn btn-primary" data-backdrop="static" data-toggle="modal" data-target="#bd-example-modal-lg">주소록</button>
@@ -185,19 +185,13 @@ label {
 			
 			
 			<script>
-			
-                $(function(){
-                	var appDate ="";
-                	$( ".datetimepicker-range" ).datepicker({
-                    		dateFormat: "yyyy/mm/dd",
-                    		language:"ko",
-                    		onSelect: function(dateText) {
-                    			appDate = dateText
-                    	    }
-                    		
-                    });  	 
-            			
-            	});
+           	 $(".datetimepicker-range").datepicker({
+            		dateFormat: "yyyy/mm/dd",
+            		minDate: new Date(),
+            		language:"kr",
+            		todaytHightlight : true
+
+           	   });  
                
                 $(function(){
                 	$("#searchEmp").click(function(){

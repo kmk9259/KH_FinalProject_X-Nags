@@ -57,8 +57,8 @@ label {
 				<!-- 메일 폼 시작 -->
 				<div class="pd-20 card-box mb-30">
 					
-					<form action="insert.ml" method="post"
-						enctype="multipart/form-data">
+					<form action="" method="post"
+						enctype="multipart/form-data" id="insertMail">
 						
 								<input type="hidden" readonly
 								class="form-control-plaintext" name="empId"
@@ -69,7 +69,7 @@ label {
 							<div class="mailReceiver">
 								<div class="form-group">
 									<input class="form-control" type="text" data-toggle="tooltip" title="주소록에서 선택해 주세요."
-										name="receiverName" readonly="readonly" placeholder="받는 사람">
+										name="receiverName" readonly="readonly" required="required" placeholder="받는 사람">
 									<input type="hidden" name="receiver">
 								</div>
 								<div class="form-group">
@@ -108,7 +108,7 @@ label {
 						<div class="clearfix">
 							<div class="pull-right">
 								<!-- <button type="button" onclick="history.go(-1)" class="btn btn-outline-danger">취소</button> -->
-								<button type="submit" class="btn btn-primary">메일 전송</button>
+								<button type="button" class="btn btn-primary" onclick="sendMail();">메일 전송</button>
 							</div>
 						</div>
 					</form>
@@ -238,10 +238,27 @@ function selectReceiver(){
 	$("#bd-example-modal-lg").modal("hide");	
 }
 
+function sendMail(){
+	var receiver = $("#insertMail input[name=receiverName]");
+	console.log(receiver);
+	if(receiver.val()=="" || receiver.val()==null){
+		
+		
+		
+		alert("받는 사람을 입력해주세요.");
+		return false;
+	}else{
+		$("#sendDelivery").attr("action", "insert.ml");
+		$("#sendDelivery").submit();
+		return true;
+	}
+}
+
+
 
 </script>	
 
-
+<script src="${ pageContext.servletContext.contextPath }/resources/plugins/sweetalert2/sweetalert2.all.js"></script>
 <jsp:include page="../common/footer.jsp" />
 
 </body>
