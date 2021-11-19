@@ -19,7 +19,6 @@ public class ConvertScheduleVo {
 	private String start;
 	private String end;
 	private String type;
-//	private int typeNo;
 	private String backgroundColor;
 	private String textColor;
 	private String username;

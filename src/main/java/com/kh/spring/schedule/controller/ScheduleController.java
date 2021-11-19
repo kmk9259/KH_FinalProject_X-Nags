@@ -61,8 +61,7 @@ public class ScheduleController {
 	public ResultVo scheduleMainSelect(@RequestBody Schedule sc, Model m, HttpServletRequest request) {
 		Member mem = (Member) request.getSession().getAttribute("loginUser");
 //		Calendar cal = Calendar.getInstance();
-//		
-//	
+
 //		cal.set(Calendar.DAY_OF_MONTH, 1);
 //		String startDate = getStartDate(cal, sdf);
 //		String endDate = getEndDate(cal, sdf);
@@ -126,17 +125,7 @@ public class ScheduleController {
 	}
 	
 	 
-//	// 사이드바에서 스케줄 메뉴 클릭할 때 : 메인 달력화면이 출력되야함. with 일정과 함께/ 불러와야하는 것 : 달력에 표시할것들 : 시간, 제목.
-	//								but   popover 데이터도 같이 불러와야하는가? yes -> 스케줄 데이터 다뽑아오기...?
-//	@RequestMapping("main.sc") // 사이드바 클릭시 -> 'main.sc' 컨트롤러로 옴 ->  서비스 -> 다오 -> 맵퍼 
-//	public String scheduleMain(Model m, HttpServletRequest request) {
-//		Member mem = (Member) request.getSession().getAttribute("loginUser");
-//		Employee emp = (Employee) scheduleService.selectEmployee(mem);
-//		m.addAttribute("mem", mem);
-//		m.addAttribute("emp", emp);
-//		System.out.println("emp : " + emp);
-//		return "schedule/scheduleMain";
-//	}
+
 	
 	//일정등록
 	@ResponseBody
@@ -172,7 +161,7 @@ public class ScheduleController {
 		return resultVo;
 	}
 	
-	//일정수정
+	//일정삭제
 	@ResponseBody
 	@RequestMapping(value = "deleteSchedule", method=RequestMethod.POST)
 	public ResultVo deleteSchedule(@RequestBody Schedule sc) {

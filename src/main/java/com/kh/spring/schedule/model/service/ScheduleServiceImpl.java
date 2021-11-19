@@ -20,6 +20,13 @@ public class ScheduleServiceImpl implements ScheduleService {
 	@Autowired
 	private ScheduleDao scheduleDao;
 
+	
+	@Override
+	public ArrayList<Schedule> scheduleMain(Map<String, String> paramMap) {
+		
+		return scheduleDao.scheduleMain(sqlSession, paramMap);
+	}
+	
 	@Override
 	public int insertSchedule(Schedule sc) {
 		int result = scheduleDao.insertSchedule(sqlSession, sc);
@@ -47,15 +54,11 @@ public class ScheduleServiceImpl implements ScheduleService {
 		int result = scheduleDao.deleteSchedule(sqlSession, sc);
 		
 		if(result < 0 ) {
-			throw new CommException("일정 수정에 실패하였습니다.");
+			throw new CommException("일정 삭제에 실패하였습니다.");
 		}
 		
 		return result;
 	}
 
-	@Override
-	public ArrayList<Schedule> scheduleMain(Map<String, String> paramMap) {
-		
-		return scheduleDao.scheduleMain(sqlSession, paramMap);
-	}
+	
 }
