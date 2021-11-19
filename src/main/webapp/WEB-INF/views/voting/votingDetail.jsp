@@ -20,13 +20,12 @@
 
 	<div class="main-container">
     <div class="content">
+    <div class="card-box mb-30">
     <div class="pd-20">
         <br><br>
         <div class="innerOuter">
             <h2>투표하기</h2>
-            <br>
-       
-            <br><br>
+            <br>     
             <form method = "post" action = "votingAction.vo">
            	<input type = "hidden" name = "votingNo" value = "${v.votingNo}">
            	<input type = "hidden" name = "empId" value = "${loginUser.empId}">
@@ -38,34 +37,31 @@
                 </tr>
                 <tr>
                     <th width="100">주제</th>
-                    <td colspan="3">${ v.votingTitle }</td>
-                   
-                </tr>
-              
+                    <td colspan="3">${ v.votingTitle }</td>                   
+                </tr>              
                 <tr>
                     <th>항목</th>
                     <td colspan="3"></td>
                 </tr>
-                <tr>
-            	<c:forEach var = "a" items ="${va}">
-            	<tr >
-            	
-            	<td><input id = "check" type = "checkbox" name = "content" value = "${a.content }">${a.content }</td> 
-            	   	
-            	</tr>
-            	</c:forEach>
-                
-                </tr>
-                </c:if>
-            </table>    
-                   
+                </c:if>      
+            </table>             
+ 
+           <table  class="table table-bordered table-sm" > 
+               
+            <c:if test ="${result == 0 }">
+            
+             <input id = "emptyCheck" type = "submit" value = "투표하기" class="btn btn-dark" style = "float: left;" ><br><br>
+           <c:forEach var = "a" items ="${va}">          
+           <tr class ="table-warning">           	
+        <td ><input id = "check"  type = "checkbox" name = "content" value = "${a.content }">${a.content }</td>             	   	
+           	</tr>            	  
+           </c:forEach>
+          	</c:if>
+           </table>     
 			 <c:choose>	
  		   <c:when test="${result == 1}">
   			   <b>이미 투표 하셨습니다</b>
    			 </c:when>	
-  			 <c:otherwise>
-    		<input id = "emptyCheck" type = "submit" value = "투표하기">
-  			 </c:otherwise>
 		</c:choose>                  
             </form>         	
              <br>           
@@ -79,35 +75,16 @@
             <br>  
            <c:if test="${ loginUser.empId eq v.empId }">
 	            <div align="center">
-
-	                <button class="btn btn-danger" onclick="postFormSubmit(2);">삭제하기</button>
-	            </div>
-	            
+	                <button class="btn btn-danger" onclick="postFormSubmit();">삭제하기</button>
+	            </div>	            
 	            <form id="postForm" action="" method="post">
 					<input type="hidden" name="bno" value="${ v.votingNo }">				
 				</form>
-				<script>
-				function postFormSubmit(){
-					var postForm = $("#postForm");
-						if(confirm("정말 삭제하시겠습니까?") == true){
-							postForm.attr("action", "deleteVoting.vo");
-							postForm.submit();
-							alert("삭제되었습니다");
-						}else{
-							return;
-							}					
-						}									
-				$("#emptyCheck").click(function(){
-				if (!$("input:checked[id='check']").is(":checked")){ 
-					alert("반드시 하나의 항목은 투표해야합니다");
-					$("#box1").focus(); 
-					return false; 
-					}					
-			    });
-				</script>
+			
             </c:if> 
             <br><br>
 		</div>
+        </div>
         </div>
         </div>
         <br><br>
@@ -126,8 +103,44 @@
   	 	    }
     	 
        });
+    	
+    	function postFormSubmit(){
+			var postForm = $("#postForm");
+				if(confirm("정말 삭제하시겠습니까?") == true){
+					postForm.attr("action", "deleteVoting.vo");
+					postForm.submit();
+					alert("삭제되었습니다");
+				}else{
+					return;
+					}					
+				}									
+		$("#emptyCheck").click(function(){
+		if (!$("input:checked[id='check']").is(":checked")){ 
+			alert("반드시 하나의 항목은 투표해야합니다");
+			$("#box1").focus(); 
+			return false; 
+			}					
+	    });
     	    	        	  
  });
+    
+    function postFormSubmit(){
+		var postForm = $("#postForm");
+			if(confirm("정말 삭제하시겠습니까?") == true){
+				postForm.attr("action", "deleteVoting.vo");
+				postForm.submit();
+				alert("삭제되었습니다");
+			}else{
+				return;
+				}					
+			}									
+	$("#emptyCheck").click(function(){
+	if (!$("input:checked[id='check']").is(":checked")){ 
+		alert("반드시 하나의 항목은 투표해야합니다");
+		$("#box1").focus(); 
+		return false; 
+		}					
+    });
     </script>
 </body>
 </html>

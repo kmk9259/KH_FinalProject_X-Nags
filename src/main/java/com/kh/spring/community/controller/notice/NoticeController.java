@@ -75,7 +75,6 @@ public class NoticeController {
 	@RequestMapping("noticeUpdate.bo")
 	public ModelAndView updateBoard(Notice n, ModelAndView mv, HttpServletRequest request,
 			@RequestParam(name = "reUploadFile", required = false) MultipartFile file) {
-		System.out.println(n + "뭐가 널2");
 		if (!file.getOriginalFilename().equals("")) {
 			if (n.getChangeFile() != null) {
 				deleteFile(n.getChangeFile(), request);
@@ -93,7 +92,6 @@ public class NoticeController {
 			n.setChangeFile(changeName);
 		}
 		noticeService.updateNotice(n);
-		System.out.println(n + "뭐가 널");
 		mv.addObject("bno", n.getNoticeNo()).setViewName("redirect:noticedetail.bo");
 		return mv;
 	}

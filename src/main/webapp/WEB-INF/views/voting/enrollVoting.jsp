@@ -25,33 +25,50 @@
 	<div class="mobile-menu-overlay"></div>
 
 	<div class="main-container">
+	<br><br>
+	 <div class="card-box mb-30">
 		<div class="innerOuter">
+		
 			<h2>투표하기</h2>
 			<br> <br>
 			<br>
 			<form method="post" action="votingInsert.bo">
-				<input type="hidden" name="empId" value="${loginUser.empId }">
-				주제 :<input type="text" name="votingTitle"  id = "check">
+			 <div class="form-group">
+     	 <label><b style="font-size : 20px">주제 :</b></label>
+     	 <input  type="text" class="form-control" id="check" name="votingTitle" style = "height: 40px">
+     	 <input type="hidden" name="empId" value="${loginUser.empId }">
+   				 </div>
+
 				<table id="example">
-					<tr>
-						<th>항목</th>
+				<tr>
+				<th>
+				 <label><b style="font-size : 20px">항목 :</b></label>
+				 </th>
 					</tr>
 					<tr class="item1">
-						<td><input id = "check" type="text" style='width: 500px'
-							name="votingContent"></td>
+					<td>
+					 <input  type="text" class="form-control" id="check" name="votingContent" style = "width:500px;height: 30px">
+					 <br>
+					</td>
+								
 					</tr>
+				
 				</table>
-				<button id="emptyCheck" type="submit">등록하기</button>
+			
+				<button id="emptyCheck"  class="btn btn-dark" type="submit">등록하기</button>
+				
 			</form>
-			<button id="addItemBtn">항목추가하기</button>
-			<button id="delBtn">항목제거하기</button>
+			<br>
+			<button id="addItemBtn" class="btn btn-warning">항목추가하기</button>
+			<button id="delBtn"  class="btn btn-danger">항목제거하기</button>
+		</div>
 		</div>
 	</div>
 	<script>
 		$(document).ready(function() {
 			$("#addItemBtn").click(function() {
 			var value = "";
-		 	value += "<tr><td><input type ='text' id ='check' style = 'width:500px' name = 'votingContent'></td></tr>"
+		 	value += "<tr><td><input type ='text' id ='check' class = 'form-control' style = 'width:500px; height: 30px' name = 'votingContent'><br></td></tr>"
 		$("#example").append(value);
 			});
 		// 삭제버튼 클릭시

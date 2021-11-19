@@ -22,7 +22,7 @@
         <br>
         <div class="innerOuter">
         
-            <h2 >공지사항 상세보기</h2>                  
+            <h2 >익명게시판 상세보기</h2>                  
             <br>
             <table id="contentArea" align="center" class="table ">
                 <tr>
@@ -68,11 +68,11 @@
 					var postForm = $("#postForm");
 					
 					if(num == 1){
-						postForm.attr("action", "UpdateForm.bo");
+						postForm.attr("action", "updateForm.bo");
 						postForm.submit();				
 					}else{
 						if(confirm("정말 삭제하시겠습니까?") == true){
-							postForm.attr("action", "Delete.bo");
+							postForm.attr("action", "delete.bo");
 							postForm.submit();
 							alert("삭제되었습니다");
 						}else{
