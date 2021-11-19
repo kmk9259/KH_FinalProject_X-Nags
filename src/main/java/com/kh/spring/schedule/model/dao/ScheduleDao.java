@@ -12,6 +12,11 @@ import com.kh.spring.schedule.model.vo.Schedule;
 @Repository
 public class ScheduleDao {
 
+	public ArrayList<Schedule> scheduleMain(SqlSessionTemplate sqlSession, Map<String, String> paramMap) {
+		
+		return (ArrayList)sqlSession.selectList("scheduleMapper.scheduleMain", paramMap);
+	}
+	
 	public int insertSchedule(SqlSessionTemplate sqlSession, Schedule sc) {
 		
 		return sqlSession.insert("scheduleMapper.insertSchedule", sc);
@@ -26,12 +31,6 @@ public class ScheduleDao {
 		
 		return sqlSession.delete("scheduleMapper.deleteSchedule", sc);
 	}
-
-	public ArrayList<Schedule> scheduleMain(SqlSessionTemplate sqlSession, Map<String, String> paramMap) {
-		
-		return (ArrayList)sqlSession.selectList("scheduleMapper.scheduleMain", paramMap);
-	}
-
 
 
 }

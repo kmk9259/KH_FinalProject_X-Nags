@@ -28,8 +28,7 @@ public class Schedule {
 	private String scheduleBackground;
 	private String scheduleTextcolor;
 	private String scheduleAllDay;
-//	private String scheduleAlarm;
 	private String userName;
-	private String deptName;
+//	private String deptName;
 
 }

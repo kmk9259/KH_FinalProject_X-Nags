@@ -18,15 +18,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="deptName" column="DEPT_NAME"/>
 	</resultMap>
 	
-	<!-- 	<resultMap id="empResultSet" type="Employee">
-		<id property="empId" column="EMP_ID"/>
-		<result property="deptName" column="DEPT_NAME"/>
-		<result property="userName" column="USER_NAME"/>
-		</resultMap> -->
-	
 		<resultMap id="empResultSet" type="Employee">
 		<id property="empId" column="EMP_ID"/>
 		</resultMap>
+	
+		
+	<select id="scheduleMain" parameterType="java.util.Map" resultType="com.kh.spring.schedule.model.vo.Schedule">
+		<![CDATA[ 
+			SELECT 
+		        SCHEDULE_NO AS scheduleNo,
+		        EMP_ID AS empId,
+		        SCHEDULE_TITLE AS scheduleTitle,
+		        SCHEDULE_START AS scheduleStart,
+		        SCHEDULE_END AS scheduleEnd,
+		        SCHEDULE_DESCRIPTION AS scheduleDescription,
+		        SCHEDULE_TYPE AS scheduleType,
+		        SCHEDULE_BACKGROUNDCOLOR AS scheduleBackground,
+		        SCHEDULE_TEXTCOLOR AS scheduleTextcolor,
+		        SCHEDULE_ALLDAY AS scheduleAllDay
+			FROM 
+		        SCHEDULE
+			WHERE 
+		        1 = 1
+		        AND EMP_ID = #{empId}
+		   		AND SCHEDULE_START >= #{scheduleStart}
+		        AND SCHEDULE_END < #{scheduleEnd}
+	        ]]> 
+	</select>
 	
 	 <insert id="insertSchedule" parameterType="Schedule" >
 		INSERT INTO SCHEDULE
@@ -57,35 +75,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE FROM SCHEDULE WHERE SCHEDULE_NO = #{scheduleNo}
 	</insert>
 
-	<!-- <select id="selectEmployee" parameterType="Member" resultMap="empResultSet">
-	 SELECT USER_NAME, DEPT_NAME 
-	 FROM EMPLOYEE 
-	 JOIN MEMBER USING (EMP_ID) 
-	 JOIN DEPARTMENT USING (DEPT_CODE)
-	 WHERE EMP_ID = #{empId}
-	</select> -->
-	
-	<select id="scheduleMain" parameterType="java.util.Map" resultType="com.kh.spring.schedule.model.vo.Schedule">
-		<![CDATA[ 
-			SELECT 
-		        SCHEDULE_NO AS scheduleNo,
-		        EMP_ID AS empId,
-		        SCHEDULE_TITLE AS scheduleTitle,
-		        SCHEDULE_START AS scheduleStart,
-		        SCHEDULE_END AS scheduleEnd,
-		        SCHEDULE_DESCRIPTION AS scheduleDescription,
-		        SCHEDULE_TYPE AS scheduleType,
-		        SCHEDULE_BACKGROUNDCOLOR AS scheduleBackground,
-		        SCHEDULE_TEXTCOLOR AS scheduleTextcolor,
-		        SCHEDULE_ALLDAY AS scheduleAllDay
-			FROM 
-		        SCHEDULE
-			WHERE 
-		        1 = 1
-		        AND EMP_ID = #{empId}
-		   		AND SCHEDULE_START >= #{scheduleStart}
-		        AND SCHEDULE_END < #{scheduleEnd}
-	        ]]> 
-	</select>
+
 	
 </mapper>

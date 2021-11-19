@@ -28,8 +28,8 @@ var empId = '${empId}';
 var username =  '${username}';
 </script>
 
-	<jsp:include page="../common/menubar.jsp" /> 
-
+	<%-- <jsp:include page="../common/menubar.jsp" /> 
+ --%>
 
 	  <div class="container">
 
