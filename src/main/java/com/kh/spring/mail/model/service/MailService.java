@@ -53,6 +53,10 @@ public interface MailService {
 
 	Member selectSendEmp(int mno);
 
+	Mail selectMail(int mno);
+
+	Member selectReceiveEmp(int mno);
+
 
 
 

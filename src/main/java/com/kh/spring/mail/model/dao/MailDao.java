@@ -159,4 +159,14 @@ public class MailDao {
 		return sqlSession.selectOne("mailMapper.selectSendEmp", mno);
 	}
 
+	public Mail selectMail(SqlSessionTemplate sqlSession, int mno) {
+		
+		return sqlSession.selectOne("mailMapper.selectMail", mno);
+	}
+
+	public Member selectReceiveEmp(SqlSessionTemplate sqlSession, int mno) {
+	
+		return sqlSession.selectOne("mailMapper.selectReceiveEmp", mno);
+	}
+
 }

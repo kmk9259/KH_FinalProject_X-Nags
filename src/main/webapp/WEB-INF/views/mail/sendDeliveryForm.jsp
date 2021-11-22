@@ -126,6 +126,7 @@ label {
 				</div>
 				<!-- 메일 폼 끝 -->
 			</div>
+			<jsp:include page="../common/footer.jsp" />
 		</div>
 	</div>
 	
@@ -184,8 +185,6 @@ label {
 					</div>
 				</div>
 			</div>
-			
-			<jsp:include page="../common/footer.jsp" />
 		</div>		
 
 <script>
@@ -250,7 +249,22 @@ function selectReceiver(){
 	var userName = td.eq(1).text();
 	var empId = td.eq(2).text();
 	
-	if(tr.val() == null){
+	var deptCode = $("option:selected").val();
+	console.log(deptCode);
+	
+	if(deptCode == "부서 선택"){
+		
+		swal(
+               {
+                   type: 'error',
+                   title: 'Oops...',
+                   text: '부서를 선택해 주세요',
+               }
+           )
+           
+		return false;
+		
+	}else if(tr.val() == null){
 		swal(
                {
                    type: 'error',
@@ -317,7 +331,7 @@ function sendDelivery(){
 </script>	
 <script src="${ pageContext.servletContext.contextPath }/resources/plugins/sweetalert2/sweetalert2.all.js"></script>
 
-<jsp:include page="../common/footer.jsp" />
+
 
 </body>
 </html>

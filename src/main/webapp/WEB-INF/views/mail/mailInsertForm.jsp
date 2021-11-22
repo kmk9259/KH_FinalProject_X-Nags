@@ -87,7 +87,6 @@ label {
 						
 						<div class="clearfix">
 							<div class="pull-right">
-								<!-- <button type="button" onclick="history.go(-1)" class="btn btn-outline-danger">취소</button> -->
 								<button type="button" class="btn btn-primary" onclick="sendMail();">메일 전송</button>
 							</div>
 						</div>
@@ -143,12 +142,7 @@ label {
 										</tbody>
 									</table>
 								</div>
-							
 							</div>
-						</div>
-										
-										
-										
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
 							<button type="button" class="btn btn-primary" onclick="selectReceiver();">선텍</button>
@@ -225,7 +219,21 @@ function selectReceiver(){
 	var userName = td.eq(1).text();
 	var empId = td.eq(2).text();
 	
-	if(tr.val() == null){
+	var deptCode = $("option:selected").val();
+	console.log(deptCode);
+	
+	if(deptCode == "부서 선택"){
+			
+		swal(
+               {
+                   type: 'error',
+                   title: 'Oops...',
+                   text: '부서를 선택해 주세요',
+               }
+           )
+		return false;
+		
+	}else if(tr.val() == null){
 		swal(
                {
                    type: 'error',

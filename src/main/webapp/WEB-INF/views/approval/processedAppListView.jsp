@@ -29,7 +29,7 @@ color: red;
 
 <c:if test="${ !empty msg }">
 	<script>
-		alert("${msg}");
+		swal("${msg}")
 	</script>
 	<c:remove var="msg" scope="session"/>
 </c:if>
@@ -89,7 +89,7 @@ color: red;
 											<td scope="row">반차 신청서</td>
 										</c:when>
 			              				<c:when test="${app.category eq 3 }">
-											<td scope="row">연장근무 신청서</td>
+											<td scope="row">외근 신청서</td>
 										</c:when>
 			              				<c:when test="${app.category eq 4 }">
 											<td scope="row">증명서 신청서(재직증명서)</td>
@@ -189,7 +189,7 @@ color: red;
 									
 				<!-- basic table  End -->
 				
-				
+				<jsp:include page="../common/footer.jsp" />
 				</div>
 				</div>
 				</div>
@@ -206,6 +206,6 @@ color: red;
 				</script>
 
 	
-<jsp:include page="../common/footer.jsp" />
+
 </body>
 </html>

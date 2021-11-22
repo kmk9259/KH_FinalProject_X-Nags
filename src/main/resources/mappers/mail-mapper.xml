@@ -128,7 +128,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    *
 		FROM MAIL A
 		JOIN MEMBER B ON A.MAIL_RECEIVER=B.EMP_ID
-		WHERE A.WRITER_STATUS=1
 		AND A.MAIL_NO=#{mno}
 	</select>
 	
@@ -290,6 +289,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT E.EMP_ID, E.USER_NAME
 		FROM MEMBER E
 		JOIN MAIL M ON E.EMP_ID=M.EMP_ID
+		WHERE M.MAIL_NO=#{mno}
+	</select>
+	
+	<select id="selectMail" parameterType="_int" resultMap="mailResultSet">
+		SELECT *
+		FROM MAIL
+		WHERE MAIL_NO=#{mno}
+	</select>
+	
+	<!-- 메일 수신자 -->
+	<select id="selectReceiveEmp" parameterType="_int" resultMap="empResultSet">
+		SELECT E.EMP_ID, E.USER_NAME
+		FROM MEMBER E
+		JOIN MAIL M ON E.EMP_ID=M.MAIL_RECEIVER
 		WHERE M.MAIL_NO=#{mno}
 	</select>
 
