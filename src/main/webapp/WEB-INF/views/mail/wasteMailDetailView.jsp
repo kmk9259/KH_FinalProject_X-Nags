@@ -40,12 +40,13 @@
 		            <div class="card-header">
 		              <h3 class="mailbox-read-info">${m.title }</h3>
 		              <br>
-		              <h4 class="card-title">${m.receiver }
+		              <h4 class="card-title">from : ${ sendEmp.userName}
+		              <br>to : ${receiveEmp.userName }
                   		<span class="mailbox-read-time float-right">${m.date }</span>
                   	  </h4>
 		            </div>
 				
-				<div class="card-body p-0">
+				<div class="card-body p-10">
               
               <!-- /.mailbox-read-info -->
               
@@ -77,16 +78,16 @@
             <form id="sendMail" action="" method="post">
             	<input type="hidden" name="empId" value="${ loginUser.empId }">
             	<input type="hidden" name="mno" value="${m.mailNo }">
-            
+            	
 	            <div class="card-footer">
 	              <div class="float-right">
-	              	<button type="button"  class="btn btn-default"><i class="icon-copy ion-arrow-left-c"></i> 목록으로</button>
+	              	<button type="button" onclick="list();" class="btn btn-default"><i class="icon-copy ion-arrow-left-c"></i> 목록으로</button>
 	                <button type="button" data-backdrop="static" data-toggle="modal" data-target="#mailRecovery" class="btn btn-default"><i class="icon-copy ion-refresh"></i> 복구</button>
 	                	
 	              </div>
 	              
 	              <button type="button" data-backdrop="static" data-toggle="modal" data-target="#delete" class="btn btn-default"><i class="icon-copy ion-trash-a"></i> 영구삭제</button>
-	              <button type="button" class="btn btn-default"><i class="icon-copy ion-printer"></i> 인쇄</button>
+	            
 	            </div>
 	            
 			</form>
@@ -94,7 +95,9 @@
 				
 				</div>
 				</div>
+				
 				</div>
+				<jsp:include page="../common/footer.jsp" />
 				</div>
 				</div>
 				
@@ -144,20 +147,25 @@
 function returnMail(){
 	$("#sendMail").attr("action", "returnMail.ml");
 	$("#sendMail").submit();
-	
+	return true; 
 }
 
 //영구삭제
 function waste(){
 	$("#sendMail").attr("action", "wasteMail.ml");
 	$("#sendMail").submit();
-
+	return true; 
+}
+function list() {
+	$("#sendMail").attr("action", "waste.ml");
+	$("#sendMail").submit();
+	return true; 
 }
 </script>
 				
 <script src="${ pageContext.servletContext.contextPath }/resources/plugins/sweetalert2/sweetalert2.all.js"></script>
 				
-<jsp:include page="../common/footer.jsp" />
+
 
 </body>
 </html>

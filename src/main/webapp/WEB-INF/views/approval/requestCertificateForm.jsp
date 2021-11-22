@@ -17,6 +17,10 @@ label {
 #title {
 	font-weight: bold;
 }
+.selectReceiver{
+	overflow: auto;
+	min-height:500px;
+}
 </style>
 
 </head>
@@ -43,7 +47,7 @@ label {
 						</div>
 					</div>
 				</div>
-				<form action="insert.ap" method="post" enctype="multipart/form-data">
+				<form action="" method="post" enctype="multipart/form-data" id="insertApp">
 				
 				<div class="page-header">
 					<div class="row">
@@ -64,9 +68,6 @@ label {
 							</div>
 						</div>
 					</div>
-				
-
-
 				<!-- 결재 폼 시작 -->
 				<div class="pd-20 card-box mb-30">
 					<div class="clearfix">
@@ -102,16 +103,13 @@ label {
 						</div>
 						<div class="clearfix">
 							<div class="pull-right">
-								<!--  <button type="reset" class="btn btn-outline-danger">취소</button> -->
-								<button type="submit" class="btn btn-primary">결재 전송</button>
+								<button type="button" onclick="insertApp();" class="btn btn-primary">결재 전송</button>
 							</div>
 						</div>
 						</div>
-					
 					</form>
 				</div>
-				
-				
+				<jsp:include page="../common/footer.jsp" />
 				<!-- 결재 폼 끝 -->
 			</div>
 		</div>
@@ -177,103 +175,255 @@ label {
 			</div>
 			
 			
-			 <script>
-                
-                $(function(){
-                	var appDate ="";
-                	$( ".date-picker" ).datepicker({
-                    		dateFormat: "yyyy/mm/dd",
-                    		language:"ko",
-                    		onSelect: function(dateText) {
-                    			appDate = dateText
-                    	    }
-                    		
-                    });  	 
-            			
-            	});
-                
-                $(function(){
-                	$("#searchEmp").click(function(){
-                		
-                		var deptCode = $("select[name=dept] option:selected").val();
-                		console.log(deptCode);
-                		
-                		$.ajax({
-                			url:"empList.ml",
-                			data:{deptCode:deptCode},
-                			type:"get",
-                			success:function(map){
-                				console.log(map);
-                				console.log(map["jrr"])
-                				
-                				var $tableBody = $("#eList tbody");
-                				$tableBody.html("");
-                				
-                				$.each(map["jrr"], function(i, emp){
-                					console.log("emp ~~~ "+ emp);
-                					
-                					var $tr = $("<tr>");
-                					var $ckTd = $("<td><input type='checkBox' class='checkEmp' name='checkEmp'></td>");
-                					var $nameTd = $("<td>").text(emp.userName);
-                					var $idTd = $("<td>").text(emp.empId);
-                					var $jobTd = $("<td>").text(emp.jobName);
-                					var $rightTd = $("<td>").text(emp.rightName);
-                					
-                					$tr.append($ckTd);
-                					$tr.append($nameTd);
-                					$tr.append($idTd);
-                					$tr.append($jobTd);
-                					$tr.append($rightTd);
-                					
-                					$tableBody.append($tr);
-                					
-                				})
+<script>
+$( ".date-picker" ).datepicker({
+	dateFormat: "yyyy/mm/dd",
+	minDate: new Date(),
+	language:"kr",
+	todaytHightlight : true
 
-                			},
-                			error:function(e){
-                				console.log("사원 리스트 조회 ajax 통신 실패");
-                			}
-                		
-                		})
-                	
-                	})
-                	
-                })
-                
-                function selectMid(){
-					var tr = $("input[class=checkEmp]:checked").parent().parent().eq(0);
-					var td = tr.children();
-					var userName = td.eq(1).text();
-					var empId = td.eq(2).text();
+  }); 
+   
+$(function(){
+	$("#searchEmp").click(function(){
+		
+		var deptCode = $("select[name=dept] option:selected").val();
+		console.log(deptCode);
+		
+		if(deptCode == "부서 선택"){
+			
+			swal({
+	                   type: 'error',
+	                   title: 'Oops...',
+	                   text: '부서를 선택해 주세요',
+	             })
+			return false;
+		}
+		
+		$.ajax({
+			url:"empList.ml",
+			data:{deptCode:deptCode},
+			type:"get",
+			success:function(map){
+				console.log(map);
+				console.log(map["jrr"])
+				
+				var $tableBody = $("#eList tbody");
+				$tableBody.html("");
+				
+				$.each(map["jrr"], function(i, emp){
+					console.log("emp ~~~ "+ emp);
 					
-					console.log("userName : " + userName);
-					console.log("empId : " + empId);
+					var $tr = $("<tr>");
+					var $ckTd = $("<td><input type='checkBox' class='checkEmp' name='checkEmp'></td>");
+					var $nameTd = $("<td>").text(emp.userName);
+					var $idTd = $("<td>").text(emp.empId);
+					var $jobTd = $("<td>").text(emp.jobName);
+					var $rightTd = $("<td>").text(emp.rightName);
 					
-					$("input[name=appMidName]").val(userName);
-					$("input[name=appMid]").val(empId);
-					$("input[class=checkEmp]").prop('checked', false); 
-				}
-                
-                function selectFin(){
-					var tr = $("input[class=checkEmp]:checked").parent().parent().eq(0);
-					var td = tr.children();
-					var userName = td.eq(1).text();
-					var empId = td.eq(2).text();
+					$tr.append($ckTd);
+					$tr.append($nameTd);
+					$tr.append($idTd);
+					$tr.append($jobTd);
+					$tr.append($rightTd);
 					
-					console.log("userName : " + userName);
-					console.log("empId : " + empId);
+					$tableBody.append($tr);
 					
-					$("input[name=appFinName]").val(userName);
-					$("input[name=appFin]").val(empId);
-					$("#bd-example-modal-lg").modal("hide");	
+				})
 
-				}
-                </script>
+			},
+			error:function(e){
+				console.log("사원 리스트 조회 ajax 통신 실패");
+			}
+		})
+	})
+})
+            
+function selectMid(){
+            	
+	var tr = $("input[class=checkEmp]:checked").parent().parent().eq(0);
+	var td = tr.children();
+	var userName = td.eq(1).text();
+	var empId = td.eq(2).text();
+	var deptCode = $("select[name=dept] option:selected").val();
+	console.log(deptCode);
+	
+	if(deptCode == "부서 선택"){
+			
+		swal(
+               {
+                   type: 'error',
+                   title: 'Oops...',
+                   text: '부서를 선택해 주세요',
+               }
+           )
+		return false;
+		
+	}else if(tr.val() == null){
+		swal(
+               {
+                   type: 'error',
+                   title: 'Oops...',
+                   text: '중간 결재자를 선택해 주세요',
+               }
+           )
+		return false;
+	}
+	
+	console.log("userName : " + userName);
+	console.log("empId : " + empId);
+	
+	$("input[name=appMidName]").val(userName);
+	$("input[name=appMid]").val(empId);
+	$("input[class=checkEmp]").prop('checked', false); 
+}
+            
+function selectFin(){
+	var mid = $("#insertApp input[name=appMidName]");
+	var tr = $("input[class=checkEmp]:checked").parent().parent().eq(0);
+	var td = tr.children();
+	var userName = td.eq(1).text();
+	var empId = td.eq(2).text();
+	var deptCode = $("select[name=dept] option:selected").val();
+	console.log(deptCode);
+	
+	if(deptCode == "부서 선택"){
+			
+		swal(
+               {
+                   type: 'error',
+                   title: 'Oops...',
+                   text: '부서를 선택해 주세요',
+               }
+           )
+		return false;
+		
+	}else if(mid.val()=="" || mid.val()==null){
+		
+		 swal(
+	               {
+	                   type: 'error',
+	                   title: 'Oops...',
+	                   text: '중간 결재자를 입력해 주세요',
+	               }
+	           )
+			return false;
+		 
+	}else if(tr.val() == null){
+		swal(
+               {
+                   type: 'error',
+                   title: 'Oops...',
+                   text: '최종 결재자를 선택해 주세요',
+               }
+           )
+		return false;
+	}
+	
+	console.log("userName : " + userName);
+	console.log("empId : " + empId);
+	
+	$("input[name=appFinName]").val(userName);
+	$("input[name=appFin]").val(empId);
+	$("input[class=checkEmp]").prop('checked', false); 
+	$("#bd-example-modal-lg").modal("hide");	
+
+}
+
+function insertApp() {
+	var mid = $("#insertApp input[name=appMidName]");
+	var fin = $("#insertApp input[name=appFinName]");
+	var category = $("#insertApp select[name=category]");
+	var date = $("#insertApp input[name=date]");
+	var title = $("#insertApp input[name=title]");
+	var content = $("#insertApp textarea[name=content]");
+	
+	console.log(date.val());
+	
+	if(mid.val()=="" || mid.val()==null){
+		
+	 swal(
+               {
+                   type: 'error',
+                   title: 'Oops...',
+                   text: '중간 결재자를 입력해 주세요',
+               }
+           )
+		return false;
+	 
+	}else if(fin.val()=="" || fin.val()==null){
+		
+		swal(
+               {
+                   type: 'error',
+                   title: 'Oops...',
+                   text: '최종 결재자를 입력해 주세요',
+               }
+           )
+		return false;
+		
+	}else if(category.val()=="증명서 선택"){
+		
+		swal(
+               {
+                   type: 'error',
+                   title: 'Oops...',
+                   text: '증명서 종류를 선택해 주세요',
+               }
+           )
+		return false;
+		
+	}else if(date.val()=="" || date.val()==null){
+		
+		swal(
+	               {
+	                   type: 'error',
+	                   title: 'Oops...',
+	                   text: '기안일을 입력해 주세요',
+	               }
+	           )
+			return false;
+		
+	}else if(title.val()=="" || title.val()==null){
+		
+		swal(
+	               {
+	                   type: 'error',
+	                   title: 'Oops...',
+	                   text: '제목을 입력해 주세요',
+	               }
+	           )
+			return false;
+		
+	}else if(content.val()=="" || content.val()==null){
+	
+		swal(
+	               {
+	                   type: 'error',
+	                   title: 'Oops...',
+	                   text: '내용을 입력해 주세요',
+	               }
+	           )
+			return false;
+		
+	
+	}else{
+		$("#insertApp").attr("action", "insert.ap");
+		$("#insertApp").submit();
+		return true;
+	}
+}
+</script>
 		
 
-	<jsp:include page="../common/footer.jsp" />
+	
 
-
+<script src="${ pageContext.servletContext.contextPath }/resources/assets/js/bootstrap-datepicker.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/assets/js/bootstrap-datepicker.kr.min.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/plugins/slick/slick.min.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/plugins/sweetalert2/sweetalert2.all.js"></script>
+	
 
 </body>
 </html>

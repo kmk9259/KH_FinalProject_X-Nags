@@ -60,7 +60,7 @@ label {
 					
 					<form action="" method="post" enctype="multipart/form-data" id="sendDelivery">
 						
-						<input type="hidden" name="empId" value="${ sessionScope.loginUser.empId }">
+						<input type="hidden" name="empId" value="${ loginUser.empId }">
 						
 						<div class="form-group">
 							<div class="mailReceiver">
@@ -83,8 +83,6 @@ label {
 									<input class="form-control" value="FW: ${receiveMail.title }" type="text" name="title" required="required" placeholder="메일 제목을 입력해주세요.">
 								<br>
 								<br>
-								
-								
 							</div>
 							
 						</div>
@@ -101,7 +99,7 @@ label {
 						<div class="form-group">
 							<textarea class="textarea_editor form-control border-radius-0" name="content" required="required">
 								-----Original Message-----<br>
-								From : ${ receiveMail.empId }<br>
+								From : ${ sendEmp.userName}<br>
 								To : ${receiveMail.receiver }<br>
 								Sent : ${receiveMail.date}<br>
 								Title : ${receiveMail.title }<br>
@@ -122,6 +120,7 @@ label {
 				</div>
 				<!-- 메일 폼 끝 -->
 			</div>
+			<jsp:include page="../common/footer.jsp" />
 		</div>
 	</div>
 
@@ -168,12 +167,8 @@ label {
 								</tbody>
 							</table>
 						</div>
-					
 					</div>
-				</div>
-								
-								
-								
+				</div>	
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
 					<button type="button" class="btn btn-primary" onclick="selectReceiver();">선텍</button>
@@ -251,8 +246,19 @@ function selectReceiver(){
 	var td = tr.children();
 	var userName = td.eq(1).text();
 	var empId = td.eq(2).text();
-	
-	if(tr.val() == null){
+	var deptCode = $("option:selected").val();
+	if(deptCode == "부서 선택"){
+		
+		swal(
+               {
+                   type: 'error',
+                   title: 'Oops...',
+                   text: '부서를 선택해 주세요',
+               }
+           )
+		return false;
+		
+	}else if(tr.val() == null){
 		swal(
                {
                    type: 'error',
@@ -319,8 +325,5 @@ function sendMail(){
 </script>	
 
 <script src="${ pageContext.servletContext.contextPath }/resources/plugins/sweetalert2/sweetalert2.all.js"></script>
-
-<jsp:include page="../common/footer.jsp" />
-
 </body>
 </html>

@@ -288,14 +288,13 @@ color: red;
 		            		<div class="card-footer">
 				              <div class="float-right">
 				              	<c:if test="${app.midStatus eq 1 }">
-				              		<button type="button" onclick="" class="btn btn-default"><i class="icon-copy ion-arrow-left-c"></i> 목록으로</button>
+				              		<button type="button" onclick="goList();" class="btn btn-default"><i class="icon-copy ion-arrow-left-c"></i> 목록으로</button>
 				              		<button type="button" onclick="change();" class="btn btn-default"><i class="icon-copy ion-refresh"></i> 수정</button>
 				              	</c:if>
 				              </div>
 				              	<c:if test="${app.finStatus eq 1 }">
-				              		<button type="button" onclick="deleteApp();" class="btn btn-default"><i class="icon-copy ion-trash-a"></i> 삭제</button>
+				              		<button type="button" data-backdrop="static" data-toggle="modal" data-target="#deleteApp" class="btn btn-default"><i class="icon-copy ion-trash-a"></i> 삭제</button>
 				              	</c:if>
-				              <!-- <button type="button" class="btn btn-default"><i class="icon-copy ion-printer"></i> 프린트</button> -->
 				            </div>
 		                </form>
 				<!-- 중간내용 끝 -->
@@ -344,8 +343,29 @@ color: red;
 					</div>
 				</div>
 				
+				<jsp:include page="../common/footer.jsp" />
 				</div>
 				</div>
+				</div>
+				
+				<div class="modal fade" id="deleteApp" tabindex="-1" role="dialog" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-body text-center font-18">
+								<h4 class="padding-top-30 mb-30 weight-500">결재 문서를 삭제하시겠습니까?</h4>
+								<div class="padding-bottom-30 row" style="max-width: 170px; margin: 0 auto;">
+									<div class="col-6">
+										<button type="button" class="btn btn-secondary border-radius-100 btn-block confirmation-btn" data-dismiss="modal"><i class="fa fa-times"></i></button>
+										취소
+									</div>
+									<div class="col-6">
+										<button type="button" onclick="deleteApp();" class="btn btn-primary border-radius-100 btn-block confirmation-btn" data-dismiss="modal"><i class="fa fa-check"></i></button>
+										삭제
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 				
 <script >
@@ -360,17 +380,18 @@ function change(){
 
 //삭제
 function deleteApp(){
-	
-	var confirmVal = confirm("결재 문서를 삭제하시겠습니까?");
-	
-	if(confirmVal){
-		$("#sendApp").attr("action", "deleteApping.ap");
-		$("#sendApp").submit();
-		return true;
-	}
+
+	$("#sendApp").attr("action", "deleteApping.ap");
+	$("#sendApp").submit();
+
+}
+function goList() {
+	$("#sendApp").attr("action", "apping.ap");
+	$("#sendApp").submit();
+
 }
 </script>
 			
-<jsp:include page="../common/footer.jsp" />
+
 </body>
 </html>

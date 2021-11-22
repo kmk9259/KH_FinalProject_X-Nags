@@ -70,22 +70,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 결재 전송 -->
 	<insert id="insertApproval" parameterType="Approval">
-		
-		
-		<!-- <if test="startDate == null or startDate == ''">
-			INSERT INTO APPROVAL
-			VALUES
-			(SEQ_ANO.NEXTVAL, #{empId}, #{category}, #{appMid}, #{appFin}, default,  default,
-			 #{title}, #{content}, sysdate, NULL, #{appDate}, NULL, NULL, #{originName}, #{changeName})
-		</if>
-		
-		<if test="startDate != null or startDate != ''">
-			INSERT INTO APPROVAL
-			VALUES
-			(SEQ_ANO.NEXTVAL, #{empId}, #{category}, #{appMid}, #{appFin}, default,  default,
-			 #{title}, #{content}, sysdate, #{startDate}, #{appDate}, NULL, NULL, #{originName}, #{changeName})
-		</if> -->
-		
 		INSERT INTO APPROVAL
 		VALUES
 		(SEQ_ANO.NEXTVAL, #{empId}, #{category}, #{appMid}, #{appFin}, default,  default,

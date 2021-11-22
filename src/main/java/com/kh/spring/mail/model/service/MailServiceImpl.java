@@ -237,6 +237,20 @@ public class MailServiceImpl implements MailService {
 		return mailDao.selectSendEmp(sqlSession, mno);
 	}
 
+
+	@Override
+	public Mail selectMail(int mno) {
+		
+		return mailDao.selectMail(sqlSession, mno);
+	}
+
+
+	@Override
+	public Member selectReceiveEmp(int mno) {
+		
+		return mailDao.selectReceiveEmp(sqlSession, mno);
+	}
+
 	
 
 

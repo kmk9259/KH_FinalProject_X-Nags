@@ -120,13 +120,14 @@ label {
 						<div class="clearfix">
 							<div class="pull-right">
 								<button type="button" class="btn btn-outline-danger" onclick="history.go(-1)">취소</button>
-								<button type="submit" class="btn btn-primary">메일 전달</button>
+								<button type="button" onclick="sendDelivery();" class="btn btn-primary">메일 전송</button>
 							</div>
 						</div>
 					</form>
 				</div>
 				<!-- 메일 폼 끝 -->
 			</div>
+			<jsp:include page="../common/footer.jsp" />
 		</div>
 	</div>
 	
@@ -255,7 +256,19 @@ function selectReceiver(){
 	var userName = td.eq(1).text();
 	var empId = td.eq(2).text();
 	
-	if(tr.val() == null){
+	var deptCode = $("option:selected").val();
+	if(deptCode == "부서 선택"){
+		
+		swal(
+               {
+                   type: 'error',
+                   title: 'Oops...',
+                   text: '부서를 선택해 주세요',
+               }
+           )
+		return false;
+		
+	}else if(tr.val() == null){
 		swal(
                {
                    type: 'error',
@@ -321,6 +334,6 @@ function sendDelivery(){
 
 <script src="${ pageContext.servletContext.contextPath }/resources/plugins/sweetalert2/sweetalert2.all.js"></script>
 
-<jsp:include page="../common/footer.jsp" />
+
 </body>
 </html>

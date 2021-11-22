@@ -49,7 +49,7 @@ label {
 						</div>
 					</div>
 				</div>
-				<form action="update.ap" method="post" enctype="multipart/form-data">
+				<form action="" method="post" enctype="multipart/form-data" id="changeApp">
 				
 				<div class="page-header">
 					<div class="row">
@@ -61,10 +61,10 @@ label {
 								
 							</div>
 							<div class="form-group">
-								<input class="form-control" type="text" required="required" name="appMidName" data-toggle="tooltip" title="주소록에서 선택해 주세요." placeholder="중간 결제자를 입력해 주세요">
+								<input class="form-control" type="text" readonly="readonly" name="appMidName" data-toggle="tooltip" title="주소록에서 선택해 주세요." placeholder="중간 결제자를 입력해 주세요">
 								<input class="form-control" type="hidden" name="appMid" required="required" readonly="readonly">
 							</div>
-								<input class="form-control" type="text" required="required" name="appFinName" data-toggle="tooltip" title="주소록에서 선택해 주세요." placeholder="최종 결재자를 입력해 주세요">
+								<input class="form-control" type="text" readonly="readonly" name="appFinName" data-toggle="tooltip" title="주소록에서 선택해 주세요." placeholder="최종 결재자를 입력해 주세요">
 								<input class="form-control" type="hidden" name="appFin" required="required" readonly="readonly">
 							</div>
 							<div class="form-group full-right">
@@ -109,15 +109,14 @@ label {
 						</div>
 						<div class="clearfix">
 							<div class="pull-right">
-								<!--  <button type="reset" class="btn btn-outline-danger">취소</button> -->
-								<button type="submit" class="btn btn-primary">결재 전송</button>
+								<button type="button" onclick="changeApp();" class="btn btn-primary">결재 전송</button>
 							</div>
 						</div>
 						</div>
 					
 					</form>
 				</div>
-				
+				<jsp:include page="../common/footer.jsp" />
 				
 				<!-- 결재 폼 끝 -->
 			</div>
@@ -167,12 +166,8 @@ label {
 										</tbody>
 									</table>
 								</div>
-							
 							</div>
 						</div>
-										
-										
-										
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
 							<button type="button" class="btn btn-primary" onclick="selectMid();">중간결재자 선텍</button>
@@ -182,103 +177,237 @@ label {
 				</div>
 			</div>
 			
-			 <script>
-                
-                $(function(){
-                	var appDate ="";
-                	$( ".date-picker" ).datepicker({
-                    		dateFormat: "yyyy/mm/dd",
-                    		language:"ko",
-                    		onSelect: function(dateText) {
-                    			appDate = dateText
-                    	    }
-                    		
-                    });  	 
-            			
-            	});
-                
-                $(function(){
-                	$("#searchEmp").click(function(){
-                		
-                		var deptCode = $("select[name=dept] option:selected").val();
-                		console.log(deptCode);
-                		
-                		$.ajax({
-                			url:"empList.ml",
-                			data:{deptCode:deptCode},
-                			type:"get",
-                			success:function(map){
-                				console.log(map);
-                				console.log(map["jrr"])
-                				
-                				var $tableBody = $("#eList tbody");
-                				$tableBody.html("");
-                				
-                				$.each(map["jrr"], function(i, emp){
-                					console.log("emp ~~~ "+ emp);
-                					
-                					var $tr = $("<tr>");
-                					var $ckTd = $("<td><input type='checkBox' class='checkEmp' name='checkEmp'></td>");
-                					var $nameTd = $("<td>").text(emp.userName);
-                					var $idTd = $("<td>").text(emp.empId);
-                					var $jobTd = $("<td>").text(emp.jobName);
-                					var $rightTd = $("<td>").text(emp.rightName);
-                					
-                					$tr.append($ckTd);
-                					$tr.append($nameTd);
-                					$tr.append($idTd);
-                					$tr.append($jobTd);
-                					$tr.append($rightTd);
-                					
-                					$tableBody.append($tr);
-                					
-                				})
-
-                			},
-                			error:function(e){
-                				console.log("사원 리스트 조회 ajax 통신 실패");
-                			}
-                		
-                		})
-                	
-                	})
-                	
-                })
-                
-                function selectMid(){
-					var tr = $("input[class=checkEmp]:checked").parent().parent().eq(0);
-					var td = tr.children();
-					var userName = td.eq(1).text();
-					var empId = td.eq(2).text();
-					
-					console.log("userName : " + userName);
-					console.log("empId : " + empId);
-					
-					$("input[name=appMidName]").val(userName);
-					$("input[name=appMid]").val(empId);
-					$("input[class=checkEmp]").prop('checked', false); 
-				}
-                
-                function selectFin(){
-					var tr = $("input[class=checkEmp]:checked").parent().parent().eq(0);
-					var td = tr.children();
-					var userName = td.eq(1).text();
-					var empId = td.eq(2).text();
-					
-					console.log("userName : " + userName);
-					console.log("empId : " + empId);
-					
-					$("input[name=appFinName]").val(userName);
-					$("input[name=appFin]").val(empId);
-					$("#bd-example-modal-lg").modal("hide");	
-
-				}
-                </script>
+<script>
+$( ".date-picker" ).datepicker({
+	dateFormat: "yyyy/mm/dd",
+	minDate: new Date(),
+	language:"kr",
+	todaytHightlight : true
+}); 
+         
+$(function(){
+	$("#searchEmp").click(function(){
 		
+		var deptCode = $("select[name=dept] option:selected").val();
+		console.log(deptCode);
+		
+		if(deptCode == "부서 선택"){
+			
+			swal({
+	                   type: 'error',
+	                   title: 'Oops...',
+	                   text: '부서를 선택해 주세요',
+	             })
+			return false;
+		}
+		
+		$.ajax({
+			url:"empList.ml",
+			data:{deptCode:deptCode},
+			type:"get",
+			success:function(map){
+				console.log(map);
+				console.log(map["jrr"])
+				
+				var $tableBody = $("#eList tbody");
+				$tableBody.html("");
+				
+				$.each(map["jrr"], function(i, emp){
+					console.log("emp ~~~ "+ emp);
+					
+					var $tr = $("<tr>");
+					var $ckTd = $("<td><input type='checkBox' class='checkEmp' name='checkEmp'></td>");
+					var $nameTd = $("<td>").text(emp.userName);
+					var $idTd = $("<td>").text(emp.empId);
+					var $jobTd = $("<td>").text(emp.jobName);
+					var $rightTd = $("<td>").text(emp.rightName);
+					
+					$tr.append($ckTd);
+					$tr.append($nameTd);
+					$tr.append($idTd);
+					$tr.append($jobTd);
+					$tr.append($rightTd);
+					
+					$tableBody.append($tr);
+					
+				})
 
-	<jsp:include page="../common/footer.jsp" />
+			},
+			error:function(e){
+				console.log("사원 리스트 조회 ajax 통신 실패");
+			}
+		
+		})
+	
+	})
+	
+})
+         
+function selectMid(){
+	var tr = $("input[class=checkEmp]:checked").parent().parent().eq(0);
+	var td = tr.children();
+	var userName = td.eq(1).text();
+	var empId = td.eq(2).text();
+	
+	var deptCode = $("select[name=dept] option:selected").val();
+	console.log(deptCode);
+	
+	if(deptCode == "부서 선택"){
+			
+		swal(
+               {
+                   type: 'error',
+                   title: 'Oops...',
+                   text: '부서를 선택해 주세요',
+               }
+           )
+		return false;
+		
+	}else if(tr.val() == null){
+		swal(
+               {
+                   type: 'error',
+                   title: 'Oops...',
+                   text: '중간 결재자를 선택해 주세요',
+               }
+           )
+		return false;
+	}
+	
+	console.log("userName : " + userName);
+	console.log("empId : " + empId);
+	
+	$("input[name=appMidName]").val(userName);
+	$("input[name=appMid]").val(empId);
+	$("input[class=checkEmp]").prop('checked', false); 
+}
+         
+function selectFin(){
+	var mid = $("#changeApp input[name=appMidName]");
+	var tr = $("input[class=checkEmp]:checked").parent().parent().eq(0);
+	var td = tr.children();
+	var userName = td.eq(1).text();
+	var empId = td.eq(2).text();
+	var deptCode = $("select[name=dept] option:selected").val();
+	console.log(deptCode);
+	
+	if(deptCode == "부서 선택"){
+			
+		swal(
+               {
+                   type: 'error',
+                   title: 'Oops...',
+                   text: '부서를 선택해 주세요',
+               }
+           )
+		return false;
+		
+	}else if(mid.val()=="" || mid.val()==null){
+		
+		 swal(
+	               {
+	                   type: 'error',
+	                   title: 'Oops...',
+	                   text: '중간 결재자를 입력해 주세요',
+	               }
+	           )
+			return false;
+		 
+	}else if(tr.val() == null){
+		swal(
+               {
+                   type: 'error',
+                   title: 'Oops...',
+                   text: '최종 결재자를 선택해 주세요',
+               }
+           )
+		return false;
+	}
+	
+	console.log("userName : " + userName);
+	console.log("empId : " + empId);
+	
+	$("input[name=appFinName]").val(userName);
+	$("input[name=appFin]").val(empId);
+	$("input[class=checkEmp]").prop('checked', false); 
+	$("#bd-example-modal-lg").modal("hide");	
 
-
+}
+function changeApp() {
+	var mid = $("#changeApp input[name=appMidName]");
+	var fin = $("#changeApp input[name=appFinName]");
+	var category = $("#changeApp select[name=category]");
+	var date = $("#changeApp input[name=date]");
+	var title = $("#changeApp input[name=title]");
+	var content = $("#changeApp textarea[name=content]");
+	
+	console.log(date.val());
+	
+	if(mid.val()=="" || mid.val()==null){
+		
+	 swal(
+               {
+                   type: 'error',
+                   title: 'Oops...',
+                   text: '중간 결재자를 입력해 주세요',
+               }
+           )
+		return false;
+	 
+	}else if(fin.val()=="" || fin.val()==null){
+		
+		swal(
+               {
+                   type: 'error',
+                   title: 'Oops...',
+                   text: '최종 결재자를 입력해 주세요',
+               }
+           )
+		return false;
+		
+	}else if(category.val()=="증명서 선택"){
+		
+		swal(
+               {
+                   type: 'error',
+                   title: 'Oops...',
+                   text: '증명서 종류를 선택해 주세요',
+               }
+           )
+		return false;
+		
+	}else if(title.val()=="" || title.val()==null){
+		
+		swal(
+	               {
+	                   type: 'error',
+	                   title: 'Oops...',
+	                   text: '제목을 입력해 주세요',
+	               }
+	           )
+			return false;
+		
+	}else if(content.val()=="" || content.val()==null){
+	
+		swal(
+	               {
+	                   type: 'error',
+	                   title: 'Oops...',
+	                   text: '내용을 입력해 주세요',
+	               }
+	           )
+			return false;
+		
+	
+	}else{
+		$("#changeApp").attr("action", "update.ap");
+		$("#changeApp").submit();
+		return true;
+	}
+}
+</script>
+		
+<script src="${ pageContext.servletContext.contextPath }/resources/plugins/sweetalert2/sweetalert2.all.js"></script>
 
 </body>
 </html>

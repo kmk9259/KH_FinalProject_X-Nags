@@ -59,7 +59,7 @@
 						</div>
 					</div>
 					<div id="mailList">
-					<table class="table mailList" id="mailList">
+					<table class="table table-hover mailList" id="mailList">
 						<thead>
 							<tr>
 								<th scope="col"></th>
@@ -102,6 +102,7 @@
 							
 						</tbody>
 					</table>
+					
 					</div>
 					
 					
@@ -148,6 +149,7 @@
 				<!-- basic table  End -->
 				
 				</div>
+				<jsp:include page="../common/footer.jsp" />
 				</div>
 				</div>
 			
@@ -160,7 +162,7 @@ $(function(){
 </script>
 			
 			
-<jsp:include page="../common/footer.jsp" />
+
 
 </body>
 </html>

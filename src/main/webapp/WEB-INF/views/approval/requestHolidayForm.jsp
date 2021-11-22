@@ -49,7 +49,7 @@ label {
 						</div>
 					</div>
 				</div>
-				<form action="insert.ap" method="post" enctype="multipart/form-data">
+				<form action="" method="post" enctype="multipart/form-data" id="insertApp">
 			
 				<div class="page-header">
 					<div class="row">
@@ -86,13 +86,10 @@ label {
 								<option value="1">휴가</option>
 								<option value="2">반차</option>
 							</select>
-							
 						</div>
 				
 						<div class="form-group">
-							
 							<input class="form-control datetimepicker-range" placeholder="휴가 기간 설정" type="text" name="date" required="required">
-							
 						</div>
 						
 
@@ -108,15 +105,13 @@ label {
 						</div>
 						<div class="clearfix">
 							<div class="pull-right">
-								<!-- <button type="reset" class="btn btn-outline-danger">취소</button> -->
-								<button type="submit" class="btn btn-primary">결재 전송</button>
+								<button type="button" onclick="insertApp();" class="btn btn-primary">결재 전송</button>
 							</div>
 						</div>
 						</div>
 					</form>
 				</div>
-				
-				
+				<jsp:include page="../common/footer.jsp" />
 				<!-- 결재 폼 끝 -->
 			</div>
 		</div>
@@ -199,6 +194,18 @@ label {
                 		var deptCode = $("select[name=dept] option:selected").val();
                 		console.log(deptCode);
                 		
+                		if(deptCode == "부서 선택"){
+                			
+                			swal(
+                	               {
+                	                   type: 'error',
+                	                   title: 'Oops...',
+                	                   text: '부서를 선택해 주세요',
+                	               }
+                	           )
+                			return false;
+                		}
+                		
                 		$.ajax({
                 			url:"empList.ml",
                 			data:{deptCode:deptCode},
@@ -246,6 +253,30 @@ label {
 					var td = tr.children();
 					var userName = td.eq(1).text();
 					var empId = td.eq(2).text();
+					var deptCode = $("select[name=dept] option:selected").val();
+					console.log(deptCode);
+					
+					if(deptCode == "부서 선택"){
+							
+						swal(
+				               {
+				                   type: 'error',
+				                   title: 'Oops...',
+				                   text: '부서를 선택해 주세요',
+				               }
+				           )
+						return false;
+						
+					}else if(tr.val() == null){
+						swal(
+				               {
+				                   type: 'error',
+				                   title: 'Oops...',
+				                   text: '중간 결재자를 선택해 주세요',
+				               }
+				           )
+						return false;
+					}
 					
 					console.log("userName : " + userName);
 					console.log("empId : " + empId);
@@ -256,28 +287,152 @@ label {
 				}
                 
                 function selectFin(){
+                	var mid = $("#insertApp input[name=appMidName]");
 					var tr = $("input[class=checkEmp]:checked").parent().parent().eq(0);
 					var td = tr.children();
 					var userName = td.eq(1).text();
 					var empId = td.eq(2).text();
+					var deptCode = $("select[name=dept] option:selected").val();
+					console.log(deptCode);
+					
+					if(deptCode == "부서 선택"){
+							
+						swal(
+				               {
+				                   type: 'error',
+				                   title: 'Oops...',
+				                   text: '부서를 선택해 주세요',
+				               }
+				           )
+						return false;
+						
+					}else if(mid.val()=="" || mid.val()==null){
+						
+						 swal(
+					               {
+					                   type: 'error',
+					                   title: 'Oops...',
+					                   text: '중간 결재자를 입력해 주세요',
+					               }
+					           )
+							return false;
+						 
+					}else if(tr.val() == null){
+						swal(
+				               {
+				                   type: 'error',
+				                   title: 'Oops...',
+				                   text: '최종 결재자를 선택해 주세요',
+				               }
+				           )
+						return false;
+					}
 					
 					console.log("userName : " + userName);
 					console.log("empId : " + empId);
 					
 					$("input[name=appFinName]").val(userName);
 					$("input[name=appFin]").val(empId);
+					$("input[class=checkEmp]").prop('checked', false); 
 					$("#bd-example-modal-lg").modal("hide");	
 
 				}
+                function insertApp() {
+                	var mid = $("#insertApp input[name=appMidName]");
+                	var fin = $("#insertApp input[name=appFinName]");
+                	var category = $("#insertApp select[name=category]");
+                	var date = $("#insertApp input[name=date]");
+                	var title = $("#insertApp input[name=title]");
+                	var content = $("#insertApp textarea[name=content]");
+                	
+                	console.log(date.val());
+                	
+                	if(mid.val()=="" || mid.val()==null){
+                		
+                	 swal(
+                               {
+                                   type: 'error',
+                                   title: 'Oops...',
+                                   text: '중간 결재자를 입력해 주세요',
+                               }
+                           )
+                		return false;
+                	 
+                	}else if(fin.val()=="" || fin.val()==null){
+                		
+                		swal(
+                               {
+                                   type: 'error',
+                                   title: 'Oops...',
+                                   text: '최종 결재자를 입력해 주세요',
+                               }
+                           )
+                		return false;
+                		
+                	}else if(category.val()=="증명서 선택"){
+                		
+                		swal(
+                               {
+                                   type: 'error',
+                                   title: 'Oops...',
+                                   text: '증명서 종류를 선택해 주세요',
+                               }
+                           )
+                		return false;
+                		
+                	}else if(date.val()=="" || date.val()==null){
+                		
+                		swal(
+                	               {
+                	                   type: 'error',
+                	                   title: 'Oops...',
+                	                   text: '기안일을 입력해 주세요',
+                	               }
+                	           )
+                			return false;
+                		
+                	}else if(title.val()=="" || title.val()==null){
+                		
+                		swal(
+                	               {
+                	                   type: 'error',
+                	                   title: 'Oops...',
+                	                   text: '제목을 입력해 주세요',
+                	               }
+                	           )
+                			return false;
+                		
+                	}else if(content.val()=="" || content.val()==null){
+                	
+                		swal(
+                	               {
+                	                   type: 'error',
+                	                   title: 'Oops...',
+                	                   text: '내용을 입력해 주세요',
+                	               }
+                	           )
+                			return false;
+                		
+                	
+                	}else{
+                		$("#insertApp").attr("action", "insert.ap");
+                		$("#insertApp").submit();
+                		return true;
+                	}
+                }
              
                 </script>
                 
                 
 		
 
-	<jsp:include page="../common/footer.jsp" />
+	
 
 
-
+<script src="${ pageContext.servletContext.contextPath }/resources/assets/js/bootstrap-datepicker.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/assets/js/bootstrap-datepicker.kr.min.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/plugins/slick/slick.min.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
+	
 </body>
 </html>
