@@ -2,8 +2,6 @@
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-    
-    
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,7 +37,7 @@ color: red;
 
 <c:if test="${ !empty msg }">
 	<script>
-		alert("${msg}");
+		swal("${msg}")
 	</script>
 	<c:remove var="msg" scope="session"/>
 </c:if>
@@ -267,8 +265,6 @@ color: red;
 					                <td colspan="2"></td>
 					            </tr>
 					            </c:if>
-					            
-					            
 					            <tr height="400px">
 					                <td colspan="4">${app.content }</td>
 					            </tr>
@@ -298,6 +294,7 @@ color: red;
 					        </tfoot>
 					    </table>
 					   </div>
+					 
 				</div>
 				</div>
 			
@@ -322,8 +319,8 @@ color: red;
 														<input class="form-control" type="text" name="midReply" placeholder="의견을 입력해 주세요" required="required"/>
 													</div>
 													<div class="form-group">
-														<button class="btn btn-default" type="button" onclick="midConfirm();"><i class="icon-copy ion-checkmark-circled"></i></button>
-														<button class="btn btn-default" type="button" onclick="midReject();"><i class="icon-copy ion-close-circled"></i></button>
+														<button class="btn btn-default" type="button" data-backdrop="static" data-toggle="modal" data-target="#appMidConfirm"><i class="icon-copy ion-checkmark-circled"></i></button>
+														<button class="btn btn-default" type="button" data-backdrop="static" data-toggle="modal" data-target="#appMidReject"><i class="icon-copy ion-close-circled"></i></button>
 													</div>
 												</div>
 											</form>
@@ -367,8 +364,8 @@ color: red;
 													<input class="form-control" type="text" name="finReply" placeholder="의견을 입력해 주세요" required="required"/>
 												</div>
 												<div class="form-group">
-													<button class="btn btn-default" type="button" onclick="finConfirm();"><i class="icon-copy ion-checkmark-circled"></i></button>
-													<button class="btn btn-default" type="button" onclick="finReject();"><i class="icon-copy ion-close-circled"></i></button>
+													<button class="btn btn-default" type="button" data-backdrop="static" data-toggle="modal" data-target="#appFinConfirm"><i class="icon-copy ion-checkmark-circled"></i></button>
+													<button class="btn btn-default" type="button" data-backdrop="static" data-toggle="modal" data-target="#appFinReject"><i class="icon-copy ion-close-circled"></i></button>
 												</div>
 											</div>
 										</form>
@@ -380,57 +377,164 @@ color: red;
 				</div>
 				
 				</div>
+				  <jsp:include page="../common/footer.jsp" />
 				</div>
+				</div>
+				
+				<div class="modal fade" id="appMidConfirm" tabindex="-1" role="dialog" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-body text-center font-18">
+								<h4 class="padding-top-30 mb-30 weight-500">결재를 승인하시겠습니까?</h4>
+								<div class="padding-bottom-30 row" style="max-width: 170px; margin: 0 auto;">
+									<div class="col-6">
+										<button type="button" class="btn btn-secondary border-radius-100 btn-block confirmation-btn" data-dismiss="modal"><i class="fa fa-times"></i></button>
+										취소
+									</div>
+									<div class="col-6">
+										<button type="button" onclick="midConfirm();" class="btn btn-primary border-radius-100 btn-block confirmation-btn" data-dismiss="modal"><i class="fa fa-check"></i></button>
+										승인
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="modal fade" id="appMidReject" tabindex="-1" role="dialog" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-body text-center font-18">
+								<h4 class="padding-top-30 mb-30 weight-500">결재를 반려하시겠습니까?</h4>
+								<div class="padding-bottom-30 row" style="max-width: 170px; margin: 0 auto;">
+									<div class="col-6">
+										<button type="button" class="btn btn-secondary border-radius-100 btn-block confirmation-btn" data-dismiss="modal"><i class="fa fa-times"></i></button>
+										취소
+									</div>
+									<div class="col-6">
+										<button type="button" onclick="midReject();" class="btn btn-primary border-radius-100 btn-block confirmation-btn" data-dismiss="modal"><i class="fa fa-check"></i></button>
+										반려
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="modal fade" id="appFinConfirm" tabindex="-1" role="dialog" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-body text-center font-18">
+								<h4 class="padding-top-30 mb-30 weight-500">결재를 승인하시겠습니까?</h4>
+								<div class="padding-bottom-30 row" style="max-width: 170px; margin: 0 auto;">
+									<div class="col-6">
+										<button type="button" class="btn btn-secondary border-radius-100 btn-block confirmation-btn" data-dismiss="modal"><i class="fa fa-times"></i></button>
+										취소
+									</div>
+									<div class="col-6">
+										<button type="button" onclick="finConfirm();" class="btn btn-primary border-radius-100 btn-block confirmation-btn" data-dismiss="modal"><i class="fa fa-check"></i></button>
+										승인
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="modal fade" id="appFinReject" tabindex="-1" role="dialog" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-body text-center font-18">
+								<h4 class="padding-top-30 mb-30 weight-500">결재를 반려하시겠습니까?</h4>
+								<div class="padding-bottom-30 row" style="max-width: 170px; margin: 0 auto;">
+									<div class="col-6">
+										<button type="button" class="btn btn-secondary border-radius-100 btn-block confirmation-btn" data-dismiss="modal"><i class="fa fa-times"></i></button>
+										취소
+									</div>
+									<div class="col-6">
+										<button type="button" onclick="finReject();" class="btn btn-primary border-radius-100 btn-block confirmation-btn" data-dismiss="modal"><i class="fa fa-check"></i></button>
+										반려
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 				
 				
 				
 				<script>
 					function midConfirm(){
-						
-						var confirmVal = confirm("결재를 승인하시겠습니까?");
-						
-						if(confirmVal){
-							$("#midReply").attr("action", "midConfirm.ap");
-							$("#midReply").submit();
-							return true;
+						var midComment = $("#midReply input[name=midReply]");
+						if(midComment.val()=="" || midComment.val()==null){
+							
+						 swal({
+			                   type: 'error',
+			                   title: 'Oops...',
+			                   text: '결재 의견을 입력해 주세요',
+					         })
+							return false;
 						}
+					
+						$("#midReply").attr("action", "midConfirm.ap");
+						$("#midReply").submit();
+					
 					}
 					
 					function midReject(){
-						var confirmVal = confirm("결재를 반려하시겠습니까?");
+						var midComment = $("#midReply input[name=midReply]");
+						if(midComment.val()=="" || midComment.val()==null){
+							
+							 swal({
+				                   type: 'error',
+				                   title: 'Oops...',
+				                   text: '결재 의견을 입력해 주세요',
+						         })
+								return false;
+							}
 						
-						if(confirmVal){
-							$("#midReply").attr("action", "midReject.ap");
-							$("#midReply").submit();
-							return true;
-						}
+						$("#midReply").attr("action", "midReject.ap");
+						$("#midReply").submit();
+						
 					}
 					
 					function finConfirm(){
+						var finComment = $("#finReply input[name=finReply]");
+						if(finComment.val()=="" || finComment.val()==null){
+							
+							 swal({
+				                   type: 'error',
+				                   title: 'Oops...',
+				                   text: '결재 의견을 입력해 주세요',
+						         })
+								return false;
+							}
 						
-						var confirmVal = confirm("결재를 승인하시겠습니까?");
-						
-						if(confirmVal){
 							$("#finReply").attr("action", "finConfirm.ap");
 							$("#finReply").submit();
-							return true;
-						}
+					
 					}
 					
 					function finReject(){
-						var confirmVal = confirm("결재를 반려하시겠습니까?");
+						var finComment = $("#finReply input[name=finReply]");
+						if(finComment.val()=="" || finComment.val()==null){
+							
+							 swal({
+				                   type: 'error',
+				                   title: 'Oops...',
+				                   text: '결재 의견을 입력해 주세요',
+						         })
+								return false;
+							}
 						
-						if(confirmVal){
 							$("#finReply").attr("action", "finReject.ap");
 							$("#finReply").submit();
-							return true;
-						}
+							
 					}
 					
-				
+					
 				</script>
 				
-<jsp:include page="../common/footer.jsp" />
+
 </body>
 </html>

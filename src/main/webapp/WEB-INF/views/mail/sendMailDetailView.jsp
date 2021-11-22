@@ -86,6 +86,7 @@
 				</div>
 				</div>
 				</div>
+				<jsp:include page="../common/footer.jsp" />
 				</div>
 				</div>
 				
@@ -146,12 +147,12 @@ function delivery(){
 }
 //휴지통으로
 function waste(){
-
 	$("#sendMail").attr("action", "wasteSendMail.ml");
 	$("#sendMail").submit();
 	return true;
 
 }
+//목록으로
 function goList() {
 	$("#sendMail").attr("action", "sendList.ml");
 	$("#sendMail").submit();
@@ -164,7 +165,7 @@ function goList() {
 				
 <script src="${ pageContext.servletContext.contextPath }/resources/plugins/sweetalert2/sweetalert2.all.js"></script>
 				
-<jsp:include page="../common/footer.jsp" />
+
 
 </body>
 </html>

@@ -1,12 +1,9 @@
 package com.kh.spring.member.controller;
 
-import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,17 +15,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.spring.attendance.model.service.AttendanceService;
 import com.kh.spring.attendance.model.vo.Attendance;
-import com.kh.spring.common.PaginationEmp;
-import com.kh.spring.common.exception.CommException;
 import com.kh.spring.employee.model.service.EmployeeService;
 import com.kh.spring.employee.model.vo.Employee;
+
 import com.kh.spring.employee.model.vo.PageInfo;
 import com.kh.spring.meetingroom.model.service.MeetingRoomService;
 import com.kh.spring.meetingroom.model.vo.MeetingRoom;
+
 import com.kh.spring.member.model.service.MemberService;
 import com.kh.spring.member.model.vo.Member;
 import com.kh.spring.supplies.model.service.SuppliesService;
@@ -73,7 +69,6 @@ public class MemberController {
 		
 		Member loginUser = null;
 		
-		
 		try {
 			if(m== null) {	//얼굴인식 화면
 				loginUser = memberService.loginMember2(empId);
@@ -88,6 +83,15 @@ public class MemberController {
 				System.out.println("일반 로그인 loginEmp : "+loginEmp);
 			}
 			
+			ArrayList<Employee> list = employeeService.selectAllEmp();
+			
+			for(Employee e : list) {
+				Attendance att = attendanceService.selectTime(e);
+				if(att == null) {
+					attendanceService.insertAllEmp(e.getEmpId());
+				}
+				
+			}
 			String dDay = dDAY(loginEmp);
 			
 			
@@ -122,7 +126,7 @@ public class MemberController {
 		Attendance att = attendanceService.selectTime(loginEmp);
 		
 		if(att.getAttOutTime() == null) {
-			attendanceService.insertOuttime(loginEmp);
+			attendanceService.updateOuttime(loginEmp);
 		}
 		
 		status.setComplete(); 

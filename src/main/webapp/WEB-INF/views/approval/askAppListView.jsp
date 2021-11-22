@@ -31,7 +31,7 @@ color: red;
 
 <c:if test="${ !empty msg }">
 	<script>
-		alert("${msg}");
+		swal("${msg}")
 	</script>
 	<c:remove var="msg" scope="session"/>
 </c:if>
@@ -91,7 +91,7 @@ color: red;
 											<td scope="row">반차 신청서</td>
 										</c:when>
 			              				<c:when test="${app.category eq 3 }">
-											<td scope="row">연장근무 신청서</td>
+											<td scope="row">외근 신청서</td>
 										</c:when>
 			              				<c:when test="${app.category eq 4 }">
 											<td scope="row">증명서 신청서(재직증명서)</td>
@@ -109,10 +109,7 @@ color: red;
 									
 									<td><fmt:formatDate type="date" dateStyle="short" value="${app.writeDate }"/></td>
 									<td><fmt:formatDate type="date" dateStyle="short" value="${app.endDate }"/></td>
-									
-									<%-- <td>${app.writeDate }</td>
-									<td>${app.appDate }</td> --%>
-									
+								
 									<c:if test="${app.midStatus eq 1}">
 										<td scope="row"><i class="icon-copy ion-ios-circle-outline"></i></td>
 									</c:if>
@@ -181,19 +178,19 @@ color: red;
 									
 				<!-- basic table  End -->
 				
-				
+				<jsp:include page="../common/footer.jsp" />
 				</div>
 				</div>
 				</div>
 				
 				
-				<script type="text/javascript">
-					$(function(){
-						$(".appList tbody tr").click(function(){
-							location.href="askDetail.ap?ano=" + $(this).children().eq(0).text();
-						});
-					});
-				</script>
+<script type="text/javascript">
+	$(function(){
+		$(".appList tbody tr").click(function(){
+			location.href="askDetail.ap?ano=" + $(this).children().eq(0).text();
+		});
+	});
+</script>
 
 </body>
 </html>

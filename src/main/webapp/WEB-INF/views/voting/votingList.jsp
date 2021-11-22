@@ -66,9 +66,9 @@
 		<div class="card-box mb-30">
 			<div class="pd-20">
 				<h4 class="text-dark">투표 게시판</h4>
-				
+			
 				<c:if test="${ !empty loginUser }">
-					<a class="btn btn-dark" style="float: right"
+					<a class="btn btn-dark" style="float: right" data-toggle="modal" data-target="#myModal"
 						href="enrollVoting.vo">투표함 만들기</a>
 				</c:if>
 			</div>
@@ -113,7 +113,7 @@
 						<c:choose>
 							<c:when test="${ pi.currentPage ne 1 }">
 								<li class="page-item"><a class="page-link"
-									href="voting.bo?currentPage=${ pi.currentPage-1 }">이전</a></li>
+									href="voting.vo?currentPage=${ pi.currentPage-1 }">이전</a></li>
 							</c:when>
 							<c:otherwise>
 								<li class="page-item disabled"><a class="page-link" href="">이전</a></li>
@@ -124,7 +124,7 @@
 							<c:choose>
 								<c:when test="${ pi.currentPage ne p }">
 									<li class="page-item"><a class="page-link"
-										href="voting.bo?currentPage=${ p }">${ p }</a></li>
+										href="voting.vo?currentPage=${ p }">${ p }</a></li>
 								</c:when>
 								<c:otherwise>
 									<li class="page-item disabled"><a class="page-link"
@@ -137,24 +137,72 @@
 						<c:choose>
 							<c:when test="${ pi.currentPage ne pi.maxPage }">
 								<li class="page-item"><a class="page-link"
-									href="voting.bo?currentPage=${ pi.currentPage+1 }">다음</a></li>
+									href="voting.vo?currentPage=${ pi.currentPage+1 }">다음</a></li>
 							</c:when>
 							<c:otherwise>
 								<li class="page-item disabled"><a class="page-link"
-									href="voting.bo?currentPage=${ pi.currentPage+1 }">다음</a></li>
+									href="voting.vo?currentPage=${ pi.currentPage+1 }">다음</a></li>
 							</c:otherwise>
 						</c:choose>
 					</ul>
-				</div>
-
-				<br clear="both">
-				<br> <br>
-				<br>
+				</div>					
 			</div>
 			<br>
 			<br>
-		</div>
-	</div>
+			 
+</div>				
+</div>
+  <!-- The Modal -->
+  
+  <div class="modal fade" id="myModal">
+  
+    <div class="modal-dialog">
+    
+      <div class="modal-content">
+ 
+        <div class="modal-header">
+         
+          <h4 class="modal-title">투표함 만들기</h4>
+          
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          
+        </div>
+        
+        <!-- Modal body -->
+        <div id = "modalContent" class="modal-body">
+        <form method="post" action="votingInsert.bo">
+        <button id="emptyCheck" style = "float: right" class="btn btn-dark" type="submit">등록하기</button>
+        <br>
+        	<b style="font-size : 20px">주제 :</b>
+        	
+        <input  type="text" class="form-control" id="check" name="votingTitle">
+     	 <input type="hidden" name="empId" value="${loginUser.empId }">
+     	<table id="example">
+				<tr>
+				<th>
+				 <label><b style="font-size : 20px">항목 :</b></label>
+				 </th>
+					</tr>
+					<tr >
+					<td>
+		 <input  type="text" class="form-control" id="check" style ="width:470px" name="votingContent">
+		 <br>
+					</td>								
+					</tr>				
+				</table>    	 
+     	 </form>
+        </div>
+   
+        <br>
+     
+        <!-- Modal footer -->
+        <div class="modal-footer">      
+           <button id="addItemBtn" class="btn btn-warning">항목추가하기</button>
+		<button id="delBtn"  class="btn btn-danger">항목제거하기</button>    
+		  </div>    
+      </div>        
+    </div>    
+  </div>
 	<script>
 		$(function() {
 			$("#boardList tbody tr").click(
@@ -163,6 +211,27 @@
 								+ $(this).children().eq(0).text();
 					});
 		});
+		
+		
+		$(document).ready(function() {
+			$("#addItemBtn").click(function() {
+			var value = "";
+		 	value += "<tr><td><input type ='text' id ='check' class = 'form-control' style = 'width:470px' name = 'votingContent'><br></td></tr>"
+		$("#example").append(value);
+			});
+		// 삭제버튼 클릭시
+		$("#delBtn").click(function() {
+		$("#example tr:last").remove();
+				})
+		});
+		$("#emptyCheck").click(function(){
+			if($("#check").val() == ''){
+				alert("빈 칸이 있습니다");
+				return false;
+			}else{
+				return true;
+			}
+		})
 	</script>
 	<%-- js 
 

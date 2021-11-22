@@ -24,7 +24,7 @@
 
 <c:if test="${ !empty msg }">
 	<script>
-		alert("${msg}");
+		swal("${msg}")
 	</script>
 	<c:remove var="msg" scope="session"/>
 </c:if>
@@ -55,14 +55,13 @@
 							
 						</div>
 						<div class="pull-right">
-							<button type="button" onclick="" class="btn btn-default"><i class="icon-copy ion-ios-trash"></i>영구삭제</button>
+					
 						</div>
 					</div>
 					<div id="mailList">
-					<table class="table mailList" id="mailList">
+					<table class="table table-hover mailList" id="mailList">
 						<thead>
 							<tr>
-								<th scope="col"></th>
 								<th scope="col"></th>
 								<th scope="col"><i class="icon-copy ion-star"></i></th>
 								<th scope="col"><i class="icon-copy ion-ios-email"></i></th>
@@ -74,7 +73,6 @@
 						<tbody>
 							<c:forEach items="${ wasteList }" var="s">
 								<tr>
-									<td><input type="checkbox"></td>
 									<td scope="row">${ s.mailNo }</td>
 									
 									<c:choose>
@@ -159,19 +157,20 @@
 				<!-- basic table  End -->
 				
 				</div>
+				<jsp:include page="../common/footer.jsp" />
 				</div>
 				</div>
 			
 			<script>
 				$(function(){
 					$(".mailList tbody tr").click(function(){
-						location.href="wasteDetail.ml?mno=" + $(this).children().eq(1).text();
+						location.href="wasteDetail.ml?mno=" + $(this).children().eq(0).text();
 					});
 				});
 			</script>
 			
 			
-<jsp:include page="../common/footer.jsp" />
+
 
 </body>
 </html>

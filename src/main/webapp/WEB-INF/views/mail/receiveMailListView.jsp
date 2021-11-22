@@ -25,7 +25,7 @@
 
 <c:if test="${ !empty msg }">
 	<script>
-		alert("${msg}");
+		swal("${msg}")
 	</script>
 	<c:remove var="msg" scope="session"/>
 </c:if>
@@ -60,7 +60,7 @@
 						</div>
 					</div>
 					
-					<table class="table table-striped hover mailList" id="mailList">
+					<table class="table table-hover mailList" id="mailList">
 						<thead>
 							<tr>
 								<th scope="col"></th>
@@ -142,6 +142,7 @@
 					</div>
             </div>
 			</div>
+			<jsp:include page="../common/footer.jsp" />
 		</div>
 		</div>
 				
@@ -159,9 +160,7 @@
 	});
 	
 </script>
+<script src="${ pageContext.servletContext.contextPath }/resources/plugins/sweetalert2/sweetalert2.all.js"></script>
 			
-			
-<jsp:include page="../common/footer.jsp" />
-
 </body>
 </html>

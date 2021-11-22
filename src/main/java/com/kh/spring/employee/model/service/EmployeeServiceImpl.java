@@ -127,6 +127,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 		
 	}
 
+	@Override
+	public ArrayList<Employee> selectAllEmp() {
+		return employeeDao.selectAllEmp(sqlSession);
+	}
+
 	
 
 

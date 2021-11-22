@@ -28,7 +28,7 @@ color: red;
 
 <c:if test="${ !empty msg }">
 	<script>
-		alert("${msg}");
+		swal("${msg}")
 	</script>
 	<c:remove var="msg" scope="session"/>
 </c:if>
@@ -171,14 +171,11 @@ color: red;
             
             </div>
 			</div>
-									
-									
-				<!-- basic table  End -->
-				
-				
-				</div>
-				</div>
-				</div>
+					
+			<jsp:include page="../common/footer.jsp" />
+		</div>
+		</div>
+		</div>
 				
 				
 				<script type="text/javascript">

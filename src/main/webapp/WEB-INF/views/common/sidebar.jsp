@@ -67,7 +67,7 @@
                                 <ul class="submenu child">
                                     <li><a href="certificateForm.ap">증명서 신청</a></li>
                                     <li><a href="holidayForm.ap">휴가 신청</a></li>
-                                    <li><a href="overtimeForm.ap">연장근무 신청</a></li>
+                                    <li><a href="overtimeForm.ap">외근 신청</a></li>
                                 </ul>
                             </li>
                             <li><a href="apping.ap">진행중 결재함</a></li>
@@ -109,11 +109,12 @@
                             <span class="micon dw dw-apartment"></span><span class="mtext">시스템 관리</span>
                         </a>
                         <ul class="submenu">
-							<li><a href="enrollEmp.me">사원 등록 </a></li>
+							  <li><a href="enrollEmp.me">사원 등록 </a></li>
                             <li><a href="listEmp.me">사원 조회 </a></li>
                             <li><a href="supplies.me">비품 예약 </a></li>
                             <li class="updateSup"><a type="button">비품 기간 연장 </a></li>
                             <li><a href="return.me">비품 반납 </a></li>
+
                             <li><a href="meetingRoom.me">회의실 예약 </a></li>
                             <li class="meetingDetail"><a type="button">회의실 예약 취소 </a></li>
                             

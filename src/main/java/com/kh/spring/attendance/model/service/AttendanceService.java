@@ -2,6 +2,7 @@ package com.kh.spring.attendance.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.spring.approval.model.vo.Outwork;
 import com.kh.spring.attendance.model.vo.AttStatus;
 import com.kh.spring.attendance.model.vo.Attendance;
 import com.kh.spring.employee.model.vo.Employee;
@@ -12,9 +13,9 @@ public interface AttendanceService {
 
 	ArrayList<AttStatus> selectAttStatus();
 
-	void insertIntime(Employee loginEmp);
+	void updateIntime(Employee loginEmp);
 	
-	void insertOuttime(Employee loginEmp);
+	void updateOuttime(Employee loginEmp);
 
 	Attendance selectTime(Employee loginEmp);
 	
@@ -39,6 +40,14 @@ public interface AttendanceService {
 	ArrayList<Holiday> selectHoliday(String empId);
 
 	void insertAnnual(Attendance a);
+
+	void insertAllEmp(String empId);
+
+	ArrayList<Attendance> selectAbsence();
+
+	ArrayList<Outwork> selectOutwork(String empId);
+
+	void updateOutwork(Attendance a);
 
 	
 
