@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.spring.approval.model.vo.Outwork;
 import com.kh.spring.attendance.model.dao.AttendanceDao;
 import com.kh.spring.attendance.model.vo.AttStatus;
 import com.kh.spring.attendance.model.vo.Attendance;
@@ -29,16 +30,16 @@ public class AttendanceServiceImpl implements AttendanceService {
 	}
 
 	@Override
-	public void insertIntime(Employee emp) {
-		int result= attendanceDao.insertIntime(sqlSession, emp);
+	public void updateIntime(Employee emp) {
+		int result= attendanceDao.updateIntime(sqlSession, emp);
 		
 		if(result <0) {
 			throw new CommException("출석 실패");
 		}
 	}
 	@Override
-	public void insertOuttime(Employee loginEmp) {
-		int result= attendanceDao.insertOuttime(sqlSession, loginEmp);
+	public void updateOuttime(Employee loginEmp) {
+		int result= attendanceDao.updateOuttime(sqlSession, loginEmp);
 		
 		if(result <0) {
 			throw new CommException("퇴근 실패");
@@ -118,6 +119,32 @@ public class AttendanceServiceImpl implements AttendanceService {
 			throw new CommException("근태 연차 실패");
 		}
 		
+	}
+
+	@Override
+	public void insertAllEmp(String empId) {
+		int result = attendanceDao.insertAllEmp(sqlSession, empId);
+		if(result < 0) {
+			throw new CommException("근태  실패");
+		}
+	}
+
+	@Override
+	public ArrayList<Attendance> selectAbsence() {
+		return attendanceDao.selectAbsence(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Outwork> selectOutwork(String empId) {
+		return attendanceDao.selectOutwork(sqlSession, empId);
+	}
+
+	@Override
+	public void updateOutwork(Attendance a) {
+		int result = attendanceDao.updateOutwork(sqlSession, a);
+		if(result < 0) {
+			throw new CommException("외근  실패");
+		}
 	}
 
 

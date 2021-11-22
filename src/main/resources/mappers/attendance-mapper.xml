@@ -41,16 +41,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="holDays" column="HOL_DAYS"/>
 	</resultMap>
 	
+	<resultMap type="Outwork" id="outworkResultSet">
+		<id property="outNo" column="OUTWORK_NO"/>
+		<result property="appNo" column="APP_NO"/>
+		<result property="empId" column="EMP_ID"/>
+		<result property="outDate" column="OW_DATE"/>
+	</resultMap>
+	
 	<select id="selectAttStatus" resultMap="attStatusResultSet">
 		SELECT * FROM ATT_STATUS	
 	</select>
 	
-	<insert id="insertIntime" parameterType="Employee">
-		insert into attendance (ATT_NO,EMP_ID,ATT_DATE,ATT_INTIME)
-		values(SEQ_ATNO.nextval,#{empId},TO_CHAR(SYSDATE,'YYYY-MM-DD'),TO_CHAR(SYSDATE,'hh24:MI:SS'))
+	<insert id="insertAllEmp" parameterType="string">
+		insert into attendance (ATT_NO, EMP_ID, ATT_DATE)
+		values(SEQ_ATNO.nextval,#{empId},TO_CHAR(SYSDATE,'YYYY-MM-DD'))
+	</insert>
+
+	<insert id="updateIntime" parameterType="Employee">
+		update attendance set
+		ATT_INTIME = TO_CHAR(SYSDATE,'hh24:MI:SS')
+		WHERE EMP_ID= #{empId} and TO_CHAR(SYSDATE, 'YYYY-MM-DD') = ATT_DATE
 	</insert>
 	
-	<update id="insertOuttime" parameterType="Employee">
+	<update id="updateOuttime" parameterType="Employee">
 		update attendance set
 		ATT_OUTTIME = TO_CHAR(SYSDATE,'hh24:MI:SS')
 		WHERE EMP_ID= #{empId} and TO_CHAR(SYSDATE, 'YYYY-MM-DD') = ATT_DATE
@@ -141,5 +154,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into attendance
 		values(SEQ_ATNO.nextval,#{empId},#{attStatusNo},#{attDate},#{attInTime},#{attOutTime})
 	</insert>
+	
+	<select id="selectAbsence" resultMap="attendanceResultSet">
+		select * from attendance
+		WHERE ATT_INTIME IS NULL OR ATT_OUTTIME IS NULL
+		order by att_date
+	</select>
+	
+	<select id="selectOutwork" parameterType="string" resultMap="outworkResultSet">
+		select * from OUTWORK
+		WHERE EMP_ID=#{empId}
+	</select>
 
+	<update id="updateOutwork" parameterType="Attendance" >
+		update attendance set
+
+		ATT_STATUS_NO =#{attStatusNo},
+		ATT_INTIME = #{attInTime},
+		ATT_OUTTIME = #{attOutTime}		
+		WHERE EMP_ID= #{empId} and  ATT_DATE = #{attDate}
+	</update>
 </mapper>
