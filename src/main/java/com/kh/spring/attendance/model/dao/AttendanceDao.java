@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.spring.approval.model.vo.Outwork;
 import com.kh.spring.attendance.model.vo.AttStatus;
 import com.kh.spring.attendance.model.vo.Attendance;
 import com.kh.spring.employee.model.vo.Employee;
@@ -18,12 +19,12 @@ public class AttendanceDao {
 		return (ArrayList)sqlSession.selectList("attendanceMapper.selectAttStatus");
 	}
 
-	public int insertIntime(SqlSessionTemplate sqlSession, Employee loginEmp) {
-		return sqlSession.insert("attendanceMapper.insertIntime",loginEmp);
+	public int updateIntime(SqlSessionTemplate sqlSession, Employee loginEmp) {
+		return sqlSession.insert("attendanceMapper.updateIntime",loginEmp);
 	}
 
-	public int insertOuttime(SqlSessionTemplate sqlSession, Employee loginEmp) {
-		return sqlSession.insert("attendanceMapper.insertOuttime",loginEmp);
+	public int updateOuttime(SqlSessionTemplate sqlSession, Employee loginEmp) {
+		return sqlSession.insert("attendanceMapper.updateOuttime",loginEmp);
 	}
 
 	public Attendance selectTime(SqlSessionTemplate sqlSession, Employee loginEmp) {
@@ -68,6 +69,22 @@ public class AttendanceDao {
 
 	public int insertAnnual(SqlSessionTemplate sqlSession, Attendance a) {
 		return sqlSession.insert("attendanceMapper.insertAnnual",a);
+	}
+
+	public int insertAllEmp(SqlSessionTemplate sqlSession, String empId) {
+		return sqlSession.insert("attendanceMapper.insertAllEmp",empId);
+	}
+
+	public ArrayList<Attendance> selectAbsence(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("attendanceMapper.selectAbsence");
+	}
+
+	public ArrayList<Outwork> selectOutwork(SqlSessionTemplate sqlSession, String empId) {
+		return (ArrayList)sqlSession.selectList("attendanceMapper.selectOutwork", empId);
+	}
+
+	public int updateOutwork(SqlSessionTemplate sqlSession, Attendance a) {
+		return sqlSession.insert("attendanceMapper.updateOutwork",a);
 	}
 
 

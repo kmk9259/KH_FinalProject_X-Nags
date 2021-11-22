@@ -139,6 +139,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<update id="deleteEmp" parameterType="_int">
 	UPDATE EMPLOYEE SET END_DATE = sysdate,  STATUS='N' WHERE EMP_ID = #{empId}
-	
 	</update>
+	
+	<select id="selectAllEmp" resultMap="employeeResultSet">
+		SELECT E.EMP_ID, M.USER_NAME, J.JOB_NAME, R.RIGHT_NAME, D.DEPT_NAME, E.SAL_LEVEL, E.HIRE_DATE, E.MODIFIY_DATE, E.END_DATE
+		FROM EMPLOYEE E
+		JOIN MEMBER M ON M.EMP_ID = E.EMP_ID
+        JOIN JOB J  ON J.JOB_CODE = E.JOB_CODE
+		JOIN DEPARTMENT D ON D.DEPT_CODE = E.DEPT_CODE 
+		JOIN RIGHT R ON R.RIGHT_NO = E.RIGHT_NO
+		ORDER BY EMP_ID DESC		
+	</select>
 </mapper>

@@ -97,6 +97,9 @@ public class EmployeeDao {
 		return sqlSession.delete("employeeMapper.deleteEmp", empId);
 	}
 
+	public ArrayList<Employee> selectAllEmp(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("employeeMapper.selectAllEmp");	}
+
 	
 
 

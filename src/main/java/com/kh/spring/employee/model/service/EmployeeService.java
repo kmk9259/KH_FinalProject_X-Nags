@@ -43,6 +43,8 @@ public interface EmployeeService {
 
 	void deleteEmp(int empId);
 
+	ArrayList<Employee> selectAllEmp();
+
 	
 
 

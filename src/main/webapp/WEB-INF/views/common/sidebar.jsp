@@ -67,7 +67,7 @@
                                 <ul class="submenu child">
                                     <li><a href="certificateForm.ap">증명서 신청</a></li>
                                     <li><a href="holidayForm.ap">휴가 신청</a></li>
-                                    <li><a href="overtimeForm.ap">연장근무 신청</a></li>
+                                    <li><a href="overtimeForm.ap">외근 신청</a></li>
                                 </ul>
                             </li>
                             <li><a href="apping.ap">진행중 결재함</a></li>
@@ -114,8 +114,7 @@
                             <li><a href="supplies.me">비품 예약 </a></li>
                             <li class="updateSup" type="button"><a>비품 기간 연장 </a></li>
                             <li><a href="return.me">비품 반납 </a></li>
-                            <li><a href="meetingRoom.me">회의실 예약 </a></li>
-                            
+                            <li><a href="meetingRoom.me">회의실 예약 </a></li>                            
                         </ul>
                     </li>
                   </ul>
