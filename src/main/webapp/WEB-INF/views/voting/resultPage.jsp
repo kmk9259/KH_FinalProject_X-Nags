@@ -127,7 +127,7 @@
                 
                 <div  class = "zt-skill-bar">
                
-               	<div style = "width:${test}% "><b style = "color : white; text-align: left; vertical-align:middle">${cntAvg.content}</b><span ><b style =  "vertical-align:middle">${test}%</b> </span>
+               	<div style = "width:${test}% "><b style = "color : black; text-align: left; vertical-align:middle">${cntAvg.content}</b><span ><b style =  "vertical-align:middle">${test}%</b> </span>
                	
                		
                	</div>
@@ -142,7 +142,7 @@
         </div>
         </div>
         <br><br>
-       <button id = "list">목록으로</button>
+         <button class="btn btn-dark"  id = "list">목록으로</button>
     </div>
    <%--  
                <%--비율 

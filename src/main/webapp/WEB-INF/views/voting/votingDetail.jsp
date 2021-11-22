@@ -53,8 +53,10 @@
              <input id = "emptyCheck" type = "submit" value = "투표하기" class="btn btn-dark" style = "float: left;" ><br><br>
            <c:forEach var = "a" items ="${va}">          
            <tr class ="table-warning">           	
-        <td ><input id = "check"  type = "checkbox" name = "content" value = "${a.content }">${a.content }</td>             	   	
+        <td ><input id = "check"  type = "checkbox" name = "content" value = "${a.content }">${a.content } </td>   
+            	   	
            	</tr>            	  
+         
            </c:forEach>
           	</c:if>
            </table>     
