@@ -30,7 +30,7 @@ display: none;
 <body>
 
 	<jsp:include page="../common/menubar.jsp" />
-	<!-- ================================================================================= -->
+	
 
 
 	<div class="mobile-menu-overlay"></div>
@@ -68,28 +68,19 @@ display: none;
 							<h4 class="text-blue h4">비품 예약 정보</h4>
 							<p>비품 예약 목록 입니다</p>
 						</div>
-					
-					</div>
-					
-					
-					
+				</div>
 					
 
-
-					
-					<div class="table-responsive">
+				<div class="table-responsive">
 					
 						<table id="suppliesAll" class=" table table-striped hover" style="text-align:center;">
 							<thead>
 								<tr>
-									<%-- <c:out value="${returnList}"></c:out> --%>
-									
-					
 									<th class="table-plus datatable-nosort">번호</th>
 									<th>비품번호</th>
 									<th>비품코드</th>
 									<th>사원아이디</th>
-									<!-- <th>사원 이름</th> -->
+									<th>사원 이름</th>
 									<th>비품이름</th>
 									<th>갯수</th>
 									<th>예약 일</th>
@@ -108,7 +99,7 @@ display: none;
 								<td>${ rtlist.suppliesNo}</td>
 								<td>${ rtlist.suppliesCode}</td>
 								<td>${ rtlist.empId}</td>
-								<%-- <td>${ rtlist.empId}</td> --%>
+								<td>${ rtlist.userName}</td>
 								<td>${ rtlist.suppliesName}</td>
 								<td>${ rtlist.counts}</td>
 								<td>${ rtlist.startDate}</td>
@@ -117,7 +108,7 @@ display: none;
 								
 								<c:choose>
 								<c:when test="${rtlist.status eq 'Y'}">
-								<button class="btn btn-info" id="submit${status.index }">반납${status.index }</button>
+								<button class="btn btn-info" id="submit${status.index }">반납</button>
 								</c:when>
 								<c:otherwise>
 								<button class="btn btn-secondary" disable>반납 됨</button>
@@ -174,46 +165,9 @@ display: none;
          </script>
 				
 				
+				<jsp:include page="../common/footer.jsp" />
 				
-				
-	<!-- 페이징 처리  -->
 	
-	<%-- <div id="pagingArea">
-                <ul class="pagination">
-                	<c:choose>
-                		<c:when test="${ pi.currentPage ne 1 }">
-                			<li class="page-item"><a class="page-link" href="return.me?currentPage=${ pi.currentPage-1 }">Previous</a></li>
-                		</c:when>
-                		<c:otherwise>
-                			<li class="page-item disabled"><a class="page-link" href="">Previous</a></li>
-                		</c:otherwise>
-                	</c:choose>
-                	
-                    <c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
-                    	<c:choose>
-	                		<c:when test="${ pi.currentPage ne p }">
-                    			<li class="page-item"><a class="page-link" href="return.me?currentPage=${ p }">${ p }</a></li>
-	                		</c:when>
-	                		<c:otherwise>
-	                			<li class="page-item disabled"><a class="page-link" href="">${ p }</a></li>
-	                		</c:otherwise>
-	                	</c:choose>
-                    </c:forEach>
-                    
-                    
-                    <c:choose>
-                		<c:when test="${ pi.currentPage ne pi.maxPage }">
-                			<li class="page-item"><a class="page-link" href="listEmp.me?currentPage=${ pi.currentPage+1 }">Next</a></li>
-                		</c:when>
-                		<c:otherwise>
-                			<li class="page-item disabled"><a class="page-link" href="listEmp.me?currentPage=${ pi.currentPage+1 }">Next</a></li>
-                		</c:otherwise>
-                	</c:choose>
-                </ul>
-            </div>
-            
-            <!-- 페이징 처리 끝 --> <br><br><br><br><br>
-				 --%>
 			</div>
 		</div>
 
@@ -236,6 +190,6 @@ display: none;
 	<!-- Datatable Setting js -->
 	<script src="${ pageContext.servletContext.contextPath }/resources/vendors/scripts/datatable-setting.js"></script></body>
 	
-	<jsp:include page="../common/footer.jsp" />
+	
 </body>
 </html>

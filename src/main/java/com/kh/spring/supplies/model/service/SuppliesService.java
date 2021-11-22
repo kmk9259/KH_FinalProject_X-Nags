@@ -18,11 +18,19 @@ public interface SuppliesService {
 
 	ArrayList<Return> selectReSuplist();
 
-	Return updateSupplies(Return re);
-
 	void returnSup(int reNo);
 
 	int selectListCount();
+
+	void updateSupplies(Return re);
+
+	ArrayList<Supplies> mySupList(String empId);
+
+
+
+	
+
+	
 
 	
 

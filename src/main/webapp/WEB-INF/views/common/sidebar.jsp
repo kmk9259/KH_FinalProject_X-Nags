@@ -112,9 +112,10 @@
 							<li><a href="enrollEmp.me">사원 등록 </a></li>
                             <li><a href="listEmp.me">사원 조회 </a></li>
                             <li><a href="supplies.me">비품 예약 </a></li>
-                            <li class="updateSup" type="button"><a>비품 기간 연장 </a></li>
+                            <li class="updateSup"><a type="button">비품 기간 연장 </a></li>
                             <li><a href="return.me">비품 반납 </a></li>
                             <li><a href="meetingRoom.me">회의실 예약 </a></li>
+                            <li class="meetingDetail"><a type="button">회의실 예약 취소 </a></li>
                             
                         </ul>
                     </li>
@@ -124,13 +125,12 @@
    </div> 
    <script>
    $(function(){
-	   var test = $(".updateSup a").text();
-	   var empId = $(".test").text();
-	   console.log("empId   " + empId);
-	   console.log(" test " + test);
-	   
 	   $(".updateSup a").click(function(){
 		   location.href="updateSupForm.su?empId=" + ${ loginUser.empId }
+	   })
+	   
+	   $(".meetingDetail a").click(function(){
+		   location.href="meetingDetail.me?empId=" + ${ loginUser.empId }
 	   })
    })
    </script>

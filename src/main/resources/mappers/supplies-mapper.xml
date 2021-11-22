@@ -28,6 +28,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="endDate" column="END_DATE"/>
 		<result property="status" column="STATUS"/>
 		
+		<result property="userName" column="USER_NAME"/>
+		
 	</resultMap>
 	
 
@@ -73,28 +75,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 </insert>
 
-
-
-<select id="updateForm" parameterType="_int" resultMap="ReturnResultSet">
-SELECT * FROM RETURN_LIST WHERE EMP_ID=#{empId}
-
-</select>
-
-
+	<select id="updateForm" parameterType="_int" resultMap="ReturnResultSet">
+	SELECT * FROM RETURN_LIST WHERE EMP_ID=#{empId} AND STATUS = 'Y'
+	
+	</select>
 
 
 	<select id="selectReSuplist" parameterType="Return" resultMap="ReturnResultSet">
-	SELECT * FROM RETURN_LIST 
+	SELECT R.RENO, R.SUPPLIES_NO, R.SUPPLIES_CODE, R.EMP_ID, M.USER_NAME, R.SUPPLIES_NAME,
+	R.COUNT, R.START_DATE, R.END_DATE, R.STATUS FROM RETURN_LIST R
+	JOIN MEMBER M ON M.EMP_ID = R.EMP_ID
+	 ORDER BY RENO DESC
 	</select>
 	
-	
-	
-	
-	<update id="updateSupplies" parameterType="java.util.ArrayList">
+
+	<update id="updateSupplies" parameterType="Return">
 	UPDATE RETURN_LIST SET
-	
 	END_DATE = #{endDate} WHERE RENO = #{reNo}
-	
 	</update>
 	
 	<update id="returnSup" parameterType="_int" >
@@ -106,5 +103,9 @@ SELECT * FROM RETURN_LIST WHERE EMP_ID=#{empId}
 	FROM RETURN_LIST
 	</select>
 	
+	
+	<select id="mySupList" parameterType="String" resultMap="SuppliesResultSet">
+	SELECT * FROM SUPPLIES WHERE EMP_ID=#{empId} AND STATUS = 'Y'
+	</select>
 	
 </mapper>

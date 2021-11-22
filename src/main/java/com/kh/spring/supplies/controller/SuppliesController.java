@@ -82,9 +82,7 @@ public class SuppliesController {
 	public ModelAndView updateForm(int empId, ModelAndView mv) {
 		
 		ArrayList<Return> returnList = suppliesService.updateForm(empId);
-		
-		System.out.println(" ???? " + returnList);
-		
+
 		mv.addObject("returnList", returnList).setViewName("supplies/updateSupplies");
 		
 		
@@ -92,27 +90,12 @@ public class SuppliesController {
 	}
 	
 	@RequestMapping("updateDate.su")
-	public String updateSupplies(int empId, int reNo, Return re, ModelAndView mv, HttpServletRequest request, Model model ) {
+	public ModelAndView updateSupplies(Return re, ModelAndView mv, HttpServletRequest request, Model model ) {
 		
-		Return returnInfo = suppliesService.updateSupplies(re);
-		
-		ArrayList<Return> returnList = suppliesService.updateForm(reNo);
-		
-		
-		System.out.println(" returnInfo " + returnInfo);
-		
-		model.addAttribute("returnInfo", returnInfo);
-		
-		//for(int i =0; i<returnList.size(); i++) {
-		//	mv.addObject("reno", returnList.get(i).getReNo()).setViewName("supplies/updateSupplies");
-		//	System.out.println(" reno 순차적으로 필요!" + returnList.get(i).getReNo());
-			mv.addObject("returnList", returnList).setViewName("supplies/updateSupplies");
-			
-		//}
-		
-		
-		
-		return "member/myPage";
+		suppliesService.updateSupplies(re);
+		mv.addObject("reNo", re.getReNo()).setViewName("member/myPage");
+
+		return mv;
 		
 	}
 	

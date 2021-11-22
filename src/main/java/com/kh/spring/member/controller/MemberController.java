@@ -27,8 +27,12 @@ import com.kh.spring.common.exception.CommException;
 import com.kh.spring.employee.model.service.EmployeeService;
 import com.kh.spring.employee.model.vo.Employee;
 import com.kh.spring.employee.model.vo.PageInfo;
+import com.kh.spring.meetingroom.model.service.MeetingRoomService;
+import com.kh.spring.meetingroom.model.vo.MeetingRoom;
 import com.kh.spring.member.model.service.MemberService;
 import com.kh.spring.member.model.vo.Member;
+import com.kh.spring.supplies.model.service.SuppliesService;
+import com.kh.spring.supplies.model.vo.Supplies;
 
 @SessionAttributes("loginUser")	
 
@@ -44,6 +48,12 @@ public class MemberController {
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
+	@Autowired
+	private SuppliesService suppliesService;
+	
+	@Autowired
+	private MeetingRoomService meetingRoomService;
+	
 	private Employee loginEmp;
 	
 	@RequestMapping("loginerror")
@@ -53,6 +63,13 @@ public class MemberController {
 
 	@RequestMapping("main.xnags")
 	public String loginMember(Member m, String empId,Model model) {
+		
+		ArrayList<MeetingRoom> mroom = meetingRoomService.reservedMeeting(empId);
+		model.addAttribute("mroom", mroom);
+		
+		ArrayList<Supplies> sup = suppliesService.mySupList(empId);
+		model.addAttribute("sup", sup);
+		
 		
 		Member loginUser = null;
 		
@@ -112,7 +129,14 @@ public class MemberController {
 		return "redirect:/";
 	}
 	@RequestMapping("myPage.me")
-	public String myPage() {
+	public String myPage(Model model, @RequestParam("empId") String empId, Supplies su) {
+		
+		ArrayList<MeetingRoom> mroom = meetingRoomService.reservedMeeting(empId);
+		model.addAttribute("mroom", mroom);
+		
+		ArrayList<Supplies> sup = suppliesService.mySupList(empId);
+		model.addAttribute("sup", sup);
+		
 		return "member/myPage";
 	}
 	@RequestMapping("update.me")

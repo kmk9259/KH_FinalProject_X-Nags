@@ -114,7 +114,8 @@
                          
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                        <a class="dropdown-item" href="myPage.me"><i class="dw dw-user1"></i> Mypage</a>
+                        <a class="dropdown-item" id="my"><i class="dw dw-user1"></i> Mypage</a>
+                        <input type = "hidden"  id="mm" name = "empId" value = "${loginUser.empId }"> 
                         <a class="dropdown-item" href="selectEmployee.me"><i class="dw dw-settings2"></i> Setting</a>                        
                         <a class="dropdown-item btn-block" href="#" data-toggle='modal' data-target='#confirmation-modal'"><i class="dw dw-logout"></i> Log Out</a>
                       	
@@ -141,7 +142,15 @@
 			                </div>
 			            </div>
                     </div>
+                    
 					<script>
+					$(function(){
+			    		$("#my").click(function(){
+			    			
+			    			location.href="myPage.me?empId=${loginUser.empId}";
+			    		});
+			    	});
+					
 						$('#confirmation-modal').appendTo("body");
 						!function ($) {
 						    "use strict";

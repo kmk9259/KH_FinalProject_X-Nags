@@ -17,6 +17,7 @@ import com.kh.spring.meetingroom.model.vo.TimeTable_A;
 import com.kh.spring.meetingroom.model.vo.TimeTable_B;
 import com.kh.spring.meetingroom.model.vo.TimeTable_C;
 import com.kh.spring.meetingroom.model.vo.TimeTable_D;
+import com.kh.spring.supplies.model.vo.Return;
 
 
 @Controller
@@ -43,19 +44,133 @@ public class MeetingRoomController {
 		return "meetingRoom/meetingRoom";
 	}
 	
-	
+	//회의실 1
 	@RequestMapping("insertMeetingA.me")
-	public String insertMeetingA(int empId,
-			            	     MeetingRoom mr, ModelAndView mv, HttpServletRequest request) {
+	public String insertMeetingA(@RequestParam("empId") String empId, MeetingRoom mr,
+								 HttpServletRequest request,
+								 Model model) {
 		
 		meetingRoomService.insertMeetingA(mr);
-	
-		//ArrayList<TimeTable_A> timeTableA = meetingRoomService.updateA(empId);
 		
-		//mv.addObject("timeTableA", timeTableA).setViewName("member/myPage");
+		ArrayList<MeetingRoom> mroom = meetingRoomService.reservedMeeting(empId);
+		model.addAttribute("mroom", mroom);
+		
 		
 		return "member/myPage";
 		
 	}
+	
+	//회의실 2
+	@RequestMapping("insertMeetingB.me")
+	public String insertMeetingB(@RequestParam("empId") String empId, MeetingRoom mr,
+								 HttpServletRequest request,
+								 Model model) {
+		
+		meetingRoomService.insertMeetingB(mr);
+		
+		ArrayList<MeetingRoom> mroom = meetingRoomService.reservedMeeting(empId);
+		
+		model.addAttribute("mroom", mroom);
+		
+		return "member/myPage";
+		
+	}
+	
+	//회의실 3
+	@RequestMapping("insertMeetingC.me")
+	public String insertMeetingC(@RequestParam("empId") String empId, MeetingRoom mr,
+								 HttpServletRequest request,
+								 Model model) {
+		
+		meetingRoomService.insertMeetingC(mr);
+	
+		ArrayList<MeetingRoom> mroom = meetingRoomService.reservedMeeting(empId);
+		model.addAttribute("mroom", mroom);
+		
+		return "member/myPage";
+		
+	}
+	
+	//회의실 4
+	@RequestMapping("insertMeetingD.me")
+	public String insertMeetingD(@RequestParam("empId") String empId, MeetingRoom mr,
+								 HttpServletRequest request,
+								 Model model) {
+		
+		meetingRoomService.insertMeetingD(mr);	
+		
+		ArrayList<MeetingRoom> mroom = meetingRoomService.reservedMeeting(empId);
+		model.addAttribute("mroom", mroom);
+		
+		return "member/myPage";
+		
+	}
+	
+	@RequestMapping("meetingDetail.me")
+	public String meetingDetail(@RequestParam("empId") String empId, MeetingRoom mr,
+			 					HttpServletRequest request,
+			 					Model model) {
+		
+		ArrayList<MeetingRoom> mroom = meetingRoomService.meetingDetail(empId);
+		model.addAttribute("mroom", mroom);
+
+		return "meetingRoom/updateMeeting";
+	}
+	
+	//회의실 1 삭제
+	@RequestMapping("cancelMeetingA.ca")
+	public String cancelMeetingA(@RequestParam("empId") String empId, MeetingRoom mr, HttpServletRequest request, Model model) {
+		
+		meetingRoomService.cancelMeetingA(mr);
+		
+		ArrayList<MeetingRoom> mroom = meetingRoomService.reservedMeeting(empId);
+		model.addAttribute("mroom", mroom);
+		
+		return "member/myPage";
+		
+	}
+	
+	//회의실 2 삭제
+	@RequestMapping("cancelMeetingB.ca")
+	public String cancelMeetingB(@RequestParam("empId") String empId, MeetingRoom mr, HttpServletRequest request, Model model) {
+		
+		meetingRoomService.cancelMeetingB(mr);
+		
+		ArrayList<MeetingRoom> mroom = meetingRoomService.reservedMeeting(empId);
+		model.addAttribute("mroom", mroom);
+		
+		return "member/myPage";
+		
+	}
+	
+	//회의실 3 삭제
+	@RequestMapping("cancelMeetingC.ca")
+	public String cancelMeetingC(@RequestParam("empId") String empId, MeetingRoom mr, HttpServletRequest request, Model model) {
+		
+		meetingRoomService.cancelMeetingC(mr);
+		
+		ArrayList<MeetingRoom> mroom = meetingRoomService.reservedMeeting(empId);
+		model.addAttribute("mroom", mroom);
+		
+		
+		return "member/myPage";
+		
+	}
+	
+	//회의실 4 삭제
+	@RequestMapping("cancelMeetingD.ca")
+	public String cancelMeetingD(@RequestParam("empId") String empId, MeetingRoom mr, HttpServletRequest request, Model model) {
+		
+		meetingRoomService.cancelMeetingD(mr);
+		
+		ArrayList<MeetingRoom> mroom = meetingRoomService.reservedMeeting(empId);
+		model.addAttribute("mroom", mroom);
+		
+		return "member/myPage";
+		
+	}
+	
+	
+	
 	
 }

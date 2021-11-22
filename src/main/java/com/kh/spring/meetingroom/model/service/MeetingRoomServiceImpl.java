@@ -47,33 +47,19 @@ public class MeetingRoomServiceImpl implements MeetingRoomService {
 		return meetingRoomDao.selectTimeTableD(sqlSession);
 	}
 
+	//화의실 1
 	@Override
 	public void insertMeetingA(MeetingRoom mr) {
 		int result = meetingRoomDao.insertMeetingA(sqlSession, mr);
 		
 		if(result > 0) {
-			String[] times = mr.getTime().split(",");
+			String[] Stime = mr.getTime().split(",");
 			
-			for(int i=0; i<times.length; i++) {
+			for(int i=0; i<Stime.length; i++) {
 				String time = mr.getTime();
-				time += times[i];
-				
-				System.out.println("나눠 들어오나? " + time);
-				
-				int mrNo = mr.getMrNo();
-				//int mroomNo = mr.getMroomNo();
-				//String tm = mr.getTime();
-				String status = mr.getStatus();
-				
-				ArrayList<MeetingRoom> mrList = new ArrayList<MeetingRoom>();
-				
-				MeetingRoom mroom = new MeetingRoom(mrNo, times[i], status);
-				
-				mrList.add(mroom);
-				
-				System.out.println("미팅룸 어레이 리스트 잘? "+  mrList);
-				
-				mrList = meetingRoomDao.updateStatus(sqlSession, mrList);
+				time += Stime[i];
+				//System.out.println("나눠 들어오나? " + Stime[i]);
+				meetingRoomDao.updateStatus(sqlSession, Stime[i]);
 				
 			
 			}
@@ -84,7 +70,218 @@ public class MeetingRoomServiceImpl implements MeetingRoomService {
 		}
 		
 	}
+
+	//회의실 2
+	@Override
+	public void insertMeetingB(MeetingRoom mr) {
+		int result = meetingRoomDao.insertMeetingB(sqlSession, mr);
+		
+		if(result > 0) {
+			String[] Stime = mr.getTime().split(",");
+			
+			for(int i=0; i<Stime.length; i++) {
+				String time = mr.getTime();
+				time += Stime[i];
+				
+				meetingRoomDao.updateStatusB(sqlSession, Stime[i]);
+				
+			
+			}
+		}
+		
+		if(result < 0) {
+			throw new CommException("회의실 예약 실패");
+		}
+		
+	}
+
+	//회의실 3
+	@Override
+	public void insertMeetingC(MeetingRoom mr) {
+		int result = meetingRoomDao.insertMeetingC(sqlSession, mr);
+		
+		if(result > 0) {
+			String[] Stime = mr.getTime().split(",");
+			
+			for(int i=0; i<Stime.length; i++) {
+				String time = mr.getTime();
+				time += Stime[i];
+				
+				meetingRoomDao.updateStatusC(sqlSession, Stime[i]);
+				
+			
+			}
+		}
+		
+		if(result < 0) {
+			throw new CommException("회의실 예약 실패");
+		}
+		
+	}
+
 	
-	
+	//회의실 4
+	@Override
+	public void insertMeetingD(MeetingRoom mr) {
+		int result = meetingRoomDao.insertMeetingD(sqlSession, mr);
+		
+		if(result > 0) {
+			String[] Stime = mr.getTime().split(",");
+			
+			for(int i=0; i<Stime.length; i++) {
+				String time = mr.getTime();
+				time += Stime[i];
+				
+				meetingRoomDao.updateStatusD(sqlSession, Stime[i]);
+				
+			
+			}
+		}
+		
+		if(result < 0) {
+			throw new CommException("회의실 예약 실패");
+		}
+		
+	}
+
+	@Override
+	public ArrayList<MeetingRoom> reservedMeeting(String empId) {
+		
+		return meetingRoomDao.reservedMeeting(sqlSession, empId);
+	}
+
+	@Override
+	public ArrayList<MeetingRoom> meetingDetail(String empId) {
+		
+		return meetingRoomDao.meetingDetail(sqlSession, empId);
+	}
+
+
+
+
+	@Override
+	public void cancelMeetingA(MeetingRoom mr) {
+		
+		int result = meetingRoomDao.cancelMeeting(sqlSession, mr.getMroomNo());
+		
+		System.out.println("결과? " + result);
+		
+		System.out.println("결과? " + mr);
+		if(result > 0) {
+			String[] Stime = mr.getTime().split(",");
+			
+			for(int i=0; i<Stime.length; i++) {
+				String time = mr.getTime();
+				time += Stime[i];
+				
+				meetingRoomDao.cancelMeetingA(sqlSession, Stime[i]);
+				
+			
+			}
+		}
+		
+		if(result < 0) {
+			throw new CommException("회의실 예약 취소 실패");
+		}
+		
+	}
+
+
+
+	@Override
+	public void cancelMeetingB(MeetingRoom mr) {
+		
+		int result = meetingRoomDao.cancelMeeting(sqlSession, mr.getMroomNo());
+		
+		System.out.println("결과? " + result);
+		
+		System.out.println("결과? " + mr);
+		if(result > 0) {
+			String[] Stime = mr.getTime().split(",");
+			
+			for(int i=0; i<Stime.length; i++) {
+				String time = mr.getTime();
+				time += Stime[i];
+				
+				meetingRoomDao.cancelMeetingB(sqlSession, Stime[i]);
+				
+			
+			}
+		}
+		
+		if(result < 0) {
+			throw new CommException("회의실 예약 취소 실패");
+		}
+		
+	}
+
+	@Override
+	public void cancelMeetingC(MeetingRoom mr) {
+		
+		int result = meetingRoomDao.cancelMeeting(sqlSession, mr.getMroomNo());
+		
+		System.out.println("결과? " + result);
+		
+		System.out.println("결과? " + mr);
+		if(result > 0) {
+			String[] Stime = mr.getTime().split(",");
+			
+			for(int i=0; i<Stime.length; i++) {
+				String time = mr.getTime();
+				time += Stime[i];
+				
+				meetingRoomDao.cancelMeetingC(sqlSession, Stime[i]);
+				
+			
+			}
+		}
+		
+		if(result < 0) {
+			throw new CommException("회의실 예약 취소 실패");
+		}
+		
+	}
+
+	@Override
+	public void cancelMeetingD(MeetingRoom mr) {
+		
+		int result = meetingRoomDao.cancelMeeting(sqlSession, mr.getMroomNo());
+		
+		System.out.println("결과? " + result);
+		
+		System.out.println("결과? " + mr);
+		if(result > 0) {
+			String[] Stime = mr.getTime().split(",");
+			
+			for(int i=0; i<Stime.length; i++) {
+				String time = mr.getTime();
+				time += Stime[i];
+				
+				meetingRoomDao.cancelMeetingD(sqlSession, Stime[i]);
+				
+			
+			}
+		}
+		
+		if(result < 0) {
+			throw new CommException("회의실 예약 취소 실패");
+		}
+		
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

@@ -90,11 +90,11 @@ p {
 
 #msform .action-button {
     width: 100px;
-    background: #673AB7;
     font-weight: bold;
+    background: #28a745;
     color: white;
     border: 0 none;
-    border-radius: 0px;
+    border-radius: 0.25rem;
     cursor: pointer;
     padding: 10px 5px;
     margin: 10px 0px 10px 5px;
@@ -112,7 +112,7 @@ p {
     font-weight: bold;
     color: white;
     border: 0 none;
-    border-radius: 0px;
+    border-radius: 0.25rem;
     cursor: pointer;
     padding: 10px 5px;
     margin: 10px 5px 10px 0px;
@@ -273,16 +273,10 @@ p {
 	
 	
 	<div class="pd-20 card-box mb-30">
-	
-	
-	
-	
-	
-	
-					<div class="clearfix">
-						<h4 class="text-blue h4">사원 등록</h4>
-						<p class="mb-30">사원의 정보를 입력해 주세요</p>
-					</div>
+	<div class="clearfix">
+	<h4 class="text-blue h4">사원 등록</h4>
+	<p class="mb-30">사원의 정보를 입력해 주세요</p>
+	</div>
 					
 					
 					
@@ -294,7 +288,7 @@ p {
 		                <h2 id="heading">사원을 등록하세요</h2>
 		                <p>다음 순서대로 진행하세요</p>
 		                <form id="msform" action="insertEmp.me" method="post" enctype="multipart/form-data">
-		                    <!-- progressbar -->
+		                    
 		                    <ul id="progressbar">
 		                        <li class="active" id="account"><strong>개인정보 등록</strong></li>
 		                        <li id="personal"><strong>사원정보 등록 + 회계정보</strong></li>
@@ -308,12 +302,12 @@ p {
 							
 		                    
 
-	                       <!--========================= step 1 =====================================-->
-		<fieldset>
-		   <div class="form-card">
+	            <!--============================= step 1 =====================================-->
+				<fieldset>
+		   		<div class="form-card">
 		                   <div class="row">
-		                           <div class="col-7"><h2 class="fs-title">사원 개인 정보 등록:</h2></div>
-		                            <div class="col-5"><h2 class="steps">Step 1 - 4</h2></div>
+		                   <div class="col-7"><h2 class="fs-title">사원 개인 정보 등록:</h2></div>
+		                   <div class="col-5"><h2 class="steps">Step 1 - 4</h2></div>
 		                   </div>
 										
 
@@ -411,91 +405,120 @@ p {
 
 
 						<div class="btns" align="center">
-							<button type="reset" class="btn btn-danger">초기화</button>
+						<button type="reset" class="btn btn-outline-danger">초기화</button>
 						</div>
 
-					</div>
-
-								
-							<input type="button" name="next" class="next1 action-button" value="Next" /> 
-                       
-								
-								
-								
-		                    </fieldset>
+					    </div>
+					    
+						<input type="button" data-toggle="modal" id="hoho" name="next" class="next1 action-button" value="다음" > 
+                  </fieldset>
 		                    
-		                    
-		                    
-		                    <!--========================= step 2 =====================================-->
-		                    <fieldset>
-		                    
-		                    
-		                    <div class="form-group row">
-							<label class="col-sm-12 col-md-2 col-form-label" >직급코드(*)</label>
+		          
+		          <!--========================= step 2 =====================================-->
+		          <fieldset>
+		          <div class="form-group row">
+				  <label class="col-sm-12 col-md-2 col-form-label" >직급코드(*)</label>
 							<div class="col-sm-12 col-md-10">
-
-								<select class="form-control" id="jobCode" name="jobCode" required>
-									<option selected disabled hidden="hidden" value="">직급을 선택하세요</option>
-									
-									
-									<c:forEach items="${jlist }" var="job" varStatus="status">
+ 							<select class="form-control" id="jobCode" name="jobCode" required>
+							<option selected disabled hidden="hidden" value="">직급을 선택하세요</option>
+							
+							<c:forEach items="${jlist }" var="job" varStatus="status">
 									<option value="${job.jobCode }">${job.jobName }</option> 
-								    </c:forEach> 
-								    
-								</select>
+							</c:forEach> 
+							</select>
 							</div>
-						</div>
-						<div class="form-group row">
-							<label class="col-sm-12 col-md-2 col-form-label">권한</label>
-							<div class="col-sm-12 col-md-10">
-								<select class="form-control" id="rightNo" name="rightNo">
-									
-									<c:forEach items="${rlist }" var="r" varStatus="status">
-									<option value="${r.rightNo }">${r.rightName }</option> 
-								    </c:forEach> 
-									
-								</select>
-							</div>
-						</div>
-						<div class="form-group row">
-							<label class="col-sm-12 col-md-2 col-form-label">부서코드 (*)</label>
-							<div class="col-sm-12 col-md-10">
-								<select class="form-control" id="deptCode" name="deptCode">
-									<option hidden="hidden" value=""  selected >부서코드를 선택하세요</option>
+				  </div>
+				  
+				  <div class="form-group row">
+				  <label class="col-sm-12 col-md-2 col-form-label">권한</label>
+				  <div class="col-sm-12 col-md-10">
+				  
+				  <select class="form-control" id="rightNo" name="rightNo">
+							<c:forEach items="${rlist }" var="r" varStatus="status">
+							<option value="${r.rightNo }">${r.rightName }</option> 
+							</c:forEach> 
+				  </select>
+				  </div>
+				  </div>
+				  
+				  <div class="form-group row">
+				  <label class="col-sm-12 col-md-2 col-form-label">부서코드 (*)</label>
+				  <div class="col-sm-12 col-md-10">
+				  <select class="form-control" id="deptCode" name="deptCode">
+				  <option hidden="hidden" value=""  selected >부서코드를 선택하세요</option>
+				  
+				  <c:forEach items="${dlist }" var="d" varStatus="status">
+				  <option value="${d.deptCode }">${d.deptName }</option> 
+				  </c:forEach> 
+				  </select>
+				  </div>
+				  </div>
+
+				  <div class="form-group row">
+				  <label class="col-sm-12 col-md-2 col-form-label">급여 등급 (*)</label>
+				  <div class="col-sm-12 col-md-10">
+				  <select class="form-control" id="salLevel" data-toggle="modal" name="salLevel" onchange="salGrade()">
+				  <option value="" selected disabled hidden="hidden">급여 등급 선택</option>
+				  
+				  <c:forEach items="${slist }" var="s" varStatus="status">
+				  <option value="${s.salLevel }">${s.salLevel }</option> 
+				  </c:forEach> 
+				  
+				  </select>
+				  </div>
+				  </div>
+				  
+				 
+				  
+				  <script>
+				  function salGrade() {
+					  var salGrade =$("#salLevel").val();
+					  var i = parseInt(($("#money1").val()).replace(/,/g,""));
+					  console.log(salGrade);
+					  if(salGrade == 'S1' ){
+						 
+						 alert("S1 은 기본 6000000 부터 시작입니다.");
+						 $("#money1").val('6,000,000');
+						 $("#money11").val('6000000');
+						 
+					  }
+					  if(salGrade == 'S2'){
+						  alert("S2 은 기본 5000000 부터 시작입니다.");
+						  $("#money1").val('5,000,000');
+						  $("#money11").val('5000000');
+					  }
+					  if(salGrade == 'S3'){
+						  alert("S3 은 기본 4000000 부터 시작입니다.");
+						  $("#money1").val('4,000,000');
+						  $("#money11").val('4000000');
+					  }
+					  if(salGrade == 'S4'){
+						  alert("S4 은 기본 3000000 부터 시작입니다.");
+						  $("#money1").val('3,000,000');
+						  $("#money11").val('3000000');
+					  }
+					  if(salGrade == 'S5'){
+						  alert("S5 은 기본 3000000 부터 시작입니다.");
+						  $("#money1").val('2,000,000');
+						  $("#money11").val('2000000');
+					  }
+					  if(salGrade == 'S6'){
+						  alert("S6 은 기본 1000000 부터 시작입니다.");
+						  $("#money1").val('1,000,000');
+						  $("#money11").val('1000000');
+					  }
 					
-									<c:forEach items="${dlist }" var="d" varStatus="status">
-									<option value="${d.deptCode }">${d.deptName }</option> 
-								    </c:forEach> 
-								</select>
-							</div>
+				  }
+				  </script>
 
-						</div>
-
-						<div class="form-group row">
-							<label class="col-sm-12 col-md-2 col-form-label">급여 등급 (*)</label>
-							<div class="col-sm-12 col-md-10">
-
-								<select class="form-control" id="salLevel" name="salLevel">
-									<option value="" selected disabled hidden="hidden">급여 등급 선택</option>
-									<c:forEach items="${slist }" var="s" varStatus="status">
-									<option value="${s.salLevel }">${s.salLevel }</option> 
-								    </c:forEach> 
-									
-
-								</select>
-							</div>
-						</div>
-
-
+				  <br><br><br>
 
 
  <!--=================================== 회계정보 입력 창 시작 =================================== -->
-		                  <br><br><br>
 		                  
-		                  <h4 class="text-blue h5">&nbsp;회계 입력</h4><br><br><br>
-		                  
-		                  
-		                  <table class="table table-bordered salary">
+		          <h4 class="text-blue h5">&nbsp;회계 입력</h4><br><br><br>
+		          
+		          <table class="table table-bordered salary">
 						<thead>
 							<tr>
 								<th scope="col">목록</th>
@@ -504,35 +527,65 @@ p {
 								<th scope="col">금액</th>
 								
 							</tr>
-						</thead>
-						<tbody>
+				  </thead>
+				  <tbody>
 							<tr>
 								<th scope="row">기본급</th>
-								<td><input type="text" class="form-control" id="money1"  onkeyup="inputNumberFormat(this)">
-								<input type="hidden" class="form-control" id="money11" name="basic">
+								<td>
+								<div class="col-sm-2" style="float: left;">
+								<label class="col-sm-12 col-md-2 col-form-label" style="text-align: right; vertical-align: middle; font-size: 18px;">
+								₩</label>
+								</div>
+								<input style="display: block; float: right; width: 82%;" type="text" class="form-control" id="money1"  onchange="inputNumberFormat(this)">
+								<input style="display: block; float: right; width: 82%;" type="hidden" class="form-control" id="money11" name="basic">
 								</td>
 								
 								<th>소득세</th>
-								<td><input type="text" class="form-control" id="incometax"   onkeyup="inputNumberFormat(this)" disabled>
-								<input type="hidden" class="form-control" id="incometax1" name="incomeTax">
+								<td>
+								<div class="col-sm-2" style="float: left;">
+								<label class="col-sm-12 col-md-2 col-form-label" style="text-align: right; vertical-align: middle; font-size: 18px;">
+								₩</label>
+								</div>
+								<input style="display: block; float: right; width: 82%;" type="text" class="form-control" id="incometax"   onInput="inputNumberFormat(this)" readonly>
+								<input style="display: block; float: right; width: 82%;" type="hidden" class="form-control" id="incometax1" name="incomeTax">
 								</td>
 								
 							</tr>
 							<tr>
 								<th scope="row">보너스</th>
-								<td><input type="text" class="form-control" id="money2"  onkeyup="inputNumberFormat(this)">
+								<td>
+								<div class="col-sm-2" style="float: left;">
+								<label class="col-sm-12 col-md-2 col-form-label" style="text-align: right; vertical-align: middle; font-size: 18px;">
+								₩</label>
+								</div>
+								<input style="display: block; float: right; width: 82%;" type="text" class="form-control" id="money2"  onInput="inputNumberFormat(this)">
 								<input type="hidden" class="form-control" id="money22" name="commission"></td>
 								<th>고용 보험</th>
-								<td><input type="text" class="form-control" id="empIn"  onkeyup="inputNumberFormat(this)" disabled>
+								<td>
+								<div class="col-sm-2" style="float: left;">
+								<label class="col-sm-12 col-md-2 col-form-label" style="text-align: right; vertical-align: middle; font-size: 18px;">
+								₩</label>
+								</div>
+								<input style="display: block; float: right; width: 82%;" type="text" class="form-control" id="empIn"  onInput="inputNumberFormat(this)" readonly>
 								<input type="hidden" class="form-control" id="empIn1" name="empInsurance"></td>
 								
 							</tr>
 							<tr>
 								<th scope="row">식대</th>
-								<td><input type="text" class="form-control" id="money3"  onkeyup="inputNumberFormat(this)">
+								<td>
+								<div class="col-sm-2" style="float: left;">
+								<label class="col-sm-12 col-md-2 col-form-label" style="text-align: right; vertical-align: middle; font-size: 18px;">
+								₩</label>
+								</div>
+								<input style="display: block; float: right; width: 82%;" type="text" class="form-control" id="money3"  onInput="inputNumberFormat(this)">
 								<input type="hidden" class="form-control" id="money33" name="meal"></td>
 								<th>국민 연금</th>
-								<td><input type="text" class="form-control" id="retirement"  onkeyup="inputNumberFormat(this)" disabled>
+								<td>
+								<div class="col-sm-2" style="float: left;">
+								<label class="col-sm-12 col-md-2 col-form-label" style="text-align: right; vertical-align: middle; font-size: 18px;">
+								₩</label>
+								</div>
+								<input style="display: block; float: right; width: 82%;" type="text" class="form-control" id="retirement"  onInput="inputNumberFormat(this)" readonly>
 								<input type="hidden" class="form-control" id="retirement1" name="retirement"></td>
 								
 							</tr>
@@ -541,7 +594,12 @@ p {
 								<th scope="row"></th>
 								<td></td>
 								<th>건강 보험</th>
-								<td><input type="text" class="form-control" id="health"  onkeyup="inputNumberFormat(this)" disabled>
+								<td>
+								<div class="col-sm-2" style="float: left;">
+								<label class="col-sm-12 col-md-2 col-form-label" style="text-align: right; vertical-align: middle; font-size: 18px;">
+								₩</label>
+								</div>
+								<input style="display: block; float: right; width: 82%;" type="text" class="form-control" id="health"  onInput="inputNumberFormat(this)" readonly>
 								<input type="hidden" class="form-control" id="health1" name="healthInsurance"></td>
 								
 							</tr>
@@ -550,29 +608,42 @@ p {
 							
 							<tr>
 								<th scope="row">지급 총액</th>
-								<td><input type="text" class="form-control" id="sum01" onkeyup="inputNumberFormat(this)"  disabled>
+								<td>
+								<div class="col-sm-2" style="float: left;">
+								<label class="col-sm-12 col-md-2 col-form-label" style="text-align: right; vertical-align: middle; font-size: 18px;">
+								₩</label>
+								</div>
+								
+								<input style="display: block; float: right; width: 82%;" type="text" class="form-control" id="sum01" onInput="inputNumberFormat(this)"  readonly>
+								
 								<input type="hidden" class="form-control" id="sum011" name="total" ></td>
 								<th>공제 총액</th>
-								<td><input type="text" class="form-control"  id="result" onkeyup="inputNumberFormat(this)" disabled>
+								<td>
+								<div class="col-sm-2" style="float: left;">
+								<label class="col-sm-12 col-md-2 col-form-label" style="text-align: right; vertical-align: middle; font-size: 18px;">
+								₩</label>
+								</div>
+								<input style="display: block; float: right; width: 82%;" type="text" class="form-control"  id="result" onInput="inputNumberFormat(this)" readonly>
 								<input type="hidden" class="form-control" id="inSum" name="inTotal"></td>
 								
 							</tr>
 							
 							 <tr>
 							  <th colspan="2">차감 지급액</th> 
-								<td colspan="2"><input type="text" class="form-control" id="sum02"  onkeyup="inputNumberFormat(this)" disabled>
-								<input type="hidden" class="form-control" id="actualPay" name="subTotal"></td>
-								
-								
-								
-								
+							  <td colspan="2">
+							  <div class="col-sm-2" style="float: left;">
+							  <label class="col-sm-12 col-md-2 col-form-label" style="text-align: right; vertical-align: middle; font-size: 18px;">
+							  ₩</label>
+							  </div>
+							  <input style="display: block; float: right; width: 82%;" type="text" class="form-control" id="sum02"  onInput="inputNumberFormat(this)" readonly>
+							  <input type="hidden" class="form-control" id="actualPay" name="subTotal"></td>
 								
 							</tr> 
 						</tbody>
 					</table>
 					
 					
-					<!--==========================숫자 패턴 함수 (회계관련)================= -->
+					<!--==========================숫자 패턴 함수 (회계관련)====================== -->
 								<script>
 								
 								function inputNumberFormat(obj) {
@@ -613,6 +684,13 @@ p {
 								     var num2 = parseInt((n2.value).replace(/,/g,""));
 								     var num3 = parseInt((n3.value).replace(/,/g,""));
 								     
+								     var jobCode = $("#jobCode").val();
+								     
+								     if( jobCode === 'S1' && num1 < 6000000){
+								    	 alert('hi');
+								    	 console.log(jobCode);
+								     }
+								     
 								     
 								     
 								     /*히든으로 숫자값만 가지고 있을 input*/
@@ -622,13 +700,13 @@ p {
 								     
 								     
 								     
-								     console.log("기본 급 numh1 "+nh1.value); 
+								    // console.log("기본 급 numh1 "+nh1.value); 
 								     
 								     
 								     
 								    /*숫자로 변화한 필드값을 합침*/
 								     var total = num1 + num2 + num3; 
-								     console.log("숫자로? 콤마 없이 기본 총 지급액 "+total); 
+								    // console.log("숫자로? 콤마 없이 기본 총 지급액 "+total); 
 								     
 								     /*4대 보험 계산*/
 								     var incometax = total * 0.033;
@@ -638,8 +716,8 @@ p {
 								     
 								     var inTotal = incometax + empIn + retirement +health;
 								     var subTotal = total - inTotal;
-								     console.log( "보험 합계 계산한 값이 담기니? "+ subTotal )
-								     console.log( "공제 총액 inTotal?? "+ inTotal)
+								     //console.log( "보험 합계 계산한 값이 담기니? "+ subTotal )
+								    // console.log( "공제 총액 inTotal?? "+ inTotal)
 								     
 								     inSum.value = num4;
 								     actualPay.value =num5;
@@ -654,9 +732,9 @@ p {
 								     sumh.value=total;
 								     actualPay.value=subTotal;
 								     
-								     console.log("여기가 중요!!! "+sumh.value)
-								     console.log("여기가 중요!!! "+ actualPay.value)
-								     console.log("여기가 중요!!! inSum.value "+ inSum.value)
+								     //console.log("여기가 중요!!! "+sumh.value)
+								     //console.log("여기가 중요!!! "+ actualPay.value)
+								     //console.log("여기가 중요!!! inSum.value "+ inSum.value)
 								     
 								     /*4대 보험 합산*/
 								     var total2 = incometax + empIn + retirement + health; 
@@ -685,8 +763,8 @@ p {
 								     var num5 = parseInt((sum2.value).replace(/,/g,""));
 								     
 								     //console.log("resut1 아이디 값에 값? "+num4)
-								     console.log("n8.value 공제 금액 총 합 아이디 값에 값? "+num4)
-								     console.log("sum2.value  차감 지급 총합 아이디 값에 값? "+num5)
+								     //console.log("n8.value 공제 금액 총 합 아이디 값에 값? "+num4)
+								     //console.log("sum2.value  차감 지급 총합 아이디 값에 값? "+num5)
 								 }
 
 								 function comma(str) {
@@ -705,41 +783,27 @@ p {
 
 
 
-						<div class="btns" align="center">
-							
-							<button type="reset" class="btn btn-danger">초기화</button>
+						<div class="btns" align="center"><button type="reset" class="btn btn-outline-danger">초기화</button>
 						</div>
 		                  
-		                  
+		                <input type="button" name="next" class="next2 action-button" value="다음"  /> 
+		                <input type="button" name="previous" class="previous action-button-previous" value="이전" />
 		                
-		                
-		                  
-		                  <input type="button" name="next" class="next2 action-button" value="Next"  /> 
-		                   <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
-		                  
-		                
-                        
-                    
-		                    </fieldset>
+		                </fieldset>
 		                    
-		                    
-		                    <!-- ================================================== -->
-		                    <fieldset>
-		                        <div class="text-center">
-							<label class="title">사원 프로필 사진</label>
-							<div>
-								<a class="fileRemove" id="close"> X </a>
-								<img name="uploadFile" id="uploadFile" width="200px" height="180">
-
-							</div>
+		                <!-- ============================ 사진 올리기 ================================ -->
+		                <fieldset><div class="text-center">
+						<label class="title">사원 프로필 사진</label>
+						<div>
+						<a class="fileRemove" id="close"> X </a>
+						<img name="uploadFile" id="uploadFile" width="200px" height="180">
+						</div>
+							
 							<br>
 
-							<div id="fileArea">
-
-								<input type="file" style="color: black;" name="uploadFile" id="file"
-									onchange="loadImg(this, 1);" required>
-
-							</div>
+						<div id="fileArea">
+						<input type="file" style="color: black;" name="uploadFile" id="file" onchange="loadImg(this, 1);" required>
+						</div>
 
 							<script>
 								$(function() {
@@ -774,6 +838,35 @@ p {
 										}
 									}
 								};
+								
+								
+								
+								//=====================================얼굴인식 할 때 비교 기준 사진 등록하기 (Profile Img)============================================
+		                        function registerFace(image){
+		                           var nextEmp=${nextEmp};
+		                           console.log(nextEmp);
+		                           const form = new FormData();
+		                           form.append("image", image);
+		                           const settings = {
+		                              "async": true,
+		                              "crossDomain": true,
+		                              "url": "https://alchera-face-authentication.p.rapidapi.com/v1/face",
+		                              "method": "POST",
+		                              "headers": {
+		                                 "uid": nextEmp,
+		                                 "x-rapidapi-host": "alchera-face-authentication.p.rapidapi.com",
+		                                 "x-rapidapi-key": "c2f7322849msh59b980548a487b0p18c3a3jsn2a28749fcc50"
+		                              },
+		                              "processData": false,
+		                              "contentType": false,
+		                              "mimeType": "multipart/form-data",
+		                              "data": form
+		                           };
+		                           $.ajax(settings).done(function (response) {
+		                              console.log("등록 성공 : "+response);
+		                           });
+		                        }
+								
 
 								//==================사진 지우기 함수 
 
@@ -786,52 +879,46 @@ p {
 
 
 						</div>
-								<input type="button" name="next" class="next3 action-button" value="Submit" onclick= "submit();" />
-								<input type="button" name="previous" class="previous action-button-previous" value="Previous" />
-		                    </fieldset>
+								<input type="button" name="next" class="next3 action-button" value="등록"  />
+								<input type="button" name="previous" class="previous action-button-previous" value="이전" />
+		                </fieldset>
 		                    
-		                     <fieldset>
+		                 <fieldset>
 		                        <div class="form-card">
 		                            <div class="row">
-		                                <div class="col-7">
-		                                    <h2 class="fs-title">등록 성공:</h2>
-		                                </div>
-		                                <div class="col-5">
-		                                    <h2 class="steps">Step 4 - 4</h2>
-		                                </div>
-		                            </div> <br><br>
+		                            <div class="col-7"> <h2 class="fs-title">등록 성공:</h2></div>
+		                            <div class="col-5"> <h2 class="steps">Step 4 - 4</h2></div>
+		                            </div> 
+		                            
+		                            <br><br>
+		                            
 		                            <h2 class="purple-text text-center"><strong>SUCCESS !</strong></h2> <br>
 		                            <div class="row justify-content-center">
-		                                <div class="col-3"> <img src="https://i.imgur.com/GwStPmg.png" class="fit-image"> </div>
+		                            <div class="col-3"> <img src="https://i.imgur.com/GwStPmg.png" class="fit-image"> </div>
 		                            </div> <br><br>
+		                            
 		                            <div class="row justify-content-center">
 		                                <div class="col-7 text-center">
 		                                    <h5 class="purple-text text-center">성공적으로 등록 되었습니다!</h5>
 		                                </div>
 		                            </div>
+		                            
 		                        </div>
 		                    </fieldset> 
+		                    
 		                </form>
 		            </div>
 		        </div>
 		    </div>
 		</div>
-					
-			<!-- js function for steps -->	
-			<script>
-			
-
-			
-			
 		
-			
+		
+					
+
+			<script>
+	
 			$(document).ready(function(){
 				
-				
-
-				
-				
-
 				var current_fs, next_fs, previous_fs; //fieldsets
 				var opacity;
 				var current = 1;
@@ -841,10 +928,8 @@ p {
 
 				$(".next1").click(function(){
 					
-					
-					
-					 /*=====================유효성 검사 =====================*/
-					  var userName = $("#msform input[name=userName]");
+				/*=====================유효성 검사 =====================*/
+					var userName = $("#msform input[name=userName]");
 
 					if(userName.val() == ''){
 						
@@ -853,16 +938,12 @@ p {
 						 return false;
 					} 
 			         
-			         
-			         
-			         
-			         
 					
 					var pwd = $("#msform input[name=userPwd]");
 					var pw = $("#msform input[name=userPwd]").val();
 					var num = pw.search(/[0-9]/g);
 					var eng = pw.search(/[a-z]/ig);
-					 var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi); 
+					var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi); 
 					
 					if(pwd.val() == ''){
 						
@@ -871,6 +952,7 @@ p {
 							return false;
 
 					} 
+					
 					
 				 	if(pw.length < 6 )
 				 	{
@@ -896,11 +978,12 @@ p {
 				 	}
 					
 					var ssn = $("#msform input[name=userSsn]");
-					 console.log(ssn.val());
+					//console.log(ssn.val());
 					if(ssn.val() == ''){
-						alert("주민번호를 확인하세요")
+						//alert("주민번호를 확인하세요")
+						
 						ssn.focus();
-						 return false;
+						return false;
 					} 
 					
 					var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -910,15 +993,13 @@ p {
 					alert("올바른 이메일 주소를 입력하세요")
 					return false;
 					}
-					
-					
-					
-					
+
+
 					var patternPhone = /01[016789]-[^0][0-9]{2,3}-[0-9]{3,4}/;
 
 					
 					var phone = $("#msform input[name=phone]");
-					 console.log(phone.val());
+					//console.log(phone.val());
 					if(phone.val() == ''){
 						alert("전화번호를 입력하세요")
 						phone.focus();
@@ -931,11 +1012,9 @@ p {
 					        return;
 					    }  
 
-					
-					
-					
+
 					var post = $("#msform input[name=post]");
-					 console.log(post.val());
+					//console.log(post.val());
 					if(post.val() == ''){
 						alert("우편번호를 입력하세요")
 						post.focus();
@@ -943,7 +1022,7 @@ p {
 					} 
 					
 					var address1 = $("#msform input[name=address1]");
-					 console.log(address1.val());
+					//console.log(address1.val());
 					if(address1.val() == ''){
 						alert("주소를 입력하세요")
 						address1.focus();
@@ -952,7 +1031,7 @@ p {
 					
 					
 					var address2 = $("#msform input[name=address2]");
-					 console.log(address2.val());
+					//console.log(address2.val());
 					if(address2.val() == ''){
 						alert("상세 주소를 입력하세요")
 						address2.focus();
@@ -968,7 +1047,7 @@ p {
 					
 					var add1 = $("#address1").val();
 					
-					console.log(add1);
+					//console.log(add1);
 					  
 					
 					current_fs = $(this).parent();
@@ -977,9 +1056,6 @@ p {
 					
 					/*=====================유효성 검사 끝 =====================*/
 				
-					
-
-
 
 				//Add Class Active
 				$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
@@ -987,7 +1063,6 @@ p {
 				//show the next fieldset
 				next_fs.show();
 				
-	
 				
 				//hide the current fieldset with style
 				current_fs.animate({opacity: 0}, {
@@ -1048,13 +1123,12 @@ p {
 				
 				$(".next2").click(function(){
 					
-					
-					
-					 /*=====================유효성 검사 =====================*/
+				
+				 /*=====================유효성 검사 =====================*/
 					
 					 
-					  var jobCode = document.getElementById("jobCode").selectedIndex;
-					 console.log(jobCode);
+					 var jobCode = document.getElementById("jobCode").selectedIndex;
+					 //console.log(jobCode);
 					  if(jobCode === 0)
 					  {
 							alert("직업 코드를 선택하세요")
@@ -1087,15 +1161,21 @@ p {
 					
 					
 					
-					var money1 = $("#money1").val();
-					
-					
+					/* var money1 = $("#money1").val();
+					var valiAmount = parseInt(($("#money1").val()).replace(/,/g,""));
+					 */
 					if(money1 == ""){
 						alert("기본급을 입력하세요")
 						document.getElementById("money1").focus();
-						
 						return false;
+					
 					}
+					
+					/* if(jobCode === 1 && valiAmount < 6000000){
+						alert("6000000 이상 입력하세요")
+						document.getElementById("money1").focus();
+						return false;
+					} */
 					
 					
 					var money2 = $("#money2").val();
@@ -1193,28 +1273,26 @@ p {
 				
 				
 				
-					/* =============== step 3=============  */
+				/* =============== step 3=============  */
 				
 				
 				$(".next3").click(function(){
+				
+				/*=====================유효성 검사 =====================*/
 					
-					
-					
-					 /*=====================유효성 검사 =====================*/
-					
-					
-					 var file = $("#file").val();
+					var file = $("#file").val();
 					 console.log(file);
 					 
 					 if(file == ""){
 						 alert("사진을 등록하세요")
-							document.getElementById("file").focus();
-							
-							return false;
+						 document.getElementById("file").focus();
+						 return false;
 						 
+					 } else{
+						 $("#msform").submit();
+						 return true;
 					 }
-					
-					/*=====================유효성 검사 끝 =====================*/
+				/*=====================유효성 검사 끝 =====================*/
 				
 				
 					current_fs = $(this).parent();
@@ -1282,35 +1360,41 @@ p {
 				.css("width",percent+"%")
 				}
 				
-				
-				
-				
+
 
 				$(".submit").click(function(){
+					
+					var file = $("#file").val();
+					 console.log(file);
+					 
+					 if(file == ""){
+						 alert("사진을 등록하세요")
+						 document.getElementById("file").focus();
+						 return false;
+						 
+					 } else{
+						 return true;
+					 }
+					
 
 					
-				return true;
+				
 				})
 
 				});
 			
-			
-			
+
 			
 			</script>	
+			
+			
 					
-					</div>
-				</div>
-
-	
-	
-	
-	<!-- ==================================================== -->
-
-	
-	
+			</div>
+			
+			<jsp:include page="../common/footer.jsp" />
+			</div>
 
 
-	<jsp:include page="../common/footer.jsp" />
+	
 </body>
 </html>

@@ -100,13 +100,12 @@ text-align: center;
 
 }
 
-#myTable> thead{
+#startDate{
+border: none;
 background-color: white;
 }
 
-#myTable> tbody{
-background-color: #edf9ff;
-}
+
 
 
 
@@ -149,105 +148,110 @@ background-color: #edf9ff;
 
 
 				<div class="pd-20 card-box mb-30">
-				
-				
-				  			<div class="clearfix mb-20">
-										<div class="pull-left">
-											<h4 class="text-blue h4">비품 예약 기간 연장</h4>
-											
-										</div>
-							</div>
+					<div class="clearfix mb-20">
+					<div class="pull-left"><h4 class="text-blue h4">비품 예약 기간 연장</h4></div>
+					</div>
 						
 						
-					    <form id="enrollForm" method="post" action="updateDate.su">
+						<div class="pd-30 pt-10">
+						<div class="col-lg-8 col-sm-6" style="margin: auto; padding-top: 50px;"> 
+						
+					    <!-- <form id="enrollForm" method="post" action="updateDate.su"> -->
 					    <input type = "hidden" name = "empId" value = "${loginUser.empId }"> 
 					    <div class="row">
-
-								
-
-	
-
-								
 								<div class="col-md-12 col-sm-12 myTable">
-								
-								
 								<c:forEach items="${returnList}" var="su" varStatus="status">
-											
-											
-															
 									<table class="table table-bordered" id="myTable">
-										 <thead>
+										<tbody>
 										 	<tr>
-												 <th style="vertical-align: center; text-align:center; padding: 35px;">예약 날짜</th>
+												 <th>예약 날짜</th>
 												 <td colspan="2" >
-												 <input  type="text"  class="form-control startDate"   name="startDate" readonly value="${returnList[status.index].startDate}"  >
+												 <input  type="text"  class="form-control startDate"  id="startDate${status.index }" name="startDate" readonly value="${returnList[status.index].startDate}"  >
 												 <input type = "hidden" name = "empId" value = "${loginUser.empId }"></td>
-												
+												 <td rowspan="4"><button class="btn btn-outline-primary btn-lg btn-block" id="extend${status.index }">기간 연장</button>
+												 
+												 </td>
 											</tr>
+											
+											
 											
 											<tr>
 											<th style="vertical-align: center; text-align:center; padding: 35px;">반납 날짜</th>
-											<td colspan="2" ><input id="toDate${status.index }" type="text" class="form-control toDate" name="endDate"  value="${returnList[status.index].endDate}"></td>
+											<td colspan="2" >
+											<form id="postForm${status.index }" action="" method="post">
+											<input type = "hidden" name ="reNo" value ="${returnList[status.index].reNo}">
+											<input id="toDate${status.index }" type="text" class="form-control toDate" name="endDate"  value="${returnList[status.index].endDate}">
+											</form>
+											</td>
 											</tr>
 											
 											<tr>
-												
 												<th scope="col">비품</th>
 												<th scope="col">개수</th>
-											     
 											</tr>
-										</thead> 
-										<tbody>
-										<tr>
-										
-											<td>
-											 <input type = "hidden" name = "reNo" value = "${returnList[status.index].reNo}">
-											${returnList[status.index].suppliesName}</td>
-											<td>${returnList[status.index].counts}</td>
 											
-										</tr>
-										</tbody>
+										    <tr>
+											<td style="background-color: rgba(134, 207, 218, 0.2);">
+											<h6>${returnList[status.index].suppliesName}</h6></td>
+											<td style="background-color: rgba(134, 207, 218, 0.2);"><h6>${returnList[status.index].counts}</h6></td>
+										    </tr>
+										</tbody> 
 									</table>
 									<script>
-								
-				                	
-				                	
+									
+									$("#extend${status.index }").click(function (){
+										
+										var now = new Date();
+										var endDate = $("#toDate${status.index }").val();
+										//console.log(endDate);
+										//console.log("시작 날짜도 ?" + startDate);
+										if ((Date.parse(endDate) <= Date.parse(now))) {
+			                    	        alert("반납연장은 오늘 이후여야 합니다.");
+			                    	        endDate.val('');
+										} else{
+											var postForm = $("#postForm${status.index }");
+											postForm.attr("action", "updateDate.su");
+											postForm.submit();
+											
+										}
+										
+										
+										
+									})
+
 					                	$( "#toDate${status.index }" ).datepicker({
 					                		minDate: new Date(),
 				                    		dateFormat: "yyyy-mm-dd",
 				                    		language:"kr",
 				                    		todaytHightlight : true
-				                			
-				                			
-				                    		
+
 				                    	});  
 
-				                	
 									
 									</script>
 								</c:forEach>
-								
 
-								</div>
-								
-							
-							
+							</div>
+
 							</div><!-- row end -->
 							
 							
-							<button type="submit" class="btn btn-success btn-lg btn-block" >대여 기간 연장</button>
-							</form><!-- form end -->
+			
+							<!-- </form> -->
+							
+							</div>
+							</div>
 							
 							</div>
 
-
+						<jsp:include page="../common/footer.jsp" />
 					</div>
 				</div>
 				<!-- ======================================================================= -->
 
 			</div>
 
-	<jsp:include page="../common/footer.jsp" />
+	
 	<script src="${ pageContext.servletContext.contextPath }/resources/assets/js/bootstrap-datepicker.js"></script>
 	<script src="${ pageContext.servletContext.contextPath }/resources/assets/js/bootstrap-datepicker.kr.min.js"></script>
 	

@@ -41,31 +41,40 @@ public class SuppliesDao {
 	}
 
 
-
 	public int updateSupplies(SqlSessionTemplate sqlSession, Return re) {
-		// TODO Auto-generated method stub
+		
 		return sqlSession.update("suppliesMapper.updateSupplies", re);
 	}
 
 	public int updateSupplies(SqlSessionTemplate sqlSession, ArrayList<Return> re) {
-		// TODO Auto-generated method stub
+		
 		return sqlSession.update("suppliesMapper.updateSupplies", re);
 	}
 
 	public Return selectItem(SqlSessionTemplate sqlSession, int reNo) {
-		// TODO Auto-generated method stub
+		
 		return sqlSession.selectOne("suppliesMapper.updateSupplies", reNo);
 	}
 
 	public int returnSup(SqlSessionTemplate sqlSession, int reNo) {
-		// TODO Auto-generated method stub
+		
 		return sqlSession.delete("suppliesMapper.returnSup", reNo);
 	}
 
 	public int selectListCount(SqlSessionTemplate sqlSession) {
-		// TODO Auto-generated method stub
+		
 		return sqlSession.selectOne("suppliesMapper.selectListCount");
 	}
+
+	public ArrayList<Supplies> mySupList(SqlSessionTemplate sqlSession, String empId) {
+		// TODO Auto-generated method stub
+		return (ArrayList)sqlSession.selectList("suppliesMapper.mySupList", empId);
+	}
+
+
+
+
+
 
 
 

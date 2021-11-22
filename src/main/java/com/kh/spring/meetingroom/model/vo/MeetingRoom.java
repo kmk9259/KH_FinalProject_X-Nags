@@ -21,6 +21,7 @@ public class MeetingRoom {
 	private String empId;
 	private String time;
 	private String status;
+	private String str;
 	
 	public MeetingRoom(int mrNo, String time, String status) {
 		super();

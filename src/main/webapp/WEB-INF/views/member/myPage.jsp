@@ -30,6 +30,18 @@ resize: vertical;
 width:80px;
 }
 
+#meeting{
+text-align: center;
+}
+
+#myTable> tbody>tr> td{
+width: 50%;
+}
+
+#myTable> tbody>tr> td{ myTable
+width: 50%;
+}
+
 
 </style>
 </head>
@@ -237,39 +249,40 @@ width:80px;
 											<div class="pd-20">
 												<div class="profile-timeline">
 												
+												<div class="pd-30 pt-10">
+												<div class="col-lg-8 col-sm-6" style="margin: auto;">  
+												
+												<c:choose>
+											
+											
+												<c:when test="${empty sup}">
+												<div class="alert alert-dark" role="alert" style="text-align: center;">
+												비품 예약이 없습니다.
+												</div>
+												</c:when>  
 													
-													
-					
-														   <div class="clearfix mb-20">
-															<div class="pull-left">
-																<h4 class="text-blue h4">비품 예약 현황</h4>
-															</div>
-															
-														   </div>
-														
-														<table class="table table-bordered" id="myTable">
+												<c:when test="${!empty sup}">
+													<div class="clearfix mb-20">
+															<div class="pull-left"><h4 class="text-blue h4">비품 예약 현황</h4></div>
+													</div>
+													<c:forEach items="${sup}" var="su" varStatus="status">
+													<table class="table table-bordered" id="myTable">
 															 <thead>
 															 	<tr>
-																	 <th style="vertical-align: center;">예약 날짜</th>
-																	<td colspan="" ><input id="fromDate"  name="startDate" value="${ loginEmp.StartDate }" readonly >												
+																	 <th style="width: 50% ;">예약 날짜</th>
+																	<td colspan="" ><input id="fromDate"  name="startDate" value="${su.startDate}" readonly >												
 																</tr>
-																
 																<tr>
 																	 <th>반납 날짜</th>
-																	<td colspan="" ><input id="toDate"  name="endDate" readonly  value="${ loginEmp.endDate }"></td>
+																	<td colspan="" style="width: 50% ;" ><input id="toDate"  name="endDate" readonly  value="${su.endDate}"></td>
 																</tr>
 																<tr>
-																	
-																	<th scope="col">비품</th>
-																	<th scope="col">개수</th>
-																	
-																	
-																	
-						
+																	<th scope="col" style="width: 50% ;" >비품</th>
+																	<th scope="col" style="width: 50% ;">개수</th>
 																</tr>
 																<tr>
-																<td>${loginEmp.suppliesName }</td>
-																<td>${loginEmp.counts }</td>
+																<td>${su.suppliesName}</td>
+																<td>${su.counts}</td>
 																<tr>
 															</thead> 
 															<tbody>
@@ -277,95 +290,83 @@ width:80px;
 																
 															</tbody>
 														</table>
+														</c:forEach>
 															
-													<button type="submit" class="btn btn-primary btn-lg btn-block" >기간 연장 신청</button>
+													<button id="updateSup" class="btn btn-primary btn-lg btn-block" >기간 연장 신청</button>
 													
+													</c:when>
+													</c:choose>
+													 <script>
+													   $(function(){
+														   $("#updateSup").click(function(){
+															   location.href="updateSupForm.su?empId=" + ${ loginUser.empId }
+														   })
+														   
+													   })
+													   </script>
+													
+													</div>
+													</div>
 												
-												</div><!-- 여기?  -->
+												</div>
 											</div>
 										</div>
 										<!-- supplies Tab End -->
 										<!-- meetingRoom Tab start -->
 										<div class="tab-pane fade" id="meetingRoom" role="tabpanel">
-											<div class="pd-20">
-												<div class="profile-timeline">
-													<div class="timeline-month">
-														<h5>August, 2020</h5>
-													</div>
-													<div class="profile-timeline-list">
-														<ul>
-															<li>
-																<div class="date">12 Aug</div>
-																<div class="task-name"><i class="ion-android-alarm-clock"></i> Task Added</div>
-																<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-																<div class="task-time">09:30 am</div>
-															</li>
-															<li>
-																<div class="date">10 Aug</div>
-																<div class="task-name"><i class="ion-ios-chatboxes"></i> Task Added</div>
-																<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-																<div class="task-time">09:30 am</div>
-															</li>
-															<li>
-																<div class="date">10 Aug</div>
-																<div class="task-name"><i class="ion-ios-clock"></i> Event Added</div>
-																<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-																<div class="task-time">09:30 am</div>
-															</li>
-															<li>
-																<div class="date">10 Aug</div>
-																<div class="task-name"><i class="ion-ios-clock"></i> Event Added</div>
-																<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-																<div class="task-time">09:30 am</div>
-															</li>
-														</ul>
-													</div>
-													<div class="timeline-month">
-														<h5>July, 2020</h5>
-													</div>
-													<div class="profile-timeline-list">
-														<ul>
-															<li>
-																<div class="date">12 July</div>
-																<div class="task-name"><i class="ion-android-alarm-clock"></i> Task Added</div>
-																<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-																<div class="task-time">09:30 am</div>
-															</li>
-															<li>
-																<div class="date">10 July</div>
-																<div class="task-name"><i class="ion-ios-chatboxes"></i> Task Added</div>
-																<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-																<div class="task-time">09:30 am</div>
-															</li>
-														</ul>
-													</div>
-													<div class="timeline-month">
-														<h5>June, 2020</h5>
-													</div>
-													<div class="profile-timeline-list">
-														<ul>
-															<li>
-																<div class="date">12 June</div>
-																<div class="task-name"><i class="ion-android-alarm-clock"></i> Task Added</div>
-																<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-																<div class="task-time">09:30 am</div>
-															</li>
-															<li>
-																<div class="date">10 June</div>
-																<div class="task-name"><i class="ion-ios-chatboxes"></i> Task Added</div>
-																<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-																<div class="task-time">09:30 am</div>
-															</li>
-															<li>
-																<div class="date">10 June</div>
-																<div class="task-name"><i class="ion-ios-clock"></i> Event Added</div>
-																<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-																<div class="task-time">09:30 am</div>
-															</li>
-														</ul>
-													</div>
-												</div>
+											<div class="pd-30 pt-10">
+											<div class="col-lg-8 col-sm-6" style="margin: auto; padding-top: 50px;">
+											
+											<c:choose>
+											
+											
+											<c:when test="${empty mroom}">
+											<div class="alert alert-dark" role="alert" style="text-align: center;">
+											회의실 예약이 없습니다.
 											</div>
+											</c:when>
+											
+											<c:when test="${!empty mroom}">
+											
+											<c:forEach items="${mroom}" var="mr" varStatus="status">
+														
+											<table class="table table-bordered" id="meeting">
+											<c:if test="${mr.mrNo eq '1'}" >
+											<thead><tr><td style="background-color: rgba(134, 207, 218, 0.2);"> 회의실 1</td><tr></thead>
+											</c:if>
+															
+											<c:if test="${mr.mrNo  eq '2'}">
+											<thead><tr><td style="background-color: rgba(255, 223, 126, 0.2);"> 회의실 2</td><tr></thead>
+											</c:if>
+															
+											<c:if test="${mr.mrNo  eq '3'}">
+											<thead><tr><td style="background-color: rgba(143, 209, 158, 0.2);"> 회의실 3</td><tr></thead>
+											</c:if>
+															
+											<c:if test="${mr.mrNo  eq '4'}">
+											<thead><tr><td style="background-color: rgba(237, 150, 158, 0.2);"> 회의실 4</td><tr></thead>
+											</c:if>
+															
+											<tbody><tr><td>${mr.str }</td></tr></tbody>
+											</table>
+													       
+													       
+											</c:forEach>
+											<button class="btn btn-success btn-lg btn-block meetingDetail">회의실 예약 변경하러 가기</button>
+											</c:when>
+											</c:choose>
+												
+											<script>
+												$(function(){
+													   
+													   $(".meetingDetail").click(function(){
+														   location.href="meetingDetail.me?empId=" + ${ loginUser.empId }
+													   })
+												   })
+											</script>
+												
+											</div>
+											</div><!-- outer -->
 										</div>
 										<!-- Timeline Tab End -->
                                     </div>
