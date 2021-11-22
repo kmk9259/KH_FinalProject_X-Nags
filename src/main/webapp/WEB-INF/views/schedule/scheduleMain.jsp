@@ -21,6 +21,15 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/css/main.css">
+<style>
+.logo> form > .light-logo{
+ margin-left: 60px;
+ margin-bottom: 20px;
+ margin-top: 50px;
+ height: 80px;
+ width: 150px;
+}
+</style>
 </head>
 <body>
 <script type="text/javascript">
@@ -30,7 +39,7 @@ var username =  '${username}';
 
 <%-- 	<jsp:include page="../common/menubar.jsp" />  --%>
 
-
+<%-- <jsp:include page="../schedule/scMenubar.jsp" /> --%>
 	  <div class="container">
 
         <!-- 일자 클릭시 메뉴오픈 -->
@@ -43,8 +52,140 @@ var username =  '${username}';
                 <li><a tabindex="-1" href="#" data-role="close">Close</a></li>
             </ul>
         </div>
-
-
+ 		 	<div class="logo" style="background-color: black">
+        
+           <form action="main.xnags" method="post"> 
+                <input type="image"  src="${ pageContext.servletContext.contextPath }/resources/images/logo/logowhite.png" onClick="login(e);" class="light-logo" >
+				<input type="hidden" name="empId" value="${ sessionScope.loginUser.empId }">
+                
+           </form>
+            
+            <div class="close-sidebar" data-toggle="left-sidebar-close">
+                <i class="ion-close-round"></i>
+            </div>
+			</div> 
+			
+	<%-- 		 <div class="left-side-bar" style="background-color: black">
+        <div class="logo">
+        
+           <form action="main.xnags" method="post"> 
+                <input type="image"  src="${ pageContext.servletContext.contextPath }/resources/images/logo/logowhite.png" onClick="login(e);" class="light-logo">
+				<input type="hidden" name="empId" value="${ sessionScope.loginUser.empId }">
+                
+           </form>
+            
+            <div class="close-sidebar" data-toggle="left-sidebar-close">
+                <i class="ion-close-round"></i>
+            </div>
+        </div><br><br>
+        <div class="menu-block customscroll">
+            <div class="sidebar-menu">
+                <ul id="accordion-menu">
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon dw dw-house-1"></span><span class="mtext">홈</span>
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="datePicker">로그인 후 메인화면</a></li>
+                        </ul>
+                    </li>
+                    
+                     <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon dw dw-house-1"></span><span class="mtext">전자 메일</span>
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="insertForm.ml">메일 작성</a></li>
+                            <li><a href="receiveList.ml">받은 메일함</a></li>
+                            <li><a href="sendList.ml">보낸 메일함</a></li>
+                            <li><a href="waste.ml">휴지통</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon dw dw-house-1"></span><span class="mtext">전자 결재</span>
+                        </a>
+                        <ul class="submenu">
+                           <li class="dropdown">
+                                <a href="javascript:;" class="dropdown-toggle">
+                                    <span class="micon dw dw-house-1"></span><span class="mtext">결재 서류 작성</span>
+                                </a>
+                                <ul class="submenu child">
+                                    <li><a href="certificateForm.ap">증명서 신청</a></li>
+                                    <li><a href="holidayForm.ap">휴가 신청</a></li>
+                                    <li><a href="overtimeForm.ap">연장근무 신청</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="apping.ap">진행중 결재함</a></li>
+                            <li><a href="askapp.ap">결재 요청함</a></li>
+                            <li><a href="apped.ap">완료 결재함</a></li>
+                        </ul>
+                        
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon dw dw-house-1"></span><span class="mtext">커뮤니티</span>
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="voting.vo">투표 게시판</a></li>
+                            <li><a href="list.bo">익명 게시판</a></li>
+                            <li><a href="notice.bo">공지 사항</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon dw dw-house-1"></span><span class="mtext">근태 관리</span>
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="attendanceMy.att">내 근태 현황</a></li>
+                            <li><a href="attendanceDay.att">일별 근태 현황</a></li>
+                            <li><a href="attendanceMonth.att">월별 근태 현황</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon dw dw-house-1"></span><span class="mtext">근무 일정 관리</span>
+                        </a>
+                        <ul class="submenu">
+							   <li><a href="main.sc">근무 일정</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon dw dw-apartment"></span><span class="mtext">시스템 관리</span>
+                        </a>
+                        <ul class="submenu">
+							<li><a href="enrollEmp.me">사원 등록 </a></li>
+                            <li><a href="listEmp.me">사원 조회 </a></li>
+                            <li><a href="supplies.me">비품 예약 </a></li>
+                            <li class="updateSup" type="button"><a>비품 기간 연장 </a></li>
+                            <li><a href="return.me">비품 반납 </a></li>
+                            <li><a href="meetingRoom.me">회의실 예약 </a></li>
+                            
+                        </ul>
+                    </li>
+                  </ul>
+        	 </div>
+      	</div>
+   </div> 
+   <script>
+   $(function(){
+	   var test = $(".updateSup a").text();
+	   var empId = $(".test").text();
+	   console.log("empId   " + empId);
+	   console.log(" test " + test);
+	   
+	   $(".updateSup a").click(function(){
+		   location.href="updateSupForm.su?empId=" + ${ loginUser.empId }
+	   })
+   })
+   </script>
+  --%>
+			
+			
+			
+			
+			
         <div id="wrapper">
             <div id="loading"></div>
             <div id="calendar"></div>
@@ -178,7 +319,7 @@ var username =  '${username}';
     </div>
     <!-- /.container -->
     
-   <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/jquery.min.js"></script>
+ <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/jquery.min.js"></script>
      <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/bootstrap.min.js"></script> 
      
   	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/moment.min.js"></script>
@@ -196,6 +337,6 @@ var username =  '${username}';
     <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/js/etcSetting.js"></script>
      <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/data.json"></script> 
 
- 	<jsp:include page="../common/footer.jsp" />
+ 	<jsp:include page="../schedule/scFooter.jsp" />
 </body>
 </html>
