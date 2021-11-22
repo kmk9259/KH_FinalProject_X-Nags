@@ -91,21 +91,14 @@ width:80px;
 }
 
 
-
 </style>
-
 
 <link href="${ pageContext.servletContext.contextPath }/resources/assets/js/bootstrap-datepicker3.css" rel="stylesheet" />
 <link href="${ pageContext.servletContext.contextPath }/resources/assets/js/bootstrap-datepicker3.standalone.css" rel="stylesheet" />
 </head>
 <body>
+	
 	<jsp:include page="../common/menubar.jsp" />
-	<!-- ================================================================================= -->
-
-
-
-
-
 
 	<div class="main-container" aria-labelledby="headingOne">
 		<div class="pd-ltr-20 xs-pd-20-10">
@@ -131,17 +124,24 @@ width:80px;
 
 
 				<div class="pd-20 card-box mb-30">
-						<div class="clearfix mb-20">
+					<!-- 	<div class="clearfix mb-20">
 							<div class="pull-left">
 								<h4 class="text-blue h4">비품 예약하기</h4>
 							</div>
-						</div>
+						</div> -->
+						
+						
+ 						  
 						
 					<form id="enrollForm" method="post" action="insertSup.su">
 					 <input type = "hidden" name = "empId" value = "${loginUser.empId }"> 
 					<div class="row">
 					
 						<div class="col-md-4 col-sm-12 dateRage">
+						
+						<div class="clearfix mb-20">
+								<div class="pull-left"><h4 class="text-blue h4">날짜 선택</h4></div>
+						  </div>
 							
 								<div class="form-group ">
 									<label>예약 날짜</label>
@@ -154,14 +154,52 @@ width:80px;
 								<div class="form-group">
 									<label>반납 날짜</label> <input type="text" id="endDate" class="form-control startDate">
 								</div>
-								<button type="button" class="btn btn-success btn-lg btn-block" id="btn1" onclick="input1()">대여 기간 등록</button>
+								<button type="button" data-toggle="modal" class="btn btn-success btn-lg btn-block" id="btn1" onclick="input1()">대여 기간 등록</button>
 								
 								
 						</div>
 						
+						<!-- 날짜 입력 관련 팝업 01 -->
+							<div class="modal fade" id="warning-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+								<div class="modal-dialog modal-sm modal-dialog-centered">
+									<div class="modal-content bg-warning">
+										<div class="modal-body text-center">
+											<h3 class="mb-15"><i class="fa fa-exclamation-triangle"></i> 경고</h3>
+											<p>날짜를 입력해 주세요.</p>
+											<button type="button" class="btn btn-dark" data-dismiss="modal">Ok</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<!-- 날짜 입력 관련 팝업 02 -->
+							<div class="modal fade" id="warning-modal2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+								<div class="modal-dialog modal-sm modal-dialog-centered">
+									<div class="modal-content bg-warning">
+										<div class="modal-body text-center">
+											<h3 class="mb-15"><i class="fa fa-exclamation-triangle"></i> 경고</h3>
+											<p>오늘날짜 이후로 선택해 주세요.</p>
+											<button type="button" class="btn btn-dark" data-dismiss="modal">Ok</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<!-- 날짜 입력 관련 팝업 03 -->
+							<div class="modal fade" id="warning-modal3" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+								<div class="modal-dialog modal-sm modal-dialog-centered">
+									<div class="modal-content bg-warning">
+										<div class="modal-body text-center">
+											<h3 class="mb-15"><i class="fa fa-exclamation-triangle"></i> 경고</h3>
+											<p>반납일은 예약일 이후여야 합니다.</p>
+											<button type="button" class="btn btn-dark" data-dismiss="modal">Ok</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						
 						<script>
 	
-
 		                	   $( "#startDate" ).datepicker({
 		                    		dateFormat: "yyyy-mm-dd",
 		                    		minDate: new Date(),
@@ -170,46 +208,55 @@ width:80px;
 
 		                   	   });  
 		                	
-		                	
 			                	$( "#endDate" ).datepicker({
 			                		minDate: new Date(),
 		                    		dateFormat: "yyyy-mm-dd",
 		                    		language:"kr",
 		                    		todaytHightlight : true
 		                			
-		                			
-		                    		
 		                    	});  
 		                	
 
 						
 						function input1(){
-
 							
 	                    	    var startDate = document.getElementById("startDate").value;
 	                    	    var endDate = document.getElementById("endDate").value;
+	                    	    var now = new Date();
 	                    	  
 	                    	    var fromDate=document.getElementById("fromDate");
 	                    	    var toDate=document.getElementById("toDate");
 
+	                    	    
+	                    	    if(startDate == "" || endDate == ""){
+	                    	    	 $("#btn1").attr('data-target','#warning-modal');
+	                    	    	
+	                    	    }
+	                    	    
+	                    	    if ((Date.parse(startDate) <= Date.parse(now))) {
+	                    	        
+	                    	        $("#btn1").attr('data-target','#warning-modal2');
+	                    	        document.getElementById("startDate").value = "";
+	                    	        
+	                    	    }
+	                    	    
 	                    	    if ((Date.parse(endDate) <= Date.parse(startDate))) {
-	                    	        alert("반납일은 시작일 이후여야 합니다.");
+	                    	    	$("#btn1").attr('data-target','#warning-modal3');
 	                    	        document.getElementById("endDate").value = "";
 	                    	        
 	                    	    }else{
 	                    	    	
+	                    	    	$("#btn1").removeAttr('data-target','#warning-modal3');
 	                    	    	fromDate.value = startDate;
 	                    	    	toDate.value = endDate;
 	                    	    	
 	                    	    }
-	                    	
-	    
-							
+	                    	    
+	                    	    
+	                    	    	
+	                    	   
+	              
 							} 
-						
-
-	
-						
 						
 						</script>
 						
@@ -217,21 +264,16 @@ width:80px;
 						
 						
  						<div class="col-md-4 col-sm-12" style="padding-left: 50px; padding-right: 50px;">
- 						
- 						
- 						
- 									<div class="clearfix mb-20">
-										<div class="pull-left">
-											<h4 class="text-blue h4">비품 목록</h4>
-											
-										</div>
-										
-									</div>
+ 						  <div class="clearfix mb-20">
+								<div class="pull-left"><h4 class="text-blue h4">비품 목록</h4></div>
+						  </div>
  						
  						  <c:forEach items="${supList}" var="st" varStatus="status">
  						          <div class="mb-4">
  						          		<input type="hidden" id="suppliesCode${status.index +1}" value="${st.suppliesCode }">
-										<input type="checkbox" name="supplies" class="styled-checkbox" id="styled-checkbox-${status.index+1 }" value="${st.suppliesName}">
+ 						          		<!--  data-toggle="modal" data-target="#alert-modal"  -->
+										<input type="checkbox"  data-toggle="modal" name="supplies" class="styled-checkbox" id="styled-checkbox-${status.index+1 }" value="${st.suppliesName}">
+										
 										<label for="styled-checkbox-${status.index+1 }"class="it${status.index+1 }">${st.suppliesName}</label>
 										<div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
 										<span class="input-group-btn input-group-prepend"></span>
@@ -239,121 +281,205 @@ width:80px;
 										<span class="input-group-btn input-group-append">
 										</span></div>
 									</div>
+								
+								<!-- 모달 팝업  -->
+								<div class="modal fade " id="alert-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-modal="true">
+								<div class="modal-dialog modal-sm modal-dialog-centered" > 
+									<div class="modal-content bg-danger text-white">
+										<div class="modal-body text-center">
+											<h3 class="text-white mb-15"><i class="fa fa-exclamation-triangle"></i>입력 오류</h3>
+											<p>"먼저 숫자를 입력하세요. 0 보다 큰 숫자이어야 합니다."</p>
+											<button type="button" class="btn btn-light" data-dismiss="modal">Ok</button>
+										</div>
+									</div>
+								</div>
+							   </div>
+							   
+							   
+						      
 						 	
-								
-								
 								<script>
 								
-								
 								 $(document).ready(function() {
+									 
+									 
+									
+									 
 									$('#styled-checkbox-${status.index+1 }').on('click', function(){
 										if($(this).prop('checked')){
 											
-											var html = "";
-											var count = $("#item0${status.index +1}").val();
+											 console.log($("#item0${status.index +1}").val())
+											 if($("#item0${status.index +1}").val() == '0') {
+												 
+												 $("#styled-checkbox-${status.index+1 }").attr('data-target','#alert-modal');
+												 $(this).prop('checked', false); 
+											 }else{
 											
-											 html +='<tr>'; 
-											 html +='<td  class="it${status.index +1}"><input type="hidden" id="code" name="suppliesCode" value="'+$("#suppliesCode${status.index +1}").val()+'"><input class="item" name="suppliesName" value="'+ $(this).val()+'"readonly/>'+ '</td>';
-											 html +='<td><input class="count" name="counts" value="'+count+'"readonly/>' +  '</td>';
-											/*  html +='<td><button type="submit" class="btn btn-primary">삭제</button></td>'; */
-											 html +='</tr>';
+											 $("#styled-checkbox-${status.index+1 }").removeAttr('data-target','#alert-modal');
+											 $(this).prop('checked', true); 
+											 var html = "";
+												var count = $("#item0${status.index +1}").val();
+													
+												html +='<tr>'; 
+												html +='<td  class="it${status.index +1}"><input type="hidden" id="code" name="suppliesCode" value="'+$("#suppliesCode${status.index +1}").val()+'"><input class="item" name="suppliesName" value="'+ $(this).val()+'"readonly/>'+ '</td>';
+												html +='<td><input class="count" name="counts" value="'+count+'"readonly/>' +  '</td>';
+												html +='</tr>';
+												$("#myTable").append(html); 
+												 
+											 }
+											
 											 
-											$("#myTable").append(html);
+											 var trlist = $("#myTable>tbody>tr").length;
+											 
+											 console.log("after "+trlist)
+											
 											
 										}else{
-											//console.log($(".it${status.index+1}:eq(1) .item").val())
 											if($(".it${status.index+1}:eq(1) .item").val() === $(this).val()) {
 												var tr = $(".it${status.index+1}:eq(1)").parent();
 												tr.remove();
 											} 
-												
-											
-
-										
-											
-											
 										}
 									})
+									
 								}); 
 								
 								
-								
-							
-								
 								</script>
+							</c:forEach>
+						</div>
 								
-								</c:forEach>
-					
-									
-									
-									
-									
-									
-								
-								
-								</div>
-								
-								
-						
-								
-								<div class="col-md-4 col-sm-12">
-								
-					
-									<div class="clearfix mb-20">
-										<div class="pull-left">
-											<h4 class="text-blue h4">비품 예약</h4>
-											<p>선택한 비품 목록</p>
-										</div>
-										
-									</div>
+						<div class="col-md-4 col-sm-12">
+							<div class="clearfix mb-20">
+							<div class="pull-left">
+									<h4 class="text-blue h4">비품 예약</h4>
+									<p>선택한 비품 목록</p>
+							</div>
+							</div>
 									
 									<table class="table table-bordered" id="myTable">
 										 <thead>
 										 	<tr>
-												 <th style="vertical-align: center;">예약 날짜</th>
-												<td colspan="" ><input id="fromDate"  name="startDate" readonly >
-												<%-- <input type = "hidden" name = "empId" value = "${loginUser.empId }"> --%></td>
-												
+												<th style="vertical-align: center;">예약 날짜</th>
+												<td><input id="fromDate"  name="startDate" readonly >
 											</tr>
 											
 											<tr>
-												 <th>반납 날짜</th>
-												<td colspan="" ><input id="toDate"  name="endDate" readonly></td>
+												<th>반납 날짜</th>
+												<td><input id="toDate"  name="endDate" readonly></td>
 											</tr>
+											
 											<tr>
-												
 												<th scope="col">비품</th>
 												<th scope="col">개수</th>
-												<!-- <th scope="col">삭제</th> -->
 											</tr>
+											
 										</thead> 
-										<tbody>
-											
-											
-										</tbody>
+										<tbody><!-- 동적 테이블 --></tbody>
 									</table>
-
+								<button id="booking" data-toggle="modal" data-target="" class="btn btn-primary btn-lg btn-block" >비품 예약 신청</button>
 								
 								
-								<button type="submit" class="btn btn-primary btn-lg btn-block" >비품 예약 신청</button>
+								<!-- 확인 창 모달 팝업 -->
+								<div class="modal fade" id="confirmation-modal2" tabindex="-1" role="dialog" aria-hidden="true">
+								<div class="modal-dialog modal-dialog-centered" role="document">
+									<div class="modal-content">
+										<div class="modal-body text-center font-18">
+											<h4 class="padding-top-30 mb-30 weight-500">비품 대여 목록을 확인 하였으며, 진행 하시겠습니까? </h4>
+											<div class="padding-bottom-30 row" style="max-width: 170px; margin: 0 auto;">
+												<div class="col-6">
+													<button type="button" class="btn btn-secondary border-radius-100 btn-block confirmation-btn" data-dismiss="modal"><i class="fa fa-times"></i></button>
+													NO
+												</div>
+												<div class="col-6">
+													<button type="submit" class="btn btn-primary border-radius-100 btn-block confirmation-btn" data-dismiss="modal"><i class="fa fa-check"></i></button>
+													YES
+												</div>
+											</div>
+										</div>
+									</div>
+								  </div>
 								</div>
 								
+								
+								<!-- 모달 팝업2  -->
+							   <div class="modal fade " id="alert-modal2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-modal="true">
+								<div class="modal-dialog modal-sm modal-dialog-centered" > 
+									<div class="modal-content bg-danger text-white">
+										<div class="modal-body text-center">
+											<h3 class="text-white mb-15"><i class="fa fa-exclamation-triangle"></i>입력 오류</h3>
+											<p>"비품을 선택하세요 !"</p>
+											<button type="button" class="btn btn-light" data-dismiss="modal">Ok</button>
+										</div>
+									</div>
+								</div>
+							   </div>
+							   
+							   <!-- 예약 날짜 모달 팝업1  -->
+							   <div class="modal fade " id="alert-modal3" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-modal="true">
+								<div class="modal-dialog modal-sm modal-dialog-centered" > 
+									<div class="modal-content bg-danger text-white">
+										<div class="modal-body text-center">
+											<h3 class="text-white mb-15"><i class="fa fa-exclamation-triangle"></i>입력 오류</h3>
+											<p>"예약 날짜를 선택하세요 "</p>
+											<button type="button" class="btn btn-light" data-dismiss="modal">Ok</button>
+										</div>
+									</div>
+								</div>
+							   </div>
+							   
+							   <!-- 반납 날짜 모달 팝업2  -->
+							   <div class="modal fade " id="alert-modal4" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-modal="true">
+								<div class="modal-dialog modal-sm modal-dialog-centered" > 
+									<div class="modal-content bg-danger text-white">
+										<div class="modal-body text-center">
+											<h3 class="text-white mb-15"><i class="fa fa-exclamation-triangle"></i>입력 오류</h3>
+											<p>"반납날짜를 선택하세요."</p>
+											<button type="button" class="btn btn-light" data-dismiss="modal" id="ok">Ok</button>
+										</div>
+									</div>
+								</div>
+							   </div>
 							
+						 </div>
+						 </div><!-- row end -->
+						 </form><!-- form end -->
+						 </div>
+						 
+						 <script type="text/javascript">
+						 $("#booking").click(function(){
+							 
+							var trlist = $("#myTable>tbody>tr").length;
 							
-							</div><!-- row end -->
-							
-							</form><!-- form end -->
-										
-							</div>
+							if($("#fromDate").val() == "" ){
+								$("#booking").attr('data-target','#alert-modal3');
+								alert("예약 날짜를 선택해주세요.")
+								return false;
+							}else if($("#toDate").val() == "" ){
+								$("#booking").attr('data-target','#alert-modal4');
+								alert("반납 날짜를 선택해주세요.")
+								return false;
+							}else if(trlist <= 0){
+								alert("비품을 선택해 주세요.")
+								$("#booking").attr('data-target','#alert-modal2');
+								return false;
+							}else{
+								//$("#booking").attr('data-target','#confirmation-modal2');
+								//return false;
+							}
 
+							
+						 })
+						 
+						 </script>
 
+						<jsp:include page="../common/footer.jsp" />
 					</div>
 				</div>
-				<!-- ======================================================================= -->
 
 			</div>
 
-	<jsp:include page="../common/footer.jsp" />
+	
 	<script src="${ pageContext.servletContext.contextPath }/resources/assets/js/bootstrap-datepicker.js"></script>
 	<script src="${ pageContext.servletContext.contextPath }/resources/assets/js/bootstrap-datepicker.kr.min.js"></script>
 	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/slick/slick.min.js"></script>

@@ -33,6 +33,8 @@ public class Return {
 	private Date endDate;
 	private String status;
 	
+	private String userName;
+	
 
 	
 	

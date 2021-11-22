@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,20 +10,16 @@
 	<!-- The main CSS file -->
 	<link href="${ pageContext.servletContext.contextPath }/resources/assets/css/style2.css" rel="stylesheet" />
 	
+	
+	<style type="text/css">
+	#fromDate, #toDate{
+	border: none;
+	}
+	
+	</style>
 </head>
 <body>
-    <!--<div class="pre-loader">
-        <div class="pre-loader-box">
-            <div class="loader-logo"><img src="resources/vendors/images/deskapp-logo.svg" alt=""></div>
-            <div class='loader-progress' id="progress_div">
-                <div class='bar' id='bar1'></div>
-            </div>
-            <div class='percent' id='percent1'>80%</div>
-            <div class="loading-text">
-                Loading...
-            </div>
-        </div>
-    </div>-->
+
 	<jsp:include page="common/menubar.jsp"/>
 	
     
@@ -159,18 +156,148 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xl-8 mb-30">
-                    <div class="card-box height-100-p pd-20">
-                        <h2 class="h4 mb-20">Activity</h2>
-                        <div id="chart5"></div>
+   
+                <div class="col-xl-4 mb-30">
+                    <div class="card-box height-100-p pd-20" style="height: 500px; overflow: auto;">
+                        
+                        
+                        
+                        <div class="pd-30 pt-10">
+						<div class="col-lg-12"> 
+						   
+						<div class="clearfix mb-20">
+						<div class="pull-left"><h4 class="text-blue h4">비품 예약 현황</h4></div>
+						</div>
+						
+						<c:choose>
+											
+						<c:when test="${empty sup}">
+						<div class="alert alert-dark" role="alert" style="text-align: center;">
+						비품 예약이 없습니다.
+						</div>
+						</c:when>  
+						<c:when test="${!empty sup}">
+						
+						<c:forEach items="${sup}" var="su" varStatus="status">
+						<table class="table table-bordered" id="myTable">
+						<tbody>
+						<tr>
+						<th style="width: 50% ;">예약 날짜</th>
+						<td colspan="" ><input id="fromDate"  name="startDate" value="${su.startDate}" readonly >												
+						</tr>
+						<tr>
+						
+						<th>반납 날짜</th>
+						<td colspan="" style="width: 50% ;" ><input id="toDate"  name="endDate" readonly  value="${su.endDate}"></td>
+						</tr>
+						<tr>
+						<th scope="col" style="width: 50% ;" >비품</th>
+						<th scope="col" style="width: 50% ;">개수</th>
+						</tr>
+						<tr>
+						<td>${su.suppliesName}</td>
+						<td>${su.counts}</td>
+						<tr>
+						</tbody> 
+						
+						</table>
+						</c:forEach>
+						
+						<button id="updateSup" class="btn btn-primary btn-lg btn-block" >기간 연장 신청</button>
+						
+						</c:when>
+						</c:choose>
+												
+						<script>
+							 $(function(){
+								 $("#updateSup").click(function(){
+										 location.href="updateSupForm.su?empId=" + ${ loginUser.empId }
+								 })
+														   
+							})
+						</script>
+													
+						</div>
+						</div>
+                        
+                        
+                        
+                        
                     </div>
                 </div>
-                <div class="col-xl-4 mb-30">
+                
+                 <div class="col-xl-4 mb-30">
+                    <div class="card-box height-100-p pd-20" style="height: 500px; overflow: auto;">
+                        
+                        
+                        <div class="pd-30 pt-10">
+						<div class="col-lg-12">
+						<div class="clearfix mb-20">
+						<div class="pull-left"><h4 class="text-blue h4">회의실 예약 현황</h4></div>
+						</div>
+											
+						<c:choose>
+											
+											
+						<c:when test="${empty mroom}">
+						<div class="alert alert-dark" role="alert" style="text-align: center;">
+						회의실 예약이 없습니다.
+						</div>
+						</c:when>
+											
+						<c:when test="${!empty mroom}">
+						<c:forEach items="${mroom}" var="mr" varStatus="status">
+														
+						<table class="table table-bordered" id="meeting">
+						<c:if test="${mr.mrNo eq '1'}" >
+						<thead><tr><td style="background-color: rgba(134, 207, 218, 0.2);"> 회의실 1</td><tr></thead>
+						</c:if>
+															
+						<c:if test="${mr.mrNo  eq '2'}">
+						<thead><tr><td style="background-color: rgba(255, 223, 126, 0.2);"> 회의실 2</td><tr></thead>
+						</c:if>
+															
+						<c:if test="${mr.mrNo  eq '3'}">
+						<thead><tr><td style="background-color: rgba(143, 209, 158, 0.2);"> 회의실 3</td><tr></thead>
+						</c:if>
+															
+						<c:if test="${mr.mrNo  eq '4'}">
+						<thead><tr><td style="background-color: rgba(237, 150, 158, 0.2);"> 회의실 4</td><tr></thead>
+						</c:if>
+															
+						<tbody><tr><td>${mr.str }</td></tr></tbody>
+						</table>
+													       
+													       
+						</c:forEach>
+						<button class="btn btn-success btn-lg btn-block meetingDetail">회의실 예약 변경하러 가기</button>
+						</c:when>
+						</c:choose>
+												
+						<script>
+						$(function(){
+													   
+							$(".meetingDetail").click(function(){
+									location.href="meetingDetail.me?empId=" + ${ loginUser.empId }
+							})
+						})
+						</script>
+												
+						</div>
+						</div><!-- outer -->
+                        
+                        
+                        
+                    </div>
+                </div>
+                
+                 <div class="col-xl-4 mb-30">
                     <div class="card-box height-100-p pd-20">
                         <h2 class="h4 mb-20">Lead Target</h2>
                         <div id="chart6"></div>
                     </div>
                 </div>
+                
             </div>
             
             <jsp:include page="common/footer.jsp"/>

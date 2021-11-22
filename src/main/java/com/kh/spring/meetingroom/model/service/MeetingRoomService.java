@@ -21,4 +21,22 @@ public interface MeetingRoomService {
 
 	void insertMeetingA(MeetingRoom mr);
 
+	void insertMeetingB(MeetingRoom mr);
+
+	void insertMeetingC(MeetingRoom mr);
+
+	void insertMeetingD(MeetingRoom mr);
+
+	ArrayList<MeetingRoom> reservedMeeting(String empId);
+
+	ArrayList<MeetingRoom> meetingDetail(String empId);
+
+	void cancelMeetingA(MeetingRoom mr);
+
+	void cancelMeetingB(MeetingRoom mr);
+
+	void cancelMeetingC(MeetingRoom mr);
+
+	void cancelMeetingD(MeetingRoom mr);
+
 }

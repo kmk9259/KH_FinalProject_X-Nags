@@ -30,14 +30,12 @@ display: none;
 <body>
 
 	<jsp:include page="../common/menubar.jsp" />
-	<!-- ================================================================================= -->
+	
 
 
 	<div class="mobile-menu-overlay"></div>
 
 
-
-	<!-- ===================개인정보 입력=============== -->
 
 	<div class="main-container" aria-labelledby="headingOne">
 		<div class="pd-ltr-20 xs-pd-20-10">
@@ -68,19 +66,14 @@ display: none;
 							<h4 class="text-blue h4">사원 정보 목록</h4>
 							<p>사원 정보 입니다</p>
 						</div>
+				</div>
 					
-					</div>
+				<div class="table-responsive">
+				<!-- <div class="table hover multiple-select-row data-table-export nowrap"> -->
 					
-					
-
-
-					
-					<div class="table-responsive">
-					
-						<table id="employeeAll" class=" table table-striped hover" style="text-align:center;">
+						<table id="emplist" class=" table table-striped hover" style="text-align:center;">
 							<thead>
 								<tr>
-									
 									<th class="table-plus datatable-nosort">사원아이디</th>
 									<th>사원 이름</th>
 									<th>직급코드</th>
@@ -96,7 +89,6 @@ display: none;
 							<c:forEach items="${list}" var="emp">
 							
 								<tr> 
-								
 								<td>${emp.empId } </td>
 								<td>${emp.userName }</td>
 								<td>${emp.jobName }</td>
@@ -153,6 +145,50 @@ display: none;
 							</tbody>
 						</table>
 					</div>
+					
+					
+					
+			<!-- 페이징 처리  --><br><br>
+	
+			<div id="pagingArea">
+                <ul class="pagination">
+                	<c:choose>
+                		<c:when test="${ pi.currentPage ne 1 }">
+                			<li class="page-item"><a class="page-link" href="listEmp.me?currentPage=${ pi.currentPage-1 }">Previous</a></li>
+                		</c:when>
+                		<c:otherwise>
+                			<li class="page-item disabled"><a class="page-link" href="">Previous</a></li>
+                		</c:otherwise>
+                	</c:choose>
+                	
+                    <c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
+                    	<c:choose>
+	                		<c:when test="${ pi.currentPage ne p }">
+                    			<li class="page-item"><a class="page-link" href="listEmp.me?currentPage=${ p }">${ p }</a></li>
+	                		</c:when>
+	                		<c:otherwise>
+	                			<li class="page-item disabled"><a class="page-link" href="">${ p }</a></li>
+	                		</c:otherwise>
+	                	</c:choose>
+                    </c:forEach>
+                    
+                    
+                    <c:choose>
+                		<c:when test="${ pi.currentPage ne pi.maxPage }">
+                			<li class="page-item"><a class="page-link" href="listEmp.me?currentPage=${ pi.currentPage+1 }">Next</a></li>
+                		</c:when>
+                		<c:otherwise>
+                			<li class="page-item disabled"><a class="page-link" href="listEmp.me?currentPage=${ pi.currentPage+1 }">Next</a></li>
+                		</c:otherwise>
+                	</c:choose>
+                </ul>
+            </div>
+            
+            <!-- 페이징 처리 끝 -->
+					
+					
+					
+					
 			
 
 				</div><!-- 반응형 테이블 끝 -->
@@ -160,9 +196,16 @@ display: none;
 			<script>
 			$(function() {
 				
-				$('#employeeAll').dataTable({
+				/*API 초기 화 */
+				$('#emplist').dataTable({
 					  "bPaginate": false,
-					  "aaSorting": []
+					  "aaSorting": [],
+					  buttons: [{
+				      extend: 'csvHtml5',
+				      text: 'Export CSV',
+				      footer: true,
+				      className: 'exportBtn'
+				        }]
 					 });
 				
 				
@@ -186,19 +229,7 @@ display: none;
 			    
 			    var hh = $("#employeeAll tbody tr").children().eq(0).text();
 			    console.log("hh " + hh)
-			    
-				/*각각 테이블 tr 별로 for 문으로 인덱스 구해서 새로운 view 클릭 */
-			    
-			   /*  for(var i =0; i<$("#salary tbody tr").length; i++){
-			    	
-			    	$("#salary tbody tr:eq("+i+") td:eq(8) .dropdown-menu-icon-list a:eq(0)").click(function(){
-			    		
-			    		
-			    		location.href="empDetail.me?empId=" +  $(this).parent().parent().parent().parent().children().eq(0).text(); 
-				    });
-			    } */
-			    
-			    
+			   
 			    
 			    /*각각 테이블 tr 별로 for 문으로 인덱스 구해서*/
 			    
@@ -236,91 +267,23 @@ display: none;
 			    } 
 			    
 			    
-				/* 테이블 정렬 관련 함수 시작 */
-				//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css
-				//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js
-				
-				 
-				/* $('#reset').click( function (e) {
-				    table.colReorder.reset();
-				} ); */
-				
-				 /* $('#employeeAll').DataTable({
-				        searchPanes: {
-				            viewTotal: true
-				        },
-				        dom: 'Plfrtip'
-				    }); */
-				    
-				
-			    
 			});
 			  
 
          </script>
 				
-				
-				
-				
-	<!-- 페이징 처리  -->
+
 	
-	<div id="pagingArea">
-                <ul class="pagination">
-                	<c:choose>
-                		<c:when test="${ pi.currentPage ne 1 }">
-                			<li class="page-item"><a class="page-link" href="listEmp.me?currentPage=${ pi.currentPage-1 }">Previous</a></li>
-                		</c:when>
-                		<c:otherwise>
-                			<li class="page-item disabled"><a class="page-link" href="">Previous</a></li>
-                		</c:otherwise>
-                	</c:choose>
-                	
-                    <c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
-                    	<c:choose>
-	                		<c:when test="${ pi.currentPage ne p }">
-                    			<li class="page-item"><a class="page-link" href="listEmp.me?currentPage=${ p }">${ p }</a></li>
-	                		</c:when>
-	                		<c:otherwise>
-	                			<li class="page-item disabled"><a class="page-link" href="">${ p }</a></li>
-	                		</c:otherwise>
-	                	</c:choose>
-                    </c:forEach>
-                    
-                    
-                    <c:choose>
-                		<c:when test="${ pi.currentPage ne pi.maxPage }">
-                			<li class="page-item"><a class="page-link" href="listEmp.me?currentPage=${ pi.currentPage+1 }">Next</a></li>
-                		</c:when>
-                		<c:otherwise>
-                			<li class="page-item disabled"><a class="page-link" href="listEmp.me?currentPage=${ pi.currentPage+1 }">Next</a></li>
-                		</c:otherwise>
-                	</c:choose>
-                </ul>
-            </div>
-            
-            <!-- 페이징 처리 끝 --> <br><br><br><br><br>
-				
+			
+			
+			<jsp:include page="../common/footer.jsp" />
 			</div>
 		</div>
 
 	</div>
 
-	<!-- ======================================================================= -->
-
 
 	
-	
-	<!-- js -->
-	<!-- <script src="//code.jquery.com/jquery-1.12.0.min.js"></script> -->
-    
-	
-	
-	
-<%-- 	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/jquery.dataTables.min.js"></script>
-	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
-	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/dataTables.responsive.min.js"></script>
-	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/responsive.bootstrap4.min.js"></script> --%>
-	<!-- buttons for Export datatable -->
 	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/dataTables.buttons.min.js"></script>
 	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
 	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/buttons.print.min.js"></script>
@@ -331,6 +294,6 @@ display: none;
 	<!-- Datatable Setting js -->
 	<script src="${ pageContext.servletContext.contextPath }/resources/vendors/scripts/datatable-setting.js"></script></body>
 	
-	<jsp:include page="../common/footer.jsp" />
+	
 </body>
 </html>

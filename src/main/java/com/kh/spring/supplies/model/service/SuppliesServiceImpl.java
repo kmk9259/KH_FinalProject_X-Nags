@@ -85,21 +85,7 @@ public class SuppliesServiceImpl implements SuppliesService {
 		return suppliesDao.updateForm(sqlSession, empId);
 	}
 
-	@Override
-	public Return updateSupplies(Return re) {
-		int result = suppliesDao.updateSupplies(sqlSession, re);
-		
-		System.out.println("임플에 들오오는 객체 형태는? " + re);
-		
-		
-		if (result < 0) {
-			throw new CommException("날짜 연장 실패");
-		}
-		return re;
-	}
-	
 
-	
 	
 
 	@Override
@@ -123,45 +109,29 @@ public class SuppliesServiceImpl implements SuppliesService {
 		return suppliesDao.selectListCount(sqlSession);
 	}
 
+	@Override
+	public void updateSupplies(Return re) {
+		int result = suppliesDao.updateSupplies(sqlSession, re);
+		if (result < 0) {
+			throw new CommException("기간 연장 실패");
+		}
+		
+	}
+
+	@Override
+	public ArrayList<Supplies> mySupList(String empId) {
+		
+		return suppliesDao.mySupList(sqlSession, empId);
+	}
+
+
+
+
+
+
 
 	
-	/*
-	@Override
-	public Return updateDate(Return re) {
-		int result = suppliesDao.selectSupList(sqlSession, re);
-		
-		System.out.println("임플에서는 머 ? " +result);
-		
-		if(result >0) {
-			String[] empIdL = re.getEmpId().split(",");
-			for(int i=0; i< empIdL.length; i++) {
-				
-				
-				
-				String empId = re.getEmpId();
-				empId = empIdL[i];
-				
-				System.out.println("aaa " + empId);
-				
-				ArrayList<Return> reList = new ArrayList<Return>();
-				
-				Return reT = new Return(re.getReNo(),re.getSuppliesNo(),re.getSuppliesCode(), empId, re.getSuppliesName(),re.getCounts(),re.getStartDate(),re.getEndDate(),re.getStatus());
-				
-				reList.add(reT);
-				
-				System.out.println("두번째 어레이리스트? " + reList);
-				
-				reList = suppliesDao.updateDate(sqlSession, reList);
-			}
-		} 
-		if(result <0) {
-			throw new CommException("날짜 연장 실패 ");
-		}
-		return re;
-	}
-*/
-
-
+	
 
 
 

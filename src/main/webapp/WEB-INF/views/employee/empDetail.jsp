@@ -74,8 +74,9 @@
 
 			
 					<div class="pd-20 card-box mb-30">
-							<h5 class="h4 text-blue mb-20">${emp.jobName }  ${mem.userName } 님</h5>
-							<div class="tab">
+					<h5 class="h4 text-blue mb-20">${emp.jobName }  ${mem.userName } 님</h5>
+					<div class="tab">
+							
 								<div class="row clearfix">
 									<div class="col-md-3 col-sm-12">
 										<ul class="nav flex-column nav-pills vtabs" role="tablist">
@@ -90,14 +91,12 @@
 											</li>
 											
 										</ul>
-										
-										
-										
 									</div>
+									
 									<div class="col-md-9 col-sm-12">
 										<div class="tab-content">
 										
-										<!-- 1 -->
+											<!-- 1 -->
 											<div class="tab-pane fade show active" id="home7" role="tabpanel">
 												<div class="pd-20">
 													
@@ -106,20 +105,13 @@
                                								 </div> <br><br><br><br>
 		                     
 		                     
-		                    			 <!-- 프로필 사진 끝 -->
-						
-						
+		                    			 			
 
 															<div class="form-group">
 																<label>직원 이름(*)</label>
 																<input class="form-control" type="text"  id="userName" name="userName" value="${mem.userName }" disabled>
 															</div>
 									
-									
-															<%-- <div class="form-group">
-																<label>비밀번호(*)</label>
-																<input class="form-control" type="hidden"  id="userPwd" name="userPwd" value="${mem.userPwd }">
-															</div> --%>
 															<div class="form-group">
 																<label>주민등록번호(*)</label>
 																<input class="form-control" type="text" id="userSsn" name="userSsn" onkeyup="setSSn(this)" value="${mem.userSsn }"maxlength='14' disabled>
@@ -239,7 +231,7 @@
 												</div>
 											</div>
 											
-										<!-- 2 -->
+											<!-- 2 -->
 											<div class="tab-pane fade" id="profile7" role="tabpanel">
 												<div class="pd-20">
 													<div class="form-group">
@@ -284,13 +276,18 @@
 														<fmt:formatDate pattern="yyyy년 MM월 dd일" value="${emp.endDate }"/>
 													</div>
 
-													
+												
+												<br><br><br>
+												<div style="float: right;">
+												<button type="button"  class="btn btn-outline-success" onclick="update()">수정페이지로 이동</button>	
+												</div>
 													
 												</div>
-												<button type="button"  class="btn btn-outline-success" onclick="update()">수정페이지로 이동</button>
+												
 												
 											</div>
-										<!-- 3 -->
+											
+											<!-- 3 -->
 											<div class="tab-pane fade" id="contact7" role="tabpanel">
 												<div class="pd-20">
 													
@@ -471,10 +468,13 @@
 														 
 														
 														</script>
-													
+												
+												<br><br><br>
+												<div style="float: right;">
+												<button type="button"  class="btn btn-outline-success" onclick="update()">수정페이지로 이동</button>	
+												</div>
 												</div>
 												
-												<button type="button"  class="btn btn-outline-success" onclick="update()">수정페이지로 이동</button>
 												
 											</div>
 											
