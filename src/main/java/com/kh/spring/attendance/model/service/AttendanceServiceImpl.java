@@ -135,7 +135,7 @@ public class AttendanceServiceImpl implements AttendanceService {
 	}
 
 	@Override
-	public ArrayList<Outwork> selectOutwork(String empId) {
+	public Outwork selectOutwork(String empId) {
 		return attendanceDao.selectOutwork(sqlSession, empId);
 	}
 
@@ -146,6 +146,28 @@ public class AttendanceServiceImpl implements AttendanceService {
 			throw new CommException("외근  실패");
 		}
 	}
+
+	@Override
+	public void updateHalfway(Attendance att) {
+		int result = attendanceDao.updateHalfway(sqlSession, att);
+		if(result < 0) {
+			throw new CommException("반차  실패");
+		}
+	}
+
+	@Override
+	public void updateAnnual(Attendance att) {
+		int result = attendanceDao.updateAnnual(sqlSession, att);
+		if(result < 0) {
+			throw new CommException("연차  실패");
+		}
+	}
+
+	@Override
+	public ArrayList<Attendance> attCountList(String empId) {
+		return attendanceDao.attCountList(sqlSession, empId);
+	}
+
 
 
 

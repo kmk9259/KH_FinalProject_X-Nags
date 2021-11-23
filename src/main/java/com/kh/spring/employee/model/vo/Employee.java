@@ -23,7 +23,7 @@ public class Employee {
 	private String rightName;				
 	private String deptName;
 	private String salLevel;
-	private int holCount;
+	private double holCount;
 	
 	/* @DateTimeFormat(pattern ="yyyy-MM-dd") */
 	private Date hireDate;
