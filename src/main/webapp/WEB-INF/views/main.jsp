@@ -26,7 +26,7 @@
 <link rel="shortcut icon" href="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/image/favicon.ico">
 
 <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/css/fullcalendar.min.css" />
-<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/css/bootstrap.min.css"> 
+ 
 <link rel="stylesheet" href='${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/css/select2.min.css' />
 <link rel="stylesheet" href='${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/css/bootstrap-datetimepicker.min.css' />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,600">
@@ -42,85 +42,188 @@
     <div class="mobile-menu-overlay"></div>
 
     <div class="main-container">
-        <div class="pd-ltr-20" >
-            <div class="card-box pd-20 height-100-p mb-30">
-                <div class="row align-items-center">
-	                <div id="clock" class="light3" style="margin-left: 15px;">
-	           			<div class="display3">
-							<div class="ampm"></div>
-							<div class="alarm"></div>
-							<div class="digits"></div>
-				 		</div>
-					</div> <br><br>
-                </div> 
-                <div class="row align-items-center">
-                	<div class="col-md-9">
-		                <h4 class="font-20 weight-500 mb-10 text-capitalize">                    
-		                    <div class="weight-600 font-30 text-blue">${ sessionScope.loginUser.userName }님</div>
-		                </h4>
-		                
-		                <div class="table-responsive">
-							<table class="table table-striped table-bordered employee" style="text-align: center;">				
-							  <thead>							    
-								<tr class="table-warning">
-								<th scope="col" width="50px">부서</th>
-								<th scope="col" width="50px">직급</th>
-								<th scope="col" width="50px">권한</th>
-								<th scope="col" width="100px">날짜</th>
-								<th scope="col" width="100px">출근</th>
-								<th scope="col" width="100px">퇴근</th>
-								<th scope="col" width="60px">근무일</th>
-								<th scope="col" width="50px">잔여 연차</th>
-								</tr>								
-							  </thead>
-							  <tbody>
-							    
-							      <th scope="row">${loginEmp.deptName}</th>
-							      <th scope="row">${loginEmp.jobName}</th>
-							      <th scope="row">${loginEmp.rightName}</th>
-							      <th scope="row" id="date"></th>
-							      <th scope="row" id="inTime"></th>
-							      <th scope="row" id="outTime"></th>
-							      <th scope="row">${dDay} </th>
-							      <th scope="row">${loginEmp.holCount} 회</th>
-							    </tr>
-							  </tbody>
-							</table>							
-						</div>
-						
-                	</div>
-                	<div class="col-md-3">
-                    	<img src="${ pageContext.servletContext.contextPath }/resources/vendors/images/banner-img.png" alt="" >
-                	</div>
-               	</div>
-               	<script>
-               	$(function () {
-					$.ajax({
-						url:"attTime.att",
-						type:"post",
-						data :{
-							empId:"${loginEmp.empId}"
-						},
-						success:function(att){
-							$("#date").html(att.attDate); 
-							$("#inTime").html(att.attInTime); 
-							if(att.attOutTime !=null){
-								$("#outTime").html(att.attOutTime); 
-							}else{
-								$("#outTime").html("아직 퇴근 전입니다."); 
+        <div class="pd-ltr-20 " >
+        	<div class="row">
+        		<div class="col-xl-6 mb-30">
+                    <div class="card-box height-100-p pd-20" style="height: 500px; overflow: auto;"><div class="row align-items-center  mb-30">
+		                <div id="clock" class="light3" style="margin-left: 15px;">
+		           			<div class="display3">
+								<div class="ampm"></div>
+								<div class="alarm"></div>
+								<div class="digits"></div>
+					 		</div>
+						</div> <br><br>
+		               </div> 
+	                <div class="row align-items-center">
+	                	<div class="col-md-12">
+			                <h4 class="font-20 weight-500 mb-10 text-capitalize">                    
+			                    <div class="weight-600 font-30 text-blue">${ sessionScope.loginUser.userName }님</div>
+			                </h4>
+			                
+			                <div class="table-responsive">
+								<table class="table table-striped table-bordered employee" style="text-align: center;">				
+								  <thead>							    
+									<tr class="table-warning">
+									<th scope="col" width="50px">부서</th>
+									<th scope="col" width="50px">직급</th>
+									<th scope="col" width="50px">권한</th>
+									<th scope="col" width="100px">날짜</th>
+									<th scope="col" width="100px">출근</th>
+									<th scope="col" width="100px">퇴근</th>
+									<th scope="col" width="60px">근무일</th>
+									<th scope="col" width="50px">잔여 연차</th>
+									</tr>								
+								  </thead>
+								  <tbody>
+								    
+								      <th scope="row">${loginEmp.deptName}</th>
+								      <th scope="row">${loginEmp.jobName}</th>
+								      <th scope="row">${loginEmp.rightName}</th>
+								      <th scope="row" id="date"></th>
+								      <th scope="row" id="inTime"></th>
+								      <th scope="row" id="outTime"></th>
+								      <th scope="row">${dDay} </th>
+								      <th scope="row">${loginEmp.holCount} 회</th>
+								    </tr>
+								  </tbody>
+								</table>							
+							</div>
+							
+	                	</div>
+	               	</div>
+	               	<script>
+	               	$(function () {
+						$.ajax({
+							url:"attTime.att",
+							type:"post",
+							data :{
+								empId:"${loginEmp.empId}"
+							},
+							success:function(att){
+								$("#date").html(att.attDate); 
+								$("#inTime").html(att.attInTime); 
+								if(att.attOutTime !=null){
+									$("#outTime").html(att.attOutTime); 
+								}else{
+									$("#outTime").html("아직 퇴근 전입니다."); 
+								}
 							}
-						}
-					});
-					
-				})
-               	</script>
-               	
-                
+						});
+						
+					})
+	               	</script>               	
+            		</div>  
+            	</div><!-- 개인정보 끝 -->
+            	<div class="col-xl-6 mb-30">
+                    <div class="card-box height-100-p pd-20">일정
+                    </div>
+                </div>
             </div>
-            <!-- 개인정보 끝 -->
+            
             
             <div class="row">
-   
+            	
+   				<div class="col-xl-6 mb-30">
+                    <div class="card-box height-100-p pd-20">
+                        <h2 class="h4 mb-20 text-blue">공지사항 최신 top3</h2>
+                        <div id="chart6">
+                        	<c:choose>               
+                  			<c:when test="${!empty noticeToplist}">
+                  			<table id="noticeList" class="data-table table stripe hover nowrap">
+				               	<thead class="bg-dark text-white">
+				               		<tr >
+				               			<th>글 번호</th>     
+				               			<th>제목</th>
+					                    <th>부서명</th>
+					                    <th>작성일</th>
+					                    <th>조회수</th>
+					                    <th>첨부파일</th>
+				                  	</tr>
+				               </thead>
+				               <tbody class="bg-light text-dark">			               		               	
+				                  <tr>
+				                     <c:forEach items="${ noticeToplist }" var="b">
+				                        <tr class ="table-warning">
+				                           <td>${ b.noticeNo }</td>                           
+				                           <td>${ b.noticeTitle }</td>
+				                           <td>${b.deptName}</td>
+				                           <td>${ b.uploadDate }</td>
+				                           <td>${b.count }</td>
+				                           <c:if test="${ !empty b.originFile }">
+				                              <td>★</td>
+				                           </c:if>
+				                           <c:if test="${ empty b.originFile }">
+				                              <td>&nbsp;</td>
+				                           </c:if>			
+				                        </tr>
+				                     </c:forEach>			
+				                  </tr>
+				               </tbody>				               
+			            	</table>
+                  			</c:when>   
+                  			<c:otherwise>
+                  			<div class="alert alert-dark" role="alert" style="text-align: center;">게시글이 없습니다</div>
+               				</c:otherwise>
+                  			</c:choose>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                 <div class="col-xl-6 mb-30">
+                    <div class="card-box height-100-p pd-20">
+                        <h2 class="h4 mb-20 text-blue">익명게시판 조회수 top3</h2>
+                        <div id="chart6">
+                        
+                        <c:choose>               
+                  <c:when test="${!empty boardToplist}">
+                                                               
+               <table id="boardList" class="data-table table stripe hover nowrap">
+               <thead class="bg-dark text-white">
+                  <tr >
+                     <th>글 번호</th>                     
+                     <th>제목</th>   
+                     <th>작성일</th>
+                     <th>조회수</th>
+                     <th>첨부파일</th>
+                  </tr>
+               </thead>
+               <tbody class="bg-light text-dark">
+                  <tr>
+                     <c:forEach items="${ boardToplist }" var="b">
+                        <tr class ="table-warning">
+                           <td>${ b.boardNo }</td>                           
+                           <td>${ b.boardTitle }</td>
+                           <td>${ b.uploadDate }</td>
+                           <td>${b.count }</td>
+                           <c:if test="${ !empty b.originFile }">
+                              <td>★</td>
+                           </c:if>
+                           <c:if test="${ empty b.originFile }">
+                              <td>&nbsp;</td>
+                           </c:if>
+
+                        </tr>
+                     </c:forEach>
+
+                  </tr>
+               </tbody>
+            </table>
+                  </c:when>   
+                  <c:otherwise>               
+                                                            
+               <div class="alert alert-dark" role="alert" style="text-align: center;">
+                 		 게시글이 없습니다
+                  </div>
+               
+                  
+               </c:otherwise>
+                  </c:choose>
+                        
+                        
+                        </div>
+                    </div>
+                </div>
                 <div class="col-xl-6 mb-30">
                     <div class="card-box height-100-p pd-20" style="height: 500px; overflow: auto;">
                         
@@ -505,118 +608,7 @@
 					</div>
 					<!-- 결재끝 -->
 					
-					<div class="col-xl-6 mb-30">
-                    <div class="card-box height-100-p pd-20">
-                        <h2 class="h4 mb-20">공지사항 최신 top3</h2>
-                        <div id="chart6">
-                        
-                        <c:choose>               
-                  <c:when test="${!empty noticeToplist}">
-                                                               
-               <table id="noticeList" class="data-table table stripe hover nowrap">
-               <thead class="bg-dark text-white">
-                  <tr >
-                     <th>글 번호</th>                     
-                     <th>제목</th>
-                     <th>부서명</th>
-                     <th>작성일</th>
-                     <th>조회수</th>
-                     <th>첨부파일</th>
-                  </tr>
-               </thead>
-               <tbody class="bg-light text-dark">
-                  <tr>
-                     <c:forEach items="${ noticeToplist }" var="b">
-                        <tr class ="table-warning">
-                           <td>${ b.noticeNo }</td>                           
-                           <td>${ b.noticeTitle }</td>
-                           <td>${b.deptName}</td>
-                           <td>${ b.uploadDate }</td>
-                           <td>${b.count }</td>
-                           <c:if test="${ !empty b.originFile }">
-                              <td>★</td>
-                           </c:if>
-                           <c:if test="${ empty b.originFile }">
-                              <td>&nbsp;</td>
-                           </c:if>
-
-                        </tr>
-                     </c:forEach>
-
-                  </tr>
-               </tbody>
-            </table>
-                  </c:when>   
-                  <c:otherwise>               
-                                                            
-               <div class="alert alert-dark" role="alert" style="text-align: center;">
-                		  게시글이 없습니다
-                  </div>
-               
-                  
-               </c:otherwise>
-                  </c:choose>
-                        
-                        
-                        </div>
-                    </div>
-                </div>
-                
-                
-                 <div class="col-xl-6 mb-30">
-                    <div class="card-box height-100-p pd-20">
-                        <h2 class="h4 mb-20">익명게시판 조회수 top3</h2>
-                        <div id="chart6">
-                        
-                        <c:choose>               
-                  <c:when test="${!empty boardToplist}">
-                                                               
-               <table id="boardList" class="data-table table stripe hover nowrap">
-               <thead class="bg-dark text-white">
-                  <tr >
-                     <th>글 번호</th>                     
-                     <th>제목</th>   
-                     <th>작성일</th>
-                     <th>조회수</th>
-                     <th>첨부파일</th>
-                  </tr>
-               </thead>
-               <tbody class="bg-light text-dark">
-                  <tr>
-                     <c:forEach items="${ boardToplist }" var="b">
-                        <tr class ="table-warning">
-                           <td>${ b.boardNo }</td>                           
-                           <td>${ b.boardTitle }</td>
-                           <td>${ b.uploadDate }</td>
-                           <td>${b.count }</td>
-                           <c:if test="${ !empty b.originFile }">
-                              <td>★</td>
-                           </c:if>
-                           <c:if test="${ empty b.originFile }">
-                              <td>&nbsp;</td>
-                           </c:if>
-
-                        </tr>
-                     </c:forEach>
-
-                  </tr>
-               </tbody>
-            </table>
-                  </c:when>   
-                  <c:otherwise>               
-                                                            
-               <div class="alert alert-dark" role="alert" style="text-align: center;">
-                 		 게시글이 없습니다
-                  </div>
-               
-                  
-               </c:otherwise>
-                  </c:choose>
-                        
-                        
-                        </div>
-                    </div>
-                </div>
+					
                 
                 
                 <!-- 달력시작 -->
@@ -703,19 +695,13 @@
                });
       });
    </script>
-   
    <!-- ----------------------------------------------------------------------------- -->     
- <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/jquery.min.js"></script>
- <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/bootstrap.min.js"></script> 
- <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/moment.min.js"></script>
- <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/fullcalendar.min.js"></script>
- <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/ko.js"></script>
- <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/bootstrap-datetimepicker.min.js"></script>
- <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/select2.min.js"></script>
- <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/js/mainmain.js"></script>
-<!-- ----------------------------------------------------------------------------- -->  
-    
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
+   <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/fullcalendar.min.js"></script>
+   	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/js/mainmain.js"></script>
+	
+	<!-- ----------------------------------------------------------------------------- -->  
+	   
+	   <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
 	<script src="${ pageContext.servletContext.contextPath }/resources/assets/js/script.js"></script>
 </body>
 </html>
