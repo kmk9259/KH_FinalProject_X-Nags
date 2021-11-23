@@ -10,6 +10,8 @@
 <title>>X-Normal GroupWare Solution</title>
 
 
+
+
 <link rel="shortcut icon" href="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/image/favicon.ico">
 
 <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/css/fullcalendar.min.css" />
@@ -23,11 +25,50 @@
 <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/css/main.css">
 <style>
 .logo> form > .light-logo{
- margin-left: 60px;
- margin-bottom: 20px;
- margin-top: 50px;
+ /*  margin-left: 60px;
+ margin-bottom: 20px; */
+ margin-top: 15px; 
  height: 80px;
  width: 150px;
+ background-color: black; 
+ text-align: center;
+}
+.logo{
+background-color: #ffffff;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	-webkit-box-shadow: 0px 0px 28px rgba(0, 0, 0, .08);
+	-moz-box-shadow: 0px 0px 28px rgba(0, 0, 0, .08);
+	box-shadow: 0px 0px 28px rgba(0, 0, 0, .08);
+text-align: center;
+ background-color: black;
+ height: 110px;
+}
+.card-box{
+	background-color: #ffffff;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	-webkit-box-shadow: 0px 0px 28px rgba(0, 0, 0, .08);
+	-moz-box-shadow: 0px 0px 28px rgba(0, 0, 0, .08);
+	box-shadow: 0px 0px 28px rgba(0, 0, 0, .08);
+	
+}
+/* .mb-20{margin-bottom: 20px;} */
+.pd-20{padding: 20px;} */
+body {
+background: #ecf0f4;
+}
+#wrapper{
+/* margin:10px; */
+background-color: #ffffff;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	-webkit-box-shadow: 0px 0px 28px rgba(0, 0, 0, .08);
+	-moz-box-shadow: 0px 0px 28px rgba(0, 0, 0, .08);
+	box-shadow: 0px 0px 28px rgba(0, 0, 0, .08);
 }
 </style>
 </head>
@@ -52,7 +93,7 @@ var username =  '${username}';
                 <li><a tabindex="-1" href="#" data-role="close">Close</a></li>
             </ul>
         </div>
- 		 	<div class="logo" style="background-color: black">
+ 		 	<div class="logo" >
         
            <form action="main.xnags" method="post"> 
                 <input type="image"  src="${ pageContext.servletContext.contextPath }/resources/images/logo/logowhite.png" onClick="login(e);" class="light-logo" >
@@ -316,6 +357,7 @@ var username =  '${username}';
             </div>
         </div> -->
         <!-- /.filter panel -->
+        <jsp:include page="../schedule/scFooter.jsp" />
     </div>
     <!-- /.container -->
     
@@ -337,6 +379,9 @@ var username =  '${username}';
     <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/js/etcSetting.js"></script>
      <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/data.json"></script> 
 
- 	<jsp:include page="../schedule/scFooter.jsp" />
+
+
+
+ 	
 </body>
 </html>
