@@ -305,5 +305,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		JOIN MAIL M ON E.EMP_ID=M.MAIL_RECEIVER
 		WHERE M.MAIL_NO=#{mno}
 	</select>
+	
+	<!-- 메인용 보낸메일함 -->
+	<select id="mainSendMailList" resultMap="sendResultSet">
+		<![CDATA[
+			SELECT *
+			FROM	(SELECT
+					    *
+					FROM MAIL A
+					JOIN MEMBER B ON A.MAIL_RECEIVER=B.EMP_ID
+					WHERE A.WRITER_STATUS=1
+					AND A.EMP_ID=#{empId}
+					ORDER BY A.MAIL_NO DESC)
+			WHERE ROWNUM <= 5
+		]]>
+	</select>
+	
+	<select id="mainReceiveMailList" resultMap="receiveResultSet">
+		<![CDATA[
+			SELECT *
+			FROM   (SELECT *
+					FROM MAIL A
+					JOIN MEMBER B ON A.EMP_ID=B.EMP_ID
+					WHERE A.RECEIVER_STATUS=1
+					AND A.MAIL_RECEIVER=#{empId}
+					ORDER BY A.MAIL_NO DESC)
+			WHERE ROWNUM <= 5
+		]]>
+	</select>
 
 </mapper>

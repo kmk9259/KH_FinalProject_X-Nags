@@ -31,9 +31,6 @@ var newEvent = function (start, end, eventType) {
     modifyBtnContainer.hide();
     eventModal.modal('show');
 
-    /******** 임시 RAMDON ID - 실제 DB 연동시 삭제 **********/
-//    var eventId = 1 + Math.floor(Math.random() * 1000);
-    /******** 임시 RAMDON ID - 실제 DB 연동시 삭제 **********/
 
     //새로운 일정 저장버튼 클릭
     $('#save-event').unbind();
@@ -50,16 +47,18 @@ var newEvent = function (start, end, eventType) {
         		scheduleTextcolor: '#ffffff',
         		scheduleAllDay: 0,
         		userName: username
-            //deptname: "${emp.deptName}"
+            
         };
         console.log(eventData);
-        if (eventData.start > eventData.end) {
-            alert('끝나는 날짜가 앞설 수 없습니다.');
+        console.log(eventData.scheduleTitle);
+
+        if (eventData.scheduleTitle === '') {
+            alert('일정명은 필수입니다.');
             return false;
         }
 
-        if (eventData.title === '') {
-            alert('일정명은 필수입니다.');
+        if (eventData.scheduleStart > eventData.scheduleEnd) {
+            alert('끝나는 날짜가 앞설 수 없습니다.');
             return false;
         }
 
@@ -76,7 +75,7 @@ var newEvent = function (start, end, eventType) {
         }
 
         $("#calendar").fullCalendar('renderEvent', eventData, true);
-      //  var content = eventModal.find("#edit-desc").val('');
+     
         eventModal.find('input, textarea').val('');
         editAllDay.prop('checked', false);
         eventModal.modal('hide');

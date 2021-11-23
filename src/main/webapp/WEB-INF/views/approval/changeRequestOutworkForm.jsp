@@ -409,5 +409,10 @@ function changeApp() {
 		
 <script src="${ pageContext.servletContext.contextPath }/resources/plugins/sweetalert2/sweetalert2.all.js"></script>
 
+<script src="${ pageContext.servletContext.contextPath }/resources/assets/js/bootstrap-datepicker.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/assets/js/bootstrap-datepicker.kr.min.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/plugins/slick/slick.min.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
+	
 </body>
 </html>

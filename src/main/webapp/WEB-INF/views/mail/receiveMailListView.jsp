@@ -15,6 +15,9 @@
 #mailList>tbody>tr:hover {
 	cursor: pointer;
 }
+#star{
+	color: blue;
+}
 
 </style>
 
@@ -64,8 +67,8 @@
 						<thead>
 							<tr>
 								<th scope="col"></th>
-								<th scope="col"><i class="icon-copy ion-star"></i></th>
-								<th scope="col"><i class="icon-copy ion-ios-email"></i></th>
+								<th scope="col"><i class="icon-copy ion-star" id="star"></i></th>
+								<th scope="col"><i class="icon-copy ion-ios-email" id="notRead"></i></th>
 								<th scope="col">보낸 사람</th>
 								<th scope="col">제목</th>
 								<th scope="col">날짜</th>
@@ -79,7 +82,7 @@
 									
 									<c:choose>
 										<c:when test="${s.importantFlag == '1'}">
-											<td><i class="icon-copy ion-star"></i></td>
+											<td><i class="icon-copy ion-star" id="star"></i></td>
 										</c:when>
 										<c:otherwise>
 											<td></td>
@@ -88,10 +91,10 @@
 									
 									<c:choose>
 										<c:when test="${s.readCount == '0'}">
-											<td><i class="icon-copy ion-ios-email"></i></td>
+											<td><i class="icon-copy ion-ios-email" id="notRead"></i></td>
 										</c:when>
 										<c:otherwise>
-											<td><i class="icon-copy ion-ios-email-outline"></i></td>
+											<td><i class="icon-copy ion-ios-email-outline" id="read"></i></td>
 										</c:otherwise>
 									</c:choose>
 									

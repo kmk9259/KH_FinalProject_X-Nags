@@ -15,8 +15,24 @@
 	#fromDate, #toDate{
 	border: none;
 	}
+	.mailList>tbody>tr:hover {
+	cursor: pointer;
+	}
 	
 	</style>
+	<!-- ----------------------------------------------------------------------------- -->   
+
+
+<link rel="shortcut icon" href="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/image/favicon.ico">
+
+<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/css/fullcalendar.min.css" />
+<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/css/bootstrap.min.css"> 
+<link rel="stylesheet" href='${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/css/select2.min.css' />
+<link rel="stylesheet" href='${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/css/bootstrap-datetimepicker.min.css' />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,600">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/css/main.css">
+<!-- ----------------------------------------------------------------------------- -->
 </head>
 <body>
 
@@ -26,10 +42,10 @@
     <div class="mobile-menu-overlay"></div>
 
     <div class="main-container">
-        <div class="pd-ltr-20">
+        <div class="pd-ltr-20" >
             <div class="card-box pd-20 height-100-p mb-30">
                 <div class="row align-items-center">
-	                <div id="clock" class="light3">
+	                <div id="clock" class="light3" style="margin-left: 15px;">
 	           			<div class="display3">
 							<div class="ampm"></div>
 							<div class="alarm"></div>
@@ -101,63 +117,11 @@
                	
                 
             </div>
-            <div class="row">
-                <div class="col-xl-3 mb-30">
-                    <div class="card-box height-100-p widget-style1">
-                        <div class="d-flex flex-wrap align-items-center">
-                            <div class="progress-data">
-                                <div id="chart"></div>
-                            </div>
-                            <div class="widget-data">
-                                <div class="h4 mb-0">2020</div>
-                                <div class="weight-600 font-14">Contact</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 mb-30">
-                    <div class="card-box height-100-p widget-style1">
-                        <div class="d-flex flex-wrap align-items-center">
-                            <div class="progress-data">
-                                <div id="chart2"></div>
-                            </div>
-                            <div class="widget-data">
-                                <div class="h4 mb-0">400</div>
-                                <div class="weight-600 font-14">Deals</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 mb-30">
-                    <div class="card-box height-100-p widget-style1">
-                        <div class="d-flex flex-wrap align-items-center">
-                            <div class="progress-data">
-                                <div id="chart3"></div>
-                            </div>
-                            <div class="widget-data">
-                                <div class="h4 mb-0">350</div>
-                                <div class="weight-600 font-14">Campaign</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 mb-30">
-                    <div class="card-box height-100-p widget-style1">
-                        <div class="d-flex flex-wrap align-items-center">
-                            <div class="progress-data">
-                                <div id="chart4"></div>
-                            </div>
-                            <div class="widget-data">
-                                <div class="h4 mb-0">$6060</div>
-                                <div class="weight-600 font-14">Worth</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!-- 개인정보 끝 -->
+            
             <div class="row">
    
-                <div class="col-xl-4 mb-30">
+                <div class="col-xl-6 mb-30">
                     <div class="card-box height-100-p pd-20" style="height: 500px; overflow: auto;">
                         
                         
@@ -226,7 +190,7 @@
                     </div>
                 </div>
                 
-                 <div class="col-xl-4 mb-30">
+                 <div class="col-xl-6 mb-30">
                     <div class="card-box height-100-p pd-20" style="height: 500px; overflow: auto;">
                         
                         
@@ -291,20 +255,466 @@
                     </div>
                 </div>
                 
-                 <div class="col-xl-4 mb-30">
+           
+                
+                <!-- 메일시작 -->
+					<div class="col-xl-6 mb-30">
+						<!-- 왼쪽 -->
+						<div class="card-box mb-30" style="height: 450px; overflow: auto;">
+							<div class="clearfix pd-20">
+								<div class="pull-left">
+									
+								</div>
+								<div class="col-md-12 col-sm-12 pull-right">
+									<div class="tab">
+								<ul class="nav nav-tabs" role="tablist">
+									<li class="nav-item">
+										<a class="nav-link active text-blue" data-toggle="tab" href="#receive" role="tab" aria-selected="true">받은메일함</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link text-blue" data-toggle="tab" href="#send" role="tab" aria-selected="false">보낸메일함</a>
+									</li>
+								</ul>
+								<div class="tab-content">
+									<div class="tab-pane fade show active" id="receive" role="tabpanel">
+										<div class="pd-20">
+											<table class="table table-hover mailList">
+												<thead>
+													<tr>
+														<td></td>
+														<th scope="col">발신자</th>
+														<th scope="col">제목</th>
+													</tr>
+												</thead>
+												<tbody>
+													<c:forEach items="${ receiveList }" var="s">
+													<tr>
+														<td>${ s.mailNo }</td>
+														<td>${ s.empId }</td>
+														<td>${ s.title }</td>
+													</tr>
+													</c:forEach>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<div class="tab-pane fade" id="send" role="tabpanel">
+										<div class="pd-20">
+											<table class="table table-hover mailList">
+												<thead>
+													<tr>
+														<th></th>
+														<th scope="col">수신자</th>
+														<th scope="col">제목</th>
+													</tr>
+												</thead>
+												<tbody>
+													<c:forEach items="${ sendList }" var="s">
+													<tr>
+														<td>${ s.mailNo }</td>
+														<td>${ s.receiver }</td>
+														<td>${ s.title }</td>
+													</tr>
+													</c:forEach>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 메일 끝 -->
+					
+					<!-- 결재시작 -->
+					<div class="col-lg-6 col-md-12 col-sm-12 mb-30">
+						<div class="card-box mb-30" style="height: 450px; overflow: auto;">
+							<div class="clearfix pd-20">
+								<div class="pull-left">
+								
+								</div>
+							<div class="col-md-12 col-sm-12 pull-right">
+								<div class="tab">
+								<ul class="nav nav-tabs" role="tablist">
+									<li class="nav-item">
+										<a class="nav-link active text-blue" data-toggle="tab" href="#home" role="tab" aria-selected="true">진행중 결재함</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link text-blue" data-toggle="tab" href="#profile" role="tab" aria-selected="false">결재 요청함</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link text-blue" data-toggle="tab" href="#contact" role="tab" aria-selected="false">결재 완료함</a>
+									</li>
+								</ul>
+								<div class="tab-content">
+									<!-- 진행중결재함 -->
+									<div class="tab-pane fade show active" id="home" role="tabpanel">
+										<div class="pd-20">
+											<table class="table table-hover mailList">
+												<thead>
+													<tr>
+														<th></th>
+														<th scope="col">종류</th>
+														<th scope="col">상태</th>
+													</tr>
+												</thead>
+												<tbody>
+													<c:forEach items="${ appingList }" var="app">
+													<tr>
+														<td>${ app.appNo }</td>
+														<c:choose>
+							              					<c:when test="${app.category eq 1 }">
+																<td scope="row">휴가 신청서</td>
+															</c:when>
+								              				<c:when test="${app.category eq 2 }">
+																<td scope="row">반차 신청서</td>
+															</c:when>
+								              				<c:when test="${app.category eq 3 }">
+																<td scope="row">외근 신청서</td>
+															</c:when>
+								              				<c:when test="${app.category eq 4 }">
+																<td scope="row">증명서 신청서(재직증명서)</td>
+															</c:when>
+								              				<c:when test="${app.category eq 5 }">
+																<td scope="row">증명서 신청서(급여명세서)</td>
+															</c:when>
+								              				<c:when test="${app.category eq 6 }">
+																<td scope="row">증명서 신청서(기타)</td>
+															</c:when>
+							             			 	</c:choose>
+														
+														<c:choose>
+															<c:when test="${app.midStatus eq 1 }">
+																<td>결재 대기</td>
+															</c:when>
+															<c:when test="${app.midStatus eq 2 }">
+																<td>중간 승인</td>
+															</c:when>
+														</c:choose>
+													</tr>
+													</c:forEach>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<!-- 요청결재함 -->
+									<div class="tab-pane fade" id="profile" role="tabpanel">
+										<div class="pd-20">
+											<table class="table table-hover mailList">
+												<thead>
+													<tr>
+														<th></th>
+														<th scope="col">종류</th>
+														<th scope="col">기안자</th>
+													</tr>
+												</thead>
+												<tbody>
+													<c:forEach items="${ appAskList }" var="app">
+													<tr>
+														<td>${ app.appNo }</td>
+														<c:choose>
+							              					<c:when test="${app.category eq 1 }">
+																<td scope="row">휴가 신청서</td>
+															</c:when>
+								              				<c:when test="${app.category eq 2 }">
+																<td scope="row">반차 신청서</td>
+															</c:when>
+								              				<c:when test="${app.category eq 3 }">
+																<td scope="row">외근 신청서</td>
+															</c:when>
+								              				<c:when test="${app.category eq 4 }">
+																<td scope="row">증명서 신청서(재직증명서)</td>
+															</c:when>
+								              				<c:when test="${app.category eq 5 }">
+																<td scope="row">증명서 신청서(급여명세서)</td>
+															</c:when>
+								              				<c:when test="${app.category eq 6 }">
+																<td scope="row">증명서 신청서(기타)</td>
+															</c:when>
+							             			 	</c:choose>
+														
+														<td>${app.empId }</td>
+															
+													</tr>
+													</c:forEach>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<!-- 완료결재함 -->
+									<div class="tab-pane fade" id="contact" role="tabpanel">
+										<div class="pd-20">
+											<table class="table table-hover mailList">
+												<thead>
+													<tr>
+														<th></th>
+														<th scope="col">종류</th>
+														<th scope="col">상태</th>
+													</tr>
+												</thead>
+												<tbody>
+													<c:forEach items="${ appedList }" var="app">
+													<tr>
+														<td>${ app.appNo }</td>
+														<c:choose>
+							              					<c:when test="${app.category eq 1 }">
+																<td scope="row">휴가 신청서</td>
+															</c:when>
+								              				<c:when test="${app.category eq 2 }">
+																<td scope="row">반차 신청서</td>
+															</c:when>
+								              				<c:when test="${app.category eq 3 }">
+																<td scope="row">외근 신청서</td>
+															</c:when>
+								              				<c:when test="${app.category eq 4 }">
+																<td scope="row">증명서 신청서(재직증명서)</td>
+															</c:when>
+								              				<c:when test="${app.category eq 5 }">
+																<td scope="row">증명서 신청서(급여명세서)</td>
+															</c:when>
+								              				<c:when test="${app.category eq 6 }">
+																<td scope="row">증명서 신청서(기타)</td>
+															</c:when>
+							             			 	</c:choose>
+														
+														<c:choose>
+															<c:when test="${app.midStatus eq 3 }">
+																<td>중간 반려</td>
+															</c:when>
+															<c:when test="${app.finStatus eq 2 }">
+																<td>최종 승인</td>
+															</c:when>
+															<c:when test="${app.finStatus eq 3 }">
+																<td>최종 반려</td>
+															</c:when>
+														</c:choose>
+													</tr>
+													</c:forEach>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>	
+							</div>
+							</div>
+						</div>
+					</div>
+					<!-- 결재끝 -->
+					
+					<div class="col-xl-6 mb-30">
                     <div class="card-box height-100-p pd-20">
-                        <h2 class="h4 mb-20">Lead Target</h2>
-                        <div id="chart6"></div>
+                        <h2 class="h4 mb-20">공지사항 최신 top3</h2>
+                        <div id="chart6">
+                        
+                        <c:choose>               
+                  <c:when test="${!empty noticeToplist}">
+                                                               
+               <table id="noticeList" class="data-table table stripe hover nowrap">
+               <thead class="bg-dark text-white">
+                  <tr >
+                     <th>글 번호</th>                     
+                     <th>제목</th>
+                     <th>부서명</th>
+                     <th>작성일</th>
+                     <th>조회수</th>
+                     <th>첨부파일</th>
+                  </tr>
+               </thead>
+               <tbody class="bg-light text-dark">
+                  <tr>
+                     <c:forEach items="${ noticeToplist }" var="b">
+                        <tr class ="table-warning">
+                           <td>${ b.noticeNo }</td>                           
+                           <td>${ b.noticeTitle }</td>
+                           <td>${b.deptName}</td>
+                           <td>${ b.uploadDate }</td>
+                           <td>${b.count }</td>
+                           <c:if test="${ !empty b.originFile }">
+                              <td>★</td>
+                           </c:if>
+                           <c:if test="${ empty b.originFile }">
+                              <td>&nbsp;</td>
+                           </c:if>
+
+                        </tr>
+                     </c:forEach>
+
+                  </tr>
+               </tbody>
+            </table>
+                  </c:when>   
+                  <c:otherwise>               
+                                                            
+               <div class="alert alert-dark" role="alert" style="text-align: center;">
+                		  게시글이 없습니다
+                  </div>
+               
+                  
+               </c:otherwise>
+                  </c:choose>
+                        
+                        
+                        </div>
                     </div>
                 </div>
+                
+                
+                 <div class="col-xl-6 mb-30">
+                    <div class="card-box height-100-p pd-20">
+                        <h2 class="h4 mb-20">익명게시판 조회수 top3</h2>
+                        <div id="chart6">
+                        
+                        <c:choose>               
+                  <c:when test="${!empty boardToplist}">
+                                                               
+               <table id="boardList" class="data-table table stripe hover nowrap">
+               <thead class="bg-dark text-white">
+                  <tr >
+                     <th>글 번호</th>                     
+                     <th>제목</th>   
+                     <th>작성일</th>
+                     <th>조회수</th>
+                     <th>첨부파일</th>
+                  </tr>
+               </thead>
+               <tbody class="bg-light text-dark">
+                  <tr>
+                     <c:forEach items="${ boardToplist }" var="b">
+                        <tr class ="table-warning">
+                           <td>${ b.boardNo }</td>                           
+                           <td>${ b.boardTitle }</td>
+                           <td>${ b.uploadDate }</td>
+                           <td>${b.count }</td>
+                           <c:if test="${ !empty b.originFile }">
+                              <td>★</td>
+                           </c:if>
+                           <c:if test="${ empty b.originFile }">
+                              <td>&nbsp;</td>
+                           </c:if>
+
+                        </tr>
+                     </c:forEach>
+
+                  </tr>
+               </tbody>
+            </table>
+                  </c:when>   
+                  <c:otherwise>               
+                                                            
+               <div class="alert alert-dark" role="alert" style="text-align: center;">
+                 		 게시글이 없습니다
+                  </div>
+               
+                  
+               </c:otherwise>
+                  </c:choose>
+                        
+                        
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <!-- 달력시작 -->
+                   <div class="col-xl-12 mb-30">
+                     <div class="card-box height-100-p pd-20" style="height: 500px; overflow: auto;">
+                        
+                        <%-- <div class="fc-view-container" style>
+                           <div class="fc-view fc-listWeek-view fc-list-view fc-widget-content" style>
+                              <div class="fc-scroller" style="overflow: hidden auto;">
+                                 <table class="fc-list-table">
+                                    <tbody>
+                                       <tr class="fc-listheading" data-date="">
+                                          <td class="fc-widget-header" colspan="3">
+                                             <a class="fc-list-heading-main" ></a>
+                                             <a class="fc-list-heading-alt"  value="${}">2021년 11월 21일</a>
+                                          </td>
+                                       </tr>
+                                       <tr class="fc-list-item" data-original-title title>
+                                          <td class="fc-list-item-time fc-widget-content">종일</td>
+                                          <td class="fc-list-item-marker fc-widget-content">
+                                          <span class="fc-event-dot" style="background-color:#D25565"></span>
+                                          </td>
+                                          <td class="fc-list-item-title fc-widget-content">
+                                             <a>sss</a>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </div>            
+                           </div>
+                        </div>
+                        <script>
+                       
+                        var calendar = $('#calendar').fullCalendar({
+                         
+                        })
+                        </script>  --%>
+
+                  <div id="wrapper">
+                     <div id="loading"></div>
+                     <div id="calendar"></div>
+                  </div>
+               <!--    <script>
+                     $(function() {
+
+                        $("#calendar").on('click', function(e) {
+
+                           e.stopPropagation();
+
+                           e.preventDefault();
+
+                        });
+
+                     });
+                  </script>
+               
+                   -->
+               </div>
+               
+            </div>
+					
                 
             </div>
             
             <jsp:include page="common/footer.jsp"/>
         </div>
     </div>
-    <script src="${ pageContext.servletContext.contextPath }/resources/plugins/apexcharts/apexcharts.min.js"></script>
-    <script src="${ pageContext.servletContext.contextPath }/resources/vendors/scripts/dashboard.js"></script>
+    
+    <script>
+      $(function() {
+         $("#boardList tbody tr").click(
+               function() {
+                  location.href = "detail.bo?bno="
+                        + $(this).children().eq(0).text();
+               });
+      });
+   </script> 
+      <script>
+      $(function() {
+         $("#noticeList tbody tr").click(
+               function() {
+                  location.href = "noticedetail.bo?bno="
+                        + $(this).children().eq(0).text();
+               });
+      });
+   </script>
+   
+   <!-- ----------------------------------------------------------------------------- -->     
+ <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/jquery.min.js"></script>
+ <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/bootstrap.min.js"></script> 
+ <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/moment.min.js"></script>
+ <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/fullcalendar.min.js"></script>
+ <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/ko.js"></script>
+ <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/bootstrap-datetimepicker.min.js"></script>
+ <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/select2.min.js"></script>
+ <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/js/mainmain.js"></script>
+<!-- ----------------------------------------------------------------------------- -->  
+    
     <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
 	<script src="${ pageContext.servletContext.contextPath }/resources/assets/js/script.js"></script>
 </body>

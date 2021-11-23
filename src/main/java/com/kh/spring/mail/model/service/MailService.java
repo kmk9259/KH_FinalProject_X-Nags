@@ -57,6 +57,10 @@ public interface MailService {
 
 	Member selectReceiveEmp(int mno);
 
+	ArrayList<Mail> mainSendMailList(String empId);
+
+	ArrayList<Mail> mainReceiveMailList(String empId);
+
 
 
 
