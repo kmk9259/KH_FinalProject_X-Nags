@@ -130,8 +130,7 @@ img {
 									$("#fileArea").hide();
 
 									$(".edit-avatar").click(function() {
-										$("#file").click();
-										
+										$("#file").click();									
 										
 									});
 
@@ -159,6 +158,7 @@ img {
 											}
 										}
 									}
+									
 								};
 								
 								</script>

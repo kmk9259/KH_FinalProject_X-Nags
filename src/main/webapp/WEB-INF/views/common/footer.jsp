@@ -9,9 +9,8 @@
 	
 </head>
 <body>
-	<div class="footer-wrap pd-20 mb-20 card-box">
-    	X-Nags 알잘딱깔센 <a href="#" target="_blank">Ankit Hingarajiya</a>
+   	<div class="footer-wrap pd-20 mb-20 card-box">
+    	X-Nags 알잘딱깔센 <br><a href="https://github.com/kmk9259/KH_FinalProject_X-Nags" target="_blank">Copyright © 2021 KH Information Educational Institute All Right Reserved</a>
     </div>
-   
 </body>
 </html>

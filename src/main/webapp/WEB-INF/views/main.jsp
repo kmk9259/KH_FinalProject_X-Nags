@@ -115,7 +115,11 @@
             		</div>  
             	</div><!-- 개인정보 끝 -->
             	<div class="col-xl-6 mb-30">
-                    <div class="card-box height-100-p pd-20">일정
+                    <div class="card-box height-100-p pd-20">
+                    	 <div id="wrapper">
+		                     <div id="loading"></div>
+		                     <div id="calendar"></div>
+		                 </div>
                     </div>
                 </div>
             </div>
@@ -605,75 +609,11 @@
 							</div>
 							</div>
 						</div>
-					</div>
-					<!-- 결재끝 -->
-					
-					
-                
-                
-                <!-- 달력시작 -->
-                   <div class="col-xl-12 mb-30">
-                     <div class="card-box height-100-p pd-20" style="height: 500px; overflow: auto;">
-                        
-                        <%-- <div class="fc-view-container" style>
-                           <div class="fc-view fc-listWeek-view fc-list-view fc-widget-content" style>
-                              <div class="fc-scroller" style="overflow: hidden auto;">
-                                 <table class="fc-list-table">
-                                    <tbody>
-                                       <tr class="fc-listheading" data-date="">
-                                          <td class="fc-widget-header" colspan="3">
-                                             <a class="fc-list-heading-main" ></a>
-                                             <a class="fc-list-heading-alt"  value="${}">2021년 11월 21일</a>
-                                          </td>
-                                       </tr>
-                                       <tr class="fc-list-item" data-original-title title>
-                                          <td class="fc-list-item-time fc-widget-content">종일</td>
-                                          <td class="fc-list-item-marker fc-widget-content">
-                                          <span class="fc-event-dot" style="background-color:#D25565"></span>
-                                          </td>
-                                          <td class="fc-list-item-title fc-widget-content">
-                                             <a>sss</a>
-                                          </td>
-                                       </tr>
-                                    </tbody>
-                                 </table>
-                              </div>            
-                           </div>
-                        </div>
-                        <script>
-                       
-                        var calendar = $('#calendar').fullCalendar({
-                         
-                        })
-                        </script>  --%>
-
-                  <div id="wrapper">
-                     <div id="loading"></div>
-                     <div id="calendar"></div>
-                  </div>
-               <!--    <script>
-                     $(function() {
-
-                        $("#calendar").on('click', function(e) {
-
-                           e.stopPropagation();
-
-                           e.preventDefault();
-
-                        });
-
-                     });
-                  </script>
-               
-                   -->
-               </div>
-               
-            </div>
-					
-                
-            </div>
+					</div><!-- 결재끝 -->
+					<jsp:include page="common/footer.jsp"/>
+				</div><!--  <div class="row">  -->
             
-            <jsp:include page="common/footer.jsp"/>
+           
         </div>
     </div>
     
@@ -683,22 +623,19 @@
                function() {
                   location.href = "detail.bo?bno="
                         + $(this).children().eq(0).text();
-               });
-      });
-   </script> 
-      <script>
-      $(function() {
+         });
          $("#noticeList tbody tr").click(
-               function() {
-                  location.href = "noticedetail.bo?bno="
-                        + $(this).children().eq(0).text();
-               });
+                 function() {
+                    location.href = "noticedetail.bo?bno="
+                          + $(this).children().eq(0).text();
+           });
       });
-   </script>
+      
+    </script>
    <!-- ----------------------------------------------------------------------------- -->     
    <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/fullcalendar.min.js"></script>
-   	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/js/mainmain.js"></script>
-	
+   <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/js/mainmain.js"></script>
+   <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/ko.js"></script>
 	<!-- ----------------------------------------------------------------------------- -->  
 	   
 	   <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>

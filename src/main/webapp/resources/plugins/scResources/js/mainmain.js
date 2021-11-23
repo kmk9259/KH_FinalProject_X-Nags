@@ -38,7 +38,7 @@ var calendar = $('#calendar').fullCalendar({
   header                    : {
                                 left   : '',
                                 center : 'prev, title, next',
-                                right  : ''
+                                right  : 'month, listWeek'
                               },
   views                     : {
                                 month : {
