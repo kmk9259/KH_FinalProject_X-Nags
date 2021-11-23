@@ -18,6 +18,8 @@ public interface MemberService {
 	
 	Member selectMem(int empId);
 
+	Member updatePic(Member m) throws Exception;
+
 	//void deleteMember(String userId);
 
 	//Member updatePwd(Member m) throws Exception;

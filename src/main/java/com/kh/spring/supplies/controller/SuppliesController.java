@@ -90,10 +90,15 @@ public class SuppliesController {
 	}
 	
 	@RequestMapping("updateDate.su")
-	public ModelAndView updateSupplies(Return re, ModelAndView mv, HttpServletRequest request, Model model ) {
+	public ModelAndView updateSupplies(int empId, Return re, ModelAndView mv, HttpServletRequest request, Model model ) {
 		
 		suppliesService.updateSupplies(re);
 		mv.addObject("reNo", re.getReNo()).setViewName("member/myPage");
+		
+		
+		//날짜 수정후 다시 목록 불러오기 리스트
+		ArrayList<Return> returnList = suppliesService.updateForm(empId);
+		mv.addObject("returnList", returnList).setViewName("supplies/updateSupplies");
 
 		return mv;
 		

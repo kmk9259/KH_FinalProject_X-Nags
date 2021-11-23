@@ -69,7 +69,6 @@ display: none;
 				</div>
 					
 				<div class="table-responsive">
-				<!-- <div class="table hover multiple-select-row data-table-export nowrap"> -->
 					
 						<table id="emplist" class=" table table-striped hover" style="text-align:center;">
 							<thead>
@@ -199,43 +198,33 @@ display: none;
 				/*API 초기 화 */
 				$('#emplist').dataTable({
 					  "bPaginate": false,
-					  "aaSorting": [],
-					  buttons: [{
-				      extend: 'csvHtml5',
-				      text: 'Export CSV',
-				      footer: true,
-				      className: 'exportBtn'
-				        }]
-					 });
+					  "aaSorting": []
+				 });
 				
 				
 			    /*선택 목록이 view*/
-			    var i = $("#employeeAll tbody td:eq(8) .dropdown-menu-icon-list a:eq(0)").text();
+			    var i = $("#emplist tbody td:eq(8) .dropdown-menu-icon-list a:eq(0)").text();
 			    console.log(i); 
 			    
-			 
 		
-			    /*사원번호*/
-			    var aaa = $("#employeeAll tbody td:eq(0)").text();
-			    console.log(aaa)
 			    
 			     /*사원번호2*/
-			    var bbb = $("#employeeAll tbody tr:eq(1) td:eq(0)").text();
+			    var bbb = $("#emplist tbody tr:eq(0) td:eq(0)").text();
 			    console.log(bbb)
 			    
 			
 			    
 
 			    
-			    var hh = $("#employeeAll tbody tr").children().eq(0).text();
+			    var hh = $("#emplist tbody tr").children().eq(0).text();
 			    console.log("hh " + hh)
 			   
 			    
 			    /*각각 테이블 tr 별로 for 문으로 인덱스 구해서*/
 			    
-			    for(var i =0; i<$("#employeeAll tbody tr").length; i++){
+			    for(var i =0; i<$("#emplist tbody tr").length; i++){
 			    	
-			    	$("#employeeAll tbody tr:eq("+i+") td:eq(8) .dropdown-menu-icon-list a:eq(0)").click(function(){
+			    	$("#emplist tbody tr:eq("+i+") td:eq(8) .dropdown-menu-icon-list a:eq(0)").click(function(){
 			    		
 			    		
 			    		location.href="empDetail.me?empId=" +  $(this).parent().parent().parent().parent().children().eq(0).text(); 
@@ -244,9 +233,9 @@ display: none;
 			    
 				/*수정 폼으로 이동 하는 함수*/
 			    
-			    for(var i =0; i<$("#employeeAll tbody tr").length; i++){
+			    for(var i =0; i<$("#emplist tbody tr").length; i++){
 			    	
-			    	$("#employeeAll tbody tr:eq("+i+") td:eq(8) .dropdown-menu-icon-list a:eq(1)").click(function(){
+			    	$("#emplist tbody tr:eq("+i+") td:eq(8) .dropdown-menu-icon-list a:eq(1)").click(function(){
 			    
 			    		location.href="updateEmpForm.me?empId=" +  $(this).parent().parent().parent().parent().children().eq(0).text();  
 			    		
@@ -256,10 +245,10 @@ display: none;
 				
 				/*삭제 하는 함수*/
 			    
-			     for(var i =0; i<$("#employeeAll tbody tr").length; i++){
+			     for(var i =0; i<$("#emplist tbody tr").length; i++){
 			    	
 			    	
-			    	$("#employeeAll tbody tr:eq("+i+") td:eq(8) .dropdown-menu-icon-list a:eq(2)").click(function(){
+			    	$("#emplist tbody tr:eq("+i+") td:eq(8) .dropdown-menu-icon-list a:eq(2)").click(function(){
 			    		/* $("#postForm").attr("action","deleteEmp.me"); */
 			    		location.href="deleteEmp.me?empId=" +  $(this).parent().parent().parent().parent().children().eq(0).text();  
 			    		

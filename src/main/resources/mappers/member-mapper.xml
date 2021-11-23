@@ -35,7 +35,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<update id="updateMember" parameterType="Member">
 	update member set
-	EMAIL = #{email}, GENDER = #{gender}, PHONE = #{phone}, ADDRESS = #{address}
+	EMAIL = #{email}, GENDER = #{gender}, PHONE = #{phone}, ADDRESS = #{address},
+	ORIGIN_NAME = #{originName}, CHANGE_NAME = #{changeName}
+	WHERE EMP_ID=#{empId} 	
+	</update>
+	
+	<update id="updatePic" parameterType="Member">
+	update member set
+	ORIGIN_NAME = #{originName}, CHANGE_NAME = #{changeName}
 	WHERE EMP_ID=#{empId} 	
 	</update>
 	

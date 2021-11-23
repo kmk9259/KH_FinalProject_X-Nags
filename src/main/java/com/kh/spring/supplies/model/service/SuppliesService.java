@@ -26,6 +26,12 @@ public interface SuppliesService {
 
 	ArrayList<Supplies> mySupList(String empId);
 
+	
+	//myPage로 
+	ArrayList<Return> updateForm(String empId);
+
+	
+
 
 
 	

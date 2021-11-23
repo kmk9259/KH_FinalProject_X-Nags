@@ -45,62 +45,12 @@
     <div class="header">
         <div class="header-left">
             <div class="menu-icon dw dw-menu"></div>
-            <div class="search-toggle-icon dw dw-search2" data-toggle="header_search"></div>
-            <div class="header-search">
-                <form>
-                    <div class="form-group mb-0">
-                        <i class="dw dw-search2 search-icon"></i>
-                        <input type="text" class="form-control search-input" placeholder="Search Here">
-                        
-                    </div>
-                </form>
-            </div>
+           
+            
         </div>
         <div class="header-right">
             
-            <div class="user-notification">
-                <div class="dropdown">
-                    <a class="dropdown-toggle no-arrow" href="#" role="button" data-toggle="dropdown">
-                        <i class="icon-copy dw dw-notification"></i>
-                        <span class="badge notification-active"></span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <div class="notification-list mx-h-350 customscroll">
-                            <ul>
-                                <li>
-                                    <a href="#">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/vendors/images/img.jpg" alt="">
-                                        <h3>John Doe</h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/vendors/images/photo1.jpg" alt="">
-                                        <h3>Lea R. Frith</h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img src="${ pageContext.servletContext.contextPath }/resources/vendors/images/photo2.jpg" alt="">
-                                        <h3>Erik L. Richards</h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-                                    </a>
-                                </li>
-                                
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-           <!--  <div class="col-lg-4 col-md-6 col-sm-12 mb-30">
-                <div class="pd-20 card-box text-center height-100-p">                    
-                    <div class="max-width-200 mx-auto">
-                        <button type="button" class="btn mb-20 btn-primary btn-block" id="sa-basic">Click me</button>
-                    </div>
-                </div>
-            </div> -->
+            
            
             <c:if test="${ !empty sessionScope.loginUser }">
             <div class="user-info-dropdown">
@@ -108,7 +58,8 @@
                     <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                         
                         <span class="user-icon">
-							<img src="${ pageContext.servletContext.contextPath }/resources/profile_files/${ sessionScope.loginUser.changeName }" alt="">
+							<img src="${ pageContext.servletContext.contextPath }/resources/profile_files/${ sessionScope.loginUser.changeName }" alt=""  
+							 style= "width:52px; height:52px; object-fit:cover; position: absolute; transform: translate(-50%, 0%);">
 						</span>
                         <span class="user-name">${ sessionScope.loginUser.userName }님</span>
                          
@@ -116,7 +67,7 @@
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                         <a class="dropdown-item" id="my"><i class="dw dw-user1"></i> Mypage</a>
                         <input type = "hidden"  id="mm" name = "empId" value = "${loginUser.empId }"> 
-                        <a class="dropdown-item" href="selectEmployee.me"><i class="dw dw-settings2"></i> Setting</a>                        
+                                              
                         <a class="dropdown-item btn-block" href="#" data-toggle='modal' data-target='#confirmation-modal'"><i class="dw dw-logout"></i> Log Out</a>
                       	
                       	<div class="modal fade" id="confirmation-modal" tabindex="-1" role="dialog" aria-hidden="true">

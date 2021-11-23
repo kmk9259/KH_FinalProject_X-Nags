@@ -79,6 +79,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	SELECT * FROM RETURN_LIST WHERE EMP_ID=#{empId} AND STATUS = 'Y'
 	
 	</select>
+	
+	<!-- myPage 로 갈땐 empId String -->
+	<select id="updateForm2" parameterType="String" resultMap="ReturnResultSet">
+	SELECT * FROM RETURN_LIST WHERE EMP_ID=#{empId} AND STATUS = 'Y'
+	</select>
 
 
 	<select id="selectReSuplist" parameterType="Return" resultMap="ReturnResultSet">

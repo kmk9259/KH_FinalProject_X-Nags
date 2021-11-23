@@ -86,6 +86,17 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return memberDao.selectMem(sqlSession, empId);
 	}
+	
+	@Override
+	public Member updatePic(Member m) {
+		int result = memberDao.updatePic(sqlSession,m);
+		
+		if(result < 0) {
+			throw new CommException("사진 업데이트 실패");
+		}
+		return m;
+		
+	}
 
 
 
