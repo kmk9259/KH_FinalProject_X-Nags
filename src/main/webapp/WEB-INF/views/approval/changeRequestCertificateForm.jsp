@@ -223,9 +223,9 @@ label {
                 		if(deptCode == "부서 선택"){
                 			
                 			swal({
-                	                   type: 'error',
-                	                   title: 'Oops...',
-                	                   text: '부서를 선택해 주세요',
+               	                   type: 'error',
+               	                   title: 'Oops...',
+               	                   text: '부서를 선택해 주세요',
                 	             })
                 			return false;
                 		}
@@ -436,7 +436,13 @@ label {
                 }
                 
                 </script>
+                
 <script src="${ pageContext.servletContext.contextPath }/resources/plugins/sweetalert2/sweetalert2.all.js"></script>
 
+<script src="${ pageContext.servletContext.contextPath }/resources/assets/js/bootstrap-datepicker.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/assets/js/bootstrap-datepicker.kr.min.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/plugins/slick/slick.min.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
+	
 </body>
 </html>

@@ -14,6 +14,10 @@
 #appList>tbody>tr:hover {
 	cursor: pointer;
 }
+table{
+	margin-bottom: 10;
+	text-align: center;
+}
 #ok{
 color: green;
 }
@@ -61,7 +65,7 @@ color: red;
 						</div>
 					</div>
 					<div id="mailList">
-					<table class="table appList" id="appList">
+					<table class="table table-striped appList" id="appList">
 						<thead>
 							<tr>
 								<th scope="col">문서 번호</th>

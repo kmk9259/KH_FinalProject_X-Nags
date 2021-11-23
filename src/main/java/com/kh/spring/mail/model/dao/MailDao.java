@@ -169,4 +169,13 @@ public class MailDao {
 		return sqlSession.selectOne("mailMapper.selectReceiveEmp", mno);
 	}
 
+	public ArrayList<Mail> mainSendMailList(SqlSessionTemplate sqlSession, String empId) {
+		
+		return (ArrayList)sqlSession.selectList("mailMapper.mainSendMailList", empId);
+	}
+
+	public ArrayList<Mail> mainReceiveMailList(SqlSessionTemplate sqlSession, String empId) {
+		return (ArrayList)sqlSession.selectList("mailMapper.mainReceiveMailList", empId);
+	}
+
 }

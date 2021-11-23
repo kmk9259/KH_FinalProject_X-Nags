@@ -10,9 +10,13 @@
 	content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>X-Nomal Groupware Solution</title>
 <style type="text/css">
-
+#pagingArea{width:fit-content;margin:auto;}
+#appList>tbody>tr:hover {
+	cursor: pointer;
+}
 table{
 	margin-bottom: 10;
+	text-align: center;
 }
 #ok{
 color: green;
@@ -295,7 +299,9 @@ color: red;
 	            			<input type="hidden" name="fileName" value="${ app.changeName }"> 
 		            		<div class="card-footer">
 				              <div class="float-right">
-				              	<button type="button" class="btn btn-default" data-backdrop="static" data-toggle="modal" data-target="#deleteApp"><i class="icon-copy ion-trash-a"></i> 삭제</button>
+				              	<c:if test="${app.empId == loginUser.empId }">
+				              		<button type="button" class="btn btn-default" data-backdrop="static" data-toggle="modal" data-target="#deleteApp"><i class="icon-copy ion-trash-a"></i> 삭제</button>
+				              	</c:if>
 				              </div>	
 				               <button type="button" class="btn btn-default" onclick="goList();"><i class="icon-copy ion-arrow-left-c"></i> 목록으로</button>
 				               <!-- <button type="button" class="btn btn-default" id="printApp"><i class="icon-copy ion-printer"></i> 프린트</button> -->

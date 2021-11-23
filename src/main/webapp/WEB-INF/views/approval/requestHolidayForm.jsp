@@ -180,13 +180,19 @@ label {
 			
 			
 			<script>
-           	 $(".datetimepicker-range").datepicker({
-            		dateFormat: "yyyy/mm/dd",
-            		minDate: new Date(),
-            		language:"kr",
-            		todaytHightlight : true
-
-           	   });  
+			$(function(){
+            	var appDate ="";
+            	$( ".datetimepicker-range" ).datepicker({
+                		dateFormat: "yyyy/mm/dd",
+                		language:"ko",
+                		minDate: new Date(),
+                		onSelect: function(dateText) {
+                			appDate = dateText
+                	    }
+                		
+                });  	 
+        			
+        	}); 
                
                 $(function(){
                 	$("#searchEmp").click(function(){
@@ -196,13 +202,11 @@ label {
                 		
                 		if(deptCode == "부서 선택"){
                 			
-                			swal(
-                	               {
-                	                   type: 'error',
-                	                   title: 'Oops...',
-                	                   text: '부서를 선택해 주세요',
-                	               }
-                	           )
+                			swal({
+               	                   type: 'error',
+               	                   title: 'Oops...',
+               	                   text: '부서를 선택해 주세요',
+                	             })
                 			return false;
                 		}
                 		
@@ -429,10 +433,5 @@ label {
 	
 
 
-<script src="${ pageContext.servletContext.contextPath }/resources/assets/js/bootstrap-datepicker.js"></script>
-<script src="${ pageContext.servletContext.contextPath }/resources/assets/js/bootstrap-datepicker.kr.min.js"></script>
-<script src="${ pageContext.servletContext.contextPath }/resources/plugins/slick/slick.min.js"></script>
-<script src="${ pageContext.servletContext.contextPath }/resources/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
-	
 </body>
 </html>

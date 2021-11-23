@@ -159,12 +159,8 @@ label {
 										</tbody>
 									</table>
 								</div>
-							
 							</div>
-						</div>
-										
-										
-										
+						</div>	
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
 							<button type="button" class="btn btn-primary" onclick="selectMid();">중간결재자 선텍</button>

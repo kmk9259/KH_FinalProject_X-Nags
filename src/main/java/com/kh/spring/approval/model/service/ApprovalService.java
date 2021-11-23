@@ -64,6 +64,12 @@ public interface ApprovalService {
 
 	void deleteOutwork(int ano);
 
+	ArrayList<Approval> mainAppingList(String empId);
+
+	ArrayList<Approval> mainAppAskList(String empId);
+
+	ArrayList<Approval> mainAppedList(String empId);
+
 	
 
 	

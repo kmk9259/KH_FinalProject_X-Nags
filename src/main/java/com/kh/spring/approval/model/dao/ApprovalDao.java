@@ -185,6 +185,18 @@ public class ApprovalDao {
 		
 		return sqlSession.delete("approvalMapper.deleteOutwork", ano);
 	}
+
+	public ArrayList<Approval> mainAppingList(SqlSessionTemplate sqlSession, String empId) {
+		return (ArrayList)sqlSession.selectList("approvalMapper.mainAppingList", empId);
+	}
+
+	public ArrayList<Approval> mainAppAskList(SqlSessionTemplate sqlSession, String empId) {
+		return (ArrayList)sqlSession.selectList("approvalMapper.mainAppAskList", empId);
+	}
+
+	public ArrayList<Approval> mainAppedList(SqlSessionTemplate sqlSession, String empId) {
+		return (ArrayList)sqlSession.selectList("approvalMapper.mainAppedList", empId);
+	}
 	
 	
 

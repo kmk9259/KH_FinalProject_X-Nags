@@ -63,15 +63,15 @@ label {
 						
 								<input type="hidden" readonly
 								class="form-control-plaintext" name="empId"
-								value="${ sessionScope.loginUser.empId }">
+								value="${ loginUser.empId }">
 						
 
 						<div class="form-group">
 							<div class="mailReceiver">
 								<div class="form-group">
 									<input class="form-control" type="text" data-toggle="tooltip" title="주소록에서 선택해 주세요."
-										name="receiverName" readonly="readonly" required="required" placeholder="받는 사람">
-									<input type="hidden" name="receiver">
+										name="receiverName" readonly="readonly" value="${ sendEmp.userName }">
+									<input type="hidden" name="receiver" value="${ sendEmp.empId}">
 								</div>
 								<div class="form-group">
 									<button type="button" class="btn btn-primary" data-backdrop="static" data-toggle="modal" data-target="#bd-example-modal-lg">주소록</button>
