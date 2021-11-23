@@ -76,5 +76,9 @@ public class VotingDao {
 	public int deleteVoting3(SqlSessionTemplate sqlSession, int bno) {
 		return sqlSession.delete("votingMapper.deleteVoting3",bno);
 	}
+
+	public int increaseCount(SqlSessionTemplate sqlSession, int bno) {
+		return sqlSession.update("votingMapper.increaseCount", bno);
+	}
 	
 }

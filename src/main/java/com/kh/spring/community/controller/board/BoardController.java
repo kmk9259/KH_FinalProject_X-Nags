@@ -111,14 +111,7 @@ public class BoardController {
 	@RequestMapping("update.bo")
 	public ModelAndView updateBoard(Board b, ModelAndView mv, HttpServletRequest request,
 			@RequestParam(name = "reUploadFile", required = false) MultipartFile file) {
-		if (!file.getOriginalFilename().equals("")) {
-			if (b.getChangeFile() != null) {
-				deleteFile(b.getChangeFile(), request);
-			}
-			String changeName = saveFile(file, request);
-			b.setOriginFile(file.getOriginalFilename());
-			b.setChangeFile(changeName);
-		}
+	
 		if (!file.getOriginalFilename().equals("")) {
 			if (b.getChangeFile() != null) {
 				deleteFile(b.getChangeFile(), request);

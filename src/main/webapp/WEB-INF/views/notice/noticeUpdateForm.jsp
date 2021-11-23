@@ -11,16 +11,32 @@
     #updateForm>table *{ margin:5px;}
 </style>
 </head>
-<body>
+<body style = "background: #ecf0f4">
     <jsp:include page="../common/menubar.jsp"/>
 <div class="mobile-menu-overlay"></div>
 	<div class="main-container">
+	<div class="page-header">
+					<div class="row">
+						<div class="col-md-6 col-sm-12">
+							<div class="title">
+								<h4>공지사항 수정하기 </h4>
+							</div>
+							<nav aria-label="breadcrumb" role="navigation">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="">홈</a></li>
+									<li class="breadcrumb-item"><a href="">공지사항 목록</a></li>
+									<li class="breadcrumb-item"><a href="">공지사항 상세보기</a></li>
+									<li class="breadcrumb-item active" aria-current="page">공지사항 수정하기</li>
+								</ol>
+							</nav>
+						</div>
+					</div>
+				</div>
     <div class="content">
-        <br><br>
+   
         <div class="innerOuter">
         <div class="html-editor pd-20 card-box mb-30">
-            <h2>공지사항 수정하기</h2>
-            <br>
+           
 		
             <form id="updateForm" method="post" action="noticeUpdate.bo" enctype="multipart/form-data">
             	<input type="hidden" name="noticeNo" value="${ n.noticeNo }">
@@ -55,12 +71,15 @@
                 </div>
             </form>
         </div>
-        </div>
+          
         </div>
         
+        </div>
+           <jsp:include page="../common/footer.jsp"/>
         <br><br>
+   
     </div>
 	
-    <jsp:include page="../common/footer.jsp"/>
+    
 </body>
 </html>

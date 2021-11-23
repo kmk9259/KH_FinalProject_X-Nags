@@ -76,20 +76,61 @@
             -ms-transform: rotate(45deg);
                 transform: rotate(45deg);
     }
-   
+   .per{
+        position: relative;
+        top: 0;       
+        height: 100%;
+        padding: 5.5px 5px 5.5px 10px;
+        background-color: #1a1a1a;
+        -webkit-border-radius: 0 2px 2px 0;
+           -moz-border-radius: 0 2px 2px 0;
+            -ms-border-radius: 0 2px 2px 0;
+                border-radius: 0 2px 2px 0;
+   }
+   .per:before{
+        content: "";
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        top: 50%;
+        left: -3px;
+        margin-top: -3px;
+        background-color: #1a1a1a;
+
+        -webkit-transform: rotate(45deg);
+           -moz-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+                transform: rotate(45deg);
+   }
 </style>
 </head>
-<body style = "background : white">
+<body style = "background: #ecf0f4">
 
     <jsp:include page="../common/menubar.jsp"/>
 	<div class="mobile-menu-overlay"></div>
 
 	<div class="main-container">
+		<div class="page-header">
+					<div class="row">
+						<div class="col-md-6 col-sm-12">
+							<div class="title">
+							
+								<h4>투표 결과보기 </h4>
+								
+							</div>
+							<nav aria-label="breadcrumb" role="navigation">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="">홈</a></li>
+									<li class="breadcrumb-item"><a href="">투표게시판 목록</a></li>
+									<li class="breadcrumb-item active" aria-current="page">투표 결과보기</li>
+								</ol>
+							</nav>
+						</div>
+					</div>
+				</div>
     <div class="content">
-    <div class="pd-20">
-        <br><br>
-        <div class="innerOuter">
-            <h2>투표 결과보기</h2>
+    <div class="pd-20 card-box mb-30">
+      
              <table id="contentArea"  class="table">
              <tr>
                     <th width="100">작성자</th>
@@ -99,25 +140,16 @@
                     <th width="100">주제</th>
                     <td colspan="3">${ v.votingTitle }</td>
                    
-                </tr>
-                
-                <%-- 조회수 총합 --%>
-                
+                </tr>          
                  <c:set var ="sum" value ="0" />
                  <c:forEach var = "cntSum" items ="${va }">                
                  <c:set var ="sum" value ="${sum + cntSum.count }"/>               
                  </c:forEach>              
                 <tr>
                  <th width="100">총 투표수</th>
-                <td> <c:out value ="${sum }" /> </td>
+                <td > <c:out value ="${sum }" /> </td>
                 </tr>
-                </table>
-             <%-- ----------------------------------------------------------------- --%>
-          
-                 
-                 
-                   <%--비율 --%>
-              
+                </table>        
                      <div class = "zt-span6 last"> 
               	 <c:set var ="avg" value ="0" />
                  <c:forEach var = "cntAvg" items ="${va}">                
@@ -125,52 +157,68 @@
                  <fmt:parseNumber var= "test" value ="${avg }" integerOnly ="true"/>
                         
                 
-                <div  class = "zt-skill-bar">
+                <div  class = "zt-skill-bar" style = "width:100%">
+                
                
-               	<div style = "width:${test}% "><b style = "color : black; text-align: left; vertical-align:middle">${cntAvg.content}</b><span ><b style =  "vertical-align:middle">${test}%</b> </span>
-               	
-               		
-               	</div>
-               <b style = "color :blue" >${cntAvg.count }표</b> 
-               	 </div>                       
+                
+               <c:if test ="${test == 0 }">   
+                <div style = "width:auto; background: #ecf0f4">    
+                  <%-- <span>${test}%</span> --%>
                
-                        
-                        
+               <b style ="color:black"> ${test}%</b>
+                  </div>
+                  <b style = "color : black; text-align: left">${cntAvg.content}</b>
+               <b style = "margin-right:1em; color :blue" >${cntAvg.count }표 </b>
+               <br>
+               </c:if>
+            
+               <c:if test ="${test > 0 && test <= 97}">	
+               	<div style = "width:${test +3}%; text-align:right ">            
+               	 <b style ="color:black"> ${test}% &nbsp;</b>       		
+               	</div>              	 
+              	<b style = "color : black; text-align: left">${cntAvg.content}</b>                
+               	<b style = "margin-right:1em;color :blue" >${cntAvg.count }표</b>     
+             	 </c:if>   
+               	 
+               	         
+                <c:if test ="${test > 97 }">	
+               <div style = "width:${test}%; text-align:right ">            
+               	 <b style ="color:black"> ${test}% &nbsp;</b>       		
+               	</div>              	 
+              	<b style = "color : black; text-align: left">${cntAvg.content}</b>                
+               	<b style = "margin-right:1em;color :blue" >${cntAvg.count }표</b>  
+                   </c:if> 
+                  </div>
+                                          
                  </c:forEach>               
                  </div>   
-		</div>
+                 <br><br>
+                  <button class="btn btn-dark"  id = "list">목록으로</button>
+                 <c:if test="${ loginUser.empId eq v.empId }"> 
+				<input class="btn btn-danger" type="button" id="delBtn" value="삭제하기">
+	          	  
+				<input type="hidden" name="bno" value="${ v.votingNo }">				
+
+            </c:if> 
         </div>
+        
         </div>
-        <br><br>
-         <button class="btn btn-dark"  id = "list">목록으로</button>
+
+            <jsp:include page="../common/footer.jsp"/>
     </div>
-   <%--  
-               <%--비율 
-               <table border ="1">
-               
-              	 <c:set var ="avg" value ="0" />
-                 <c:forEach var = "cntAvg" items ="${va}">                
-                 <c:set var ="avg" value ="${ cntAvg.count /sum*100}"/>
-                 <fmt:parseNumber var= "test" value ="${avg }" integerOnly ="true"/>
-                
-                 <th width="100">비율</th>
-                <td> <c:out value ="${avg }" /> </td>                             
-                </tr> 
-               
-                     
-                <tr style = "width:100%">
-                
-                <c:out value = "${test }"/>
-                <td >${cntAvg.content}</td>
-                <td style = "background-color: red; width:${test}%"></td>
-                <td>${cntAvg.count }</td>
-                </tr>
-                         
-                 </c:forEach>
-                 </table>
-                 --%>
-    <jsp:include page="../common/footer.jsp"/>
+ 
 <script>
+
+$("#delBtn").click(function(){ 
+	if(confirm("정말 삭제하시겠습니까?") == true){
+		location.href = "deleteVoting.vo?bno="
+			+${v.votingNo};
+			
+		alert("삭제되었습니다");
+	}else{
+		return;
+		}							
+})
 
 $(function() {
 	$("#list").click(

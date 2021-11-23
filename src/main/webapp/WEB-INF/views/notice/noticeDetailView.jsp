@@ -11,14 +11,31 @@
 	#contentArea *{margin:5px }
 </style>
 </head>
-<body style = "background : white">
+<body style = "background: #ecf0f4">
     <jsp:include page="../common/menubar.jsp"/>
     <div class="main-container">
+    <div class="page-header">
+					<div class="row">
+						<div class="col-md-6 col-sm-12">
+							<div class="title">
+								<h4>공지사항 상세보기 </h4>
+							</div>
+							<nav aria-label="breadcrumb" role="navigation">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="">홈</a></li>
+									<li class="breadcrumb-item"><a href="">공지사항 목록</a></li>
+									<li class="breadcrumb-item active" aria-current="page">공지사항 상세보기</li>
+								</ol>
+							</nav>
+						</div>
+					</div>
+				</div>
+    
 	<div class="mobile-menu-overlay"></div>
 
 	
     <div class="content">
-    <div class="card-box mb-30">
+    <div class="pd-20 card-box mb-30">
         <br>
         <div class="innerOuter">
         
@@ -26,8 +43,8 @@
             <br>
             <table id="contentArea" align="center" class="table ">
              <tr >
-                    <th width="100">작성자</th>
-                    <td colspan="3">${ n.userName }</td>
+                    <th width="100">작성부서</th>
+                    <td colspan="3">${ n.deptName }</td>
                 </tr>
                 <tr>
                     <th width="100">제목</th>
@@ -161,6 +178,8 @@
 				</div>
 			</div>
 		</div>
+			
+    <jsp:include page="../common/footer.jsp"/>
 	</div>
      <script>
      var rlist = [];
@@ -286,7 +305,6 @@
 		 		}		 			
 		 	}
     </script>
-	
-    <jsp:include page="../common/footer.jsp"/>
+
 </body>
 </html>

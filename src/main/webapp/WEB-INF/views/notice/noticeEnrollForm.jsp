@@ -10,17 +10,31 @@
     #enrollForm>table *{ margin:5px;}
 </style>
 </head>
-<body>
+<body style = "background: #ecf0f4">
     <jsp:include page="../common/menubar.jsp"/>
 <div class="mobile-menu-overlay"></div>
 
 	<div class="main-container">
+	<div class="page-header">
+					<div class="row">
+						<div class="col-md-6 col-sm-12">
+							<div class="title">
+								<h4>공지사항 작성하기 </h4>
+							</div>
+							<nav aria-label="breadcrumb" role="navigation">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="">홈</a></li>
+									<li class="breadcrumb-item active" aria-current="page">공지사항 작성하기</li>
+								</ol>
+							</nav>
+						</div>
+					</div>
+				</div>
     <div class="content">
-        <br><br>
+       
         <div class="innerOuter">
-            <h2>공지사항 작성하기</h2>
-            <br>
-			<div class="html-editor pd-20 card-box mb-30">
+       
+			<div class="pd-20 card-box mb-30">
 			<!-- 첨부파일도 등록할꺼니깐 Multipart/form-data encType 지정!! -->
             <form id="enrollForm" method="post" action="noticeInsert.bo" enctype="multipart/form-data">
              <input type = "hidden" name = "empId" value = "${loginUser.empId }">
@@ -53,6 +67,7 @@
         </div>
         <br><br>
     </div>
+        <jsp:include page="../common/footer.jsp"/>
 </div>
 <script>
 $("#emptyCheck").click(function(){
@@ -74,6 +89,6 @@ $("#emptyCheck").click(function(){
 })
 </script>
 
-    <jsp:include page="../common/footer.jsp"/>
+
 </body>
 </html>

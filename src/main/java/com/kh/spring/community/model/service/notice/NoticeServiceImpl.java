@@ -66,4 +66,9 @@ public class NoticeServiceImpl implements NoticeService {
 			throw new CommException("공지사항 삭제 실패");
 		}
 	}
+
+	@Override
+	public ArrayList<Notice> selectTopList() {
+		return noticeDao.selectTopList(sqlSession);
+	}
 }
