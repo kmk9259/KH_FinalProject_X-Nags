@@ -42,56 +42,66 @@
 	Width: 20%;
 }
 </style>
-<%-- 
-<link rel="stylesheet" type="text/css"
-	href="${ pageContext.servletContext.contextPath }/resources/vendors/styles/core.css">
-<link rel="stylesheet" type="text/css"
-	href="${ pageContext.servletContext.contextPath }/resources/vendors/styles/icon-font.min.css">
-<link rel="stylesheet" type="text/css"
-	href="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/css/dataTables.bootstrap4.min.css">
-<link rel="stylesheet" type="text/css"
-	href="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/css/responsive.bootstrap4.min.css">
-<link rel="stylesheet" type="text/css"
-	href="${ pageContext.servletContext.contextPath }/resources/vendors/styles/style.css">
-	--%>
+
 </head>
-
-
-<body>
+<body style = "background: #ecf0f4">
 	<jsp:include page="../common/menubar.jsp" />
 	<div class="mobile-menu-overlay"></div>
 
 	<div class="main-container">
+	<div class="page-header">
+					<div class="row">
+						<div class="col-md-6 col-sm-12">
+							<div class="title">
+								<h4>투표게시판 목록</h4>
+							</div>
+							<nav aria-label="breadcrumb" role="navigation">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="">홈</a></li>
+									<li class="breadcrumb-item active" aria-current="page">투표게시판 목록</li>
+								</ol>
+							</nav>
+						</div>
+					</div>
+				</div>
 		<!-- Simple Datatable start -->
-		<div class="card-box mb-30">
+		<div class="pd-20 card-box mb-30">
 			<div class="pd-20">
-				<h4 class="text-dark">투표 게시판</h4>
+			
+			<%-- <input type ="hidden" id = "result1" name = "result1" value ="${list.result }"> --%>
+				
 			
 				<c:if test="${ !empty loginUser }">
 					<a class="btn btn-dark" style="float: right" data-toggle="modal" data-target="#myModal"
 						href="enrollVoting.vo">투표함 만들기</a>
 				</c:if>
 			</div>
-
+		
 			<div class="pb-20">
 				<table id="boardList" class="data-table table stripe hover nowrap">
 					<thead class="bg-dark text-white">
+					
 						<tr>
 							<th>글 번호</th>
 							<th>투표 주제</th>
 							<th>작성자</th>
+							
 							<th>작성일</th>
+							<th>조회수</th>
 							<th>투표 여부</th>
 						</tr>
 					</thead>
 					<tbody  class="bg-light text-dark">
 						<tr >
 							<c:forEach items="${ list }" var="v">
+						
 								<tr class ="table-warning">
+								
 									<td>${v.votingNo }</td>
 									<td>${v.votingTitle}</td>
-									<td>${ v.userName}</td>
+									<td>${ v.userName}</td>									
 									<td>${v.votingDate }</td>
+									<td>${v.count}</td>
 									 <c:choose>	
 	 		 							  <c:when test="${v.result == 1}">
 	  										  <td>이미 투표 하셨습니다</td>
@@ -150,7 +160,8 @@
 			<br>
 			<br>
 			 
-</div>				
+</div>	
+ <jsp:include page="../common/footer.jsp" />  			
 </div>
   <!-- The Modal -->
   
@@ -192,7 +203,7 @@
 				</table>    	 
      	 </form>
         </div>
-   
+    
         <br>
      
         <!-- Modal footer -->
@@ -201,15 +212,24 @@
 		<button id="delBtn"  class="btn btn-danger">항목제거하기</button>    
 		  </div>    
       </div>        
-    </div>    
+    </div>  
+    	
   </div>
-	<script>
-		$(function() {
-			$("#boardList tbody tr").click(
-					function() {
-						location.href = "votingdetail.bo?bno="
-								+ $(this).children().eq(0).text();
-					});
+
+	<script>	
+		$(function() {			
+			$("#boardList tbody tr").click(function() {
+				var result = $(this).children().eq(5).text();
+				if(result == '이미 투표 하셨습니다'){
+					alert("이미 투표 하신 게시글 입니다. 결과화면으로 이동합니다");
+					location.href = "votingResult.vo?bno="
+						+ $(this).children().eq(0).text();
+				}else{
+					location.href = "votingdetail.bo?bno="
+						+ $(this).children().eq(0).text();
+				}
+				
+			});
 		});
 		
 		
@@ -233,26 +253,7 @@
 			}
 		})
 	</script>
-	<%-- js 
 
-	
-	<script
-		src="${ pageContext.servletContext.contextPath }/resources/vendors/scripts/core.js"></script>
-	<script
-		src="${ pageContext.servletContext.contextPath }/resources/vendors/scripts/script.min.js"></script>
-	<script
-		src="${ pageContext.servletContext.contextPath }/resources/vendors/scripts/process.js"></script>
-	<script
-		src="${ pageContext.servletContext.contextPath }/resources/vendors/scripts/layout-settings.js"></script>
-	<script
-		src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/jquery.dataTables.min.js"></script>
-	<script
-		src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
-	<script
-		src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/dataTables.responsive.min.js"></script>
-	<script
-		src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
---%>
-	<jsp:include page="../common/footer.jsp" />
+
 	</body>
 </html>

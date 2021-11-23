@@ -84,6 +84,7 @@ public class VotingController {
 	public String votingUpdate(@RequestParam(value = "votingNo") int votingNo,
 								@RequestParam(value = "content") String content,
 								@RequestParam(value = "empId") String empId) {
+		System.out.println(content + "content");
 		 VotingA va = new VotingA();
 		 va.setRefNo(votingNo);
 		 va.setContent(content);

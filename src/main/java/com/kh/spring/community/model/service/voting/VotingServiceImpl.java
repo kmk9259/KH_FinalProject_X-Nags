@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.spring.common.exception.CommException;
 import com.kh.spring.community.model.dao.voting.VotingDao;
+import com.kh.spring.community.model.vo.Notice;
 import com.kh.spring.community.model.vo.PageInfo;
 import com.kh.spring.community.model.vo.Voting;
 import com.kh.spring.community.model.vo.VotingA;
@@ -46,8 +47,14 @@ public class VotingServiceImpl implements VotingService {
 
 	@Override
 	public Voting selectVoting(int bno) {
+	
 		Voting v = null;
-		v = votingDao.selectVoting(sqlSession, bno);
+		int result = votingDao.increaseCount(sqlSession, bno);
+		if (result < 0) {
+			throw new CommException("게시글 조회수 증가 실패");
+		} else {
+			v = votingDao.selectVoting(sqlSession, bno);
+		}			
 		return v;
 	}
 

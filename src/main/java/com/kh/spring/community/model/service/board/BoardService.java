@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.kh.spring.community.model.vo.Board;
 import com.kh.spring.community.model.vo.Board_Reply;
+import com.kh.spring.community.model.vo.Notice;
 import com.kh.spring.community.model.vo.PageInfo;
 
 public interface BoardService {
@@ -21,14 +22,10 @@ public interface BoardService {
 
 	void updateBoard(Board b);
 
+	ArrayList<Notice> selectTopList();
 
 
 
-/*
-	ArrayList<Reply> selectReplyList(int bno);
-
-	int insertReply(Reply r);
-*/
 
 
 }

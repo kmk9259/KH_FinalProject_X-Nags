@@ -26,5 +26,5 @@ public class Notice {
 	private Date uploadDate;
 	private String rightNo;
 	private String userName;
-
+	private String deptName;
 }

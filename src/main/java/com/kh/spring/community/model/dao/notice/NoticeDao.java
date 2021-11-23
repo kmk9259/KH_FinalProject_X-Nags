@@ -46,4 +46,8 @@ public class NoticeDao {
 	public ArrayList<Notice> noticeWriter(SqlSessionTemplate sqlSession, Notice writer) {
 		return (ArrayList)sqlSession.selectList("noticeMapper.noticeWriter",writer);
 	}
+
+	public ArrayList<Notice> selectTopList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("noticeMapper.selectTopList");
+	}
 }

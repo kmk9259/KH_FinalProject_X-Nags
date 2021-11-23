@@ -57,13 +57,28 @@
 </head>
 
 
-<body>
+<body style = "background: #ecf0f4">
 	<jsp:include page="../common/menubar.jsp" />
 	<div class="mobile-menu-overlay"></div>
 
 	<div class="main-container">
+	<div class="page-header">
+					<div class="row">
+						<div class="col-md-6 col-sm-12">
+							<div class="title">
+								<h4>익명게시판 목록</h4>
+							</div>
+							<nav aria-label="breadcrumb" role="navigation">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="">홈</a></li>
+									<li class="breadcrumb-item active" aria-current="page">익명게시판 목록</li>
+								</ol>
+							</nav>
+						</div>
+					</div>
+				</div>
 		<!-- Simple Datatable start -->
-		<div class="card-box mb-30">
+		<div class="pd-20 card-box mb-30">
 			<div class="pd-20">
 				<h4 class="text-dark">익명게시판</h4>
 				<c:if test="${ !empty loginUser }">
@@ -145,13 +160,11 @@
 					</ul>
 				</div>
 
-				<br clear="both">
-				<br> <br>
 				<br>
 			</div>
-			<br>
-			<br>
+		
 		</div>
+			<jsp:include page="../common/footer.jsp" />
 	</div>
 	<script>
 		$(function() {
@@ -182,6 +195,6 @@
 	<script
 		src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
 --%>
-	<jsp:include page="../common/footer.jsp" />
+
 	</body>
 </html>

@@ -20,11 +20,12 @@
 	type="text/javascript"></script>
 
 
-<body>
+<body style = "background: #ecf0f4">
 	<jsp:include page="../common/menubar.jsp" />
 	<div class="mobile-menu-overlay"></div>
 
 	<div class="main-container">
+
 	<br><br>
 	 <div class="card-box mb-30">
 		<div class="innerOuter">
@@ -63,6 +64,7 @@
 			<button id="delBtn"  class="btn btn-danger">항목제거하기</button>
 		</div>
 		</div>
+			<jsp:include page="../common/footer.jsp" />
 	</div>
 	
 	
@@ -89,7 +91,7 @@
 		})
 		
 	</script>
-	<jsp:include page="../common/footer.jsp" />
+
 </body>
 
 </html>
