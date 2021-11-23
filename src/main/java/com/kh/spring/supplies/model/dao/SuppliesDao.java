@@ -71,6 +71,11 @@ public class SuppliesDao {
 		return (ArrayList)sqlSession.selectList("suppliesMapper.mySupList", empId);
 	}
 
+	public ArrayList<Return> updateForm(SqlSessionTemplate sqlSession, String empId) {
+		// TODO Auto-generated method stub
+		return (ArrayList)sqlSession.selectList("suppliesMapper.updateForm2", empId);
+	}
+
 
 
 

@@ -124,6 +124,12 @@ public class SuppliesServiceImpl implements SuppliesService {
 		return suppliesDao.mySupList(sqlSession, empId);
 	}
 
+	@Override
+	public ArrayList<Return> updateForm(String empId) {
+		
+		return suppliesDao.updateForm(sqlSession, empId);
+	}
+
 
 
 

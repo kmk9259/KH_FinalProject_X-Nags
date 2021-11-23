@@ -180,6 +180,7 @@ background-color: white;
 											<td colspan="2" >
 											<form id="postForm${status.index }" action="" method="post">
 											<input type = "hidden" name ="reNo" value ="${returnList[status.index].reNo}">
+											<input type = "hidden" name = "empId" value = "${loginUser.empId }">
 											<input id="toDate${status.index }" type="text" class="form-control toDate" name="endDate"  value="${returnList[status.index].endDate}">
 											</form>
 											</td>

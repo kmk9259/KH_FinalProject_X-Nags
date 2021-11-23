@@ -35,6 +35,11 @@ public class MemberDao {
 		return sqlSession.selectOne("memberMapper.selectMem", empId);
 	}
 
+	public int updatePic(SqlSessionTemplate sqlSession, Member m) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("memberMapper.updatePic",m);
+	}
+
 	
 
 }
