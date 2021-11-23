@@ -112,4 +112,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE VOTING_NO=#{bno}
 	</delete>
 	
+	<update id="increaseCount" parameterType="_int">
+		UPDATE VOTING
+		SET COUNT= COUNT+1
+		WHERE VOTING_NO=#{bno}
+	</update>
+	
 </mapper>

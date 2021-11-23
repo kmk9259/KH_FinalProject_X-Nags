@@ -58,6 +58,22 @@
     <div class="mobile-menu-overlay"></div>
     <div class="main-container">
         <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="page-header">
+			<div class="row">
+				<div class="col-md-6 col-sm-12">
+					<div class="title">
+						<h4>근태 관리</h4>
+					</div>
+					<nav aria-label="breadcrumb" role="navigation">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="">홈</a></li>
+							<li class="breadcrumb-item">근태 관리</li>
+							<li class="breadcrumb-item active" aria-current="page">월별 근태 현황</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+		</div>
             <div class="min-height-200px">
                 
                 <div class="pd-20 card-box mb-30">
@@ -110,7 +126,7 @@
                     </div>
                     <div class="row">
                         <!-- <div class="col-md-12 col-sm-12">      -->                       
-                        	<table id="attMonthList" class="table table-striped  scrolltbody"  style="text-align: center; width: 1700px;">
+                        	<table id="attMonthList" class="table scrolltbody"  style="text-align: center; width: 1700px;">
                         	<c:if test="${loginEmp.rightName eq '근태관리자'}">
 								<thead>
 									<tr>

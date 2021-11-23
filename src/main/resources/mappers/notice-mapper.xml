@@ -14,6 +14,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="FILE_PATH" property="filePath" />
 		<result column="UPLOAD_DATE" property="uploadDate" />
 		<result property="userName" column="USER_NAME"/>
+		<result property="deptName" column="DEPT_NAME"/>
+		
 	</resultMap>
 
 	<select id="selectListCount" resultType="_int">
@@ -24,9 +26,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectList" resultMap="noticeResultSet">
 		SELECT N.NOTICE_NO, N.EMP_ID, N.NOTICE_TITLE, N.NOTICE_CONTENT, N.ORIGIN_FILE, 
-		N.CHANGE_FILE, N.COUNT, N.FILE_PATH, N.UPLOAD_DATE, M.USER_NAME
+		N.CHANGE_FILE, N.COUNT, N.FILE_PATH, N.UPLOAD_DATE, M.USER_NAME, D.DEPT_NAME
 		FROM NOTICE N
 		JOIN MEMBER M ON N.EMP_ID = M.EMP_ID
+		JOIN EMPLOYEE E ON N.EMP_ID = E.EMP_ID
+		JOIN DEPARTMENT D ON D.DEPT_CODE = E.DEPT_CODE
 		ORDER BY N.NOTICE_NO DESC
 	</select>
 
@@ -40,10 +44,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectNotice" parameterType="_int"
 		resultMap="noticeResultSet">
 		SELECT N.NOTICE_NO, N.EMP_ID, N.NOTICE_TITLE, N.NOTICE_CONTENT, N.ORIGIN_FILE, 
-		N.CHANGE_FILE, N.COUNT, N.FILE_PATH, N.UPLOAD_DATE, M.USER_NAME
+		N.CHANGE_FILE, N.COUNT, N.FILE_PATH, N.UPLOAD_DATE, M.USER_NAME, D.DEPT_NAME
 		FROM NOTICE N
 		JOIN MEMBER M ON N.EMP_ID = M.EMP_ID
-		WHERE NOTICE_NO=#{bno}
+		JOIN EMPLOYEE E ON N.EMP_ID = E.EMP_ID
+		JOIN DEPARTMENT D ON D.DEPT_CODE = E.DEPT_CODE
+		WHERE N.NOTICE_NO=#{bno}
 	</select>
 
 	<insert id="insertNotice" parameterType="Notice">
@@ -69,9 +75,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		NOTICE_NO=#{bno}
 	</delete>
 	
-	<!-- <select id = "noticeWriter" parameterType="Notice">
-	SELECT *
-	FROM NOTICE N 
+ 
+ <select id="selectTopList" resultMap="noticeResultSet">
+	<![CDATA[
+		SELECT *
+		FROM(
+		SELECT N.NOTICE_NO, N.EMP_ID, N.NOTICE_TITLE, N.NOTICE_CONTENT, N.ORIGIN_FILE, 
+		N.CHANGE_FILE, N.COUNT, N.FILE_PATH, N.UPLOAD_DATE, M.USER_NAME, D.DEPT_NAME
+		FROM NOTICE N
+		JOIN MEMBER M ON N.EMP_ID = M.EMP_ID
+		JOIN EMPLOYEE E ON N.EMP_ID = E.EMP_ID
+		JOIN DEPARTMENT D ON D.DEPT_CODE = E.DEPT_CODE
+		
+		ORDER BY N.UPLOAD_DATE DESC
+		)
+		WHERE ROWNUM <= 3
+		]]>
 	</select>
- -->
 </mapper>

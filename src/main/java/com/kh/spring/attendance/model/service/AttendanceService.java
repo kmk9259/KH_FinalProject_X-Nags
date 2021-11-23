@@ -45,9 +45,18 @@ public interface AttendanceService {
 
 	ArrayList<Attendance> selectAbsence();
 
-	ArrayList<Outwork> selectOutwork(String empId);
+	Outwork selectOutwork(String empId);
 
 	void updateOutwork(Attendance a);
+
+	void updateHalfway(Attendance att);
+
+	void updateAnnual(Attendance att);
+
+	ArrayList<Attendance> attCountList(String empId);
+
+
+
 
 	
 

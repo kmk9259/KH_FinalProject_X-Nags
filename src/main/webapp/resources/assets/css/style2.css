@@ -54,6 +54,7 @@ section, footer, header, aside{
 }
 
 #clock:after{
+	/*
 	content:'';
 	position:absolute;
 	width:200px;
@@ -62,7 +63,7 @@ section, footer, header, aside{
 	left:50%;
 	margin-left:-200px;
 	bottom:2px;
-	z-index:-1;
+	z-index:-1;*/
 }
 
 
@@ -86,9 +87,7 @@ section, footer, header, aside{
 	color:#272e38;
 }
 
-#clock.light3:after{
-	box-shadow:0 4px 10px rgba(0,0,0,0.15);
-}
+
 
 #clock.light3 .digits div span{
 	background-color:#272e38;

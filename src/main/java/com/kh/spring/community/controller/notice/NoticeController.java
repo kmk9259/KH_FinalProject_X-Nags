@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,7 +22,6 @@ import com.kh.spring.common.exception.CommException;
 import com.kh.spring.community.model.service.notice.NoticeService;
 import com.kh.spring.community.model.vo.Notice;
 import com.kh.spring.community.model.vo.PageInfo;
-import com.kh.spring.employee.model.service.EmployeeService;
 
 @Controller
 public class NoticeController {
@@ -75,14 +75,7 @@ public class NoticeController {
 	@RequestMapping("noticeUpdate.bo")
 	public ModelAndView updateBoard(Notice n, ModelAndView mv, HttpServletRequest request,
 			@RequestParam(name = "reUploadFile", required = false) MultipartFile file) {
-		if (!file.getOriginalFilename().equals("")) {
-			if (n.getChangeFile() != null) {
-				deleteFile(n.getChangeFile(), request);
-			}
-			String changeName = saveFile(file, request);
-			n.setOriginFile(file.getOriginalFilename());
-			n.setChangeFile(changeName);
-		}
+		
 		if (!file.getOriginalFilename().equals("")) {
 			if (n.getChangeFile() != null) {
 				deleteFile(n.getChangeFile(), request);
@@ -127,4 +120,5 @@ public class NoticeController {
 		}
 		return changeName;
 	}		
+	
 }

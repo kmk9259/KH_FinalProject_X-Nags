@@ -79,13 +79,27 @@ public class AttendanceDao {
 		return (ArrayList)sqlSession.selectList("attendanceMapper.selectAbsence");
 	}
 
-	public ArrayList<Outwork> selectOutwork(SqlSessionTemplate sqlSession, String empId) {
-		return (ArrayList)sqlSession.selectList("attendanceMapper.selectOutwork", empId);
+	public Outwork selectOutwork(SqlSessionTemplate sqlSession, String empId) {
+		return sqlSession.selectOne("attendanceMapper.selectOutwork", empId);
 	}
 
 	public int updateOutwork(SqlSessionTemplate sqlSession, Attendance a) {
 		return sqlSession.insert("attendanceMapper.updateOutwork",a);
 	}
+
+	public int updateHalfway(SqlSessionTemplate sqlSession, Attendance att) {
+		return sqlSession.insert("attendanceMapper.updateHalfway",att);
+	}
+
+	public int updateAnnual(SqlSessionTemplate sqlSession, Attendance att) {
+		return sqlSession.insert("attendanceMapper.updateAnnual",att);
+	}
+
+	public ArrayList<Attendance> attCountList(SqlSessionTemplate sqlSession, String empId) {
+		return (ArrayList)sqlSession.selectList("attendanceMapper.attCountList", empId);
+	}
+
+
 
 
 

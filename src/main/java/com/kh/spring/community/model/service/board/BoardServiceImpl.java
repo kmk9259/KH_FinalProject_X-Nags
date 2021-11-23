@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.spring.common.exception.CommException;
 import com.kh.spring.community.model.dao.board.BoardDao;
 import com.kh.spring.community.model.vo.Board;
+import com.kh.spring.community.model.vo.Notice;
 import com.kh.spring.community.model.vo.PageInfo;
 
 @Service
@@ -64,5 +65,10 @@ public class BoardServiceImpl implements BoardService {
 		if (result < 0) {
 			throw new CommException("updateBoard 실패");
 		}		
+	}
+
+	@Override
+	public ArrayList<Notice> selectTopList() {
+		return boardDao.selectTopList(sqlSession);
 	}
 }

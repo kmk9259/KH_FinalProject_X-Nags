@@ -11,19 +11,35 @@
 	#contentArea *{margin:5px }
 </style>
 </head>
-<body style = "background : white">
+<body style = "background: #ecf0f4">
     <jsp:include page="../common/menubar.jsp"/>
     <div class="main-container">
+    
+    <div class="page-header">
+					<div class="row">
+						<div class="col-md-6 col-sm-12">
+							<div class="title">
+								<h4>익명게시판 상세보기</h4>
+							</div>
+							<nav aria-label="breadcrumb" role="navigation">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="">홈</a></li>
+									<li class="breadcrumb-item"><a href="">익명게시판 목록</a></li>
+									<li class="breadcrumb-item active" aria-current="page">익명게시판 상세보기</li>
+								</ol>
+							</nav>
+						</div>
+					</div>
+				</div>
 	<div class="mobile-menu-overlay"></div>
 
 	
     <div class="content">
-    <div class="card-box mb-30">
-        <br>
+    <div class="pd-20 card-box mb-30">
+     
         <div class="innerOuter">
         
-            <h2 >익명게시판 상세보기</h2>                  
-            <br>
+        
             <table id="contentArea" align="center" class="table ">
                 <tr>
                     <th width="100">제목</th>
@@ -123,9 +139,11 @@
 		
             </tbody>
             </table>   
-             <br> 
+             
         </div>
-       
+        	<br>
+    <jsp:include page="../common/footer.jsp"/>
+       <br>
     </div>
 <div class="modal fade" id="modifyModal" role="dialog">
 		<div class="modal-dialog">
@@ -281,7 +299,6 @@
 		 		}		 			
 		 	}
     </script>
-	
-    <jsp:include page="../common/footer.jsp"/>
+
 </body>
 </html>

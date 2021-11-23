@@ -56,4 +56,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where board_no=#{boardNo}
 	</update>
 
+
+<select id="selectTopList" resultMap="boardResultSet">
+	<![CDATA[
+		SELECT *
+		FROM(
+		SELECT *
+		FROM BOARD 	
+		ORDER BY COUNT DESC
+		)
+		WHERE ROWNUM <= 3
+		]]>
+	</select>
 </mapper>
