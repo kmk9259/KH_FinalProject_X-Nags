@@ -164,21 +164,27 @@
 					
                		var sList =${attStatusList};
                		var cList =${attCountList};
-               		var data = new Array(6);
+               		var data = null;
                		console.log(sList[0]);
                		
                		for(var i in sList){
+               			data = new Array(i);
                			for(var j in cList){
                				data[i] = new Array(j);
                				
                				if(sList[i].attStatusNo == cList[j].attStatusNo){
                					console.log(cList[j].attStatusName+cList[j].count);
                					data[i] = [cList[j].attStatusName, cList[j].count];
-               					console.log("ww : "+data[i]);
+               					console.log(i+" "+"ww : "+data[i]);
                				}
                			}
                		}
-               
+               		for(var i in sList){
+               			
+               			for(var j in cList){
+               				console.log(i+" "+"바께 : "+data[i]);
+               			}
+               		}
                		
 					Highcharts.chart('chart6', {
 					    chart: {
