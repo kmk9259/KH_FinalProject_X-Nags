@@ -273,6 +273,22 @@ public class ApprovalServiceImpl implements ApprovalService {
 		}
 		
 	}
+	
+	//메인 진행중 결재함
+	@Override
+	public ArrayList<Approval> mainAppingList(String empId) {
+		return approvalDao.mainAppingList(sqlSession, empId);
+	}
+
+	@Override
+	public ArrayList<Approval> mainAppAskList(String empId) {
+		return approvalDao.mainAppAskList(sqlSession, empId);
+	}
+
+	@Override
+	public ArrayList<Approval> mainAppedList(String empId) {
+		return approvalDao.mainAppedList(sqlSession, empId);
+	}
 
 	
 

@@ -251,6 +251,19 @@ public class MailServiceImpl implements MailService {
 		return mailDao.selectReceiveEmp(sqlSession, mno);
 	}
 
+
+	@Override
+	public ArrayList<Mail> mainSendMailList(String empId) {
+		
+		return mailDao.mainSendMailList(sqlSession, empId);
+	}
+
+
+	@Override
+	public ArrayList<Mail> mainReceiveMailList(String empId) {
+		return mailDao.mainReceiveMailList(sqlSession, empId);
+	}
+
 	
 
 

@@ -59,11 +59,11 @@ label {
 								<input type="hidden" name="appNo" value="${app.appNo}">
 							</div>
 							<div class="form-group">
-								<input class="form-control" type="text" readonly="readonly" name="appMidName" data-toggle="tooltip" title="주소록에서 선택해 주세요." placeholder="중간 결제자를 입력해 주세요">
-								<input class="form-control" type="hidden" name="appMid" required="required" readonly="readonly">
+								<input class="form-control" type="text" readonly="readonly" name="appMidName" value="${mid.userName }" data-toggle="tooltip" title="주소록에서 선택해 주세요.">
+								<input class="form-control" type="hidden" name="appMid" readonly="readonly" value="${mid.empId }">
 							</div>
-								<input class="form-control" type="text" readonly="readonly" name="appFinName" data-toggle="tooltip" title="주소록에서 선택해 주세요." placeholder="최종 결재자를 입력해 주세요">
-								<input class="form-control" type="hidden" name="appFin" required="required" readonly="readonly">
+								<input class="form-control" type="text" readonly="readonly" name="appFinName" value="${fin.userName }" data-toggle="tooltip" title="주소록에서 선택해 주세요.">
+								<input class="form-control" type="hidden" name="appFin" readonly="readonly" value="${fin.empId }">
 							</div>
 							<div class="form-group full-right">
 								<button type="button" class="btn btn-primary" data-backdrop="static" data-toggle="modal" data-target="#bd-example-modal-lg">주소록</button>
@@ -148,19 +148,18 @@ label {
 							<div class="selectReceiver">
 								<div class="form-group" id="deptList">
 									
-									<select id="selectDept" name="dept" class="custom-select col-6">
-										<option>부서 선택</option>
-										<option value="D1">인사관리부</option>
-										<option value="D2">회계관리부</option>
-										<option value="D3">마케팅부</option>
-										<option value="D4">국내영업부</option>
-										<option value="D5">해외영업부</option>
-										<option value="D6">기술지원부</option>
-										<option value="D7">총무부</option>
-									</select>
+										<select id="selectDept" name="dept" class="custom-select col-6">
+											<option>부서 선택</option>
+											<option value="D1">인사관리부</option>
+											<option value="D2">회계관리부</option>
+											<option value="D3">마케팅부</option>
+											<option value="D4">국내영업부</option>
+											<option value="D5">해외영업부</option>
+											<option value="D6">기술지원부</option>
+											<option value="D7">총무부</option>
+										</select>
+							            <button class="btn btn-primary" id="searchEmp">조회</button>
 									
-						            <button class="btn btn-primary" id="searchEmp">조회</button>
-								
 								</div>
 								
 								<div id="empList">
@@ -198,25 +197,32 @@ label {
 			
 			<script>
 			
-				$( ".date-picker" ).datepicker({
-					dateFormat: "yyyy/mm/dd",
-					minDate: new Date(),
-					language:"kr",
-					todaytHightlight : true
-				  }); 
+				$(function(){
+	            	var appDate ="";
+	            	$( ".datetimepicker-range" ).datepicker({
+	                		dateFormat: "yyyy/mm/dd",
+	                		language:"ko",
+	                		minDate: new Date(),
+	                		onSelect: function(dateText) {
+	                			appDate = dateText
+	                	    }
+	                		
+	                });  	 
+	        			
+	        	}); 
                 
-                $(function(){
+				$(function(){
                 	$("#searchEmp").click(function(){
                 		
                 		var deptCode = $("select[name=dept] option:selected").val();
                 		console.log(deptCode);
                 		
-						if(deptCode == "부서 선택"){
+                		if(deptCode == "부서 선택"){
                 			
                 			swal({
-                	                   type: 'error',
-                	                   title: 'Oops...',
-                	                   text: '부서를 선택해 주세요',
+               	                   type: 'error',
+               	                   title: 'Oops...',
+               	                   text: '부서를 선택해 주세요',
                 	             })
                 			return false;
                 		}
@@ -269,8 +275,11 @@ label {
 					var userName = td.eq(1).text();
 					var empId = td.eq(2).text();
 					
+					var deptCode = $("select[name=dept] option:selected").val();
+					console.log(deptCode);
+					
 					if(deptCode == "부서 선택"){
-						
+							
 						swal(
 				               {
 				                   type: 'error',
@@ -310,13 +319,11 @@ label {
                 	
                 	if(deptCode == "부서 선택"){
                 			
-                		swal(
-                               {
-                                   type: 'error',
-                                   title: 'Oops...',
-                                   text: '부서를 선택해 주세요',
-                               }
-                           )
+                		swal({
+                              type: 'error',
+                              title: 'Oops...',
+                              text: '부서를 선택해 주세요',
+                             })
                 		return false;
                 		
                 	}else if(mid.val()=="" || mid.val()==null){
@@ -339,6 +346,16 @@ label {
                                }
                            )
                 		return false;
+                	}else if(userName == mid.val()){
+                		swal(
+                                {
+                                    type: 'error',
+                                    title: 'Oops...',
+                                    text: '중간 결재자와 다른 최종 결재자를 선택해 주세요',
+                                }
+                            )
+                 		return false;
+                		
                 	}
                 	
                 	console.log("userName : " + userName);
@@ -350,16 +367,7 @@ label {
                 	$("#bd-example-modal-lg").modal("hide");	
 
                 }
-					
-					console.log("userName : " + userName);
-					console.log("empId : " + empId);
-					
-					$("input[name=appFinName]").val(userName);
-					$("input[name=appFin]").val(empId);
-					$("input[class=checkEmp]").prop('checked', false); 
-					$("#bd-example-modal-lg").modal("hide");	
-
-				}
+                
                 function changeApp() {
                 	var mid = $("#changeApp input[name=appMidName]");
                 	var fin = $("#changeApp input[name=appFinName]");

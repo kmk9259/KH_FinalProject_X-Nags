@@ -290,4 +290,46 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE APP_NO=#{ano}
 	</delete>
 	
+	<!-- 메인 진행중 결재함 리스트 -->
+	<select id="mainAppingList" resultMap="appResultSet">
+		<![CDATA[
+			SELECT *
+			FROM	
+				(SELECT *
+				FROM APPROVAL
+				WHERE EMP_ID=#{empId}
+				AND FIN_STATUS=1 AND MID_STATUS IN (1,2)
+				ORDER BY APP_NO DESC)
+			WHERE ROWNUM <= 5
+		]]>
+	</select>
+	
+	<select id="mainAppAskList" resultMap="appAskResultSet">
+		<![CDATA[
+			SELECT *
+			FROM	
+				(SELECT *
+					FROM APPROVAL A
+					JOIN MEMBER B ON A.EMP_ID=B.EMP_ID
+					WHERE 
+					(APP_MID=${empId} OR APP_FIN=${empId})
+					AND A.FIN_STATUS=1 AND MID_STATUS IN (1,2)
+					ORDER BY A.APP_NO DESC)
+			WHERE ROWNUM <= 5
+		]]>
+	</select>
+	
+	<select id="mainAppedList" resultMap="appResultSet">
+		<![CDATA[
+			SELECT *
+			FROM	
+				(SELECT *
+				FROM APPROVAL
+				WHERE EMP_ID=#{empId}
+				AND (FIN_STATUS IN (2,3) OR MID_STATUS=3)
+				ORDER BY APP_NO DESC)
+			WHERE ROWNUM <= 5
+		]]>
+	</select>
+	
 </mapper>

@@ -46,7 +46,7 @@
                     
                      <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
-                            <span class="micon dw dw-house-1"></span><span class="mtext">전자 메일</span>
+                            <span class="icon-copy fi-mail"></span><span class="mtext">전자 메일</span>
                         </a>
                         <ul class="submenu">
                             <li><a href="insertForm.ml">메일 작성</a></li>
@@ -57,12 +57,12 @@
                     </li>
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
-                            <span class="micon dw dw-house-1"></span><span class="mtext">전자 결재</span>
+                            <span class="icon-copy fi-clipboard-notes"></span><span class="mtext">전자 결재</span>
                         </a>
                         <ul class="submenu">
                            <li class="dropdown">
                                 <a href="javascript:;" class="dropdown-toggle">
-                                    <span class="micon dw dw-house-1"></span><span class="mtext">결재 서류 작성</span>
+                                    <span class="icon-copy ion-compose"></span><span class="mtext">결재 서류 작성</span>
                                 </a>
                                 <ul class="submenu child">
                                     <li><a href="certificateForm.ap">증명서 신청</a></li>
@@ -88,7 +88,7 @@
                     </li>
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
-                            <span class="micon dw dw-house-1"></span><span class="mtext">근태 관리</span>
+                            <span class="micon dw dw-wall-clock1"></span><span class="mtext">근태 관리</span>
                         </a>
                         <ul class="submenu">
                             <li><a href="attendanceMy.att">내 근태 현황</a></li>
