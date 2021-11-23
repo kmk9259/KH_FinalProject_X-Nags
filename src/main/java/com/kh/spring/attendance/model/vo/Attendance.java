@@ -30,4 +30,6 @@ public class Attendance {
 	
 	private String attStatusName;
 	private String orderBy;
+	
+	private int count;
 }

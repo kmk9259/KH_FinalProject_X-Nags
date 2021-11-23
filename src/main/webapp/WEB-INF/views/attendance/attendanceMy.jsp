@@ -44,7 +44,7 @@
 	</style>
 	<!-- The main CSS file -->
 	<link href="${ pageContext.servletContext.contextPath }/resources/assets/css/style.css" rel="stylesheet" />
-
+	
 	
 </head>
 <body >
@@ -55,7 +55,23 @@
     
     <div class="main-container">
         <div class="pd-ltr-20">
-            <div class="card-box pd-20 height-100-p mb-30">
+        	<div class="page-header">
+				<div class="row">
+					<div class="col-md-6 col-sm-12">
+						<div class="title">
+							<h4>근태 관리</h4>
+						</div>
+						<nav aria-label="breadcrumb" role="navigation">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a href="">홈</a></li>
+								<li class="breadcrumb-item">근태 관리</li>
+								<li class="breadcrumb-item active" aria-current="page">내 근태 현황</li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+			</div>
+            <div class="card-box pd-20 height-100-p mb-30">            	
                 <div class="row align-items-center">
                     <div class="col-md-2">
                     	<div id="clock" class="light3">
@@ -73,21 +89,19 @@
                             <div class="weight-600 font-30 text-blue">${ sessionScope.loginUser.userName }님</div>
                         </h4>
                         <div class="info">
-                        <table class="table table-striped table-bordered " style="text-align: center; width: 100%">				
+                        <table class="table table-bordered " style="text-align: center; width: 100%">				
 							  <thead>							    
 								<tr class="table-warning">
 								<th scope="col" width="120px">출근 시간</th>
 								<th scope="col" width="120px">퇴근 시간</th>
-								<th scope="col" width="80px">주간 누적 근무시간</th>
-								<th scope="col" width="80px">남은 연차</th>
+								<th scope="col" width="80px">잔여 휴가</th>
 								</tr>								
 							  </thead>
 							  <tbody>
 							    <tr>
 							      <th scope="row" id="inTime"></th>
 							      <th scope="row" id="outTime"></th>
-							      <th scope="row">25 </th>
-							      <th scope="row">10회</th>
+							      <th scope="row">${loginEmp.holCount} 회</th>
 							    </tr>
 							  </tbody>
 							</table>
@@ -100,26 +114,11 @@
             <div class="card-box pd-20 mb-30" >
             	<h3>내 근태 현황</h3><br>
              	
-                <table class="table table-bordered" style="text-align: center; ">
-				  <thead >
-				    <tr class="table-info">
-				      <th scope="col">지각</th>
-				      <th scope="col">조퇴</th>
-				      <th scope="col">결근</th>
-				      <th scope="col">휴가</th>
-				    </tr>
-				  </thead>
-				  <tbody>
-				    <tr>
-				      <th scope="row">1</th>
-				      <th scope="row">1</th>
-				      <th scope="row">1</th>
-				      <th scope="row">1</th>
-				    </tr>
-				  </tbody>
-				</table>
+                <div class="bg-white pd-20 card-box mb-30">
+                    <div id="chart6"></div>
+                </div>
 				
-				<table class="table scrolltbody" style="text-align: center; ">
+				<table class="table table-bordered scrolltbody" style="text-align: center; ">
 				  <thead>
 				    <tr class="table-danger">
 				      <th scope="col" >날짜</th>
@@ -162,6 +161,59 @@
 							
 						}
 					});
+					
+               		var sList =${attStatusList};
+               		var cList =${attCountList};
+               		var data = new Array(6);
+               		console.log(sList[0]);
+               		
+               		for(var i in sList){
+               			for(var j in cList){
+               				data[i] = new Array(j);
+               				
+               				if(sList[i].attStatusNo == cList[j].attStatusNo){
+               					console.log(cList[j].attStatusName+cList[j].count);
+               					data[i] = [cList[j].attStatusName, cList[j].count];
+               					console.log("ww : "+data[i]);
+               				}
+               			}
+               		}
+               
+               		
+					Highcharts.chart('chart6', {
+					    chart: {
+					        type: 'pie',
+					        options3d: {
+					            enabled: true,
+					            alpha: 45
+					        }
+					    },
+					    title: {
+					        text: '내 근태 현황'
+					    },
+					    subtitle: {
+					        text: ''
+					    },
+					    plotOptions: {
+					        pie: {
+					            innerSize: 100,
+					            depth: 45
+					        }
+					    },
+					    series: [{
+					        name: '총 횟수',
+					        data: [
+					        	
+					        	
+					            ['정상', 20],
+					            ['지각', 3],
+					            ['결근', 1],
+					            ['외근', 6],
+					            ['반차', 8],
+					            ['연차', 4]
+					        ]
+					    }]
+					});
 				})
 				
            	</script>
@@ -175,6 +227,13 @@
 		
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
 	<script src="${ pageContext.servletContext.contextPath }/resources/assets/js/script.js"></script>
+    <!-- js -->
+	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/highcharts-6.0.7/code/highcharts.js"></script>
+    <script src="https://code.highcharts.com/5.0.14/modules/solid-gauge.js "></script>
+    <script src="${ pageContext.servletContext.contextPath }/resources/plugins/highcharts-6.0.7/code/highcharts-more.js"></script>
+    <%-- <script src="${ pageContext.servletContext.contextPath }/resources/vendors/scripts/highchart-setting.js"></script> --%>
     
+    
+   
 </body>
 </html>
