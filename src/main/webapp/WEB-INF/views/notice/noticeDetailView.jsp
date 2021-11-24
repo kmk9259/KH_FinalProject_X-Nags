@@ -29,20 +29,16 @@
 							</nav>
 						</div>
 					</div>
-				</div>
-    
+				</div>    
 	<div class="mobile-menu-overlay"></div>
-
-	
     <div class="content">
     <div class="pd-20 card-box mb-30">
         <br>
-        <div class="innerOuter">
-        
+        <div class="innerOuter">      
             <h2 >공지사항 상세보기</h2>                  
             <br>
             <table id="contentArea" align="center" class="table ">
-             <tr >
+             <tr>
                     <th width="100">작성부서</th>
                     <td colspan="3">${ n.deptName }</td>
                 </tr>
@@ -50,11 +46,11 @@
                     <th width="100">제목</th>
                     <td colspan="3">${ n.noticeTitle }</td>
                 </tr>
-                <tr >
+                <tr>
                     <th>작성일</th>
                     <td>${ n.uploadDate }</td>
                 </tr>
-                <tr  >
+                <tr>
                     <th>첨부파일</th>
                     <td colspan="3">
                     	<c:if test="${ !empty n.originFile }">
@@ -65,7 +61,7 @@
                         </c:if>
                     </td>
                 </tr>
-                <tr >
+                <tr>
                     <th>내용</th>
                     <td colspan="3"></td>
                 </tr>
@@ -73,7 +69,6 @@
                     <td colspan="4">${ n.noticeContent }</td>
                 </tr>
             </table>
-
 			<c:if test="${ loginUser.rightNo == 3 }">
 	            <div align="center">
 	                <button class="btn btn-info" onclick="postFormSubmit(1);">수정하기</button>
@@ -86,8 +81,7 @@
 				</form>
 				<script>
 				function postFormSubmit(num){
-					var postForm = $("#postForm");
-					
+					var postForm = $("#postForm");					
 					if(num == 1){
 						postForm.attr("action", "noticeUpdateForm.bo");
 						postForm.submit();				
@@ -116,15 +110,14 @@
 	                            <textarea class="form-control" id="replyContent" rows="1" style="resize:none; width:100%" placeholder="댓글을 입력해주세요"></textarea>
 	                        </th>
 	                        <th style="vertical-align: middle"><button class="btn btn-dark" id="addReply">등록하기</button></th>
-                        </c:if>
-                        
+                        </c:if>                      
                     </tr>
                     <tr>
                        <td colspan="3">댓글 (<span id="rcount">0</span>) </td> 
                     </tr>
                 </thead>
                 <tbody >
-                
+                                
                 </tbody>
             </table>           
             </div>
@@ -141,19 +134,18 @@
             </tr>
             </thead>
             <tbody >
-		
+            		
             </tbody>
-            </table>   
-             <br> 
-        </div>
-       
+            </table>      
+        </div>  
+         <jsp:include page="../common/footer.jsp"/>    
+         <br>
     </div>
 <div class="modal fade" id="modifyModal" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">댓글 수정창</h4>
 				</div>
 				<div class="modal-body">
 					<div class="form-group">
@@ -173,46 +165,40 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-dark"
 						data-dismiss="modal">닫기</button>
-					<button type="button"  class="btn btn-success modalModBtn">수정</button>
-					
+					<button type="button"  class="btn btn-success modalModBtn">수정</button>					
 				</div>
 			</div>
-		</div>
-			
-    <jsp:include page="../common/footer.jsp"/>
+		</div>			
+   
 	</div>
-     <script>
+	
+ <script>
      var rlist = [];
  	$(function(){
-		selectReplyList();
-		
+		selectReplyList();	
 		$("#addReply").click(function(){
-    		var bno = ${n.noticeNo};
-			
-			if($("#replyContent").val().trim().length != 0){
-				
+    		var bno = ${n.noticeNo};			
+			if($("#replyContent").val().trim().length != 0){				
 				$.ajax({
 					url:"nrinsert.bo",
 					type:"post",
 					data:{replyContent:$("#replyContent").val(),
 						noticeNo:bno,
-						  empId:"${loginUser.empId}"},
-						  
+						  empId:"${loginUser.empId}"},						  
 					success:function(result){
 						if(result > 0){
 							$("#replyContent").val("");
-							selectReplyList();
-							
+							selectReplyList();							
 						}else{
 							alert("댓글등록실패");
 						}
 					},error:function(){
-						console.log("댓글 작성 ajax 통신 실패");
+						alert("댓글 작성 ajax 통신 실패");
 					}
 				});
 				
 			}else{
-				alert("오류남");
+				alert("댓글을 입력해주세요");
 			}
 			
 		});
@@ -224,8 +210,7 @@
  	         data:{bno:bno},
  	         type:"get",
  	         success:function(list){
- 	            $("#rcount").text(list.length);
- 	            
+ 	            $("#rcount").text(list.length);	            
  	            var value="";
  	            $.each(list, function(i, obj){
  	            	rlist.push(obj);
@@ -233,8 +218,7 @@
  	                		 +"<td style = 'text-align : center'>"  + obj.replyNo + "</td>"
  	                        +"<td style = 'text-align : center'>"  + obj.userName + "</td>" 
  	                         +"<td style = 'text-align : center'>" + obj.replyContent + "</td>" 
- 	                        + "<td style = 'text-align : center'>" + obj.replyDate + "</td>"; 
- 	                       
+ 	                        + "<td style = 'text-align : center'>" + obj.replyDate + "</td>"; 	                       
  	               if("${loginUser.empId}" == obj.empId){
  	            	  value +="<td><button class = 'btn btn-outline-info' onclick = 'updateForm("+obj.replyNo+");'type='button'data-toggle='modal' data-target='#modifyModal'>수정</button> </td>"
               	    	 + "<td><button class = 'btn btn-outline-danger' onclick = 'deleteReply("+obj.replyNo+");'>삭제 </button>"
@@ -245,13 +229,11 @@
  	            });
  	            $("#replyArea1 tbody").html(value);
  	         },error:function(){
- 	            console.log("댓글 리스트조회용 ajax 통신 실패");
+ 	            alert("댓글리스트 조회 실패");
  	         }
  	      }); 	      	      
- 	   }
- 	
- 	function updateForm(replyNo){	 
- 		console.log(replyNo);
+ 	   } 	
+ 	function updateForm(replyNo){	 	
  		for(var i = 0; i< rlist.length; i++){
  			if(replyNo == rlist[i].replyNo){
  				$("#replyNo").val(rlist[i].replyNo);
@@ -260,12 +242,10 @@
  				}	
  			}
 		 };
-
 		 	$(".modalModBtn").on("click", function(){
 		 		var reply = $(this).parent().parent();
 		 		var replyNo = reply.find("#replyNo").val();
-		 		var replyContent = reply.find("#updateContent").val();
-		 		console.log(replyNo);
+		 		var replyContent = reply.find("#updateContent").val();		 	
 		 		$.ajax({
 					url:"updateNoticeReply.bo",
 		 			type:"get",
@@ -278,14 +258,11 @@
 		 							selectReplyList();
 		 						}else{
 		 							alert("댓글 수정 실패");
-		 						}
-		 				
+		 						}	 				
 		 					}
 		 			});
-		 	});
- 	   
+		 	}); 	   
 		 	function deleteReply(replyNo){
-		 		console.log(replyNo);
 		 		if(confirm("정말 삭제하시겠습니까?") == true){
 		 			$.ajax({
 			 			url:"deleteNoticeReply.bo",
@@ -305,6 +282,5 @@
 		 		}		 			
 		 	}
     </script>
-
 </body>
 </html>

@@ -13,7 +13,6 @@ import com.kh.spring.community.model.vo.PageInfo;
 public class NoticeDao {
 
 	public int selectListCount(SqlSessionTemplate sqlSession) {
-
 		return sqlSession.selectOne("noticeMapper.selectListCount");
 	}
 

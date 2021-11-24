@@ -3,9 +3,6 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="boardReplyMapper">
-
-
-
 	<resultMap id="boardReplyResultSet" type="Board_Reply">
 		<id column="REPLY_NO" property="replyNo" />
 		<result column="BOARD_NO" property="boardNo" />
@@ -14,32 +11,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="REPLY_DATE" property="replyDate" />
 	</resultMap>
 
-	<insert id="insertReply" parameterType="Board_Reply">
+<insert id="insertReply" parameterType="Board_Reply">
 		INSERT INTO BOARD_REPLY
 		values(REPLY_NO.NEXTVAL,  #{boardNo},
 		#{replyContent},#{empId}, sysdate)
 
-	</insert>
+</insert>
 	
-	<select id="selectReplyList" parameterType="_int"
+<select id="selectReplyList" parameterType="_int"
 		resultMap="boardReplyResultSet">
 		SELECT *
 		FROM BOARD_REPLY
 		WHERE BOARD_NO=#{bno}
 		ORDER BY REPLY_NO DESC
 	
-	</select>
+</select>
 	
-	<update id = "updateReply" parameterType="Board_Reply">
+<update id = "updateReply" parameterType="Board_Reply">
 	UPDATE BOARD_REPLY
 	SET REPLY_CONTENT= #{replyContent},REPLY_DATE = sysdate
 	WHERE REPLY_NO =#{replyNo} 
-	</update>
+</update>
 	
-	
-	<delete id="deleteReply" parameterType="Board_Reply">
+<delete id="deleteReply" parameterType="Board_Reply">
 		DELETE FROM BOARD_REPLY
 		WHERE REPLY_NO =#{replyNo} 
-	</delete>
-
+</delete>
 </mapper>

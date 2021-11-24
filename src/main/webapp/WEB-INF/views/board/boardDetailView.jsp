@@ -13,8 +13,7 @@
 </head>
 <body style = "background: #ecf0f4">
     <jsp:include page="../common/menubar.jsp"/>
-    <div class="main-container">
-    
+    <div class="main-container">    
     <div class="page-header">
 					<div class="row">
 						<div class="col-md-6 col-sm-12">
@@ -31,15 +30,10 @@
 						</div>
 					</div>
 				</div>
-	<div class="mobile-menu-overlay"></div>
-
-	
+	<div class="mobile-menu-overlay"></div>	
     <div class="content">
-    <div class="pd-20 card-box mb-30">
-     
-        <div class="innerOuter">
-        
-        
+    <div class="pd-20 card-box mb-30">    
+        <div class="innerOuter">             
             <table id="contentArea" align="center" class="table ">
                 <tr>
                     <th width="100">제목</th>
@@ -68,7 +62,6 @@
                     <td colspan="4">${b.boardContent }</td>
                 </tr>
             </table>
-
 			<c:if test="${ loginUser.empId eq b.empId }">
 	            <div align="center">
 	                <button class="btn btn-info" onclick="postFormSubmit(1);">수정하기</button>
@@ -81,8 +74,7 @@
 				</form>
 				<script>
 				function postFormSubmit(num){
-					var postForm = $("#postForm");
-					
+					var postForm = $("#postForm");					
 					if(num == 1){
 						postForm.attr("action", "updateForm.bo");
 						postForm.submit();				
@@ -118,8 +110,7 @@
                        <td colspan="3">댓글 (<span id="rcount">0</span>) </td> 
                     </tr>
                 </thead>
-                <tbody >
-                
+                <tbody >             
                 </tbody>
             </table>           
             </div>
@@ -135,13 +126,10 @@
        		<th></th>
             </tr>
             </thead>
-            <tbody >
-		
+            <tbody >		
             </tbody>
-            </table>   
-             
-        </div>
-        	<br>
+            </table>                
+        </div>  
     <jsp:include page="../common/footer.jsp"/>
        <br>
     </div>
@@ -149,8 +137,7 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">댓글 수정창</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>					
 				</div>
 				<div class="modal-body">
 					<div class="form-group">
@@ -162,29 +149,26 @@
 							id="updateContent" name="replyContent" placeholder="댓글 내용을 입력해주세요">
 					</div>
 					<div class="form-group">
-						<label for="reply_writer">댓글 작성자</label> <input
+					<label for="reply_writer">댓글 작성자</label> <input
 							class="form-control" id="empId" name="empId" readonly>
-					</div>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-dark"
-						data-dismiss="modal">닫기</button>
-					<button type="button"  class="btn btn-success modalModBtn">수정</button>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-dark"
+					data-dismiss="modal">닫기</button>
+				<button type="button"  class="btn btn-success modalModBtn">수정</button>
 					
-				</div>
 			</div>
 		</div>
 	</div>
+</div>
      <script>
      var rlist = [];
  	$(function(){
-		selectReplyList();
-		
+		selectReplyList();		
 		$("#addReply").click(function(){
-    		var bno = ${b.boardNo};
-			
-			if($("#replyContent").val().trim().length != 0){
-				
+    		var bno = ${b.boardNo};			
+			if($("#replyContent").val().trim().length != 0){				
 				$.ajax({
 					url:"rinsert.bo",
 					type:"post",
@@ -201,12 +185,12 @@
 							alert("댓글등록실패");
 						}
 					},error:function(){
-						console.log("댓글 작성 ajax 통신 실패");
+						alert("댓글 작성 ajax 통신 실패");
 					}
 				});
 				
 			}else{
-				alert("오류남");
+				alert("댓글을 입력해주세요");
 			}
 			
 		});
@@ -218,8 +202,7 @@
  	         data:{bno:bno},
  	         type:"get",
  	         success:function(list){
- 	            $("#rcount").text(list.length);
- 	            
+ 	            $("#rcount").text(list.length);	            
  	            var value="";
  	            $.each(list, function(i, obj){
  	            	rlist.push(obj);
@@ -227,8 +210,7 @@
  	                		 +"<td style = 'text-align : center'>"  + obj.replyNo + "</td>"
  	                        +"<td style = 'text-align : center'> 익명 </td>" 
  	                         +"<td style = 'text-align : center'>" + obj.replyContent + "</td>" 
- 	                        + "<td style = 'text-align : center'>" + obj.replyDate + "</td>"; 
- 	                       
+ 	                        + "<td style = 'text-align : center'>" + obj.replyDate + "</td>"; 	                       
  	               if("${loginUser.empId}" == obj.empId){
  	            	  value +="<td><button class = 'btn btn-outline-info' onclick = 'updateForm("+obj.replyNo+");'type='button'data-toggle='modal' data-target='#modifyModal'>수정</button> </td>"
               	    	 + "<td><button class = 'btn btn-outline-danger' onclick = 'deleteReply("+obj.replyNo+");'>삭제 </button>"
@@ -239,13 +221,11 @@
  	            });
  	            $("#replyArea1 tbody").html(value);
  	         },error:function(){
- 	            console.log("댓글 리스트조회용 ajax 통신 실패");
+ 	           alert("댓글 리스트조회용 ajax 통신 실패");
  	         }
  	      }); 	      	      
- 	   }
- 	
+ 	   }	
  	function updateForm(replyNo){	 
- 		console.log(replyNo);
  		for(var i = 0; i< rlist.length; i++){
  			if(replyNo == rlist[i].replyNo){
  				$("#replyNo").val(rlist[i].replyNo);
@@ -254,12 +234,10 @@
  				}	
  			}
 		 };
-
 		 	$(".modalModBtn").on("click", function(){
 		 		var reply = $(this).parent().parent();
 		 		var replyNo = reply.find("#replyNo").val();
 		 		var replyContent = reply.find("#updateContent").val();
-		 		console.log(replyNo);
 		 		$.ajax({
 					url:"updateReply.bo",
 		 			type:"get",
@@ -276,10 +254,8 @@
 		 				
 		 					}
 		 			});
-		 	});
- 	   
+		 	});	   
 		 	function deleteReply(replyNo){
-		 		console.log(replyNo);
 		 		if(confirm("정말 삭제하시겠습니까?") == true){
 		 			$.ajax({
 			 			url:"deleteReply.bo",
@@ -295,10 +271,9 @@
 			 			}
 			 		});
 		 		}else{
-		 			return;
-		 		}		 			
-		 	}
+		 		return;
+		 	}		 			
+	 	}
     </script>
-
 </body>
 </html>

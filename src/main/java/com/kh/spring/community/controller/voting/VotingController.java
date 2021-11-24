@@ -13,7 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.spring.common.Pagination;
 import com.kh.spring.community.model.service.voting.VotingService;
-import com.kh.spring.community.model.vo.Board;
 import com.kh.spring.community.model.vo.PageInfo;
 import com.kh.spring.community.model.vo.Voting;
 import com.kh.spring.community.model.vo.VotingA;
@@ -32,9 +31,7 @@ public class VotingController {
 		Member m = (Member) request.getSession().getAttribute("loginUser");  
 		int listCount = votingService.selectListCount();
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
-
-		ArrayList<Voting> list = votingService.selectList(pi);		
-		
+		ArrayList<Voting> list = votingService.selectList(pi);				
 		for(int i = 0; i < list.size(); i++) {	
 			ArrayList<VotingG> vg = votingService.selectVotingGrant(list.get(i).getVotingNo());			
 			list.get(i).setResult(0);
@@ -84,7 +81,6 @@ public class VotingController {
 	public String votingUpdate(@RequestParam(value = "votingNo") int votingNo,
 								@RequestParam(value = "content") String content,
 								@RequestParam(value = "empId") String empId) {
-		System.out.println(content + "content");
 		 VotingA va = new VotingA();
 		 va.setRefNo(votingNo);
 		 va.setContent(content);

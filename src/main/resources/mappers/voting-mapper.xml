@@ -10,8 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="EMP_ID" property="empId"/>
 		<result column="VOTING_DATE" property="votingDate"/>
 		<result column="VO_CHECK" property="voCheck"/>		
-		<result column="USER_NAME" property="userName"/>
-		
+		<result column="USER_NAME" property="userName"/>		
 </resultMap> 
 
 <resultMap id="votingAResultSet" type="VotingA">
@@ -19,7 +18,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<result column="REF_NO" property="refNo"/>
 	<result column="CONTENT" property="content"/>
 	<result column="COUNT" property="count"/>
-
 </resultMap>
 
 <resultMap id="votingGResultSet" type="VotingG">
@@ -27,7 +25,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<result column="GREF_NO" property="gRefNo"/>
 	<result column="EMP_ID" property="empId"/>
 	<result column="VGRANT" property="votingGrant"/>
-
 </resultMap>
 
  <select id="selectListCount" resultType="_int">
@@ -35,20 +32,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM VOTING
 	</select>
 
-	<select id="selectList"   resultMap="votingResultSet" >
-		SELECT M.USER_NAME, V.VOTING_NO, V.VOTING_TITLE, V.VOTING_CONTENT, V.EMP_ID, V.VOTING_DATE,
-		V.COUNT
-		FROM VOTING V
-		JOIN MEMBER M ON V.EMP_ID = M.EMP_ID
-		ORDER BY V.VOTING_NO DESC
-	</select>
+<select id="selectList"   resultMap="votingResultSet" >
+	SELECT M.USER_NAME, V.VOTING_NO, V.VOTING_TITLE, V.VOTING_CONTENT, V.EMP_ID, V.VOTING_DATE,
+	V.COUNT
+	FROM VOTING V
+	JOIN MEMBER M ON V.EMP_ID = M.EMP_ID
+	ORDER BY V.VOTING_NO DESC
+</select>
 
 <insert id = "insertVoting" parameterType="Voting">
-
- 	INSERT INTO VOTING
- 	
+ 	INSERT INTO VOTING	
 	VALUES(VOTING_NO.NEXTVAL, #{votingTitle}, #{votingContent}, #{empId}, sysdate,default) 
 </insert>
+
 <insert id = "insertContent"  parameterType="String" >
 	INSERT INTO VOTING_A
 	VALUES(VA_SQE.NEXTVAL, VOTING_NO.CURRVAL, #{content},default)
@@ -61,61 +57,54 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		JOIN MEMBER M ON V.EMP_ID = M.EMP_ID
 		WHERE V.VOTING_NO=#{bno} 
 		ORDER BY V.VOTING_NO DESC
-	</select>
+</select>
 	
-	<select id="selectList2" parameterType="_int" resultMap="votingAResultSet" >
+<select id="selectList2" parameterType="_int" resultMap="votingAResultSet" >
 		SELECT *
 		FROM VOTING_A 
 		WHERE REF_NO=#{bno} 	
-	</select>
+</select>
 	
-
-	
-	<update id = "updateVoting" parameterType="VotingA">
+<update id = "updateVoting" parameterType="VotingA">
 	UPDATE VOTING_A 
 	SET COUNT = COUNT+1
 	WHERE REF_NO =#{refNo} AND CONTENT=#{content}
-	</update>
+</update>
 	
-	<insert id = "votingGrant" parameterType="VotingG">
+<insert id = "votingGrant" parameterType="VotingG">
 	INSERT INTO VOTING_GRANT
 	VALUES(VG_NO.NEXTVAL,#{gRefNo}, #{empId},default)
-	</insert>
+</insert>
 	
-	<select id = "selectVotingGrant" parameterType="_int"  resultMap="votingGResultSet" >
+<select id = "selectVotingGrant" parameterType="_int"  resultMap="votingGResultSet" >
 	SELECT *
 	FROM VOTING_GRANT
 	WHERE GREF_NO = #{bno} 
-	</select>
+</select>
 	
-	<select id = "selectVotingGrant2" resultMap="votingGResultSet" >
+<select id = "selectVotingGrant2" resultMap="votingGResultSet" >
 	SELECT *
-	FROM VOTING_GRANT
+	FROM VOTING_GRANT	
+</select>
 	
-	</select>
-	
-	<delete id = "deleteVoting1"  parameterType="_int">
-	
+<delete id = "deleteVoting1"  parameterType="_int">	
 		DELETE FROM VOTING_GRANT
 		WHERE GREF_NO=#{bno}
-	</delete>
+</delete>
 	
-	<delete id = "deleteVoting2"  parameterType="_int">
-	
+<delete id = "deleteVoting2"  parameterType="_int">	
 		DELETE FROM VOTING_A
 		WHERE REF_NO=#{bno}
-	</delete>
+</delete>
 	
-	<delete id = "deleteVoting3"  parameterType="_int">
-	
+<delete id = "deleteVoting3"  parameterType="_int">	
 		DELETE FROM VOTING
 		WHERE VOTING_NO=#{bno}
-	</delete>
+</delete>
 	
-	<update id="increaseCount" parameterType="_int">
+<update id="increaseCount" parameterType="_int">
 		UPDATE VOTING
 		SET COUNT= COUNT+1
 		WHERE VOTING_NO=#{bno}
-	</update>
-	
+</update>
 </mapper>

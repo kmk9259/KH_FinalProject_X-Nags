@@ -13,9 +13,7 @@
 <body style = "background: #ecf0f4">
     <jsp:include page="../common/menubar.jsp"/>
 <div class="mobile-menu-overlay"></div>
-
-	<div class="main-container">
-	
+	<div class="main-container">	
 	<div class="page-header">
 					<div class="row">
 						<div class="col-md-6 col-sm-12">
@@ -32,10 +30,8 @@
 					</div>
 				</div>
     <div class="content">
-        <div class="innerOuter">
-           
+        <div class="innerOuter">          
 			<div class="pd-20 card-box mb-30">
-			<!-- 첨부파일도 등록할꺼니깐 Multipart/form-data encType 지정!! -->
             <form id="enrollForm" method="post" action="insert.bo" enctype="multipart/form-data">
              <input type = "hidden" name = "empId" value = "${loginUser.empId }">
               <div class="form-group">
@@ -45,7 +41,7 @@
    						 <div class="form-group">
      						 <label><b style="font-size : 20px">첨부파일</b></label>
      			 <input type="file" class="form-control-file border" id="upfile"  name="uploadFile">
-   							 </div>
+   						 </div>
                 <table style = "text-align: center">                            
                     <tr>
                         <th colspan="2"><label for="content"><b style="font-size : 20px">내용</b></label></th>
@@ -56,7 +52,6 @@
                     </tr>
                 </table>
                 <br>
-
                 <div align="center">
                     <button type="submit" id = "emptyCheck" class="btn btn-primary">등록하기</button>
                     <button type="reset" class="btn btn-danger">취소하기</button>
@@ -77,7 +72,6 @@ $("#emptyCheck").click(function(){
 		return true;
 	}
 })
-
 
 $("#emptyCheck").click(function(){
 	if($("#contentCheck").val() == ''){

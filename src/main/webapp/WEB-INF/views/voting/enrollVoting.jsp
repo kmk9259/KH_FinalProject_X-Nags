@@ -15,21 +15,13 @@
 }
 </style>
 </head>
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"
-	type="text/javascript"></script>
-
-
 <body style = "background: #ecf0f4">
 	<jsp:include page="../common/menubar.jsp" />
 	<div class="mobile-menu-overlay"></div>
-
 	<div class="main-container">
-
 	<br><br>
 	 <div class="card-box mb-30">
-		<div class="innerOuter">
-		
+		<div class="innerOuter">	
 			<h2>투표하기</h2>
 			<br> <br>
 			<br>
@@ -39,7 +31,6 @@
      	 <input  type="text" class="form-control" id="check" name="votingTitle" style = "height: 40px">
      	 <input type="hidden" name="empId" value="${loginUser.empId }">
    				 </div>
-
 				<table id="example">
 				<tr>
 				<th>
@@ -50,14 +41,10 @@
 					<td>
 					 <input  type="text" class="form-control" id="check" name="votingContent" style = "width:500px;height: 30px">
 					 <br>
-					</td>
-								
-					</tr>
-				
-				</table>
-			
-				<button id="emptyCheck"  class="btn btn-dark" type="submit">등록하기</button>
-				
+					</td>								
+					</tr>				
+				</table>			
+				<button id="emptyCheck"  class="btn btn-dark" type="submit">등록하기</button>		
 			</form>
 			<br>
 			<button id="addItemBtn" class="btn btn-warning">항목추가하기</button>
@@ -67,8 +54,6 @@
 			<jsp:include page="../common/footer.jsp" />
 	</div>
 	
-	
-	
 	<script>
 		$(document).ready(function() {
 			$("#addItemBtn").click(function() {
@@ -76,7 +61,6 @@
 		 	value += "<tr><td><input type ='text' id ='check' class = 'form-control' style = 'width:500px; height: 30px' name = 'votingContent'><br></td></tr>"
 		$("#example").append(value);
 			});
-		// 삭제버튼 클릭시
 		$("#delBtn").click(function() {
 		$("#example tr:last").remove();
 				})
@@ -88,10 +72,8 @@
 			}else{
 				return true;
 			}
-		})
-		
+		})	
 	</script>
-
 </body>
 
 </html>

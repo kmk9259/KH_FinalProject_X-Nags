@@ -47,7 +47,6 @@
 <body style = "background: #ecf0f4">
 	<jsp:include page="../common/menubar.jsp" />
 	<div class="mobile-menu-overlay"></div>
-
 	<div class="main-container">
 	<div class="page-header">
 					<div class="row">
@@ -63,29 +62,21 @@
 							</nav>
 						</div>
 					</div>
-				</div>
-		<!-- Simple Datatable start -->
+				</div>				
 		<div class="pd-20 card-box mb-30">
-			<div class="pd-20">
-			
-			<%-- <input type ="hidden" id = "result1" name = "result1" value ="${list.result }"> --%>
-				
-			
+			<div class="pd-20">	
 				<c:if test="${ !empty loginUser }">
 					<a class="btn btn-dark" style="float: right" data-toggle="modal" data-target="#myModal"
-						href="enrollVoting.vo">투표함 만들기</a>
+						href="enrollVoting.vo">투표함 만들기</a><br>
 				</c:if>
 			</div>
-		
 			<div class="pb-20">
 				<table id="boardList" class="data-table table stripe hover nowrap">
-					<thead class="bg-dark text-white">
-					
+					<thead class="bg-dark text-white">	
 						<tr>
 							<th>글 번호</th>
 							<th>투표 주제</th>
-							<th>작성자</th>
-							
+							<th>작성자</th>			
 							<th>작성일</th>
 							<th>조회수</th>
 							<th>투표 여부</th>
@@ -93,10 +84,8 @@
 					</thead>
 					<tbody  class="bg-light text-dark">
 						<tr >
-							<c:forEach items="${ list }" var="v">
-						
-								<tr class ="table-warning">
-								
+							<c:forEach items="${ list }" var="v">				
+								<tr class ="table-warning">					
 									<td>${v.votingNo }</td>
 									<td>${v.votingTitle}</td>
 									<td>${ v.userName}</td>									
@@ -112,12 +101,10 @@
 									</c:choose>           
 								</tr>
 							</c:forEach>
-
 						</tr>
 					</tbody>
 				</table>
 				<br>
-
 				<div id="pagingArea">
 					<ul class="pagination">
 						<c:choose>
@@ -129,7 +116,6 @@
 								<li class="page-item disabled"><a class="page-link" href="">이전</a></li>
 							</c:otherwise>
 						</c:choose>
-
 						<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
 							<c:choose>
 								<c:when test="${ pi.currentPage ne p }">
@@ -142,8 +128,6 @@
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
-
-
 						<c:choose>
 							<c:when test="${ pi.currentPage ne pi.maxPage }">
 								<li class="page-item"><a class="page-link"
@@ -156,36 +140,23 @@
 						</c:choose>
 					</ul>
 				</div>					
-			</div>
-			<br>
-			<br>
-			 
-</div>	
+			</div>						 
+		</div>	
+<br><br>
  <jsp:include page="../common/footer.jsp" />  			
 </div>
-  <!-- The Modal -->
-  
-  <div class="modal fade" id="myModal">
-  
-    <div class="modal-dialog">
-    
-      <div class="modal-content">
- 
-        <div class="modal-header">
-         
-          <h4 class="modal-title">투표함 만들기</h4>
-          
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          
+  <div class="modal fade" id="myModal">  
+    <div class="modal-dialog">    
+      <div class="modal-content"> 
+        <div class="modal-header">         
+          <h4 class="modal-title">투표함 만들기</h4>         
+          <button type="button" class="close" data-dismiss="modal">&times;</button>          
         </div>
-        
-        <!-- Modal body -->
         <div id = "modalContent" class="modal-body">
         <form method="post" action="votingInsert.bo">
         <button id="emptyCheck" style = "float: right" class="btn btn-dark" type="submit">등록하기</button>
         <br>
-        	<b style="font-size : 20px">주제 :</b>
-        	
+        	<b style="font-size : 20px">주제 :</b>      	
         <input  type="text" class="form-control" id="check" name="votingTitle">
      	 <input type="hidden" name="empId" value="${loginUser.empId }">
      	<table id="example">
@@ -202,20 +173,15 @@
 					</tr>				
 				</table>    	 
      	 </form>
-        </div>
-    
+        </div> 
         <br>
-     
-        <!-- Modal footer -->
         <div class="modal-footer">      
            <button id="addItemBtn" class="btn btn-warning">항목추가하기</button>
 		<button id="delBtn"  class="btn btn-danger">항목제거하기</button>    
 		  </div>    
       </div>        
-    </div>  
-    	
+    </div>     	
   </div>
-
 	<script>	
 		$(function() {			
 			$("#boardList tbody tr").click(function() {
@@ -228,21 +194,17 @@
 					location.href = "votingdetail.bo?bno="
 						+ $(this).children().eq(0).text();
 				}
-				
 			});
-		});
-		
-		
+		});	
 		$(document).ready(function() {
 			$("#addItemBtn").click(function() {
 			var value = "";
 		 	value += "<tr><td><input type ='text' id ='check' class = 'form-control' style = 'width:470px' name = 'votingContent'><br></td></tr>"
 		$("#example").append(value);
 			});
-		// 삭제버튼 클릭시
 		$("#delBtn").click(function() {
 		$("#example tr:last").remove();
-				})
+			})
 		});
 		$("#emptyCheck").click(function(){
 			if($("#check").val() == ''){
@@ -253,7 +215,5 @@
 			}
 		})
 	</script>
-
-
 	</body>
 </html>

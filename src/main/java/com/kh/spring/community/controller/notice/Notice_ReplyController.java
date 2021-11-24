@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.GsonBuilder;
 import com.kh.spring.community.model.service.notice.Notice_ReplyService;
-import com.kh.spring.community.model.vo.Board_Reply;
 import com.kh.spring.community.model.vo.Notice_Reply;
 @Controller
 public class Notice_ReplyController {

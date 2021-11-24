@@ -42,25 +42,10 @@
 	Width: 20%;
 }
 </style>
-<%-- 
-<link rel="stylesheet" type="text/css"
-	href="${ pageContext.servletContext.contextPath }/resources/vendors/styles/core.css">
-<link rel="stylesheet" type="text/css"
-	href="${ pageContext.servletContext.contextPath }/resources/vendors/styles/icon-font.min.css">
-<link rel="stylesheet" type="text/css"
-	href="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/css/dataTables.bootstrap4.min.css">
-<link rel="stylesheet" type="text/css"
-	href="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/css/responsive.bootstrap4.min.css">
-<link rel="stylesheet" type="text/css"
-	href="${ pageContext.servletContext.contextPath }/resources/vendors/styles/style.css">
-	--%>
 </head>
-
-
 <body style = "background: #ecf0f4">
 	<jsp:include page="../common/menubar.jsp" />
 	<div class="mobile-menu-overlay"></div>
-
 	<div class="main-container">
 	<div class="page-header">
 					<div class="row">
@@ -77,16 +62,13 @@
 						</div>
 					</div>
 				</div>
-		<!-- Simple Datatable start -->
 		<div class="pd-20 card-box mb-30">
 			<div class="pd-20">
-				<h4 class="text-dark">익명게시판</h4>
 				<c:if test="${ !empty loginUser }">
 					<a class="btn btn-dark" style="float: right"
 						href="enrollForm.bo">글쓰기</a>
 				</c:if>
 			</div>
-
 			<div class="pb-20">
 				<table id="boardList" class="data-table table stripe hover nowrap">
 					<thead class="bg-dark text-white">
@@ -99,7 +81,7 @@
 						</tr>
 					</thead>
 					<tbody  class="bg-light text-dark">
-						<tr >
+						<tr>
 							<c:forEach items="${ list }" var="b">
 								<tr class ="table-warning">
 									<td>${ b.boardNo }</td>
@@ -112,15 +94,12 @@
 									<c:if test="${ empty b.originFile }">
 										<td>&nbsp;</td>
 									</c:if>
-
 								</tr>
 							</c:forEach>
-
 						</tr>
 					</tbody>
 				</table>
 				<br>
-
 				<div id="pagingArea">
 					<ul class="pagination">
 						<c:choose>
@@ -145,8 +124,6 @@
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
-
-
 						<c:choose>
 							<c:when test="${ pi.currentPage ne pi.maxPage }">
 								<li class="page-item"><a class="page-link"
@@ -159,11 +136,9 @@
 						</c:choose>
 					</ul>
 				</div>
-
-				<br>
-			</div>
-		
+			</div>		
 		</div>
+		<br><br>
 			<jsp:include page="../common/footer.jsp" />
 	</div>
 	<script>
@@ -175,26 +150,5 @@
 					});
 		});
 	</script>
-	<%-- js 
-
-	
-	<script
-		src="${ pageContext.servletContext.contextPath }/resources/vendors/scripts/core.js"></script>
-	<script
-		src="${ pageContext.servletContext.contextPath }/resources/vendors/scripts/script.min.js"></script>
-	<script
-		src="${ pageContext.servletContext.contextPath }/resources/vendors/scripts/process.js"></script>
-	<script
-		src="${ pageContext.servletContext.contextPath }/resources/vendors/scripts/layout-settings.js"></script>
-	<script
-		src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/jquery.dataTables.min.js"></script>
-	<script
-		src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
-	<script
-		src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/dataTables.responsive.min.js"></script>
-	<script
-		src="${ pageContext.servletContext.contextPath }/resources/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
---%>
-
-	</body>
+</body>
 </html>

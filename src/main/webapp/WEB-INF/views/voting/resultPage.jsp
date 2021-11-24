@@ -113,10 +113,8 @@
 		<div class="page-header">
 					<div class="row">
 						<div class="col-md-6 col-sm-12">
-							<div class="title">
-							
-								<h4>투표 결과보기 </h4>
-								
+							<div class="title">							
+								<h4>투표 결과보기 </h4>							
 							</div>
 							<nav aria-label="breadcrumb" role="navigation">
 								<ol class="breadcrumb">
@@ -129,8 +127,7 @@
 					</div>
 				</div>
     <div class="content">
-    <div class="pd-20 card-box mb-30">
-      
+    <div class="pd-20 card-box mb-30">    
              <table id="contentArea"  class="table">
              <tr>
                     <th width="100">작성자</th>
@@ -138,8 +135,7 @@
                 </tr>
                 <tr>
                     <th width="100">주제</th>
-                    <td colspan="3">${ v.votingTitle }</td>
-                   
+                    <td colspan="3">${ v.votingTitle }</td>                   
                 </tr>          
                  <c:set var ="sum" value ="0" />
                  <c:forEach var = "cntSum" items ="${va }">                
@@ -154,33 +150,23 @@
               	 <c:set var ="avg" value ="0" />
                  <c:forEach var = "cntAvg" items ="${va}">                
                  <c:set var ="avg" value ="${ cntAvg.count /sum*100}"/>
-                 <fmt:parseNumber var= "test" value ="${avg }" integerOnly ="true"/>
-                        
-                
-                <div  class = "zt-skill-bar" style = "width:100%">
-                
-               
-                
+                 <fmt:parseNumber var= "test" value ="${avg }" integerOnly ="true"/>      
+                <div  class = "zt-skill-bar" style = "width:100%">       
                <c:if test ="${test == 0 }">   
                 <div style = "width:auto; background: #ecf0f4">    
-                  <%-- <span>${test}%</span> --%>
-               
                <b style ="color:black"> ${test}%</b>
                   </div>
                   <b style = "color : black; text-align: left">${cntAvg.content}</b>
                <b style = "margin-right:1em; color :blue" >${cntAvg.count }표 </b>
                <br>
-               </c:if>
-            
+               </c:if>     
                <c:if test ="${test > 0 && test <= 97}">	
                	<div style = "width:${test +3}%; text-align:right ">            
                	 <b style ="color:black"> ${test}% &nbsp;</b>       		
                	</div>              	 
               	<b style = "color : black; text-align: left">${cntAvg.content}</b>                
                	<b style = "margin-right:1em;color :blue" >${cntAvg.count }표</b>     
-             	 </c:if>   
-               	 
-               	         
+             	 </c:if>      	         
                 <c:if test ="${test > 97 }">	
                <div style = "width:${test}%; text-align:right ">            
                	 <b style ="color:black"> ${test}% &nbsp;</b>       		
@@ -188,43 +174,33 @@
               	<b style = "color : black; text-align: left">${cntAvg.content}</b>                
                	<b style = "margin-right:1em;color :blue" >${cntAvg.count }표</b>  
                    </c:if> 
-                  </div>
-                                          
+                  </div>                                     
                  </c:forEach>               
                  </div>   
                  <br><br>
                   <button class="btn btn-dark"  id = "list">목록으로</button>
                  <c:if test="${ loginUser.empId eq v.empId }"> 
-				<input class="btn btn-danger" type="button" id="delBtn" value="삭제하기">
-	          	  
+				<input class="btn btn-danger" type="button" id="delBtn" value="삭제하기">  
 				<input type="hidden" name="bno" value="${ v.votingNo }">				
-
             </c:if> 
+        </div>  
         </div>
-        
-        </div>
-
-            <jsp:include page="../common/footer.jsp"/>
+         <jsp:include page="../common/footer.jsp"/>
     </div>
- 
 <script>
-
 $("#delBtn").click(function(){ 
 	if(confirm("정말 삭제하시겠습니까?") == true){
 		location.href = "deleteVoting.vo?bno="
-			+${v.votingNo};
-			
+			+${v.votingNo};			
 		alert("삭제되었습니다");
 	}else{
 		return;
 		}							
 })
-
 $(function() {
 	$("#list").click(
 			function() {
-				location.href = "voting.vo"
-					
+				location.href = "voting.vo"			
 			});
 });
 </script>

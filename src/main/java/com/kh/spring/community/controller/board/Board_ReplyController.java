@@ -21,7 +21,6 @@ public class Board_ReplyController {
 	@ResponseBody
 	public String insertReply(Board_Reply br) {
 		int result = board_ReplyService.insertReply(br);
-		System.out.println(br.getBoardNo() + "bdn");
 		return String.valueOf(result);
 	}
 

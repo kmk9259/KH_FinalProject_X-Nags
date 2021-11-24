@@ -32,12 +32,9 @@
 						</div>
 					</div>
 				</div>
-    <div class="content">
-   
+    <div class="content">   
         <div class="innerOuter">
-        <div class="html-editor pd-20 card-box mb-30">
-           
-		
+        <div class="html-editor pd-20 card-box mb-30">          		
             <form id="updateForm" method="post" action="noticeUpdate.bo" enctype="multipart/form-data">
             	<input type="hidden" name="noticeNo" value="${ n.noticeNo }">
             	<input type = "hidden" name = "empId" value = "${n.empId }">
@@ -70,16 +67,11 @@
                     <button type="button" class="btn btn-danger" onclick="javascript:history.go(-1);">이전으로</button>
                 </div>
             </form>
-        </div>
-          
-        </div>
-        
+        </div>          
+        </div>       
         </div>
            <jsp:include page="../common/footer.jsp"/>
-        <br><br>
-   
+        <br><br>  
     </div>
-	
-    
 </body>
 </html>

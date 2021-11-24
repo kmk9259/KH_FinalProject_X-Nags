@@ -96,7 +96,6 @@ public class BoardController {
 	private void deleteFile(String fileName, HttpServletRequest request) {
 		String resources = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = resources + "\\upload_files\\";
-		System.out.println("savePath : " + savePath);
 		File deleteFile = new File(savePath + fileName);
 		deleteFile.delete();
 
@@ -111,7 +110,6 @@ public class BoardController {
 	@RequestMapping("update.bo")
 	public ModelAndView updateBoard(Board b, ModelAndView mv, HttpServletRequest request,
 			@RequestParam(name = "reUploadFile", required = false) MultipartFile file) {
-	
 		if (!file.getOriginalFilename().equals("")) {
 			if (b.getChangeFile() != null) {
 				deleteFile(b.getChangeFile(), request);
