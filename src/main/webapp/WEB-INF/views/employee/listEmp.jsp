@@ -99,7 +99,8 @@ display: none;
 								<td>
 								
 								<c:choose>
-								<c:when test="${emp.endDate eq null}">
+								<%-- <c:if test="${ loginUser.rightNo eq 1 }"> --%>
+								<c:when test="${emp.endDate eq null &&  loginUser.rightNo eq 1}">
 								<div class="dropdown">
 											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
 												<i class="dw dw-more"></i>

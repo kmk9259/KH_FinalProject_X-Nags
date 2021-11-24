@@ -124,42 +124,27 @@ width:80px;
 
 
 				<div class="pd-20 card-box mb-30">
-					<!-- 	<div class="clearfix mb-20">
-							<div class="pull-left">
-								<h4 class="text-blue h4">비품 예약하기</h4>
-							</div>
-						</div> -->
-						
-						
- 						  
-						
-					<form id="enrollForm" method="post" action="insertSup.su">
-					 <input type = "hidden" name = "empId" value = "${loginUser.empId }"> 
-					<div class="row">
-					
-						<div class="col-md-4 col-sm-12 dateRage">
-						
-						<div class="clearfix mb-20">
-								<div class="pull-left"><h4 class="text-blue h4">날짜 선택</h4></div>
-						  </div>
+				<form id="enrollForm" method="post" action="insertSup.su">
+				<input type = "hidden" name = "empId" value = "${loginUser.empId }"> 
+				<div class="row">
+				
+					<div class="col-md-4 col-sm-12 dateRage">
+					<div class="clearfix mb-20">
+					<div class="pull-left"><h4 class="text-blue h4">날짜 선택</h4></div>
+					</div>
 							
-								<div class="form-group ">
-									<label>예약 날짜</label>
+					<div class="form-group ">
+					<label>예약 날짜</label>
+					<input type="text" id="startDate" class="form-control startDate">
+					</div>
 
-									<input type="text" id="startDate" class="form-control startDate">
-									
-									
-								</div>
-
-								<div class="form-group">
-									<label>반납 날짜</label> <input type="text" id="endDate" class="form-control startDate">
-								</div>
-								<button type="button" data-toggle="modal" class="btn btn-success btn-lg btn-block" id="btn1" onclick="input1()">대여 기간 등록</button>
-								
-								
-						</div>
-						
-						<!-- 날짜 입력 관련 팝업 01 -->
+					<div class="form-group">
+					<label>반납 날짜</label> <input type="text" id="endDate" class="form-control startDate">
+					</div>
+					<button type="button" data-toggle="modal" class="btn btn-success btn-lg btn-block" id="btn1" onclick="input1()">대여 기간 등록</button>
+					</div>
+					
+					<!-- 날짜 입력 관련 팝업 01 -->
 							<div class="modal fade" id="warning-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 								<div class="modal-dialog modal-sm modal-dialog-centered">
 									<div class="modal-content bg-warning">
@@ -172,7 +157,7 @@ width:80px;
 								</div>
 							</div>
 							
-							<!-- 날짜 입력 관련 팝업 02 -->
+					<!-- 날짜 입력 관련 팝업 02 -->
 							<div class="modal fade" id="warning-modal2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 								<div class="modal-dialog modal-sm modal-dialog-centered">
 									<div class="modal-content bg-warning">
@@ -185,7 +170,7 @@ width:80px;
 								</div>
 							</div>
 							
-							<!-- 날짜 입력 관련 팝업 03 -->
+					<!-- 날짜 입력 관련 팝업 03 -->
 							<div class="modal fade" id="warning-modal3" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 								<div class="modal-dialog modal-sm modal-dialog-centered">
 									<div class="modal-content bg-warning">
@@ -223,38 +208,40 @@ width:80px;
 	                    	    var startDate = document.getElementById("startDate").value;
 	                    	    var endDate = document.getElementById("endDate").value;
 	                    	    var now = new Date();
+	                    	    
+	                    	    console.log(startDate)
 	                    	  
 	                    	    var fromDate=document.getElementById("fromDate");
 	                    	    var toDate=document.getElementById("toDate");
 
 	                    	    
 	                    	    if(startDate == "" || endDate == ""){
+	                    	    	
 	                    	    	 $("#btn1").attr('data-target','#warning-modal');
 	                    	    	
-	                    	    }
-	                    	    
-	                    	    if ((Date.parse(startDate) <= Date.parse(now))) {
-	                    	        
-	                    	        $("#btn1").attr('data-target','#warning-modal2');
-	                    	        document.getElementById("startDate").value = "";
-	                    	        
-	                    	    }
-	                    	    
-	                    	    if ((Date.parse(endDate) <= Date.parse(startDate))) {
-	                    	    	$("#btn1").attr('data-target','#warning-modal3');
-	                    	        document.getElementById("endDate").value = "";
-	                    	        
 	                    	    }else{
 	                    	    	
-	                    	    	$("#btn1").removeAttr('data-target','#warning-modal3');
-	                    	    	fromDate.value = startDate;
-	                    	    	toDate.value = endDate;
+	                    	    	if ((Date.parse(startDate) <= Date.parse(now))) {
+		                    	        
+		                    	        $("#btn1").attr('data-target','#warning-modal2');
+		                    	        document.getElementById("startDate").value = "";
+		                    	        
+		                    	    }else{
+		                    	    	$("#btn1").removeAttr('data-target','#warning-modal2');
+		                    	    	fromDate.value = startDate;
+		                    	    }
+	                    	    	
+	                    	    	if ((Date.parse(endDate) <= Date.parse(startDate))) {
+	 	                    	    	$("#btn1").attr('data-target','#warning-modal3');
+	 	                    	        document.getElementById("endDate").value = "";
+	 	                    	        
+	 	                    	    } else {
+	 	                    	    	toDate.value = endDate;
+	 	                    	    } 
 	                    	    	
 	                    	    }
 	                    	    
-	                    	    
-	                    	    	
-	                    	   
+
 	              
 							} 
 						
@@ -277,10 +264,12 @@ width:80px;
 										<label for="styled-checkbox-${status.index+1 }"class="it${status.index+1 }">${st.suppliesName}</label>
 										<div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
 										<span class="input-group-btn input-group-prepend"></span>
-										<input id="item0${status.index +1}" type="text" value="0" name="count" "class="form-control" style="height: 30px; text-align: center;">
-										<span class="input-group-btn input-group-append">
+										<input id="item0${status.index +1}" type="text" value="0" name="count" class="form-control"  style="height: 30px; text-align: center;">
+										<span class="input-group-btn input-group-append up" >
 										</span></div>
 									</div>
+									
+									
 								
 								<!-- 모달 팝업  -->
 								<div class="modal fade " id="alert-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-modal="true">
@@ -308,6 +297,7 @@ width:80px;
 									$('#styled-checkbox-${status.index+1 }').on('click', function(){
 										if($(this).prop('checked')){
 											
+											var inputNum =$("#item0${status.index +1}").val();
 											 console.log($("#item0${status.index +1}").val())
 											 if($("#item0${status.index +1}").val() == '0') {
 												 
@@ -325,8 +315,9 @@ width:80px;
 												html +='<td><input class="count" name="counts" value="'+count+'"readonly/>' +  '</td>';
 												html +='</tr>';
 												$("#myTable").append(html); 
-												 
+
 											 }
+											
 											
 											 
 											 var trlist = $("#myTable>tbody>tr").length;

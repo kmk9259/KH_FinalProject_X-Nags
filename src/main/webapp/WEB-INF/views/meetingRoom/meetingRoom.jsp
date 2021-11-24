@@ -288,7 +288,7 @@ text-align: center;
 				   
 					    <div class="card-header" id="headingTwo">
 					      <h5 class="mb-0">
-					        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseOne">
+					        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
 					         	회의실 2 예약 상황 보기 
 					        </button>
 					      </h5>
@@ -432,7 +432,7 @@ text-align: center;
 				   
 					    <div class="card-header" id="headingThree">
 					      <h5 class="mb-0">
-					        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseOne">
+					        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
 					         	회의실 3 예약 상황 보기 
 					        </button>
 					      </h5>
@@ -539,12 +539,13 @@ text-align: center;
 													
 													</table>
 													
-													<button id="#booking3" class="btn btn-primary btn-lg btn-block" >회의실 예약</button>
+													<button id="booking3" class="btn btn-primary btn-lg btn-block" >회의실 예약</button>
 													   
 													
 										</div>
 										</div>
 										
+									
 										<script>
 											$("#booking3").click(function(){
 														 
@@ -557,7 +558,8 @@ text-align: center;
 															
 											})
 													
-										</script>		
+										</script>
+											
 													
 										</div>
 													
@@ -576,7 +578,7 @@ text-align: center;
 				   
 					    <div class="card-header" id="headingFour">
 					      <h5 class="mb-0">
-					        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseOne">
+					        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
 					         	회의실 4 예약 상황 보기 
 					        </button>
 					      </h5>
