@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.spring.common.exception.CommException;
 import com.kh.spring.schedule.model.dao.ScheduleDao;
-import com.kh.spring.schedule.model.vo.ConvertScheduleVo;
+
 import com.kh.spring.schedule.model.vo.Schedule;
 
 @Service
@@ -59,6 +59,14 @@ public class ScheduleServiceImpl implements ScheduleService {
 		
 		return result;
 	}
+
+	@Override
+	public ArrayList<Schedule> scheduleList(String empId) {
+	
+		return scheduleDao.scheduleList(sqlSession, empId);
+	}
+
+
 
 	
 }

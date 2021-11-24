@@ -6,9 +6,9 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.kh.spring.schedule.model.vo.ConvertScheduleVo;
-import com.kh.spring.schedule.model.vo.Schedule;
 
+import com.kh.spring.schedule.model.vo.Schedule;
+import com.kh.spring.schedule.model.vo.ConvertScheduleVo;
 @Repository
 public class ScheduleDao {
 
@@ -32,5 +32,11 @@ public class ScheduleDao {
 		return sqlSession.delete("scheduleMapper.deleteSchedule", sc);
 	}
 
+	public ArrayList<Schedule> scheduleList(SqlSessionTemplate sqlSession, String empId) {
+	
+		return (ArrayList)sqlSession.selectList("scheduleMapper.scheduleList", empId);
+	}
+
+	
 
 }
