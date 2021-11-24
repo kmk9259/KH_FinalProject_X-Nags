@@ -21,10 +21,7 @@
 	z-index: 1;
 }
 
-/*  #employeeAll_paginate,
-#employeeAll_info{
-display: none;
-}  */
+
 </style>
 </head>
 <body>

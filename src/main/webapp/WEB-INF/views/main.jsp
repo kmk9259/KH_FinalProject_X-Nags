@@ -244,7 +244,7 @@
 											
 						<c:when test="${empty sup}">
 						<div class="alert alert-dark" role="alert" style="text-align: center;">
-						비품 예약이 없습니다.
+						예약된 비품이 없습니다.
 						</div>
 						</c:when>  
 						<c:when test="${!empty sup}">
@@ -312,7 +312,7 @@
 											
 						<c:when test="${empty mroom}">
 						<div class="alert alert-dark" role="alert" style="text-align: center;">
-						회의실 예약이 없습니다.
+						예약된 회의실이 없습니다.
 						</div>
 						</c:when>
 											

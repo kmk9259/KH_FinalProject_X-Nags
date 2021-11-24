@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +15,17 @@
  margin-top: 50px;
  height: 80px;
  width: 150px;
+}
+
+
+/* 
+.sidebar-menu .dropdown-toggle:hover, .sidebar-menu .show>.dropdown-toggle {
+    background: rgba(0,100,0,.4);
+    color: #fff;
+} */
+.sidebar-menu .submenu li a.active, .sidebar-menu .submenu li a:hover{
+background: rgba(255, 255, 255, 1);;
+    color: #000;
 }
 </style>
 </head>
@@ -102,12 +114,24 @@
                             <span class="micon dw dw-apartment"></span><span class="mtext">시스템 관리</span>
                         </a>
                         <ul class="submenu">
-							  <li><a href="enrollEmp.me">사원 등록 </a></li>
+                        
+                        
+	                        <c:if test="${ loginUser.rightNo eq 1 }">
+							<li><a href="enrollEmp.me">사원 등록 </a></li>
+							</c:if>
+							
                             <li><a href="listEmp.me">사원 조회 </a></li>
+                            
+                           
                             <li><a href="supplies.me">비품 예약 </a></li>
+                            
+                            
                             <li class="updateSup"><a type="button">비품 기간 연장 </a></li>
+                            
+                            <c:if test="${ loginUser.rightNo eq 4 }">
                             <li><a href="return.me">비품 반납 </a></li>
-
+							</c:if>
+							
                             <li><a href="meetingRoom.me">회의실 예약 </a></li>
                             <li class="meetingDetail"><a type="button">회의실 예약 취소 </a></li>
                             

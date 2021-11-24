@@ -154,12 +154,21 @@ background-color: white;
 						
 						
 						<div class="pd-30 pt-10">
-						<div class="col-lg-8 col-sm-6" style="margin: auto; padding-top: 50px;"> 
+						<div class="col-lg-8 col-sm-6" style="margin: auto;"> 
 						
-					    <!-- <form id="enrollForm" method="post" action="updateDate.su"> -->
+					    
 					    <input type = "hidden" name = "empId" value = "${loginUser.empId }"> 
 					    <div class="row">
 								<div class="col-md-12 col-sm-12 myTable">
+								
+								<c:choose>
+								<c:when test="${empty returnList}">
+								<div class="alert alert-dark" role="alert" style="text-align: center;">
+											예약된 비품이 없습니다.
+								</div>
+								</c:when>
+								
+								<c:otherwise>
 								<c:forEach items="${returnList}" var="su" varStatus="status">
 									<table class="table table-bordered" id="myTable">
 										<tbody>
@@ -231,6 +240,10 @@ background-color: white;
 									
 									</script>
 								</c:forEach>
+								
+								</c:otherwise>
+								
+								</c:choose>
 
 							</div>
 
