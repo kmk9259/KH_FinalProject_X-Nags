@@ -129,7 +129,7 @@
                         	<table id="attMonthList" class="table scrolltbody"  style="text-align: center; width: 1700px;">
                         	<c:if test="${loginEmp.rightName eq '근태관리자'}">
 								<thead>
-									<tr>
+									<tr class="table-danger">
 										<th scope="col" width="250px">부서명</th>
 										<th scope="col" width="250px">직급명</th>
 										<th scope="col" width="250px">사원명</th>
@@ -144,7 +144,7 @@
 							</c:if>
 							<c:if test="${loginEmp.rightName ne '근태관리자'}">
 								<thead>
-									<tr>
+									<tr tr class="table-danger">
 										<th scope="col" width="300px">부서명</th>
 										<th scope="col" width="300px">직급명</th>
 										<th scope="col" width="300px">사원명</th>
