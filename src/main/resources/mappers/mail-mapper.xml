@@ -19,8 +19,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="receiver_status" property="receiverStatus"/>
 		<result column="origin_name" property="originName"/>
 		<result column="change_name" property="changeName"/>
-		<result column="writer_update_date" property="writerUpdate"/>
-		<result column="receiver_update_date" property="receiverUpdate"/>
 	</resultMap>
 	
 	<resultMap type="Mail" id="sendResultSet">
@@ -36,8 +34,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="receiver_status" property="receiverStatus"/>
 		<result column="origin_name" property="originName"/>
 		<result column="change_name" property="changeName"/>
-		<result column="writer_update_date" property="writerUpdate"/>
-		<result column="receiver_update_date" property="receiverUpdate"/>
 	</resultMap>
 	
 	<resultMap type="Mail" id="receiveResultSet">
@@ -53,8 +49,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="receiver_status" property="receiverStatus"/>
 		<result column="origin_name" property="originName"/>
 		<result column="change_name" property="changeName"/>
-		<result column="writer_update_date" property="writerUpdate"/>
-		<result column="receiver_update_date" property="receiverUpdate"/>
 	</resultMap>
 	
 	<resultMap id="employeeResultSet" type="Employee">
@@ -100,7 +94,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="insertMail" parameterType="Mail">
 		insert into mail
 		values(seq_mno.nextval, #{empId}, #{receiver}, #{title}, #{content}, sysdate, default,
-				#{importantFlag},  default, default, #{originName}, #{changeName}, null, null)
+				#{importantFlag},  default, default, #{originName}, #{changeName})
 	</insert>
 	
 	<!-- 보낸 메일함 갯수 -->
@@ -170,7 +164,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 받은메일리스트에서 휴지통 -->
 	<update id="wasteReceiveMail" parameterType="_int">
 		UPDATE MAIL
-		SET RECEIVER_STATUS=2, RECEIVER_UPDATE_DATE=SYSDATE
+		SET RECEIVER_STATUS=2
 		WHERE MAIL_NO=${mno}
 	</update>
 	
@@ -178,7 +172,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="resendMail" parameterType="Mail">
 		insert into mail
 		values(seq_mno.nextval, #{empId}, #{receiver}, #{title}, #{content}, sysdate, default,
-				#{importantFlag},  default, default, #{originName}, #{changeName}, null, null)
+				#{importantFlag},  default, default, #{originName}, #{changeName})
 	</insert>
 	
 	<!-- 아름으로 아이디 불러오기 -->
@@ -191,13 +185,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="insertSendDelivery" parameterType="Mail">
 		insert into mail
 		values(seq_mno.nextval, #{empId}, #{receiver}, #{title}, #{content}, sysdate, default,
-				#{importantFlag},  default, default, #{originName}, #{changeName}, null, null)
+				#{importantFlag},  default, default, #{originName}, #{changeName})
 	</insert>
 	
 	<!-- 보낸 메일 휴지통으로 이동 -->
 	<update id="wasteSendMail" parameterType="_int">
 		UPDATE MAIL
-		SET WRITER_STATUS=2, WRITER_UPDATE_DATE=SYSDATE
+		SET WRITER_STATUS=2
 		WHERE MAIL_NO=${mno}
 	</update>
 	
@@ -236,7 +230,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="insertReply" parameterType="Mail">
 		insert into mail
 		values(seq_mno.nextval, #{empId}, #{receiver}, #{title}, #{content}, sysdate, default,
-				#{importantFlag},  default, default, #{originName}, #{changeName}, null, null)
+				#{importantFlag},  default, default, #{originName}, #{changeName})
 	
 	</insert>
 	

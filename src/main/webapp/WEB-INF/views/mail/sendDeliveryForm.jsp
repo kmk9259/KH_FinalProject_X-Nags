@@ -73,7 +73,7 @@ label {
 									<input type="hidden" name="receiver" required="required">
 								</div>
 								<div class="form-group">
-									<button type="button" class="btn btn-primary" data-backdrop="static" data-toggle="modal" data-target="#bd-example-modal-lg">주소록</button>
+									<button type="button" class="btn btn-primary" data-backdrop="static" data-toggle="modal" data-target="#bd-example-modal-lg"><i class="icon-copy dw dw-agenda"></i> 주소록</button>
 								</div>
 								<div class="">
 									<div class="custom-control custom-checkbox mb-5">
