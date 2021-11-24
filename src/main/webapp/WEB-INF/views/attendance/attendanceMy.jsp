@@ -164,29 +164,32 @@
 					
                		var sList =${attStatusList};
                		var cList =${attCountList};
-               		var data = null;
-               		console.log(sList[0]);
-               		
+               		var name = new Array(sList.length);
+               		var count = new Array(sList.length);
                		for(var i in sList){
-               			data = new Array(i);
                			for(var j in cList){
-               				data[i] = new Array(j);
-               				
-               				if(sList[i].attStatusNo == cList[j].attStatusNo){
-               					console.log(cList[j].attStatusName+cList[j].count);
-               					data[i] = [cList[j].attStatusName, cList[j].count];
-               					console.log(i+" "+"ww : "+data[i]);
+               				/* 
+               				console.log("========================="); */
+               				console.log(sList[i].attStatusNo === cList[j].attStatusNo);
+               				//slist모든 항목과 clist를 비교해서 없는 항목이면 count 0처리
+               				if(sList[i].attStatusNo === cList[j].attStatusNo){
+               					
+               					name[i] = cList[j].attStatusName;
+               					count[i] = cList[j].count;
+               					console.log(name[i] + " "+count[i]);
+               					
+               				}else{
+               					name[i] = cList[j].attStatusName;
+               					count[i] = 0;
+               					console.log(name[i] + " "+count[i]);
                				}
+               				      
                			}
-               		}
-               		for(var i in sList){
                			
-               			for(var j in cList){
-               				console.log(i+" "+"바께 : "+data[i]);
-               			}
                		}
                		
-					Highcharts.chart('chart6', {
+               		
+					 Highcharts.chart('chart6', {
 					    chart: {
 					        type: 'pie',
 					        options3d: {
@@ -219,7 +222,7 @@
 					            ['연차', 4]
 					        ]
 					    }]
-					});
+					}); 
 				})
 				
            	</script>
