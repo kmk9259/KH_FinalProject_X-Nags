@@ -96,7 +96,7 @@ img {
     <div class="main-container">
         <div class="pd-ltr-20 xs-pd-20-10">
             <div class="min-height-200px">
-			<form action="update.me" method="post" enctype="multipart/form-data">
+			<form action="update.me" method="post" enctype="multipart/form-data" id="postForm">
                 <div class="row">
                     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 mb-30">
                         <div class="pd-20 card-box height-100-p">
@@ -119,6 +119,7 @@ img {
 						      
 						      <a  type="button" class="edit-avatar"><i class="fa fa-pencil"></i></a>
 						      
+						      
 						     
 						      </div>
 						      
@@ -130,7 +131,8 @@ img {
 									$("#fileArea").hide();
 
 									$(".edit-avatar").click(function() {
-										$("#file").click();									
+										$("#file").click();	
+										
 										
 									});
 
@@ -162,8 +164,10 @@ img {
 								};
 								
 								</script>
-                            
- 
+                            <div style="text-align:center;">
+                            <button type="submit" class="btn" data-bgcolor="#00b489" data-color="#ffffff" style="color: rgb(255, 255, 255); background-color: rgb(0, 180, 137);">사진등록</button>
+							</div>
+							<br><br><br><br>
                             <h3 class="text-center h5 mb-0">${ sessionScope.loginUser.userName }</h3>
                             <p class="text-center text-muted font-14">${ sessionScope.loginUser.empId }</p>
                             <div class="profile-info">

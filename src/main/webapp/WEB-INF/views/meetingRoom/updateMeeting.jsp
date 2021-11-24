@@ -146,6 +146,16 @@ width: 50%;
 							<h4 class="text-blue h4">회의실 예약 확인</h4>
 							</div>
 					</div>
+					
+					
+							<c:choose>			
+							<c:when test="${empty mroom}">
+							<div class="alert alert-dark" role="alert" style="text-align: center;">
+											예약된 회의실이 없습니다.
+							</div>
+							</c:when>
+							
+							<c:otherwise>
 							<c:forEach items="${mroom}" var="mr" varStatus="status">						
 							<table class="table table-bordered" id="myTable">
 							<tbody>
@@ -213,7 +223,10 @@ width: 50%;
 							</div>
 							<br><br><br><br>
 			
-							</c:forEach>						
+							</c:forEach>
+							</c:otherwise>
+							
+							</c:choose>						
 					</div>
 					</div>
 					
