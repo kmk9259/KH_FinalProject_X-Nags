@@ -3,7 +3,7 @@ package com.kh.spring.schedule.model.service;
 import java.util.ArrayList;
 import java.util.Map;
 
-import com.kh.spring.schedule.model.vo.ConvertScheduleVo;
+
 import com.kh.spring.schedule.model.vo.Schedule;
 
 public interface ScheduleService {
@@ -15,6 +15,10 @@ public interface ScheduleService {
 	int deleteSchedule(Schedule sc);
 
 	ArrayList<Schedule> scheduleMain(Map<String,String> paramMap);
+
+	ArrayList<Schedule> scheduleList(String empId);
+
+
 
 
 }

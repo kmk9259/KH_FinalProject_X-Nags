@@ -22,6 +22,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<id property="empId" column="EMP_ID"/>
 		</resultMap>
 	
+	<resultMap type="schedule" id="scheduleListResultSet">
+		<id property="empId" column="EMP_ID"/>
+		<result property="scheduleTitle" column="SCHEDULE_TITLE"/>
+		<result property="scheduleStart" column="SCHEDULE_START"/>
+		<result property="scheduleEnd" column="SCHEDULE_END"/>
+	</resultMap>
+	
+	
+	
 		
 	<select id="scheduleMain" parameterType="java.util.Map" resultType="com.kh.spring.schedule.model.vo.Schedule">
 		<![CDATA[ 
@@ -75,6 +84,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE FROM SCHEDULE WHERE SCHEDULE_NO = #{scheduleNo}
 	</insert>
 
-
+	<select id="scheduleList" resultMap="scheduleListResultSet">
+		<![CDATA[ 	
+			SELECT  
+                SCHEDULE_TITLE,
+		      	SCHEDULE_START,
+		        SCHEDULE_END
+			FROM 
+		        SCHEDULE
+			WHERE 
+		        1 = 1
+                AND EMP_ID = #{empId}
+		        AND SUBSTR(SCHEDULE_START,1,10) <= TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+		        AND SUBSTR(SCHEDULE_END,1,10) >= TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+		        ORDER BY SCHEDULE_START DESC
+		]]> 
+	</select>
 	
 </mapper>

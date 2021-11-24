@@ -36,6 +36,8 @@ import com.kh.spring.meetingroom.model.service.MeetingRoomService;
 import com.kh.spring.meetingroom.model.vo.MeetingRoom;
 import com.kh.spring.member.model.service.MemberService;
 import com.kh.spring.member.model.vo.Member;
+import com.kh.spring.schedule.model.service.ScheduleService;
+import com.kh.spring.schedule.model.vo.Schedule;
 import com.kh.spring.supplies.model.service.SuppliesService;
 import com.kh.spring.supplies.model.vo.Return;
 import com.kh.spring.supplies.model.vo.Supplies;
@@ -71,6 +73,9 @@ public class MemberController {
 	   
 	@Autowired
 	private BoardService boardService;
+	
+	@Autowired
+	private ScheduleService scheduleService;
 	
 	private Employee loginEmp;
 	
@@ -109,23 +114,27 @@ public class MemberController {
 		ArrayList<Approval> appedList = approvalService.mainAppedList(empId);
 		model.addAttribute("appedList", appedList);
 		
+		ArrayList<Schedule> scheduleList = scheduleService.scheduleList(empId);
+		model.addAttribute("scheduleList", scheduleList);
 		
 		Member loginUser = null;
-		
-		try {
-			if(m== null) {	//얼굴인식 화면
-				loginUser = memberService.loginMember2(empId);
-				loginEmp = employeeService.loginEmployee(empId);
-				System.out.println("얼굴 인식 로그인 loginUser: "+loginUser);
-				System.out.println("얼굴 인식 로그인 loginEmp : "+loginEmp);
-				
-			}else {
-				loginUser = memberService.loginMember(bCryptPasswordEncoder,m);
-				loginEmp = employeeService.loginEmployee(m.getEmpId());
-				System.out.println("일반 로그인 loginUser: "+loginUser);
-				System.out.println("일반 로그인 loginEmp : "+loginEmp);
-			}
-			
+		ArrayList<Attendance> attCountList =null;
+	      
+	      try {
+	         if(m== null) {   //얼굴인식 화면
+	            loginUser = memberService.loginMember2(empId);
+	            loginEmp = employeeService.loginEmployee(empId);
+	            attCountList = attendanceService.attCountList(empId);
+	            System.out.println("얼굴 인식 로그인 loginUser: "+loginUser);
+	            System.out.println("얼굴 인식 로그인 loginEmp : "+loginEmp);
+	            
+	         }else {
+	            loginUser = memberService.loginMember(bCryptPasswordEncoder,m);
+	            loginEmp = employeeService.loginEmployee(m.getEmpId());
+	            attCountList = attendanceService.attCountList(m.getEmpId());
+	            System.out.println("일반 로그인 loginUser: "+loginUser);
+	            System.out.println("일반 로그인 loginEmp : "+loginEmp);
+	         }
 			ArrayList<Employee> list = employeeService.selectAllEmp();
 			
 			for(Employee e : list) {
@@ -185,34 +194,40 @@ public class MemberController {
 		
 		return "member/myPage";
 	}
-	   @RequestMapping("update.me")
-	   public String updateMember(@ModelAttribute Member m, @RequestParam("post") String post,
-	                         @RequestParam("address1") String address1,
-	                         @RequestParam("address2") String address2,
-	                         HttpServletRequest request,
-	                         HttpSession session, Model model,
-	                         @RequestParam(name="file", required=false) MultipartFile file) throws Exception {
+	@RequestMapping("update.me")
+    public String updateMember(@ModelAttribute Member m, @RequestParam("post") String post,
+                       String empId,
+                          @RequestParam("address1") String address1,
+                          @RequestParam("address2") String address2,
+                          HttpServletRequest request,
+                          HttpSession session, Model model,
+                          @RequestParam(name="file", required=false) MultipartFile file) throws Exception {
 
-	      if(!file.getOriginalFilename().equals("")) {
-	         if(m.getChangeName() != null) {
-	            deleteFile(m.getChangeName(), request);
-	         }
-	         
-	         String changeName = saveFile(file,request);
-	         
-	         m.setOriginName(file.getOriginalFilename());
-	         m.setChangeName(changeName);
-	      }   
-	      
-	      
-	      m.setAddress(post+"/"+address1+"/"+address2);
-	      
-	      Member userInfo = memberService.updateMember(m);
-	      model.addAttribute("loginUser", userInfo);
-	      
-	      return "member/myPage";
-	   }
-	   
+       if(!file.getOriginalFilename().equals("")) {
+          if(m.getChangeName() != null) {
+             deleteFile(m.getChangeName(), request);
+          }
+          
+          String changeName = saveFile(file,request);
+          
+          m.setOriginName(file.getOriginalFilename());
+          m.setChangeName(changeName);
+       }   
+       
+       
+       m.setAddress(post+"/"+address1+"/"+address2);
+       
+       Member userInfo = memberService.updateMember(m);
+       model.addAttribute("loginUser", userInfo);
+       
+       ArrayList<MeetingRoom> mroom = meetingRoomService.reservedMeeting(empId);
+       model.addAttribute("mroom", mroom);
+       
+        ArrayList<Return> returnList = suppliesService.updateForm(empId);
+        model.addAttribute("returnList", returnList);
+       
+       return "member/myPage";
+    }
 
 	   
 
