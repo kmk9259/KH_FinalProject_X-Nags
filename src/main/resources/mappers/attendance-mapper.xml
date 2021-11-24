@@ -191,10 +191,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 
 	<select id="attCountList" parameterType="string" resultMap="attendanceResultSet">
-		SELECT ATT_STATUS_NO,ATT_STATUS_NAME, EMP_ID, count(ATT_STATUS_NO) AS COUNT
-		FROM ATTENDANCE JOIN ATT_STATUS USING (ATT_STATUS_NO)
-		WHERE EMP_ID=#{empId}
-		GROUP BY ATT_STATUS_NO,ATT_STATUS_NAME ,EMP_ID
-		ORDER BY EMP_ID, ATT_STATUS_NO
+		SELECT A.ATT_STATUS_NAME, count(B.ATT_STATUS_NO) AS COUNT
+		FROM ATT_STATUS A LEFT OUTER JOIN (
+		                                    SELECT ATT_STATUS_NO
+		                                     FROM ATTENDANCE 
+		                                    WHERE EMP_ID =#{empId}
+		                                   ) B on (A.ATT_STATUS_NO = B.ATT_STATUS_NO)
+		GROUP BY A.ATT_STATUS_NO, A.ATT_STATUS_NAME
+		ORDER BY A.ATT_STATUS_NO
 	</select>
 </mapper>

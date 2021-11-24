@@ -88,10 +88,10 @@
                         <span class="user-name">${ sessionScope.loginUser.userName }님</span>&nbsp;&nbsp;&nbsp;
                     </a>
                    
-                        <a href="#" id="my"><i class="dw dw-user1"></i> MyPage</a> &nbsp;&nbsp;&nbsp;
+                        <a href="#" id="my" style="color: black"><i class="dw dw-user1"></i> MyPage</a> &nbsp;&nbsp;&nbsp;
                         <input type = "hidden"  id="mm" name = "empId" value = "${loginUser.empId }"> 
                                               
-                        <a  href="#" data-toggle='modal' data-target='#confirmation-modal'"><i class="dw dw-logout"></i> Log Out</a>
+                        <a  href="#" style="color: black" data-toggle='modal' data-target='#confirmation-modal'"><i class="dw dw-logout"></i> Log Out</a>
                       	
                       	<div class="modal fade" id="confirmation-modal" tabindex="-1" role="dialog" aria-hidden="true">
 			                <div class="modal-dialog modal-dialog-centered" role="document">

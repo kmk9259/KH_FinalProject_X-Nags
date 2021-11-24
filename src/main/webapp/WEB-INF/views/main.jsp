@@ -20,19 +20,7 @@
 	}
 	
 	</style>
-	<!-- ----------------------------------------------------------------------------- -->   
 
-
-<link rel="shortcut icon" href="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/image/favicon.ico">
-
-<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/css/fullcalendar.min.css" />
- 
-<link rel="stylesheet" href='${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/css/select2.min.css' />
-<link rel="stylesheet" href='${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/css/bootstrap-datetimepicker.min.css' />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,600">
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/css/main.css">
-<!-- ----------------------------------------------------------------------------- -->
 </head>
 <body>
 
@@ -42,56 +30,51 @@
     <div class="mobile-menu-overlay"></div>
 
     <div class="main-container">
-        <div class="pd-ltr-20 " >
-        	<div class="row">
-        		<div class="col-xl-6 mb-30">
-                    <div class="card-box height-100-p pd-20" style="height: 500px; overflow: auto;"><div class="row align-items-center  mb-30">
-		                <div id="clock" class="light3" style="margin-left: 15px;">
-		           			<div class="display3">
-								<div class="ampm"></div>
-								<div class="alarm"></div>
-								<div class="digits"></div>
-					 		</div>
-						</div> <br><br>
-		               </div> 
-	                <div class="row align-items-center">
-	                	<div class="col-md-12">
-			                <h4 class="font-20 weight-500 mb-10 text-capitalize">                    
-			                    <div class="weight-600 font-30 text-blue">${ sessionScope.loginUser.userName }님</div>
-			                </h4>
-			                
-			                <div class="table-responsive">
-								<table class="table table-striped table-bordered employee" style="text-align: center;">				
-								  <thead>							    
-									<tr class="table-warning">
-									<th scope="col" width="50px">부서</th>
-									<th scope="col" width="50px">직급</th>
-									<th scope="col" width="50px">권한</th>
-									<th scope="col" width="100px">날짜</th>
-									<th scope="col" width="100px">출근</th>
-									<th scope="col" width="100px">퇴근</th>
-									<th scope="col" width="60px">근무일</th>
-									<th scope="col" width="50px">잔여 연차</th>
-									</tr>								
-								  </thead>
-								  <tbody>
-								    
-								      <th scope="row">${loginEmp.deptName}</th>
-								      <th scope="row">${loginEmp.jobName}</th>
-								      <th scope="row">${loginEmp.rightName}</th>
-								      <th scope="row" id="date"></th>
-								      <th scope="row" id="inTime"></th>
-								      <th scope="row" id="outTime"></th>
-								      <th scope="row">${dDay} </th>
-								      <th scope="row">${loginEmp.holCount} 회</th>
-								    </tr>
-								  </tbody>
-								</table>							
-							</div>
-							
-	                	</div>
-	               	</div>
-	               	<script>
+    	<div class="pd-ltr-20 ">
+    		<div class="row">
+    			<div class="col-xl-6 mb-30">
+                    <div class="card-box height-100-p pd-20 ">
+	                    <div>
+	                    	<div id="clock" class="light3">
+		                        <div class="ampm"></div>									
+								<div class="digits"></div>		           			
+							</div>   	
+	                    </div>
+	                    <div id="chart5"></div>
+	                    <div>	                    
+							<table class="data-table table stripe hover nowrap" style="text-align: center;">				
+							  <thead class="bg-dark text-white">							    
+								<tr >
+								<th scope="col" width="50px">부서</th>
+								<th scope="col" width="50px">직급</th>
+								<th scope="col" width="50px">권한</th>
+								<th scope="col" width="100px">날짜</th>
+								<th scope="col" width="100px">출근</th>
+								<th scope="col" width="100px">퇴근</th>
+								<th scope="col" width="60px">근무일</th>
+								<th scope="col" width="50px">잔여 연차</th>
+								</tr>								
+							  </thead>
+							  <tbody class="bg-light text-dark">
+							    <tr class ="table-warning">
+							      <td scope="row">${loginEmp.deptName}</td>
+							      <td scope="row">${loginEmp.jobName}</td>
+							      <td scope="row">${loginEmp.rightName}</td>
+							      <td scope="row" id="date"></td>
+							      <td scope="row" id="inTime"></td>
+							      <td scope="row" id="outTime"></td>
+							      <td scope="row">${dDay} </td>
+							      <td scope="row">${loginEmp.holCount} 회</td>
+							    </tr>
+							  </tbody>
+							</table>                        
+						</div>
+						
+	               </div>
+                        
+                    
+                </div>
+                <script>
 	               	$(function () {
 						$.ajax({
 							url:"attTime.att",
@@ -109,25 +92,74 @@
 								}
 							}
 						});
+						Highcharts.chart('chart5', {
+						    title: {
+						        text: '내 근태 현황'
+						    },
+						    xAxis: {
+						        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+						    },
+						    series: [{
+						        type: 'pie',
+						        allowPointSelect: true,
+						        keys: ['name', 'y', 'selected', 'sliced'],
+						        data: [
+						            
+						            <c:forEach items="${ attCountList }" var="c" varStatus="i">            	
+					        			
+					        			 <c:if test = "${c.count > 0}">
+					        			 ['${ c.attStatusName }', ${ c.count },false],
+					        	      	</c:if>
+
+
+
+		                   		 	</c:forEach>	
+						        ],
+						        showInLegend: true
+						    }]
+						});
 						
 					})
-	               	</script>               	
-            		</div>  
-            	</div><!-- 개인정보 끝 -->
-            	<div class="col-xl-6 mb-30">
+               	</script> 
+                <!-- 근태 끝ㅌㅌㅌㅌㅌㅌ -->
+                <div class="col-xl-6 mb-30">
                     <div class="card-box height-100-p pd-20">
-                    	 <div id="wrapper">
-		                     <div id="loading"></div>
-		                     <div id="calendar"></div>
-		                 </div>
-                    </div>
-                </div>
-            </div>
-            
-            
-            <div class="row">
-            	
-   				<div class="col-xl-6 mb-30">
+	                  <h2 class="h4 mb-20 text-blue">오늘일정</h2>
+	                  <div id="chart6">
+	                     <c:choose>
+	                        <c:when test="${!empty scheduleList}">
+	                           <table id="scheduleList"
+	                              class="data-table table stripe hover nowrap">
+	                              <thead class="bg-dark text-white">
+	                                 <tr>
+	                                    <th>제목</th>
+	                                    <th>시작일</th>
+	                                    <th>종료일</th>
+	                                 </tr>
+	                              </thead>
+	                              <tbody class="bg-light text-dark">
+	                                 <tr>
+	                                    <c:forEach items="${ scheduleList }" var="s">
+	                                       <tr class="table-warning">
+	                                          <td>${ s.scheduleTitle }</td>
+	                                          <td>${ s.scheduleStart }</td>
+	                                          <td>${ s.scheduleEnd }</td>                                          
+	                                       </tr>
+	                                    </c:forEach>
+	                                 </tr>
+	                              </tbody>
+	                           </table>
+	                        </c:when>
+	                        <c:otherwise>
+	                           <div class="alert alert-dark" role="alert"
+	                              style="text-align: center;">일정이 없습니다</div>
+	                        </c:otherwise>
+	                     </c:choose>
+						</div>
+               		</div>
+            	</div>
+	                 
+    			<div class="col-xl-6 mb-30">
                     <div class="card-box height-100-p pd-20">
                         <h2 class="h4 mb-20 text-blue">공지사항 최신 top3</h2>
                         <div id="chart6">
@@ -174,7 +206,7 @@
                 </div>
                 
                 
-                 <div class="col-xl-6 mb-30">
+                <div class="col-xl-6 mb-30">
                     <div class="card-box height-100-p pd-20">
                         <h2 class="h4 mb-20 text-blue">익명게시판 조회수 top3</h2>
                         <div id="chart6">
@@ -297,7 +329,7 @@
                     </div>
                 </div>
                 
-                 <div class="col-xl-6 mb-30">
+                <div class="col-xl-6 mb-30">
                     <div class="card-box height-100-p pd-20" style="height: 500px; overflow: auto;">
                         
                         
@@ -365,7 +397,7 @@
            
                 
                 <!-- 메일시작 -->
-					<div class="col-xl-6 mb-30">
+				<div class="col-xl-6 mb-30">
 						<!-- 왼쪽 -->
 						<div class="card-box mb-30" style="height: 450px; overflow: auto;">
 							<div class="clearfix pd-20">
@@ -437,186 +469,183 @@
 					<!-- 메일 끝 -->
 					
 					<!-- 결재시작 -->
-					<div class="col-lg-6 col-md-12 col-sm-12 mb-30">
-						<div class="card-box mb-30" style="height: 450px; overflow: auto;">
-							<div class="clearfix pd-20">
-								<div class="pull-left">
-								
-								</div>
-							<div class="col-md-12 col-sm-12 pull-right">
-								<div class="tab">
-								<ul class="nav nav-tabs" role="tablist">
-									<li class="nav-item">
-										<a class="nav-link active text-blue" data-toggle="tab" href="#home" role="tab" aria-selected="true">진행중 결재함</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link text-blue" data-toggle="tab" href="#profile" role="tab" aria-selected="false">결재 요청함</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link text-blue" data-toggle="tab" href="#contact" role="tab" aria-selected="false">결재 완료함</a>
-									</li>
-								</ul>
-								<div class="tab-content">
-									<!-- 진행중결재함 -->
-									<div class="tab-pane fade show active" id="home" role="tabpanel">
-										<div class="pd-20">
-											<table class="table table-hover mailList">
-												<thead>
-													<tr>
-														<th></th>
-														<th scope="col">종류</th>
-														<th scope="col">상태</th>
-													</tr>
-												</thead>
-												<tbody>
-													<c:forEach items="${ appingList }" var="app">
-													<tr>
-														<td>${ app.appNo }</td>
-														<c:choose>
-							              					<c:when test="${app.category eq 1 }">
-																<td scope="row">휴가 신청서</td>
-															</c:when>
-								              				<c:when test="${app.category eq 2 }">
-																<td scope="row">반차 신청서</td>
-															</c:when>
-								              				<c:when test="${app.category eq 3 }">
-																<td scope="row">외근 신청서</td>
-															</c:when>
-								              				<c:when test="${app.category eq 4 }">
-																<td scope="row">증명서 신청서(재직증명서)</td>
-															</c:when>
-								              				<c:when test="${app.category eq 5 }">
-																<td scope="row">증명서 신청서(급여명세서)</td>
-															</c:when>
-								              				<c:when test="${app.category eq 6 }">
-																<td scope="row">증명서 신청서(기타)</td>
-															</c:when>
-							             			 	</c:choose>
-														
-														<c:choose>
-															<c:when test="${app.midStatus eq 1 }">
-																<td>결재 대기</td>
-															</c:when>
-															<c:when test="${app.midStatus eq 2 }">
-																<td>중간 승인</td>
-															</c:when>
-														</c:choose>
-													</tr>
-													</c:forEach>
-												</tbody>
-											</table>
-										</div>
-									</div>
-									<!-- 요청결재함 -->
-									<div class="tab-pane fade" id="profile" role="tabpanel">
-										<div class="pd-20">
-											<table class="table table-hover mailList">
-												<thead>
-													<tr>
-														<th></th>
-														<th scope="col">종류</th>
-														<th scope="col">기안자</th>
-													</tr>
-												</thead>
-												<tbody>
-													<c:forEach items="${ appAskList }" var="app">
-													<tr>
-														<td>${ app.appNo }</td>
-														<c:choose>
-							              					<c:when test="${app.category eq 1 }">
-																<td scope="row">휴가 신청서</td>
-															</c:when>
-								              				<c:when test="${app.category eq 2 }">
-																<td scope="row">반차 신청서</td>
-															</c:when>
-								              				<c:when test="${app.category eq 3 }">
-																<td scope="row">외근 신청서</td>
-															</c:when>
-								              				<c:when test="${app.category eq 4 }">
-																<td scope="row">증명서 신청서(재직증명서)</td>
-															</c:when>
-								              				<c:when test="${app.category eq 5 }">
-																<td scope="row">증명서 신청서(급여명세서)</td>
-															</c:when>
-								              				<c:when test="${app.category eq 6 }">
-																<td scope="row">증명서 신청서(기타)</td>
-															</c:when>
-							             			 	</c:choose>
-														
-														<td>${app.empId }</td>
-															
-													</tr>
-													</c:forEach>
-												</tbody>
-											</table>
-										</div>
-									</div>
-									<!-- 완료결재함 -->
-									<div class="tab-pane fade" id="contact" role="tabpanel">
-										<div class="pd-20">
-											<table class="table table-hover mailList">
-												<thead>
-													<tr>
-														<th></th>
-														<th scope="col">종류</th>
-														<th scope="col">상태</th>
-													</tr>
-												</thead>
-												<tbody>
-													<c:forEach items="${ appedList }" var="app">
-													<tr>
-														<td>${ app.appNo }</td>
-														<c:choose>
-							              					<c:when test="${app.category eq 1 }">
-																<td scope="row">휴가 신청서</td>
-															</c:when>
-								              				<c:when test="${app.category eq 2 }">
-																<td scope="row">반차 신청서</td>
-															</c:when>
-								              				<c:when test="${app.category eq 3 }">
-																<td scope="row">외근 신청서</td>
-															</c:when>
-								              				<c:when test="${app.category eq 4 }">
-																<td scope="row">증명서 신청서(재직증명서)</td>
-															</c:when>
-								              				<c:when test="${app.category eq 5 }">
-																<td scope="row">증명서 신청서(급여명세서)</td>
-															</c:when>
-								              				<c:when test="${app.category eq 6 }">
-																<td scope="row">증명서 신청서(기타)</td>
-															</c:when>
-							             			 	</c:choose>
-														
-														<c:choose>
-															<c:when test="${app.midStatus eq 3 }">
-																<td>중간 반려</td>
-															</c:when>
-															<c:when test="${app.finStatus eq 2 }">
-																<td>최종 승인</td>
-															</c:when>
-															<c:when test="${app.finStatus eq 3 }">
-																<td>최종 반려</td>
-															</c:when>
-														</c:choose>
-													</tr>
-													</c:forEach>
-												</tbody>
-											</table>
-										</div>
+				<div class="col-lg-6 col-md-12 col-sm-12 mb-30">
+					<div class="card-box mb-30" style="height: 450px; overflow: auto;">
+						<div class="clearfix pd-20">
+							<div class="pull-left">
+							
+							</div>
+						<div class="col-md-12 col-sm-12 pull-right">
+							<div class="tab">
+							<ul class="nav nav-tabs" role="tablist">
+								<li class="nav-item">
+									<a class="nav-link active text-blue" data-toggle="tab" href="#home" role="tab" aria-selected="true">진행중 결재함</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-blue" data-toggle="tab" href="#profile" role="tab" aria-selected="false">결재 요청함</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-blue" data-toggle="tab" href="#contact" role="tab" aria-selected="false">결재 완료함</a>
+								</li>
+							</ul>
+							<div class="tab-content">
+								<!-- 진행중결재함 -->
+								<div class="tab-pane fade show active" id="home" role="tabpanel">
+									<div class="pd-20">
+										<table class="table table-hover mailList">
+											<thead>
+												<tr>
+													<th></th>
+													<th scope="col">종류</th>
+													<th scope="col">상태</th>
+												</tr>
+											</thead>
+											<tbody>
+												<c:forEach items="${ appingList }" var="app">
+												<tr>
+													<td>${ app.appNo }</td>
+													<c:choose>
+						              					<c:when test="${app.category eq 1 }">
+															<td scope="row">휴가 신청서</td>
+														</c:when>
+							              				<c:when test="${app.category eq 2 }">
+															<td scope="row">반차 신청서</td>
+														</c:when>
+							              				<c:when test="${app.category eq 3 }">
+															<td scope="row">외근 신청서</td>
+														</c:when>
+							              				<c:when test="${app.category eq 4 }">
+															<td scope="row">증명서 신청서(재직증명서)</td>
+														</c:when>
+							              				<c:when test="${app.category eq 5 }">
+															<td scope="row">증명서 신청서(급여명세서)</td>
+														</c:when>
+							              				<c:when test="${app.category eq 6 }">
+															<td scope="row">증명서 신청서(기타)</td>
+														</c:when>
+						             			 	</c:choose>
+													
+													<c:choose>
+														<c:when test="${app.midStatus eq 1 }">
+															<td>결재 대기</td>
+														</c:when>
+														<c:when test="${app.midStatus eq 2 }">
+															<td>중간 승인</td>
+														</c:when>
+													</c:choose>
+												</tr>
+												</c:forEach>
+											</tbody>
+										</table>
 									</div>
 								</div>
-							</div>	
+								<!-- 요청결재함 -->
+								<div class="tab-pane fade" id="profile" role="tabpanel">
+									<div class="pd-20">
+										<table class="table table-hover mailList">
+											<thead>
+												<tr>
+													<th></th>
+													<th scope="col">종류</th>
+													<th scope="col">기안자</th>
+												</tr>
+											</thead>
+											<tbody>
+												<c:forEach items="${ appAskList }" var="app">
+												<tr>
+													<td>${ app.appNo }</td>
+													<c:choose>
+						              					<c:when test="${app.category eq 1 }">
+															<td scope="row">휴가 신청서</td>
+														</c:when>
+							              				<c:when test="${app.category eq 2 }">
+															<td scope="row">반차 신청서</td>
+														</c:when>
+							              				<c:when test="${app.category eq 3 }">
+															<td scope="row">외근 신청서</td>
+														</c:when>
+							              				<c:when test="${app.category eq 4 }">
+															<td scope="row">증명서 신청서(재직증명서)</td>
+														</c:when>
+							              				<c:when test="${app.category eq 5 }">
+															<td scope="row">증명서 신청서(급여명세서)</td>
+														</c:when>
+							              				<c:when test="${app.category eq 6 }">
+															<td scope="row">증명서 신청서(기타)</td>
+														</c:when>
+						             			 	</c:choose>
+													
+													<td>${app.empId }</td>
+														
+												</tr>
+												</c:forEach>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<!-- 완료결재함 -->
+								<div class="tab-pane fade" id="contact" role="tabpanel">
+									<div class="pd-20">
+										<table class="table table-hover mailList">
+											<thead>
+												<tr>
+													<th></th>
+													<th scope="col">종류</th>
+													<th scope="col">상태</th>
+												</tr>
+											</thead>
+											<tbody>
+												<c:forEach items="${ appedList }" var="app">
+												<tr>
+													<td>${ app.appNo }</td>
+													<c:choose>
+						              					<c:when test="${app.category eq 1 }">
+															<td scope="row">휴가 신청서</td>
+														</c:when>
+							              				<c:when test="${app.category eq 2 }">
+															<td scope="row">반차 신청서</td>
+														</c:when>
+							              				<c:when test="${app.category eq 3 }">
+															<td scope="row">외근 신청서</td>
+														</c:when>
+							              				<c:when test="${app.category eq 4 }">
+															<td scope="row">증명서 신청서(재직증명서)</td>
+														</c:when>
+							              				<c:when test="${app.category eq 5 }">
+															<td scope="row">증명서 신청서(급여명세서)</td>
+														</c:when>
+							              				<c:when test="${app.category eq 6 }">
+															<td scope="row">증명서 신청서(기타)</td>
+														</c:when>
+						             			 	</c:choose>
+													
+													<c:choose>
+														<c:when test="${app.midStatus eq 3 }">
+															<td>중간 반려</td>
+														</c:when>
+														<c:when test="${app.finStatus eq 2 }">
+															<td>최종 승인</td>
+														</c:when>
+														<c:when test="${app.finStatus eq 3 }">
+															<td>최종 반려</td>
+														</c:when>
+													</c:choose>
+												</tr>
+												</c:forEach>
+											</tbody>
+										</table>
+									</div>
+								</div>
 							</div>
-							</div>
+						</div>	
 						</div>
-					</div><!-- 결재끝 -->
-					<jsp:include page="common/footer.jsp"/>
-				</div><!--  <div class="row">  -->
-            
-           
-        </div>
-    </div>
-    
+						</div>
+					</div>
+				</div><!-- 결재끝 -->
+				<jsp:include page="common/footer.jsp"/>
+			</div><!--  <div class="row">  -->
+       </div>
+   </div>
     <script>
       $(function() {
          $("#boardList tbody tr").click(
@@ -632,13 +661,12 @@
       });
       
     </script>
-   <!-- ----------------------------------------------------------------------------- -->     
-   <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/fullcalendar.min.js"></script>
-   <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/js/mainmain.js"></script>
-   <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/ko.js"></script>
-	<!-- ----------------------------------------------------------------------------- -->  
+
 	   
 	   <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
 	<script src="${ pageContext.servletContext.contextPath }/resources/assets/js/script.js"></script>
+	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/highcharts-6.0.7/code/highcharts.js"></script>
+    <script src="https://code.highcharts.com/5.0.14/modules/solid-gauge.js "></script>
+    <script src="${ pageContext.servletContext.contextPath }/resources/plugins/highcharts-6.0.7/code/highcharts-more.js"></script>
 </body>
 </html>
