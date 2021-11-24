@@ -148,7 +148,7 @@ public class MemberController {
 			
 			model.addAttribute("loginUser", loginUser);	
 			model.addAttribute("loginEmp", loginEmp);	
-			
+			model.addAttribute("attCountList", attCountList);
 			model.addAttribute("dDay", dDay);
 			
 			return "main";
