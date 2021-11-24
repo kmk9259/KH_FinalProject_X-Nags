@@ -92,40 +92,12 @@ public class AttendanceController {
 		System.out.println("attMyList :   "+attMyList);
 		//아이디별 근태 총 카운트
 		ArrayList<Attendance> attCountList = attendanceService.attCountList(mem.getEmpId());
-		ArrayList<AttStatus> attStatusList = attendanceService.selectAttStatus();
-		JSONObject obj = new JSONObject();
-		JSONArray cArr = new JSONArray();
-		JSONArray sArr = new JSONArray();//배열이 필요할때
-		try {
-			
-			for (int i = 0; i < attCountList.size(); i++)//배열
-			{
-				JSONObject count = new JSONObject();//배열 내에 들어갈 json
-				count.put("empId", attCountList.get(i).getEmpId());
-				count.put("attStatusNo", attCountList.get(i).getAttStatusNo());
-				count.put("attStatusName", attCountList.get(i).getAttStatusName());
-				count.put("count", attCountList.get(i).getCount());
-				cArr.put(count);
-			}
-			for (int i = 0; i < attStatusList.size(); i++)//배열
-			{
-				JSONObject status = new JSONObject();
-				status.put("attStatusNo", attStatusList.get(i).getAttStatusNo());
-				status.put("attStatusName", attStatusList.get(i).getAttStatusName());
-				sArr.put(status);
-			}
-			
-
-
-		} catch (JSONException e) {
-		e.printStackTrace();
-		}
-
-		System.out.println("attCountList : "+attCountList);
+		System.out.println("attCountList"+attCountList);
 		
-		m.addAttribute("attCountList",cArr);
-		m.addAttribute("attStatusList",sArr);
+
+		
 		m.addAttribute("attMyList",attMyList);
+		m.addAttribute("attCountList",attCountList);
 		m.addAttribute("loginEmp",loginEmp);
 		return "attendance/attendanceMy";
 	}
@@ -147,6 +119,8 @@ public class AttendanceController {
 		ArrayList<AttStatus> attList = attendanceService.selectAttStatus();
 		Member m = (Member) request.getSession().getAttribute("loginUser");		
 		Employee loginEmp = employeeService.loginEmployee(m.getEmpId());
+		
+
 		
 		model.addAttribute("attList",attList);
 		model.addAttribute("loginEmp",loginEmp);		

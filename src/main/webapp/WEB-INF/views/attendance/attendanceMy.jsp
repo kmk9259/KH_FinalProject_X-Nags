@@ -114,10 +114,9 @@
             <div class="card-box pd-20 mb-30" >
             	<h3>내 근태 현황</h3><br>
              	
-                <div class="bg-white pd-20 card-box mb-30">
-                    <div id="chart6"></div>
-                </div>
-				
+				<div class="bg-white pd-20 card-box mb-30">
+					<div id="chart5"></div>
+				</div>
 				<table class="table table-bordered scrolltbody" style="text-align: center; ">
 				  <thead>
 				    <tr class="table-danger">
@@ -160,69 +159,34 @@
 							
 							
 						}
-					});
+					});	//ajax
 					
-               		var sList =${attStatusList};
-               		var cList =${attCountList};
-               		var name = new Array(sList.length);
-               		var count = new Array(sList.length);
-               		for(var i in sList){
-               			for(var j in cList){
-               				/* 
-               				console.log("========================="); */
-               				console.log(sList[i].attStatusNo === cList[j].attStatusNo);
-               				//slist모든 항목과 clist를 비교해서 없는 항목이면 count 0처리
-               				if(sList[i].attStatusNo === cList[j].attStatusNo){
-               					
-               					name[i] = cList[j].attStatusName;
-               					count[i] = cList[j].count;
-               					console.log(name[i] + " "+count[i]);
-               					
-               				}else{
-               					name[i] = cList[j].attStatusName;
-               					count[i] = 0;
-               					console.log(name[i] + " "+count[i]);
-               				}
-               				      
-               			}
-               			
-               		}
-               		
-               		
-					 Highcharts.chart('chart6', {
-					    chart: {
-					        type: 'pie',
-					        options3d: {
-					            enabled: true,
-					            alpha: 45
-					        }
-					    },
-					    title: {
-					        text: '내 근태 현황'
-					    },
-					    subtitle: {
-					        text: ''
-					    },
-					    plotOptions: {
-					        pie: {
-					            innerSize: 100,
-					            depth: 45
-					        }
-					    },
-					    series: [{
-					        name: '총 횟수',
-					        data: [
-					        	
-					        	
-					            ['정상', 20],
-					            ['지각', 3],
-					            ['결근', 1],
-					            ['외근', 6],
-					            ['반차', 8],
-					            ['연차', 4]
-					        ]
-					    }]
-					}); 
+					 Highcharts.chart('chart5', {
+						    title: {
+						        text: '내 근태 현황'
+						    },
+						    xAxis: {
+						        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+						    },
+						    series: [{
+						        type: 'pie',
+						        allowPointSelect: true,
+						        keys: ['name', 'y', 'selected', 'sliced'],
+						        data: [
+						            
+						            <c:forEach items="${ attCountList }" var="c" varStatus="i">            	
+					        			
+					        			 <c:if test = "${c.count > 0}">
+					        			 ['${ c.attStatusName }', ${ c.count },false],
+					        	      	</c:if>
+
+
+
+		                   		 	</c:forEach>	
+						        ],
+						        showInLegend: true
+						    }]
+						});
 				})
 				
            	</script>

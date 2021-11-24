@@ -51,7 +51,7 @@ background: rgba(255, 255, 255, 1);;
                     
                      <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
-                             <span class="micon icon-copy fi-mail"></span><span class="mtext">전자 메일</span>
+                             <span class="micon dw dw-email-1"></span><span class="mtext">전자 메일</span>
                         </a>
                         <ul class="submenu">
                             <li><a href="insertForm.ml">메일 작성</a></li>
@@ -62,7 +62,7 @@ background: rgba(255, 255, 255, 1);;
                     </li>
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
-                            <span class="micon dw dw-invoice"></span><span class="mtext">전자 결재</span>
+                            <span class="micon dw dw-inbox-3"></span><span class="mtext">전자 결재</span>
                         </a>
                         <ul class="submenu">
                            <li class="dropdown">
@@ -83,7 +83,7 @@ background: rgba(255, 255, 255, 1);;
                     </li>
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
-                            <span class="micon dw dw-house-1"></span><span class="mtext">커뮤니티</span>
+                            <span class="micon dw dw-chat-11"></span><span class="mtext">커뮤니티</span>
                         </a>
                         <ul class="submenu">
                             <li><a href="voting.vo">투표 게시판</a></li>
@@ -103,7 +103,7 @@ background: rgba(255, 255, 255, 1);;
                     </li>
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
-                            <span class="micon dw dw-house-1"></span><span class="mtext">근무 일정 관리</span>
+                            <span class="micon dw dw-calendar1"></span><span class="mtext">근무 일정 관리</span>
                         </a>
                         <ul class="submenu">
 							   <li><a href="main.sc">근무 일정</a></li>
@@ -111,7 +111,7 @@ background: rgba(255, 255, 255, 1);;
                     </li>
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
-                            <span class="micon dw dw-apartment"></span><span class="mtext">시스템 관리</span>
+                            <span class="micon dw dw-computer"></span><span class="mtext">시스템 관리</span>
                         </a>
                         <ul class="submenu">
                         
