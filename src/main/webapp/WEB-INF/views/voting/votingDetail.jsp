@@ -12,12 +12,9 @@
 	#contentArea *{margin:5px }
 </style>
 </head>
-
 <body style = "background: #ecf0f4">
-
     <jsp:include page="../common/menubar.jsp"/>
 	<div class="mobile-menu-overlay"></div>
-
 	<div class="main-container">
 	<div class="page-header">
 					<div class="row">
@@ -38,9 +35,7 @@
     <div class="content">
     <div class="card-box mb-30">
     <div class="pd-20">
-
-        <div class="innerOuter">
-          
+        <div class="innerOuter">          
             <br>     
             <form method = "post" action = "votingAction.vo">
            	<input type = "hidden" name = "votingNo" value = "${v.votingNo}">
@@ -54,18 +49,12 @@
                 <tr>
                     <th width="100">주제</th>
                     <td colspan="3">${ v.votingTitle }</td>                   
-                </tr>              
-              
+                </tr>                       
                 </c:if>      
             </table>             
- 
-           <table  class="table table-bordered table-sm" > 
-               
-            <c:if test ="${result == 0 }">
-            
-           
-           <c:forEach var = "a" items ="${va}" varStatus="i">  
-                   
+           <table  class="table table-bordered table-sm" >       
+            <c:if test ="${result == 0 }">     
+           <c:forEach var = "a" items ="${va}" varStatus="i">             
            <tr class ="table-warning">
               <td>
                <div class="form-group">
@@ -75,15 +64,9 @@
 	              <label class="custom-control-label weight-400" for="check${i.index }">${a.content }</label>
 	          </div>
 	        </div>
-	        </div>	                                
-     
-             <%--    <input type="checkbox" class="custom-control-input" id="check${i.index }"  name = "content" value = "${a.content }">
-              <label class="custom-control-label"  for="check${i.index }">${a.content }</label> --%>
-                
-                     </td>     	
-       <%--  <td ><input id = "check" class = "custom-control custom-checkbox mb-5" type = "checkbox" name = "content" value = "${a.content }">${a.content } </td> --%>           	   	
-           	</tr>            	  
-         
+	        </div>	                                         
+            </td>     	     	   	
+           	</tr>            	      
            </c:forEach>
           	</c:if>
            </table>     
@@ -93,13 +76,10 @@
    			 </c:when>	
 		</c:choose>     
 		<div align="center">
-	
 		 <input id = "emptyCheck" type = "submit" value = "투표하기" class="btn btn-dark">  
 		 	 <c:if test="${ loginUser.empId eq v.empId }"> 
-	<input class="btn btn-danger" type="button" id="delBtn" value="삭제하기">
-	          	  
+	<input class="btn btn-danger" type="button" id="delBtn" value="삭제하기">   	  
 			<input type="hidden" name="bno" value="${ v.votingNo }">				
-
             </c:if> 
 	   </div>	    
             </form>         	    
@@ -111,8 +91,6 @@
         <br><br>
             <jsp:include page="../common/footer.jsp"/>
     </div>
-
-
     <script >
     
     $(document).ready(function() {
@@ -134,10 +112,7 @@
     				alert("투표 되었습니다");
     			}					
     	    });	    	        	  
-     });
-    	
-  
- 
+     });  	
     </script>
 </body>
 </html>

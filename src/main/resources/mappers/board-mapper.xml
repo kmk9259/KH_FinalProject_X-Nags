@@ -18,45 +18,44 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  <select id="selectListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM BOARD
-	</select>
-
-	<select id="selectList"  resultMap="boardResultSet">
+</select>
+	
+<select id="selectList"  resultMap="boardResultSet">
 		SELECT *
 		FROM BOARD 
 		ORDER BY BOARD_NO DESC
-	</select>
+</select>	
 	
-	<insert id="insertBoard" parameterType="Board">
+<insert id="insertBoard" parameterType="Board">
 		INSERT INTO BOARD
-		values(BOARD_NO.NEXTVAL, #{empId}, #{boardTitle}, #{boardContent}, #{originFile}, #{changeFile}, default, sysdate, default)
-	</insert>
+		values(BOARD_NO.NEXTVAL, #{empId}, #{boardTitle}, 
+		#{boardContent}, #{originFile}, #{changeFile}, default, sysdate, default)
+</insert>
 
-	<update id = "increaseCount" parameterType="_int">
+<update id = "increaseCount" parameterType="_int">
 		UPDATE BOARD
 		SET COUNT= COUNT+1
 		WHERE BOARD_NO=#{bno}
-	</update>
-
-	<select id="selectBoard" parameterType="_int" resultMap="boardResultSet">
+</update>
+	
+<select id="selectBoard" parameterType="_int" resultMap="boardResultSet">
 		SELECT *
 		FROM BOARD 
 		WHERE BOARD_NO=#{bno} 	
-	</select>
-
-	<delete id="deleteBoard" parameterType="_int">
+</select>
+	
+<delete id="deleteBoard" parameterType="_int">
 		DELETE FROM BOARD
 		WHERE BOARD_NO=#{bno}
-	</delete>
-
-
-	<update id = "updateBoard" parameterType="Board">
+</delete>
+	
+<update id = "updateBoard" parameterType="Board">
 		update board
 		set board_title=#{boardTitle}, board_content=#{boardContent},
 		    origin_file=#{originFile}, change_file=#{changeFile}
 		where board_no=#{boardNo}
-	</update>
-
-
+</update>
+	
 <select id="selectTopList" resultMap="boardResultSet">
 	<![CDATA[
 		SELECT *

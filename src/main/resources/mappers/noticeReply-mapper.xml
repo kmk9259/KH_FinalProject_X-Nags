@@ -3,9 +3,6 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="noticeReplyMapper">
-
-
-
 	<resultMap id="noticeReplyResultSet" type="Notice_Reply">
 		<id column="REPLY_NO" property="replyNo" />
 		<result column="NOTICE_NO" property="noticeNo" />
@@ -15,31 +12,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="USER_NAME" property="userName" />
 	</resultMap>
 
-	<insert id="insertNoticeReply" parameterType="Notice_Reply">
+<insert id="insertNoticeReply" parameterType="Notice_Reply">
 		INSERT INTO NOTICE_REPLY
 		values(NREPLY_NO.NEXTVAL, #{noticeNo},
 		#{replyContent},#{empId}, sysdate)
-
-	</insert>
+</insert>
 	
-	<select id="selectNoticeReplyList" parameterType="_int"
-		resultMap="noticeReplyResultSet">
+<select id="selectNoticeReplyList" parameterType="_int"	resultMap="noticeReplyResultSet">
 		SELECT R.REPLY_NO, R.NOTICE_NO, R.EMP_ID, R.REPLY_DATE, R.REPLY_CONTENT,M.USER_NAME
 		FROM NOTICE_REPLY R
 		JOIN MEMBER M ON R.EMP_ID = M.EMP_ID
 		WHERE R.NOTICE_NO=#{bno}
-		ORDER BY R.REPLY_NO DESC
+		ORDER BY R.REPLY_NO DESC	
+</select>
 	
-	</select>
-	<update id = "updateNoticeReply" parameterType="Notice_Reply">
+<update id = "updateNoticeReply" parameterType="Notice_Reply">
 	UPDATE NOTICE_REPLY
 	SET REPLY_CONTENT= #{replyContent},REPLY_DATE = sysdate
 	WHERE REPLY_NO =#{replyNo} 
-	</update>
-	
-	
-	<delete id="deleteNoticeReply" parameterType="Notice_Reply">
+</update>
+		
+<delete id="deleteNoticeReply" parameterType="Notice_Reply">
 		DELETE FROM NOTICE_REPLY
 		WHERE REPLY_NO =#{replyNo} 
-	</delete>
+</delete>
 </mapper>

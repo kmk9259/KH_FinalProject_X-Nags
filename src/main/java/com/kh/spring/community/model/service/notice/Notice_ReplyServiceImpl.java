@@ -22,7 +22,6 @@ public class Notice_ReplyServiceImpl implements Notice_ReplyService {
 	@Override
 	public int insertNoticeReply(Notice_Reply nr) {
 		int result = notice_ReplyDao.insertNoticeReply(sqlSession, nr);
-
 		if (result < 0) {
 			throw new CommException("insertNoticeReply 실패");
 		}

@@ -13,7 +13,6 @@
 <body style = "background: #ecf0f4">
     <jsp:include page="../common/menubar.jsp"/>
 <div class="mobile-menu-overlay"></div>
-
 	<div class="main-container">
 	<div class="page-header">
 					<div class="row">
@@ -30,12 +29,9 @@
 						</div>
 					</div>
 				</div>
-    <div class="content">
-       
-        <div class="innerOuter">
-       
+    <div class="content">     
+        <div class="innerOuter">      
 			<div class="pd-20 card-box mb-30">
-			<!-- 첨부파일도 등록할꺼니깐 Multipart/form-data encType 지정!! -->
             <form id="enrollForm" method="post" action="noticeInsert.bo" enctype="multipart/form-data">
              <input type = "hidden" name = "empId" value = "${loginUser.empId }">
              <div class="form-group">
@@ -56,11 +52,9 @@
                     </tr>
                 </table>
                 <br>
-
                 <div align="center">
                     <button type="submit" id = "emptyCheck" class="btn btn-primary">등록하기</button>
-                    <button type="reset" class="btn btn-danger" onclick ="history.back();">취소하기</button>
-                    
+                    <button type="reset" class="btn btn-danger" onclick ="history.back();">취소하기</button>                  
                 </div>
             </form>
             </div>
@@ -78,7 +72,6 @@ $("#emptyCheck").click(function(){
 		return true;
 	}
 })
-
 $("#emptyCheck").click(function(){
 	if($("#contentCheck").val() == ''){
 		alert("내용 좀 작성해 주세요");
@@ -88,7 +81,5 @@ $("#emptyCheck").click(function(){
 	}
 })
 </script>
-
-
 </body>
 </html>

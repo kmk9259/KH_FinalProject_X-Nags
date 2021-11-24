@@ -33,15 +33,13 @@ public class VotingDao {
 	}
 
 	public int insertContent(SqlSessionTemplate sqlSession, String content) {
-		return sqlSession.insert("votingMapper.insertContent",content);
-		
+		return sqlSession.insert("votingMapper.insertContent",content);		
 	}
 
 	public ArrayList<VotingA> selectVotingList2(SqlSessionTemplate sqlSession, int bno) {
 		return (ArrayList)sqlSession.selectList("votingMapper.selectList2",bno);
 	}
-	public int votingUpdate(SqlSessionTemplate sqlSession, VotingA va) {
-	
+	public int votingUpdate(SqlSessionTemplate sqlSession, VotingA va) {	
 		return sqlSession.update("votingMapper.updateVoting",va);
 	}
 

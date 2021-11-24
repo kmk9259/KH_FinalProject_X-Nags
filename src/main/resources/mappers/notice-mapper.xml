@@ -14,17 +14,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="FILE_PATH" property="filePath" />
 		<result column="UPLOAD_DATE" property="uploadDate" />
 		<result property="userName" column="USER_NAME"/>
-		<result property="deptName" column="DEPT_NAME"/>
-		
+		<result property="deptName" column="DEPT_NAME"/>		
 	</resultMap>
 
-	<select id="selectListCount" resultType="_int">
+<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM
 		NOTICE
-	</select>
+</select>
 
-	<select id="selectList" resultMap="noticeResultSet">
+<select id="selectList" resultMap="noticeResultSet">
 		SELECT N.NOTICE_NO, N.EMP_ID, N.NOTICE_TITLE, N.NOTICE_CONTENT, N.ORIGIN_FILE, 
 		N.CHANGE_FILE, N.COUNT, N.FILE_PATH, N.UPLOAD_DATE, M.USER_NAME, D.DEPT_NAME
 		FROM NOTICE N
@@ -32,16 +31,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		JOIN EMPLOYEE E ON N.EMP_ID = E.EMP_ID
 		JOIN DEPARTMENT D ON D.DEPT_CODE = E.DEPT_CODE
 		ORDER BY N.NOTICE_NO DESC
-	</select>
+</select>
 
-	<update id="increaseCount" parameterType="_int">
+<update id="increaseCount" parameterType="_int">
 		UPDATE NOTICE
 		SET COUNT=
 		COUNT+1
 		WHERE NOTICE_NO=#{bno}
-	</update>
+</update>
 
-	<select id="selectNotice" parameterType="_int"
+<select id="selectNotice" parameterType="_int"
 		resultMap="noticeResultSet">
 		SELECT N.NOTICE_NO, N.EMP_ID, N.NOTICE_TITLE, N.NOTICE_CONTENT, N.ORIGIN_FILE, 
 		N.CHANGE_FILE, N.COUNT, N.FILE_PATH, N.UPLOAD_DATE, M.USER_NAME, D.DEPT_NAME
@@ -50,32 +49,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		JOIN EMPLOYEE E ON N.EMP_ID = E.EMP_ID
 		JOIN DEPARTMENT D ON D.DEPT_CODE = E.DEPT_CODE
 		WHERE N.NOTICE_NO=#{bno}
-	</select>
+</select>
 
-	<insert id="insertNotice" parameterType="Notice">
+<insert id="insertNotice" parameterType="Notice">
 		INSERT INTO NOTICE
 		values(NOTICE_NO.NEXTVAL, #{empId}, #{noticeTitle}, #{noticeContent},
 		#{originFile}, #{changeFile}, default, sysdate, default)
-	</insert>
+</insert>
 
-
-	<update id="updateNotice" parameterType="Notice">
+<update id="updateNotice" parameterType="Notice">
 		update notice
 		set
 		notice_title=#{noticeTitle}, notice_content=#{noticeContent},
 		origin_file=#{originFile}, change_file=#{changeFile}
 		where
 		notice_no=#{noticeNo}
-	</update>
+</update>
 
-
-	<delete id="deleteNotice" parameterType="_int">
+<delete id="deleteNotice" parameterType="_int">
 		DELETE FROM NOTICE
 		WHERE
 		NOTICE_NO=#{bno}
-	</delete>
-	
- 
+</delete>
+
  <select id="selectTopList" resultMap="noticeResultSet">
 	<![CDATA[
 		SELECT *

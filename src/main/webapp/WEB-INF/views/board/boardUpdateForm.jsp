@@ -32,12 +32,9 @@
 						</div>
 					</div>
 				</div>
-    <div class="content">
-       
+    <div class="content">      
         <div class="innerOuter">
-        <div class="pd-20 card-box mb-30">
-      
-		
+        <div class="pd-20 card-box mb-30">     		
             <form id="updateForm" method="post" action="update.bo" enctype="multipart/form-data">
             	<input type="hidden" name="boardNo" value="${ b.boardNo }">
             	<input type = "hidden" name = "empId" value = "${b.empId }">
@@ -53,7 +50,7 @@
 	                            <input type="hidden" name="changeName" value="${ b.changeFile }">
 	                            <input type="hidden" name="originName" value="${ b.originFile }">
                             </c:if>
-   							 </div>  		           	           	         	
+   						 </div>  		           	           	         	
                 <table>                 
                     <tr>
                         <th colspan="2"><label for="content">내용</label></th>                        
@@ -72,17 +69,14 @@
             </form>
         </div>
         </div>
-        </div>
-        
+        </div>       
         <br><br>
-           <jsp:include page="../common/footer.jsp"/>
-    </div>
+       <jsp:include page="../common/footer.jsp"/>
+   </div>
 	<script >
 	$("#update").click(function(){
 		alert("수정되었습니다");
 	})
-	
 	</script>
- 
 </body>
 </html>
