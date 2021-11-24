@@ -278,10 +278,11 @@
 
 												
 												<br><br><br>
+												 <c:if test="${ loginUser.rightNo eq 1 }">
 												<div style="float: right;">
 												<button type="button"  class="btn btn-outline-success" onclick="update()">수정페이지로 이동</button>	
 												</div>
-													
+												</c:if>
 												</div>
 												
 												
@@ -470,9 +471,13 @@
 														</script>
 												
 												<br><br><br>
+												
+												<c:if test="${ loginUser.rightNo eq 1 }">
 												<div style="float: right;">
 												<button type="button"  class="btn btn-outline-success" onclick="update()">수정페이지로 이동</button>	
 												</div>
+												</c:if>
+												
 												</div>
 												
 												
@@ -505,18 +510,13 @@
 
 
 
-
+			<jsp:include page="../common/footer.jsp" />
 		
 			</div>
 		</div>
 			
-    
-				
-    
-  
 
-	<!-- ======================================================================= -->
 
-	<jsp:include page="../common/footer.jsp" />
+	
 </body>
 </html>

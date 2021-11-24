@@ -37,14 +37,11 @@
 <body>
 
 	<jsp:include page="../common/menubar.jsp" />
-	<!-- ================================================================================= -->
 
 
 	 <div class="mobile-menu-overlay"></div> 
 
-	
 
-	<!-- ===================개인정보 입력=============== -->
 
 	<div class="main-container" 
 		aria-labelledby="headingOne">
@@ -200,7 +197,7 @@
 													<div class="form-group">
 														<label>급여 등급</label>
 														
-															 <select class="form-control" id="salLevel" name="salLevel">
+															 <select class="form-control" id="salLevel" name="salLevel" onchange="salGrade();">
 																	<option selected  hidden="hidden"  value="${emp.salLevel}">${emp.salLevel}</option>
 																	<c:forEach items="${slist}" var="s" varStatus="status">
 																	<option value="${s.salLevel}">${s.salLevel}</option> 
@@ -237,6 +234,46 @@
 														}
 														
 													})
+													
+													
+													function salGrade() {
+														  var salGrade =$("#salLevel").val();
+														  var i = parseInt(($("#money1").val()).replace(/,/g,""));
+														  console.log(salGrade);
+														  if(salGrade == 'S1' ){
+															 
+															 alert("S1 은 기본 6000000 부터 시작입니다.");
+															 $("#money1").val('6,000,000');
+															 $("#money11").val('6000000');
+															 
+														  }
+														  if(salGrade == 'S2'){
+															  alert("S2 은 기본 5000000 부터 시작입니다.");
+															  $("#money1").val('5,000,000');
+															  $("#money11").val('5000000');
+														  }
+														  if(salGrade == 'S3'){
+															  alert("S3 은 기본 4000000 부터 시작입니다.");
+															  $("#money1").val('4,000,000');
+															  $("#money11").val('4000000');
+														  }
+														  if(salGrade == 'S4'){
+															  alert("S4 은 기본 3000000 부터 시작입니다.");
+															  $("#money1").val('3,000,000');
+															  $("#money11").val('3000000');
+														  }
+														  if(salGrade == 'S5'){
+															  alert("S5 은 기본 3000000 부터 시작입니다.");
+															  $("#money1").val('2,000,000');
+															  $("#money11").val('2000000');
+														  }
+														  if(salGrade == 'S6'){
+															  alert("S6 은 기본 1000000 부터 시작입니다.");
+															  $("#money1").val('1,000,000');
+															  $("#money11").val('1000000');
+														  }
+														
+													  }
 													</script>
 													 
 													
@@ -324,7 +361,7 @@
 															<tr>
 																<th scope="row">보너스</th>
 																<td><input type="text" class="form-control" id="money2"  onkeyup="inputNumberFormat(this)" value="${sal.commission }" >
-																<input type="hidden" class="form-control" id="money22" name="commission" ></td>
+																<input type="hidden" class="form-control" id="money22" name="commission" value="${sal.commission }" ></td>
 																<th>고용 보험</th>
 																<td><input type="text" class="form-control" id="empIn"  onkeyup="inputNumberFormat(this)" value="${sal.empInsurance }" readonly >
 																<input type="hidden" class="form-control" id="empIn1" name="empInsurance" value="${sal.empInsurance }"></td>
@@ -333,7 +370,7 @@
 															<tr>
 																<th scope="row">식대</th>
 																<td><input type="text" class="form-control" id="money3"  onkeyup="inputNumberFormat(this)" value="${sal.meal }" >
-																<input type="hidden" class="form-control" id="money33" name="meal" ></td>
+																<input type="hidden" class="form-control" id="money33" name="meal" value="${sal.meal }" ></td>
 																<th>국민 연금</th>
 																<td><input type="text" class="form-control" id="retirement"  onkeyup="inputNumberFormat(this)" value="${sal.retirement }" readonly >
 																<input type="hidden" class="form-control" id="retirement1" name="retirement" value="${sal.retirement }"></td>
@@ -523,13 +560,13 @@
 								 </div><!-- row clearfix_END -->
 							</div><!-- tab_END -->
 
+
+					 <jsp:include page="../common/footer.jsp" />
     				 </div><!-- pd-20 card-box mb-30_END -->
+					 </div>
 
-			  </div>
 
 
-	<!-- ======================================================================= -->
-
-	<jsp:include page="../common/footer.jsp" />
+	
 </body>
 </html>

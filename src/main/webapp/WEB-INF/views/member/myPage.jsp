@@ -97,6 +97,7 @@ img {
         <div class="pd-ltr-20 xs-pd-20-10">
             <div class="min-height-200px">
 			<form action="update.me" method="post" enctype="multipart/form-data" id="postForm">
+			<%-- <input type="hidden" name="empId" value="${ loginUser.empId }"> --%>
                 <div class="row">
                     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 mb-30">
                         <div class="pd-20 card-box height-100-p">
@@ -184,6 +185,22 @@ img {
                                     </li>
                                 </ul>
                             </div>
+                            
+                            <div class="profile-social">
+								<h5 class="mb-20 h5 text-blue">Social Links</h5>
+								<ul class="clearfix">
+									<li><a href="#" class="btn" data-bgcolor="#3b5998" data-color="#ffffff"><i class="fa fa-facebook"></i></a></li>
+									<li><a href="#" class="btn" data-bgcolor="#1da1f2" data-color="#ffffff"><i class="fa fa-twitter"></i></a></li>
+									<li><a href="#" class="btn" data-bgcolor="#007bb5" data-color="#ffffff"><i class="fa fa-linkedin"></i></a></li>
+									<li><a href="#" class="btn" data-bgcolor="#f46f30" data-color="#ffffff"><i class="fa fa-instagram"></i></a></li>
+									<li><a href="#" class="btn" data-bgcolor="#c32361" data-color="#ffffff"><i class="fa fa-dribbble"></i></a></li>
+									<li><a href="#" class="btn" data-bgcolor="#3d464d" data-color="#ffffff"><i class="fa fa-dropbox"></i></a></li>
+									<li><a href="#" class="btn" data-bgcolor="#db4437" data-color="#ffffff"><i class="fa fa-google-plus"></i></a></li>
+									<li><a href="#" class="btn" data-bgcolor="#bd081c" data-color="#ffffff"><i class="fa fa-pinterest-p"></i></a></li>
+									<li><a href="#" class="btn" data-bgcolor="#00aff0" data-color="#ffffff"><i class="fa fa-skype"></i></a></li>
+									<li><a href="#" class="btn" data-bgcolor="#00b489" data-color="#ffffff"><i class="fa fa-vine"></i></a></li>
+								</ul>
+							</div>
                            
                            
                         </div>
@@ -365,7 +382,7 @@ img {
 														</table>
 														</c:forEach>
 															
-													<button id="updateSup" class="btn btn-primary btn-lg btn-block" >기간 연장 신청</button>
+													<input type="button" id="updateSup" class="btn btn-primary btn-lg btn-block" value="기간 연장 신청">
 													
 													</c:when>
 													</c:choose>
@@ -425,7 +442,7 @@ img {
 													       
 													       
 											</c:forEach>
-											<button class="btn btn-success btn-lg btn-block meetingDetail">회의실 예약 변경하러 가기</button>
+											<input type="button" class="btn btn-success btn-lg btn-block meetingDetail" value="회의실 예약 변경하러 가기">
 											</c:when>
 											</c:choose>
 												
