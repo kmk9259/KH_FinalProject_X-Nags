@@ -29,7 +29,7 @@ import com.kh.spring.holiday.model.vo.Holiday;
 import com.kh.spring.member.model.vo.Member;
 
 @Controller
-public class ApprovalController {
+public class ApprovalController { 
 
 	@Autowired
 	private ApprovalService approvalService;

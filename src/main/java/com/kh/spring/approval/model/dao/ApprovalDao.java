@@ -15,7 +15,7 @@ import com.kh.spring.approval.model.vo.PageInfo;
 
 @Repository
 public class ApprovalDao {
-	
+	  
 	//결재 작성
 	public int insertApproval(SqlSessionTemplate sqlSession, Approval app) {
 		

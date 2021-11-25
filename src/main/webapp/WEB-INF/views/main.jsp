@@ -262,7 +262,7 @@
                 </div>
                 <div class="col-xl-6 mb-30">
                     <div class="card-box height-100-p pd-20" style="height: 500px; overflow: auto;">
-                        
+                         
                         
                         
                         <div class="pd-30 pt-10">

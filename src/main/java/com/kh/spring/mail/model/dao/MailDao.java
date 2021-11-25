@@ -144,7 +144,7 @@ public class MailDao {
 
 	//수신자상태3
 	public int updateReceiver(SqlSessionTemplate sqlSession, int mno) {
-	
+	 
 		return sqlSession.update("mailMapper.updateReceiver", mno);
 	}
 
