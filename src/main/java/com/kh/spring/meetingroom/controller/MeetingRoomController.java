@@ -171,6 +171,35 @@ public class MeetingRoomController {
 	}
 	
 	
+	//관리자 초기화 회의시 1
+	@RequestMapping("reset.me")
+	public String resetA(TimeTable_A a, TimeTable_B b, TimeTable_C c, TimeTable_D d,
+						 MeetingRoom mroom, HttpServletRequest request, Model model) {
+		
+		
+		ArrayList<TimeTable_A> TimeTableA = meetingRoomService.selectTimeTableA();
+		ArrayList<TimeTable_B> TimeTableB = meetingRoomService.selectTimeTableB();
+		ArrayList<TimeTable_C> TimeTableC = meetingRoomService.selectTimeTableC();
+		ArrayList<TimeTable_D> TimeTableD = meetingRoomService.selectTimeTableD();
+
+		model.addAttribute("TimeTableA", TimeTableA);
+		model.addAttribute("TimeTableB", TimeTableB);
+		model.addAttribute("TimeTableC", TimeTableC);
+		model.addAttribute("TimeTableD", TimeTableD);
+		
+		
+		meetingRoomService.resetAll(mroom);
+		meetingRoomService.reset(a);
+		meetingRoomService.reset(b);
+		meetingRoomService.reset(c);
+		meetingRoomService.reset(d);
+		
+		
+		return "redirect:meetingRoom.me";
+		
+	}
+	
+	
 	
 	
 }

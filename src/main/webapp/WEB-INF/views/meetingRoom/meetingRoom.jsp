@@ -99,6 +99,10 @@ text-align: center;
   #reserve1,#reserve2,#reserve3,#reserve4{
   text-align: center;
   }
+  
+  #reset{
+  float: right;
+  }
 
 </style>
 
@@ -140,12 +144,25 @@ text-align: center;
 					
 					  <div class="card"><!-- card 01 -->
 					    <div class="card-header" id="headingOne">
+					    
+					   
 					      <h5 class="mb-0">
 					        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
 					         	<strong>회의실 1 예약 상황 보기 </strong>
 					        </button>
+					        
+					        <c:if test="${ loginUser.rightNo eq 5 }">
+					        <input id="reset" class="btn btn-info" type="button" id="reset" value="초기화">
+					        </c:if>
+					        
 					      </h5>
 					   </div>
+					   
+					    <script>
+					    $("#reset").click(function (){
+					    	location.href="reset.me"
+					    })
+					    </script>
 					
 					   <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
 					   <div class="card-body">
@@ -288,7 +305,7 @@ text-align: center;
 				   
 					    <div class="card-header" id="headingTwo">
 					      <h5 class="mb-0">
-					        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+					        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseOne">
 					         	회의실 2 예약 상황 보기 
 					        </button>
 					      </h5>
@@ -432,7 +449,7 @@ text-align: center;
 				   
 					    <div class="card-header" id="headingThree">
 					      <h5 class="mb-0">
-					        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+					        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseOne">
 					         	회의실 3 예약 상황 보기 
 					        </button>
 					      </h5>
@@ -539,13 +556,12 @@ text-align: center;
 													
 													</table>
 													
-													<button id="booking3" class="btn btn-primary btn-lg btn-block" >회의실 예약</button>
+													<button id="#booking3" class="btn btn-primary btn-lg btn-block" >회의실 예약</button>
 													   
 													
 										</div>
 										</div>
 										
-									
 										<script>
 											$("#booking3").click(function(){
 														 
@@ -558,8 +574,7 @@ text-align: center;
 															
 											})
 													
-										</script>
-											
+										</script>		
 													
 										</div>
 													
@@ -578,7 +593,7 @@ text-align: center;
 				   
 					    <div class="card-header" id="headingFour">
 					      <h5 class="mb-0">
-					        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+					        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseOne">
 					         	회의실 4 예약 상황 보기 
 					        </button>
 					      </h5>
