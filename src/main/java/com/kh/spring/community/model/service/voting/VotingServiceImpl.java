@@ -65,8 +65,7 @@ public class VotingServiceImpl implements VotingService {
 
 	@Override
 	public void votingUpdate(VotingA va) {
-		int result = votingDao.votingUpdate(sqlSession, va);
-		System.out.println(result + "ㅇㅇㅇresult");				
+		int result = votingDao.votingUpdate(sqlSession, va);			
 	}
 
 	@Override
