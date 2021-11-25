@@ -244,7 +244,7 @@ public class MailServiceImpl implements MailService {
 		return mailDao.selectMail(sqlSession, mno);
 	}
 
-
+ 
 	@Override
 	public Member selectReceiveEmp(int mno) {
 		

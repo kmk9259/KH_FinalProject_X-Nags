@@ -9,7 +9,7 @@ import com.kh.spring.holiday.model.vo.Holiday;
 import com.kh.spring.approval.model.vo.PageInfo;
 
 public interface ApprovalService {
-
+ 
 	void insertApproval(Approval app);
 
 	int selectApprovalListCount(String empId);

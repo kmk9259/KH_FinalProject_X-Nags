@@ -15,7 +15,7 @@ import com.kh.spring.holiday.model.vo.Holiday;
 import com.kh.spring.approval.model.vo.PageInfo;
 
 @Service
-public class ApprovalServiceImpl implements ApprovalService {
+public class ApprovalServiceImpl implements ApprovalService { 
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;

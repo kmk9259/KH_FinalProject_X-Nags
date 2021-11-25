@@ -308,7 +308,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<![CDATA[
 			SELECT *
 			FROM	
-				(SELECT *
+				(SELECT * 
 					FROM APPROVAL A
 					JOIN MEMBER B ON A.EMP_ID=B.EMP_ID
 					WHERE 

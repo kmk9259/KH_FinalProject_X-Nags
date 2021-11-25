@@ -8,7 +8,7 @@ import com.kh.spring.mail.model.vo.PageInfo;
 import com.kh.spring.member.model.vo.Member;
 
 public interface MailService {
-
+ 
 	void insertMail(Mail m);
 
 	int selectSendMailListCount(String empId);
