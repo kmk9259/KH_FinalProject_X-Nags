@@ -126,31 +126,8 @@
 			    		});
 			    	});
 					
-						$('#confirmation-modal').appendTo("body");
-						!function ($) {
-						    "use strict";
-
-						    var SweetAlert = function () {
-						    };
-
-						    //examples
-						    SweetAlert.prototype.init = function () {
-
-						        //Basic
-						        $('#sa-basic').on('click', function () {
-						            swal('test')
-						        });
-
-						    },
-						        //init
-						        $.SweetAlert = new SweetAlert, $.SweetAlert.Constructor = SweetAlert
-						}(window.jQuery),
-
-						//initializing
-						    function ($) {
-						        "use strict";
-						        $.SweetAlert.init()
-						    }(window.jQuery);
+					$('#confirmation-modal').appendTo("body");
+					
 					</script> 
 
             </div>

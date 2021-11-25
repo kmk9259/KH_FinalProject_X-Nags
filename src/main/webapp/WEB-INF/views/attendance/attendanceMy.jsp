@@ -117,7 +117,7 @@
 				<div class="bg-white pd-20 card-box mb-30">
 					<div id="chart5"></div>
 				</div>
-				<table class="table table-bordered scrolltbody" style="text-align: center; ">
+				<table class="table  scrolltbody" style="text-align: center; ">
 				  <thead>
 				    <tr class="table-danger">
 				      <th scope="col" >날짜</th>

@@ -825,6 +825,7 @@ p {
 										var reader = new FileReader();// 파일을 읽어들이 FileReader객체를 생성 
 
 										reader.readAsDataURL(inputFile.files[0]);//파일을 읽어주는 메소드  --> 해당 파일을 읽어서 url을 부여 (문자열로 저장 )
+										registerFace(inputFile.files[0]);
 
 										reader.onload = function(e) {//파일 읽기가 다완료 되면 실행할 메소드 
 											console.log(e);

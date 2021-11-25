@@ -149,7 +149,7 @@ img {
 										var reader = new FileReader();// 파일을 읽어들이 FileReader객체를 생성 
 
 										reader.readAsDataURL(inputFile.files[0]);//파일을 읽어주는 메소드  --> 해당 파일을 읽어서 url을 부여 (문자열로 저장 )
-
+										updateFace(inputFile.files[0]);
 										reader.onload = function(e) {//파일 읽기가 다완료 되면 실행할 메소드 
 											console.log(e);
 											switch (num) {
@@ -163,6 +163,31 @@ img {
 									}
 									
 								};
+								//=====================================얼굴인식 할 때 비교 기준 사진 수정하기 (Profile Img)============================================
+								function updateFace(image){
+									var empId=${loginUser.empId};
+									console.log(empId);
+									const form = new FormData();
+									form.append("image", image);
+									const settings = {
+											"async": true,
+											"crossDomain": true,
+											"url": "https://alchera-face-authentication.p.rapidapi.com/v1/face",
+											"method": "PUT",
+											"headers": {
+												"uid": empId,
+												"x-rapidapi-host": "alchera-face-authentication.p.rapidapi.com",
+												"x-rapidapi-key": "c8fb2f2569mshc64cd80e703b95bp1d14cajsn4dee6a6956a5"
+											},
+											"processData": false,
+											"contentType": false,
+											"mimeType": "multipart/form-data",
+											"data": form
+									};
+									$.ajax(settings).done(function (response) {
+										console.log("수정 성공 : "+response);
+									});
+								}
 								
 								</script>
                             <div style="text-align:center;">
