@@ -59,7 +59,11 @@
 						</div>
 						
 						<video id="video" width="350" height="240" autoplay></video><br><br><br>
-							
+						<div class="row pb-30">
+							<div class="col-12">
+								<div class="forgot-password"><a href="generalLogin.me">General Login</a></div>
+							</div>
+						</div>
 						<div class="row">
 							<div class="col-sm-12">
 								<div class="input-group mb-0">

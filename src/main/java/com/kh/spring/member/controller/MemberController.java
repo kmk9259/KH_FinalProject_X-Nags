@@ -14,8 +14,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
@@ -172,6 +174,11 @@ public class MemberController {
 		return dDay;
 		
 	}
+	@RequestMapping("generalLogin.me")
+	public String generalLogin() {	
+		return "member/login";
+	}
+
 	@RequestMapping("logout.me")
 	public String logoutMember(SessionStatus status) {	
 		Attendance att = attendanceService.selectTime(loginEmp);
@@ -183,6 +190,7 @@ public class MemberController {
 		status.setComplete(); 
 		return "redirect:/";
 	}
+	
 	@RequestMapping("myPage.me")
 	public String myPage(Model model, @RequestParam("empId") String empId, Supplies su) {
 		
@@ -270,9 +278,9 @@ public class MemberController {
 	      System.out.println("지우는 파일? " + deleteFile);
 	      deleteFile.delete();
 	      
-	      
-	      
 	   }
+	   
+
 	
 
 	
