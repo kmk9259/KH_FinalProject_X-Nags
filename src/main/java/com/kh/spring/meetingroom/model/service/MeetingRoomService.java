@@ -39,4 +39,14 @@ public interface MeetingRoomService {
 
 	void cancelMeetingD(MeetingRoom mr);
 
+	void resetAll(MeetingRoom mroom);
+
+	void reset(TimeTable_A a);
+
+	void reset(TimeTable_B b);
+
+	void reset(TimeTable_C c);
+
+	void reset(TimeTable_D d);
+
 }

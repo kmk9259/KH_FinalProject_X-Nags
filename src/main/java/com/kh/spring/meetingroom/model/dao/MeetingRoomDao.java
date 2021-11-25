@@ -126,6 +126,36 @@ public class MeetingRoomDao {
 		
 	}
 
+//	public int resetA(SqlSessionTemplate sqlSession, TimeTable_A a) {
+//		
+//		return sqlSession.update("mRoomsMapper.resetA", a);
+//	}
+
+	public int resetAll(SqlSessionTemplate sqlSession, MeetingRoom mroom) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("mRoomsMapper.resetAll", mroom);
+	}
+
+	public int reset(SqlSessionTemplate sqlSession, TimeTable_A a) {
+		
+		return sqlSession.update("mRoomsMapper.resetA", a);
+	}
+
+	public int reset(SqlSessionTemplate sqlSession, TimeTable_B b) {
+		
+		return sqlSession.update("mRoomsMapper.resetB", b);
+	}
+
+	public int reset(SqlSessionTemplate sqlSession, TimeTable_C c) {
+		
+		return sqlSession.update("mRoomsMapper.resetC", c);
+	}
+
+	public int reset(SqlSessionTemplate sqlSession, TimeTable_D d) {
+		
+		return sqlSession.update("mRoomsMapper.resetD", d);
+	}
+
 
 
 

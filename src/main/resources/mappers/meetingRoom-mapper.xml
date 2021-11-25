@@ -151,5 +151,25 @@ FROM (SELECT MR_NO, TIME AS STR
  UPDATE TIMETABLE_D SET STATUS = 'Y'
 	 WHERE TIME = #{time}
 </update>
+
+<update id="resetA" parameterType="TimeTable_A" >
+ UPDATE TIMETABLE_A SET STATUS ='Y'
+</update>
+
+<update id="resetB" parameterType="TimeTable_B" >
+ UPDATE TIMETABLE_B SET STATUS ='Y'
+</update>
+
+<update id="resetC" parameterType="TimeTable_C" >
+ UPDATE TIMETABLE_C SET STATUS ='Y'
+</update>
+
+<update id="resetD" parameterType="TimeTable_D" >
+ UPDATE TIMETABLE_D SET STATUS ='Y'
+</update>
+
+<update id="resetAll" parameterType="MeetingRoom" >
+ UPDATE MEETING_ROOM SET STATUS ='N'
+</update>
 	
 </mapper>

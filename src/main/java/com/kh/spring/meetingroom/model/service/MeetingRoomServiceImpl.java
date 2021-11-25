@@ -269,6 +269,71 @@ public class MeetingRoomServiceImpl implements MeetingRoomService {
 		
 	}
 
+//	@Override
+//	public void resetA(TimeTable_A a) {
+//		int result = meetingRoomDao.resetA(sqlSession, a);
+//		
+//		if(result < 0) {
+//			throw new CommException("회의실 리셋 실패");
+//		}
+//		
+//		
+//		
+//	}
+
+	@Override
+	public void resetAll(MeetingRoom mroom) {
+		int result = meetingRoomDao.resetAll(sqlSession, mroom);
+		
+		if(result < 0) {
+			throw new CommException("모든 회원 사용중 회의실 리셋 실패");
+		}
+		
+	}
+
+	@Override
+	public void reset(TimeTable_A a) {
+		int result = meetingRoomDao.reset(sqlSession, a);
+		
+		if(result < 0) {
+			throw new CommException("회의실 A 리셋 실패");
+		}
+		
+	}
+	
+	@Override
+	public void reset(TimeTable_B b) {
+		int result = meetingRoomDao.reset(sqlSession, b);
+		
+		if(result < 0) {
+			throw new CommException("회의실 B 리셋 실패");
+		}
+		
+		
+	}
+	
+	@Override
+	public void reset(TimeTable_C c) {
+		int result = meetingRoomDao.reset(sqlSession, c);
+		
+		if(result < 0) {
+			throw new CommException("회의실 C 리셋 실패");
+		}
+		
+		
+	}
+	
+	@Override
+	public void reset(TimeTable_D d) {
+		int result = meetingRoomDao.reset(sqlSession, d);
+		
+		if(result < 0) {
+			throw new CommException("회의실 D 리셋 실패");
+		}
+		
+		
+	}
+
 
 
 
