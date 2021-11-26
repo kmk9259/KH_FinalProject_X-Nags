@@ -75,6 +75,7 @@ display: none;
 								<tr>
 									<th class="table-plus datatable-nosort">사원아이디</th>
 									<th>사원 이름</th>
+									<th>직급명</th>
 									<th>직급코드</th>
 									<th>권한</th>
 									<th>부서</th>
@@ -91,6 +92,7 @@ display: none;
 								<td>${emp.empId } </td>
 								<td>${emp.userName }</td>
 								<td>${emp.jobName }</td>
+								<td>${emp.jobCode }</td>
 								<td>${emp.rightName }</td>
 								<td>${emp.deptName }</td>
 								<td>${emp.salLevel }</td>

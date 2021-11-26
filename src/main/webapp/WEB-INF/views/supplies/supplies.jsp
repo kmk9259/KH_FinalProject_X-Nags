@@ -209,7 +209,10 @@ width:80px;
 	                    	    var endDate = document.getElementById("endDate").value;
 	                    	    var now = new Date();
 	                    	    
-	                    	    console.log(startDate)
+	                    	    console.log(startDate.valueOf())
+	                    	    console.log(now.valueOf())
+	                    	    console.log(Date.parse(startDate))
+	                    	    console.log(Date.parse(now))
 	                    	  
 	                    	    var fromDate=document.getElementById("fromDate");
 	                    	    var toDate=document.getElementById("toDate");
@@ -220,8 +223,8 @@ width:80px;
 	                    	    	 $("#btn1").attr('data-target','#warning-modal');
 	                    	    	
 	                    	    }else{
-	                    	    	
-	                    	    	if ((Date.parse(startDate) <= Date.parse(now))) {
+	                    	    	//if ((Date.parse(startDate) < Date.parse(now)))
+	                    	    	if ((Date.parse(startDate) < Date.parse(now))) {
 		                    	        
 		                    	        $("#btn1").attr('data-target','#warning-modal2');
 		                    	        document.getElementById("startDate").value = "";
