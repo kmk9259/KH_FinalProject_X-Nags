@@ -96,7 +96,7 @@
 		                                    <option value="#74c0fc" style="color:#74c0fc;">파란색</option>
 		                                    <option value="#f06595" style="color:#f06595;">핑크색</option>
 		                                    <option value="#63e6be" style="color:#63e6be;">연두색</option>
-		                                    <option value="#a9e34b" style="color:#a9e34b;">초록색</option>
+		                                    <option value="#ffd400" style="color:#ffd400;">노란색</option>
 		                                    <option value="#4d638c" style="color:#4d638c;">남색</option>
 		                                    <option value="#495057" style="color:#495057;">검정색</option>
 		                                </select>
