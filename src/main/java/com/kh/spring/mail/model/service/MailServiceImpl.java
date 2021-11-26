@@ -264,6 +264,13 @@ public class MailServiceImpl implements MailService {
 		return mailDao.mainReceiveMailList(sqlSession, empId);
 	}
 
+
+	@Override
+	public int selectCountNoRead(String empId) {
+		
+		return mailDao.selectCountNoRead(sqlSession, empId);
+	}
+
 	
 
 

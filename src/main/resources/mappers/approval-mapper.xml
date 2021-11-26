@@ -332,4 +332,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		]]>
 	</select>
 	
+	<!-- 메인 요청 결재함 수 -->
+	<select id="selectCountNoApp" resultType="_int">
+		SELECT COUNT(*)
+		FROM APPROVAL
+		WHERE 
+		(APP_MID=${empId} OR APP_FIN=${empId})
+		AND FIN_STATUS=1 AND MID_STATUS IN (1,2)
+	</select>
+	
 </mapper>

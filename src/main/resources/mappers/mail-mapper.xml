@@ -328,4 +328,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		]]>
 	</select>
 
+	<!--메인 받은 메일함 갯수 -->
+	<select id="selectCountNoRead" resultType="_int">
+		SELECT COUNT(*)
+		FROM MAIL
+		WHERE MAIL_RECEIVER=#{empId}
+		AND RECEIVER_STATUS=1 
+		AND READ_COUNT=0
+	</select>
+
 </mapper>

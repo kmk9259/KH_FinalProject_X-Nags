@@ -61,6 +61,8 @@ public interface MailService {
 
 	ArrayList<Mail> mainReceiveMailList(String empId);
 
+	int selectCountNoRead(String empId);
+
 
 
 

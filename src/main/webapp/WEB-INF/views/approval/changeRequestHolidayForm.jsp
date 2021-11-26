@@ -83,11 +83,11 @@ label {
 							<select class="custom-select col-6" name="category">
 								<option>선택</option>
 								<c:if test="${app.category eq 1 }">
-									<option value="1" selected="selected">휴가</option>
+									<option value="1" selected="selected">연차</option>
 									<option value="2">반차</option>
 								</c:if>
 								<c:if test="${app.category eq 2 }">
-									<option value="1" >휴가</option>
+									<option value="1" >연차</option>
 									<option value="2" selected="selected">반차</option>
 								</c:if>
 							</select>
