@@ -224,7 +224,7 @@
               	    	 + "<td><button class = 'btn btn-outline-danger' onclick = 'deleteReply("+obj.replyNo+");'>삭제 </button>"
                				 + "</td></tr>"; 
  	               }else{
- 	                  value += "</tr>";
+ 	                  value += "<td></td><td></td></tr>";
  	               }               
  	            });
  	            $("#replyArea1 tbody").html(value);
