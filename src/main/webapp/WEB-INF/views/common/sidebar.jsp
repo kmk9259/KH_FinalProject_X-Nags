@@ -28,7 +28,7 @@ background: rgba(255, 255, 255, 1);;
     color: #000;
 }
 .badge{
-font-size: 5px;
+font-size: 8px;
 margin-left: 10px;
 }
 </style>
