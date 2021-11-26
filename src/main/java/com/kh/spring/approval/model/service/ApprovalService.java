@@ -70,6 +70,8 @@ public interface ApprovalService {
 
 	ArrayList<Approval> mainAppedList(String empId);
 
+	int selectCountNoApp(String empId);
+
 	
 
 	

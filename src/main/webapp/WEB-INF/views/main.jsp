@@ -15,7 +15,7 @@
 	#fromDate, #toDate{
 	border: none;
 	}
-	.mailList>tbody>tr:hover {
+	tbody>tr:hover {
 	cursor: pointer;
 	}
 	
@@ -417,46 +417,73 @@
 								<div class="tab-content">
 									<div class="tab-pane fade show active" id="receive" role="tabpanel">
 										<div class="pd-20">
-											<table class="table table-hover mailList">
-												<thead>
-													<tr>
-														<td></td>
-														<th scope="col">발신자</th>
-														<th scope="col">제목</th>
-													</tr>
-												</thead>
-												<tbody>
-													<c:forEach items="${ receiveList }" var="s">
-													<tr>
-														<td>${ s.mailNo }</td>
-														<td>${ s.empId }</td>
-														<td>${ s.title }</td>
-													</tr>
-													</c:forEach>
-												</tbody>
-											</table>
-										</div>
-									</div>
-									<div class="tab-pane fade" id="send" role="tabpanel">
-										<div class="pd-20">
-											<table class="table table-hover mailList">
-												<thead>
-													<tr>
-														<th></th>
-														<th scope="col">수신자</th>
-														<th scope="col">제목</th>
-													</tr>
-												</thead>
-												<tbody>
-													<c:forEach items="${ sendList }" var="s">
-													<tr>
-														<td>${ s.mailNo }</td>
-														<td>${ s.receiver }</td>
-														<td>${ s.title }</td>
-													</tr>
-													</c:forEach>
-												</tbody>
-											</table>
+											<c:choose>
+												<c:when test="${empty receiveList }">
+													<div class="alert alert-dark" role="alert" style="text-align: center;">
+													받은 메일이 없습니다.
+													</div>
+												</c:when>
+												<c:otherwise>
+													<table class="table table-hover reMailList">
+														<thead class="bg-dark text-white">
+															<tr>
+																<td></td>
+																<th scope="col">발신자</th>
+																<th scope="col">제목</th>
+															</tr>
+														</thead>
+														<tbody class="bg-light text-dark">
+															
+															<c:forEach items="${ receiveList }" var="s">
+															<tr class ="table-warning">
+																<td>${ s.mailNo }</td>
+																<td>${ s.empId }</td>
+																<c:choose>
+																	<c:when test="${s.readCount eq 0 }">
+																		<td><span class="badge badge-pill badge-primary">new</span> ${ s.title }</td>
+																	</c:when>
+																	<c:otherwise>
+																		<td>${ s.title }</td>
+																	</c:otherwise>
+																</c:choose>
+																
+															</tr>
+															</c:forEach>
+														</tbody>
+													</table>
+												</c:otherwise>
+												</c:choose>	
+												</div>
+											</div>
+											<div class="tab-pane fade" id="send" role="tabpanel">
+												<div class="pd-20">
+												<c:choose>
+												<c:when test="${empty sendList }">
+													<div class="alert alert-dark" role="alert" style="text-align: center;">
+													보낸 메일이 없습니다.
+													</div>
+												</c:when>
+												<c:otherwise>
+													<table class="table table-hover seMailList">
+														<thead class="bg-dark text-white">
+															<tr>
+																<th></th>
+																<th scope="col">수신자</th>
+																<th scope="col">제목</th>
+															</tr>
+														</thead>
+														<tbody class="bg-light text-dark">
+															<c:forEach items="${ sendList }" var="s">
+															<tr class ="table-warning">
+																<td>${ s.mailNo }</td>
+																<td>${ s.receiver }</td>
+																<td>${ s.title }</td>
+															</tr>
+															</c:forEach>
+														</tbody>
+													</table>
+												</c:otherwise>
+												</c:choose>
 										</div>
 									</div>
 									
@@ -492,17 +519,24 @@
 								<!-- 진행중결재함 -->
 								<div class="tab-pane fade show active" id="home" role="tabpanel">
 									<div class="pd-20">
-										<table class="table table-hover mailList">
-											<thead>
+										<c:choose>
+										<c:when test="${empty appingList }">
+											<div class="alert alert-dark" role="alert" style="text-align: center;">
+												결재 진행중인 문서가 없습니다.
+											</div>
+										</c:when>
+										<c:otherwise>
+										<table class="table table-hover apping">
+											<thead class="bg-dark text-white">
 												<tr>
 													<th></th>
 													<th scope="col">종류</th>
 													<th scope="col">상태</th>
 												</tr>
 											</thead>
-											<tbody>
+											<tbody class="bg-light text-dark">
 												<c:forEach items="${ appingList }" var="app">
-												<tr>
+												<tr class ="table-warning">
 													<td>${ app.appNo }</td>
 													<c:choose>
 						              					<c:when test="${app.category eq 1 }">
@@ -524,7 +558,6 @@
 															<td scope="row">증명서 신청서(기타)</td>
 														</c:when>
 						             			 	</c:choose>
-													
 													<c:choose>
 														<c:when test="${app.midStatus eq 1 }">
 															<td>결재 대기</td>
@@ -537,22 +570,31 @@
 												</c:forEach>
 											</tbody>
 										</table>
+										</c:otherwise>
+										</c:choose>
 									</div>
 								</div>
 								<!-- 요청결재함 -->
 								<div class="tab-pane fade" id="profile" role="tabpanel">
 									<div class="pd-20">
-										<table class="table table-hover mailList">
-											<thead>
+										<c:choose>
+										<c:when test="${empty appAskList }">
+											<div class="alert alert-dark" role="alert" style="text-align: center;">
+												결재 요청 문서가 없습니다.
+											</div>
+										</c:when>
+										<c:otherwise>
+										<table class="table table-hover askApp">
+											<thead class="bg-dark text-white">
 												<tr>
 													<th></th>
 													<th scope="col">종류</th>
 													<th scope="col">기안자</th>
 												</tr>
 											</thead>
-											<tbody>
+											<tbody class="bg-light text-dark">
 												<c:forEach items="${ appAskList }" var="app">
-												<tr>
+												<tr class ="table-warning">
 													<td>${ app.appNo }</td>
 													<c:choose>
 						              					<c:when test="${app.category eq 1 }">
@@ -581,22 +623,31 @@
 												</c:forEach>
 											</tbody>
 										</table>
+										</c:otherwise>
+										</c:choose>
 									</div>
 								</div>
 								<!-- 완료결재함 -->
 								<div class="tab-pane fade" id="contact" role="tabpanel">
 									<div class="pd-20">
-										<table class="table table-hover mailList">
-											<thead>
+									<c:choose>
+										<c:when test="${empty appedList }">
+											<div class="alert alert-dark" role="alert" style="text-align: center;">
+												결재가 완료된 문서가 없습니다.
+											</div>
+										</c:when>
+										<c:otherwise>
+										<table class="table table-hover apped">
+											<thead class="bg-dark text-white">
 												<tr>
 													<th></th>
 													<th scope="col">종류</th>
 													<th scope="col">상태</th>
 												</tr>
 											</thead>
-											<tbody>
+											<tbody  class="bg-light text-dark">
 												<c:forEach items="${ appedList }" var="app">
-												<tr>
+												<tr class ="table-warning">
 													<td>${ app.appNo }</td>
 													<c:choose>
 						              					<c:when test="${app.category eq 1 }">
@@ -634,6 +685,8 @@
 												</c:forEach>
 											</tbody>
 										</table>
+										</c:otherwise>
+										</c:choose>
 									</div>
 								</div>
 							</div>
@@ -658,6 +711,21 @@
                     location.href = "noticedetail.bo?bno="
                           + $(this).children().eq(0).text();
            });
+         $(".apping tbody tr").click(function(){
+ 			location.href="appingDetail.ap?ano=" + $(this).children().eq(0).text();
+ 		});
+         $(".askApp tbody tr").click(function(){
+ 			location.href="askDetail.ap?ano=" + $(this).children().eq(0).text();
+ 		});
+         $(".apped tbody tr").click(function(){
+ 			location.href="appedDetail.ap?ano=" + $(this).children().eq(0).text();
+ 		});
+         $(".reMailList tbody tr").click(function(){
+ 			location.href="receiveDetail.ml?mno=" + $(this).children().eq(0).text();
+ 		});
+         $(".seMailList tbody tr").click(function(){
+ 			location.href="sendDetail.ml?mno=" + $(this).children().eq(0).text();
+ 		});
       });
       
     </script>

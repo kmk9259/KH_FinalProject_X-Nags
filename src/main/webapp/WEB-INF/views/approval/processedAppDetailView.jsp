@@ -16,7 +16,7 @@
 }
 table{
 	margin-bottom: 10;
-	text-align: center;
+
 }
 #ok{
 color: green;

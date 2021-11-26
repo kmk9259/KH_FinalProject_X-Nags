@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -590,6 +591,18 @@ public class ApprovalController {
 		session.setAttribute("msg", "결재를 성공적으로 삭제하였습니다.");
 		
 		return "redirect:apped.ap";
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping("count.ap")
+	public String selectCountNoApp(Model model, HttpServletRequest request) {
+		
+		Member mem = (Member) request.getSession().getAttribute("loginUser");
+		
+		int count = approvalService.selectCountNoApp(mem.getEmpId());
+		
+		return String.valueOf(count);
 		
 	}
 }

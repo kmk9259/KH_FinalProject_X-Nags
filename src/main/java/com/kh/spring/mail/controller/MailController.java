@@ -472,5 +472,16 @@ public class MailController {
 		return jsonMap.toString();
 	}
 		
+	@ResponseBody
+	@RequestMapping("count.ml")
+	public String selectCountNoRead(Model model, HttpServletRequest request) {
+		
+		Member mem = (Member) request.getSession().getAttribute("loginUser");
+		
+		int count = mailService.selectCountNoRead(mem.getEmpId());
+		
+		return String.valueOf(count);
+		
+	}
 	
 }

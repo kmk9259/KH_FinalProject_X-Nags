@@ -83,7 +83,7 @@ label {
 						<div class="form-group">
 							<select class="custom-select col-6" name="category">
 								<option selected>선택</option>
-								<option value="1">휴가</option>
+								<option value="1">연차</option>
 								<option value="2">반차</option>
 							</select>
 						</div>

@@ -197,14 +197,13 @@ public class ApprovalDao {
 	public ArrayList<Approval> mainAppedList(SqlSessionTemplate sqlSession, String empId) {
 		return (ArrayList)sqlSession.selectList("approvalMapper.mainAppedList", empId);
 	}
+
+	public int selectCountNoApp(SqlSessionTemplate sqlSession, String empId) {
+	
+		return sqlSession.selectOne("approvalMapper.selectCountNoApp", empId);
+	}
 	
 	
 
-	/*
-	 * //휴가 신청 public int insertHoliday(SqlSessionTemplate sqlSession, Approval app)
-	 * {
-	 * 
-	 * return sqlSession.insert("approvalMapper.insertHoliday", app); }
-	 */
 	
 }

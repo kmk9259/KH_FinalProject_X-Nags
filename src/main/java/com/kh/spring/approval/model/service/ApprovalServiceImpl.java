@@ -15,8 +15,8 @@ import com.kh.spring.holiday.model.vo.Holiday;
 import com.kh.spring.approval.model.vo.PageInfo;
 
 @Service
-public class ApprovalServiceImpl implements ApprovalService { 
-	
+public class ApprovalServiceImpl implements ApprovalService {
+	 
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
@@ -290,20 +290,11 @@ public class ApprovalServiceImpl implements ApprovalService {
 		return approvalDao.mainAppedList(sqlSession, empId);
 	}
 
-	
+	@Override
+	public int selectCountNoApp(String empId) {
+		
+		return approvalDao.selectCountNoApp(sqlSession, empId);
+	}
 
-	
-	
-	/*
-	 * //휴가 신청
-	 * 
-	 * @Override public void insertHoliday(Approval app) {
-	 * 
-	 * int result = approvalDao.insertHoliday(sqlSession, app);
-	 * 
-	 * if(result < 0) { throw new CommException("휴가 신청 실패"); }
-	 * 
-	 * }
-	 */
 
 }

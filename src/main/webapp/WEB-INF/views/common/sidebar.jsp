@@ -27,6 +27,10 @@
 background: rgba(255, 255, 255, 1);;
     color: #000;
 }
+.badge{
+font-size: 5px;
+margin-left: 10px;
+}
 </style>
 </head>
 <body>
@@ -51,18 +55,18 @@ background: rgba(255, 255, 255, 1);;
                     
                      <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
-                             <span class="micon dw dw-email-1"></span><span class="mtext">전자 메일</span>
+                             <span class="micon dw dw-email-1"></span><span class="mtext">전자 메일<span class="badge badge-pill badge-danger" id="count1"></span></span>
                         </a>
                         <ul class="submenu">
                             <li><a href="insertForm.ml">메일 작성</a></li>
-                            <li><a href="receiveList.ml">받은 메일함</a></li>
+                            <li><a href="receiveList.ml">받은 메일함<span class="badge badge-pill badge-danger" id="count2"></span></a></li>
                             <li><a href="sendList.ml">보낸 메일함</a></li>
                             <li><a href="waste.ml">휴지통</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
-                            <span class="micon dw dw-inbox-3"></span><span class="mtext">전자 결재</span>
+                            <span class="micon dw dw-inbox-3"></span><span class="mtext">전자 결재<span class="badge badge-pill badge-success" id="count3"></span> </span>
                         </a>
                         <ul class="submenu">
                            <li class="dropdown">
@@ -76,7 +80,7 @@ background: rgba(255, 255, 255, 1);;
                                 </ul>
                             </li>
                             <li><a href="apping.ap">진행중 결재함</a></li>
-                            <li><a href="askapp.ap">결재 요청함</a></li>
+                            <li><a href="askapp.ap">결재 요청함<span class="badge badge-pill badge-success" id="count4"></span></a></li>
                             <li><a href="apped.ap">완료 결재함</a></li>
                         </ul>
                         
@@ -151,17 +155,40 @@ background: rgba(255, 255, 255, 1);;
 		   location.href="meetingDetail.me?empId=" + ${ loginUser.empId }
 	   })
    })
+   
+   $.ajax({
+	 url:"count.ml",
+	 type:"get",
+	 success:function(count){
+		 
+		 if(count>0){
+			 $("#count1").text(count);
+			 $("#count2").text(count);
+		 }
+		 
+	 },
+	 error:function(e){
+			console.log("ajax 통신 실패");
+	 }
+	 
+   })
+      $.ajax({
+	 url:"count.ap",
+	 type:"get",
+	 success:function(count){
+		 
+		 if(count>0){
+			 $("#count3").text(count);
+			 $("#count4").text(count);
+		 }
+		 
+	 },
+	 error:function(e){
+			console.log(" ajax 통신 실패");
+	 }
+	 
+   })
    </script>
- 
-   
-   
-<!--     <script>
-    	$(function(){
-    		$(".left-side-bar div img").click(function(){
-    			location.href="main.xnags?empId=" + ${ sessionScope.loginUser.empId }+"userPwd="+${ sessionScope.loginUser.userPwd };
-    		});
-    	});
-    </script>  -->
  
 
 

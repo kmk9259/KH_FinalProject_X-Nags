@@ -178,4 +178,9 @@ public class MailDao {
 		return (ArrayList)sqlSession.selectList("mailMapper.mainReceiveMailList", empId);
 	}
 
+	public int selectCountNoRead(SqlSessionTemplate sqlSession, String empId) {
+
+		return sqlSession.selectOne("mailMapper.selectCountNoRead", empId);
+	}
+
 }
