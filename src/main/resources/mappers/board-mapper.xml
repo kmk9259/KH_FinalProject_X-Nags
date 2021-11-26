@@ -52,7 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <update id = "updateBoard" parameterType="Board">
 		update board
 		set board_title=#{boardTitle}, board_content=#{boardContent},
-		    origin_file=#{originFile}, change_file=#{changeFile}
+		    change_file=#{changeFile}
 		where board_no=#{boardNo}
 </update>
 	
