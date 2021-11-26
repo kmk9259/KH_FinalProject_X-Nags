@@ -236,6 +236,9 @@ text-align: center;
 																	
 																}
 															})
+															
+															
+															
 															</script>
 															</c:forEach>
 					
@@ -359,7 +362,7 @@ text-align: center;
 										var html="";
 																
 										html +='<tr >'; 
-										html +='<td  class="it'+ ${bb.index}+ '" ><input type="hidden" name="time" value="'+ time+'">'+time+'</td>';
+										html +='<td  class="it'+ ${bb.index}+ '"><input type="hidden" name="time" value="'+ time+'">'+time+'</td>';
 										html +='</tr>';
 																
 										$("#reserve2").append(html);

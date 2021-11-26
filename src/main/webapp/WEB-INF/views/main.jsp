@@ -281,14 +281,14 @@
 						
 						<c:choose>
 											
-						<c:when test="${empty sup}">
+						<c:when test="${empty returnList}">
 						<div class="alert alert-dark" role="alert" style="text-align: center;">
 						예약된 비품이 없습니다.
 						</div>
 						</c:when>  
-						<c:when test="${!empty sup}">
+						<c:when test="${!empty returnList}">
 						
-						<c:forEach items="${sup}" var="su" varStatus="status">
+						<c:forEach items="${returnList}" var="su" varStatus="status">
 						<table class="table table-bordered" id="myTable">
 						<tbody>
 						<tr>

@@ -92,8 +92,10 @@ public class MemberController {
 		ArrayList<MeetingRoom> mroom = meetingRoomService.reservedMeeting(empId);
 		model.addAttribute("mroom", mroom);
 		
-	    ArrayList<Return> returnList = suppliesService.updateForm(empId);
+		ArrayList<Return> returnList = suppliesService.updateForm(empId);
 	    model.addAttribute("returnList", returnList);
+	    
+	    System.out.println("메인에 왜 null? "+returnList);
 	    
 	    ArrayList<Notice> noticeToplist = noticeService.selectTopList();      
 	    model.addAttribute("noticeToplist", noticeToplist);

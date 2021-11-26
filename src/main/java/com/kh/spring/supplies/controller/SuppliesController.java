@@ -79,7 +79,7 @@ public class SuppliesController {
 	
 	//업데이트 폼으로 넘기는 supplies list
 	@RequestMapping("updateSupForm.su")
-	public ModelAndView updateForm(int empId, ModelAndView mv) {
+	public ModelAndView updateForm(String empId, ModelAndView mv) {
 		
 		ArrayList<Return> returnList = suppliesService.updateForm(empId);
 
