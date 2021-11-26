@@ -1,6 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<% 
+	response.setHeader("Cache-Control","no-store"); 
+	response.setHeader("Pragma","no-cache"); 
+	response.setDateHeader("Expires",0); 
+	if (request.getProtocol().equals("HTTP/1.1")) 
+		response.setHeader("Cache-Control", "no-cache"); 
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,8 +16,7 @@
 	<title>X-Nomal Groupware Solution</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<!-- The main CSS file -->
-	<link href="${ pageContext.servletContext.contextPath }/resources/assets/css/style2.css" rel="stylesheet" />
-	
+	<link href="${ pageContext.servletContext.contextPath }/resources/assets/css/style2.css" rel="stylesheet" />	
 	
 	<style type="text/css">
 	#fromDate, #toDate{
