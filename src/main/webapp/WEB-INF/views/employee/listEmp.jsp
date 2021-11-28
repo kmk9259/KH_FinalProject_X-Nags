@@ -206,7 +206,7 @@ display: none;
 				
 				
 			    /*선택 목록이 view*/
-			    var i = $("#emplist tbody td:eq(8) .dropdown-menu-icon-list a:eq(0)").text();
+			    var i = $("#emplist tbody td:eq(9) .dropdown-menu-icon-list a:eq(0)").text();
 			    console.log(i); 
 			    
 		
@@ -227,7 +227,7 @@ display: none;
 			    
 			    for(var i =0; i<$("#emplist tbody tr").length; i++){
 			    	
-			    	$("#emplist tbody tr:eq("+i+") td:eq(8) .dropdown-menu-icon-list a:eq(0)").click(function(){
+			    	$("#emplist tbody tr:eq("+i+") td:eq(9) .dropdown-menu-icon-list a:eq(0)").click(function(){
 			    		
 			    		
 			    		location.href="empDetail.me?empId=" +  $(this).parent().parent().parent().parent().children().eq(0).text(); 
@@ -238,7 +238,7 @@ display: none;
 			    
 			    for(var i =0; i<$("#emplist tbody tr").length; i++){
 			    	
-			    	$("#emplist tbody tr:eq("+i+") td:eq(8) .dropdown-menu-icon-list a:eq(1)").click(function(){
+			    	$("#emplist tbody tr:eq("+i+") td:eq(9) .dropdown-menu-icon-list a:eq(1)").click(function(){
 			    
 			    		location.href="updateEmpForm.me?empId=" +  $(this).parent().parent().parent().parent().children().eq(0).text();  
 			    		
@@ -251,7 +251,7 @@ display: none;
 			     for(var i =0; i<$("#emplist tbody tr").length; i++){
 			    	
 			    	
-			    	$("#emplist tbody tr:eq("+i+") td:eq(8) .dropdown-menu-icon-list a:eq(2)").click(function(){
+			    	$("#emplist tbody tr:eq("+i+") td:eq(9) .dropdown-menu-icon-list a:eq(2)").click(function(){
 			    		/* $("#postForm").attr("action","deleteEmp.me"); */
 			    		location.href="deleteEmp.me?empId=" +  $(this).parent().parent().parent().parent().children().eq(0).text();  
 			    		
