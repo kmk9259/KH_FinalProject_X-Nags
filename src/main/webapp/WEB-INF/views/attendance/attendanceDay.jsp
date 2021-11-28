@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>X-Nomal Groupware Solution</title>
+	<title>X-Normal GroupWare Solution</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<style>
 	.info{

@@ -133,7 +133,7 @@
 						
 						function saveImage(){							
 						    var imgDataUrl = canvas.toDataURL('image/png');
-						    var blobBin = atob(imgDataUrl.split(',')[1]);						// base64 데이터 디코딩
+						    var blobBin = atob(imgDataUrl.split(',')[1]);	// base64 데이터 디코딩
 						    var array = [];
 						    for (var i = 0; i < blobBin.length; i++) {
 						        array.push(blobBin.charCodeAt(i));
