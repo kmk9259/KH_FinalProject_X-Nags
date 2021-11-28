@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>X-Nomal Groupware Solution</title>
+<title>X-Normal GroupWare Solution</title>
 <style type="text/css">
 
 label {
@@ -56,7 +56,7 @@ label {
 						<div class="col-md-6 col-sm-12">
 							<div class="title">
 								<h4 class="text-blue h4">결재선 지정</h4>
-								<input type="hidden" readonly class="form-control-plaintext" name="empId" value="${ sessionScope.loginUser.empId }">
+								<input type="hidden" readonly class="form-control-plaintext" name="empId" value="${loginUser.empId }">
 								<input type="hidden" name="appNo" value="${app.appNo}">
 								
 							</div>

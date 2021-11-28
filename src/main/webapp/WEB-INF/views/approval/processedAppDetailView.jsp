@@ -8,7 +8,7 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>X-Nomal Groupware Solution</title>
+<title>X-Normal GroupWare Solution</title>
 <style type="text/css">
 #pagingArea{width:fit-content;margin:auto;}
 #appList>tbody>tr:hover {
@@ -297,6 +297,7 @@ color: red;
 	            			<input type="hidden" name="ano" value="${app.appNo }">
 	            			<input type="hidden" name="category" value="${app.category }">
 	            			<input type="hidden" name="fileName" value="${ app.changeName }"> 
+	            			<input type="hidden" name="endDate" id="end" value="${app.endDate }">
 		            		<div class="card-footer">
 				              <div class="float-right">
 				              	<c:if test="${app.empId == loginUser.empId }">
@@ -365,7 +366,6 @@ color: red;
 
 //삭제
 function deleteApp(){
-	
 	$("#sendApp").attr("action", "deleteApped.ap");
 	$("#sendApp").submit();
 
@@ -378,6 +378,6 @@ function goList() {
 
 </script>
 			
-
+<script src="${ pageContext.servletContext.contextPath }/resources/plugins/sweetalert2/sweetalert2.all.js"></script>
 </body>
 </html>
