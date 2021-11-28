@@ -29,6 +29,5 @@ public class Schedule {
 	private String scheduleTextcolor;
 	private String scheduleAllDay;
 	private String userName;
-//	private String deptName;
 
 }

@@ -13,9 +13,7 @@ var addBtnContainer = $('.modalBtnContainer-addEvent');
 var modifyBtnContainer = $('.modalBtnContainer-modifyEvent');
 
 
-/* ****************
- *  새로운 일정 생성
- * ************** */
+/*일정추가*/
 var newEvent = function (start, end, eventType) {
 
     $("#contextMenu").hide(); //메뉴 숨김
@@ -35,7 +33,6 @@ var newEvent = function (start, end, eventType) {
     //새로운 일정 저장버튼 클릭
     $('#save-event').unbind();
     $('#save-event').on('click', function () {
-    	console.log("함수요");
         var eventData = {
         		empId: empId,
         		scheduleTitle: editTitle.val(),
@@ -47,7 +44,6 @@ var newEvent = function (start, end, eventType) {
         		scheduleTextcolor: '#ffffff',
         		scheduleAllDay: 0,
         		userName: username
-            
         };
         console.log(eventData);
         console.log(eventData.scheduleTitle);
@@ -66,11 +62,10 @@ var newEvent = function (start, end, eventType) {
 
         if (editAllDay.is(':checked')) {
             eventData.start = moment(eventData.start).format('YYYY-MM-DD');
-            //render시 날짜표기수정
+            //렌더시 날짜표기수정
             eventData.end = moment(eventData.end).add(1, 'days').format('YYYY-MM-DD');
-            //DB에 넣을때(선택)
+            //DB에 넣을때
             realEndDay = moment(eventData.end).format('YYYY-MM-DD');
-
             eventData.scheduleAllDay = 1;
         }
 
@@ -96,7 +91,6 @@ var newEvent = function (start, end, eventType) {
                 console.log(" ajax 통신 실패1");
                 console.log(e);
             }
-        
-        });
-    });
-};
+        });/*ajax 새로운 일정 저장*/
+    }); /*새로운일정저장버튼 클릭할때*/
+};/*일정추가*/

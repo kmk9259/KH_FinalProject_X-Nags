@@ -35,14 +35,7 @@ public class ScheduleController {
 
 	//리사이즈, 드롭(드래그)
 	
-	@ResponseBody
-	@RequestMapping("data.json")
-	  public String create() {
-	    
-	    return String.valueOf(true);
-	  }
-	 
-	
+	// 일정관리 페이지 들어가기
 	@RequestMapping("main.sc")
 	public String scheduleMain(Model m, HttpServletRequest request) {
 		Member mem = (Member) request.getSession().getAttribute("loginUser");
@@ -56,38 +49,29 @@ public class ScheduleController {
 		return "schedule/scheduleMain";
 	}
 	
+	// 일정 불러오기
 	@ResponseBody
 	@RequestMapping(value="mainSelect", method=RequestMethod.POST)
 	public ResultVo scheduleMainSelect(@RequestBody Schedule sc, Model m, HttpServletRequest request) {
 		Member mem = (Member) request.getSession().getAttribute("loginUser");
-//		Calendar cal = Calendar.getInstance();
-
-//		cal.set(Calendar.DAY_OF_MONTH, 1);
-//		String startDate = getStartDate(cal, sdf);
-//		String endDate = getEndDate(cal, sdf);
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("scheduleStart", sc.getScheduleStart());
 		paramMap.put("scheduleEnd", sc.getScheduleEnd());
 		paramMap.put("empId", mem.getEmpId());
-
 		
 		ResultVo resultVo = new ResultVo();
 
 		try {
 			ArrayList<Schedule> scheduleList = scheduleService.scheduleMain(paramMap);
-			
-			
-			System.out.println("scheduleList : " + scheduleList);
 			resultVo.setData(convertData(scheduleList,mem));
 			resultVo.setStatus(HttpStatus.OK);
-
 		}
 		catch (Exception e) {
 			resultVo.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return resultVo;
 	}
-	
+	//날짜 컨버터
 	public List<ConvertScheduleVo> convertData(List<Schedule> scheduleList, Member member) {
 		List<ConvertScheduleVo> resultList = new ArrayList<>();
 		
@@ -99,7 +83,6 @@ public class ScheduleController {
 			one.setDescription(oneSchedule.getScheduleDescription());
 			one.setStart(oneSchedule.getScheduleStart());
 			one.setEnd(oneSchedule.getScheduleEnd());
-		//	one.setTypeNo(oneSchedule.getScheduleTypeNo());
 			one.setType(String.valueOf(oneSchedule.getScheduleType()));
 			one.setBackgroundColor(oneSchedule.getScheduleBackground());
 			one.setUsername(member.getUserName());
@@ -115,17 +98,15 @@ public class ScheduleController {
 		return resultList;
 	}
 	
+	//시작날짜 데이터포맷
 	public String getStartDate(Calendar cal, SimpleDateFormat sdf) {
 		return sdf.format(cal.getTime());
 	}
-	
+	// 종료날짜 데이터포맷
 	public String getEndDate(Calendar cal, SimpleDateFormat sdf) {
 		cal.add(Calendar.MONTH, 1);
 		return sdf.format(cal.getTime());
 	}
-	
-	 
-
 	
 	//일정등록
 	@ResponseBody
@@ -177,10 +158,8 @@ public class ScheduleController {
 		
 		return resultVo;
 	}
-		
 	
-
-	
+	//실험용
 	public static void main(String[] args) {
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.DAY_OF_MONTH, 1);
@@ -195,7 +174,5 @@ public class ScheduleController {
 		System.out.println("endDate : " + endDate);
 
 	}		
-
-	
 	
 }

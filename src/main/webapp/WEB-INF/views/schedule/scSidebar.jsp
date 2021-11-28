@@ -5,9 +5,8 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>X-Nomal Groupware Solution</title>
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>X-Normal GroupWare Solution</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <style>
 .logo> form > .light-logo{
  margin-left: 60px;
@@ -16,13 +15,6 @@
  height: 80px;
  width: 150px;
 }
-
-
-/* 
-.sidebar-menu .dropdown-toggle:hover, .sidebar-menu .show>.dropdown-toggle {
-    background: rgba(0,100,0,.4);
-    color: #fff;
-} */
 .sidebar-menu .submenu li a.active, .sidebar-menu .submenu li a:hover{
 background: rgba(255, 255, 255, 1);;
     color: #000;
@@ -30,25 +22,19 @@ background: rgba(255, 255, 255, 1);;
 </style>
 </head>
 <body>
-   
     <div class="left-side-bar">
         <div class="logo">
-        
            <form action="main.xnags" method="post"> 
                 <input type="image"  src="${ pageContext.servletContext.contextPath }/resources/images/logo/logowhite.png" onClick="login(e);" class="light-logo">
 				<input type="hidden" name="empId" value="${ sessionScope.loginUser.empId }">
-                
            </form>
-            
-            <div class="close-sidebar" data-toggle="left-sidebar-close">
+           <div class="close-sidebar" data-toggle="left-sidebar-close">
                 <i class="ion-close-round"></i>
-            </div>
+           </div>
         </div><br><br>
         <div class="menu-block customscroll">
             <div class="sidebar-menu">
                 <ul id="accordion-menu">
-                   
-                    
                      <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
                              <span class="micon dw dw-email-1"></span><span class="mtext">전자 메일</span>
@@ -152,18 +138,6 @@ background: rgba(255, 255, 255, 1);;
 	   })
    })
    </script>
- 
-   
-   
-<!--     <script>
-    	$(function(){
-    		$(".left-side-bar div img").click(function(){
-    			location.href="main.xnags?empId=" + ${ sessionScope.loginUser.empId }+"userPwd="+${ sessionScope.loginUser.userPwd };
-    		});
-    	});
-    </script>  -->
- 
-
 
 </body>
 </html>

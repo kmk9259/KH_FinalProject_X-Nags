@@ -29,9 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="scheduleEnd" column="SCHEDULE_END"/>
 	</resultMap>
 	
-	
-	
-		
+	<!-- 일정조회 -->
 	<select id="scheduleMain" parameterType="java.util.Map" resultType="com.kh.spring.schedule.model.vo.Schedule">
 		<![CDATA[ 
 			SELECT 
@@ -55,12 +53,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	        ]]> 
 	</select>
 	
-	 <insert id="insertSchedule" parameterType="Schedule" >
+	<!-- 일정등록 -->
+	<insert id="insertSchedule" parameterType="Schedule" >
 		INSERT INTO SCHEDULE
 		VALUES (SCHEDULE_NO.NEXTVAL, #{empId}, #{scheduleTitle}, #{scheduleStart}, #{scheduleEnd}, #{scheduleDescription}, 
 		#{scheduleType}, #{scheduleBackground},#{scheduleTextcolor} , #{scheduleAllDay})	
 	</insert>
 	
+	<!-- 일정수정 -->
 	<insert id="updateSchedule" parameterType="Schedule" >
 		UPDATE 
 			SCHEDULE
@@ -80,10 +80,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			SCHEDULE_NO = #{scheduleNo}
 	</insert>
 	
+	<!-- 일정삭제 -->
 	<insert id="deleteSchedule" parameterType="Schedule" >
 		DELETE FROM SCHEDULE WHERE SCHEDULE_NO = #{scheduleNo}
 	</insert>
 
+	<!-- 메인페이지 오늘일정조회 -->
 	<select id="scheduleList" resultMap="scheduleListResultSet">
 		<![CDATA[ 	
 			SELECT  
