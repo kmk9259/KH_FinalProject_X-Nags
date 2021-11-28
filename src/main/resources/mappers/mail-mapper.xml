@@ -161,7 +161,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE MAIL_NO=${mno}
 	</update>
 	
-	<!-- 받은메일리스트에서 휴지통 -->
+	<!-- 받은메일에서 휴지통 -->
 	<update id="wasteReceiveMail" parameterType="_int">
 		UPDATE MAIL
 		SET RECEIVER_STATUS=2
@@ -248,20 +248,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE MAIL_NO=${mno}
 	</update>
 	
-	<!-- 영구삭제 -->
+	<!-- 진짜영구삭제 -->
 	<delete id="wasteMail" parameterType="_int">
 		DELETE MAIL
 		WHERE MAIL_NO=${mno}
 	</delete>
 	
-	<!-- 보낸메일3 -->
+	<!-- 보낸 메일 영구삭제 -->
 	<update id="updateWriter" parameterType="_int">
 		UPDATE MAIL
 		SET WRITER_STATUS=3
 		WHERE MAIL_NO=${mno}
 	</update>
 	
-	<!-- 받은 메일 3 -->
+	<!-- 받은 메일 영구삭제 -->
 	<update id="updateReceiver" parameterType="_int">
 		UPDATE MAIL
 		SET RECEIVER_STATUS=3
@@ -315,6 +315,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		]]>
 	</select>
 	
+	<!-- 메인 받은 메일함 -->
 	<select id="mainReceiveMailList" resultMap="receiveResultSet">
 		<![CDATA[
 			SELECT *

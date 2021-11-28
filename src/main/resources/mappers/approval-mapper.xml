@@ -304,6 +304,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		]]>
 	</select>
 	
+	<!-- 메인 요청 결재함 -->
 	<select id="mainAppAskList" resultMap="appAskResultSet">
 		<![CDATA[
 			SELECT *
@@ -319,6 +320,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		]]>
 	</select>
 	
+	<!-- 메인 완료 결재함 -->
 	<select id="mainAppedList" resultMap="appResultSet">
 		<![CDATA[
 			SELECT *

@@ -73,9 +73,4 @@ public interface ApprovalService {
 	int selectCountNoApp(String empId);
 
 	
-
-	
-
-	/* void insertHoliday(Approval app); */
-	
 }
