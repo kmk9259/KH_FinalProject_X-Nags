@@ -103,4 +103,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		]]> 
 	</select>
 	
+	<!-- 일정 리사이즈 -->
+	<insert id="resizeUpdateSchedule" parameterType="Schedule" >
+		UPDATE 
+			SCHEDULE
+		SET 
+			SCHEDULE_START =  #{scheduleStart},
+			SCHEDULE_END =  #{scheduleEnd}
+		WHERE
+			1 = 1
+		AND 
+			SCHEDULE_NO = #{scheduleNo}
+	</insert>
+	
+	<!-- 일정 드롭 -->
+	<insert id="dropUpdateSchedule" parameterType="Schedule" >
+		UPDATE 
+			SCHEDULE
+		SET 
+			SCHEDULE_START =  #{scheduleStart},
+			SCHEDULE_END =  #{scheduleEnd}
+		WHERE
+			1 = 1
+		AND 
+			SCHEDULE_NO = #{scheduleNo}
+	</insert>
+	
 </mapper>

@@ -66,6 +66,28 @@ public class ScheduleServiceImpl implements ScheduleService {
 		return scheduleDao.scheduleList(sqlSession, empId);
 	}
 
+	@Override
+	public int resizeUpdateSchedule(Schedule sc) {
+		int result = scheduleDao.resizeUpdateSchedule(sqlSession, sc);
+		
+		if(result < 0 ) {
+			throw new CommException("일정 리사이즈에 실패하였습니다.");
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int dropUpdateSchedule(Schedule sc) {
+		int result = scheduleDao.dropUpdateSchedule(sqlSession, sc);
+		
+		if(result < 0 ) {
+			throw new CommException("일정 드롭에 실패하였습니다.");
+		}
+		
+		return result;
+	}
+
 
 
 	

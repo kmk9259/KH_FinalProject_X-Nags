@@ -141,14 +141,21 @@ var calendar = $('#calendar').fullCalendar({
 
     //리사이즈한 일정 업데이트
     $.ajax({
-      type: "get",
-      url: "",
-      data: {
-        //id: event._id,
-        //....
-      },
+      type: "post",
+      url: "resizeUpdateSchedule",
+      data: JSON.stringify({
+      	scheduleNo:event.scheduleNo,
+  		scheduleStart: editStart.val(),
+  		scheduleEnd: editEnd.val()
+  		
+      }),
+      dataType: "json",
+      contentType:'application/json; charset=utf-8',
       success: function (response) {
         alert('수정: ' + newDates.startDate + ' ~ ' + newDates.endDate);
+      },error:function(e){
+          console.log(" ajax 통신 실패_리사이즈");
+          console.log(e);
       }
     });
 
@@ -176,11 +183,15 @@ var calendar = $('#calendar').fullCalendar({
 
     //드롭한 일정 업데이트
     $.ajax({
-      type: "get",
-      url: "",
-      data: {
-        //...
-      },
+      type: "post",
+      url: "dropUpdateSchedule",
+      data: JSON.stringify({
+      	scheduleNo:event.scheduleNo,
+  		scheduleStart: editStart.val(),
+  		scheduleEnd: editEnd.val()
+      }),
+      dataType: "json",
+      contentType:'application/json; charset=utf-8',
       success: function (response) {
         alert('수정: ' + newDates.startDate + ' ~ ' + newDates.endDate);
       }
