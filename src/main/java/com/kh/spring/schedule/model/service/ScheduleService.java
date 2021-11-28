@@ -18,6 +18,10 @@ public interface ScheduleService {
 
 	ArrayList<Schedule> scheduleList(String empId);
 
+	int resizeUpdateSchedule(Schedule sc);
+
+	int dropUpdateSchedule(Schedule sc);
+
 
 
 

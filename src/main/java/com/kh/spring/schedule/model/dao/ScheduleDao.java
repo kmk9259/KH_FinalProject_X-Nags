@@ -37,6 +37,16 @@ public class ScheduleDao {
 		return (ArrayList)sqlSession.selectList("scheduleMapper.scheduleList", empId);
 	}
 
+	public int resizeUpdateSchedule(SqlSessionTemplate sqlSession, Schedule sc) {
+		
+		return sqlSession.update("scheduleMapper.resizeUpdateSchedule", sc);
+	}
+
+	public int dropUpdateSchedule(SqlSessionTemplate sqlSession, Schedule sc) {
+		
+		return sqlSession.update("scheduleMapper.dropUpdateSchedule", sc);
+	}
+
 	
 
 }

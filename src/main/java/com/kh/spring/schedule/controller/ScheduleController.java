@@ -159,6 +159,40 @@ public class ScheduleController {
 		return resultVo;
 	}
 	
+	//리사이즈
+	@ResponseBody
+	@RequestMapping(value = "resizeUpdateSchedule", method=RequestMethod.POST)
+	public ResultVo resizeUpdateSchedule(@RequestBody Schedule sc) {
+		int result = scheduleService.resizeUpdateSchedule(sc);
+		ResultVo resultVo = new ResultVo();
+		resultVo.setData(result);
+		if ( result > 0 ) {
+			resultVo.setStatus(HttpStatus.OK);
+		}
+		else {
+			resultVo.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		return resultVo;
+	}
+	
+	//드롭
+	@ResponseBody
+	@RequestMapping(value = "dropUpdateSchedule", method=RequestMethod.POST)
+	public ResultVo dropUpdateSchedule(@RequestBody Schedule sc) {
+		int result = scheduleService.dropUpdateSchedule(sc);
+		ResultVo resultVo = new ResultVo();
+		resultVo.setData(result);
+		if ( result > 0 ) {
+			resultVo.setStatus(HttpStatus.OK);
+		}
+		else {
+			resultVo.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		return resultVo;
+	}
+	
 	//실험용
 	public static void main(String[] args) {
 		Calendar cal = Calendar.getInstance();
