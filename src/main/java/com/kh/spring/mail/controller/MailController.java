@@ -153,43 +153,18 @@ public class MailController {
 		return "mail/receiveMailDetailView";
 	}
 
-	// 받은메일함 리스트에서 휴지통으로
-	@RequestMapping("wasteCheckedReceiveMail.ml")
-	public ModelAndView wasteReceiveMail(ModelAndView mv, HttpServletRequest request,
-			@RequestParam(name = "checkList") String checkList) {
-
-		System.out.println(checkList);
-		String[] list = checkList.split(",");
-
-		System.out.println(list);
-
-		if (list != null) {
-			for (int i = 0; i < list.length; i++) {
-
-				mailService.wasteReceiveMail(Integer.parseInt(list[i]));
-			}
-		}
-
-		mv.setViewName("redirect:receiveList.ml");
-
-		return mv;
-
-	}
-
 	// 보낸메일보기->메일다시보내기
 	@RequestMapping("resend.ml")
 	public String resendMail(@RequestParam(name = "mno") int mno) {
 
 		// 보낸메일 가져오기
 		Mail m = mailService.selectSendMail(mno);
-		System.out.println("보낸메일다시보내기 ~~ " + m);
 
 		// 아이디 가져오기
 		Member id = mailService.getReceiver(m.getReceiver());
 
 		m.setTitle("[재전송] " + m.getTitle());
 		m.setReceiver(id.getEmpId());
-		// m.setReceiver(id);
 
 		mailService.resendMail(m);
 
@@ -361,13 +336,9 @@ public class MailController {
 	public String returnMail(int mno, String empId, HttpSession session) {
 
 		Mail m = mailService.selectMail(mno);
-		System.out.println("empId ~~~" + empId);
-		System.out.println("m.getEmpId() ~~ " +m.getEmpId());
 		
 		//작성자인경우
 		if(m.getEmpId().equals(empId)) {
-			
-			System.out.println("작성자입니다.");
 			
 			mailService.returnSendMail(mno);
 			
@@ -426,14 +397,12 @@ public class MailController {
 		
 	}
 	
-	//부서코드로 사원리스트 출력
+	//주소록 - 부서코드로 사원리스트 출력
 	@ResponseBody
 	@RequestMapping(value = "empList.ml", produces="application/json; charset=UTF-8")
 	public String selectEmployeeList(String deptCode) {
 		
 		ArrayList<Employee> list = mailService.selectEmployeeList(deptCode);
-		
-		System.out.println("list ~~~ " + list);
 		
 		JSONArray jrr = new JSONArray();
 		
@@ -461,17 +430,10 @@ public class MailController {
 			jsonMap.put("deptCode", deptCode);
 		}
 		
-		System.out.println("jsonMap ~~ "+jsonMap);
-		System.out.println("jsonMap.toString() ~~ "+jsonMap.toString());
-		
-		
-		System.out.println("jrr ~~ "+jrr);
-		System.out.println("jrr.toString() ~~ " + jrr.toString());
-		
-		
 		return jsonMap.toString();
 	}
-		
+	
+	//사이드바에서 안읽은 메일 개수 보여주기
 	@ResponseBody
 	@RequestMapping("count.ml")
 	public String selectCountNoRead(Model model, HttpServletRequest request) {

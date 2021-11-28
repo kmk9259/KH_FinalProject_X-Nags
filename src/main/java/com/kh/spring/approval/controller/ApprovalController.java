@@ -78,31 +78,23 @@ public class ApprovalController {
 		if (app.getCategory() == 1) {
 
 			if (date.length() > 10) {
-				System.out.println("여러날 : " + date);
 
 				String[] str = date.split(" - ");
-				System.out.println("str[0] "+str[0]);
-				System.out.println("str[1] "+str[1]);
 				
 				sDate = sdf.parse(str[0]);
 				eDate = sdf.parse(str[1]);
-				
-				System.out.println("그냥 바로 형변환 시도 ~~ " + sDate);
-				System.out.println();
 				
 				app.setStayDate(sDate);
 				app.setEndDate(eDate);
 				
 				
 			} else {
-				System.out.println("하루 : " + date);
 				app.setStayDate(oneDay);
 				app.setEndDate(oneDay);
 			}
 
 		} else {
 
-			System.out.println("하루 : " + date);
 			app.setStayDate(oneDay);
 			app.setEndDate(oneDay);
 		}
@@ -263,7 +255,6 @@ public class ApprovalController {
 	public ModelAndView finConfirm(int ano, String finReply, int category, String empId, ModelAndView mv, HttpServletRequest request, HttpSession session) {
 		
 		Approval app = approvalService.selectAskApprovalDetail(ano);
-		System.out.println("휴가아아아 " + app.getEmpId());
 		
 		app.setFinReply(finReply);
 		
@@ -280,8 +271,6 @@ public class ApprovalController {
 				hol.setHolStartDay(app.getEndDate());
 				hol.setHolEndDay(app.getEndDate());
 				hol.setHolDays(1.0);
-				
-				System.out.println("하루휴가");
 				
 				//연차 감소
 				approvalService.decreaseCount(hol);
@@ -303,8 +292,6 @@ public class ApprovalController {
 				hol.setHolEndDay(app.getEndDate());
 				hol.setHolDays(diffDays*1.0);
 				
-				System.out.println("휴가");
-				
 				//연차 감소
 				approvalService.decreaseCount(hol);
 				
@@ -321,8 +308,6 @@ public class ApprovalController {
 			hol.setHolStartDay(app.getEndDate());
 			hol.setHolEndDay(app.getEndDate());
 			hol.setHolDays(0.5);
-			
-			System.out.println("반차");
 			
 			//연차 감소
 			approvalService.decreaseCount(hol);
@@ -420,11 +405,6 @@ public class ApprovalController {
 			app.setChangeName(changeName);
 			
 		}
-		
-		System.out.println("reDate  : " + "ㅇ"+reDate+"ㅇ");
-		System.out.println(reDate.length());
-		System.out.println("category  " + category);
-		
 		SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
 		
 		Date sDate = null;
@@ -434,18 +414,14 @@ public class ApprovalController {
 		
 		//날짜를 변경한 경우
 		if(reDate.length() > 7) {
-			System.out.println(reDate);
 			
 			//휴가인 경우
 			if (category == 1) {
 				
 				//휴가가 하루가아닌경우
 				if (reDate.length() > 10) {
-					System.out.println("여러날 : " + reDate);
-
+					
 					String[] str = reDate.split(" - ");
-					System.out.println("str[0] "+str[0]);
-					System.out.println("str[1] "+str[1]);
 					
 					sDate = sdf.parse(str[0]);
 					eDate = sdf.parse(str[1]);
@@ -458,7 +434,6 @@ public class ApprovalController {
 					
 					oneDay = sdf.parse(reDate);
 					
-					System.out.println("하루 : " + reDate);
 					app.setStayDate(oneDay);
 					app.setEndDate(oneDay);
 				}
@@ -468,7 +443,6 @@ public class ApprovalController {
 				
 				oneDay = sdf.parse(reDate);
 
-				System.out.println("하루 : " + reDate);
 				app.setEndDate(oneDay);
 			}
 		
@@ -487,8 +461,6 @@ public class ApprovalController {
 		
 		String resources = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = resources+"\\approval_files\\";
-		
-		System.out.println("savePath" + savePath);
 		
 		File deleteFile = new File(savePath+fileName);
 		deleteFile.delete();
@@ -530,7 +502,6 @@ public class ApprovalController {
 
 		
 		return "approval/processedAppListView";
-		
 	}
 	
 	//결재완료문서보기
@@ -594,6 +565,7 @@ public class ApprovalController {
 		
 	}
 	
+	//메인 요청결재함수
 	@ResponseBody
 	@RequestMapping("count.ap")
 	public String selectCountNoApp(Model model, HttpServletRequest request) {

@@ -154,30 +154,36 @@ public class MailDao {
 		return (ArrayList)sqlSession.selectList("mailMapper.selectEmployeeList", deptCode);
 	}
 
+	//보낸사람
 	public Member selectSendEmp(SqlSessionTemplate sqlSession, int mno) {
 	
 		return sqlSession.selectOne("mailMapper.selectSendEmp", mno);
 	}
-
+	
+	//메일번호로 메일 선택
 	public Mail selectMail(SqlSessionTemplate sqlSession, int mno) {
 		
 		return sqlSession.selectOne("mailMapper.selectMail", mno);
 	}
 
+	//받는사람
 	public Member selectReceiveEmp(SqlSessionTemplate sqlSession, int mno) {
 	
 		return sqlSession.selectOne("mailMapper.selectReceiveEmp", mno);
 	}
 
+	//메인 보낸메일
 	public ArrayList<Mail> mainSendMailList(SqlSessionTemplate sqlSession, String empId) {
 		
 		return (ArrayList)sqlSession.selectList("mailMapper.mainSendMailList", empId);
 	}
 
+	//메인 받은 메일
 	public ArrayList<Mail> mainReceiveMailList(SqlSessionTemplate sqlSession, String empId) {
 		return (ArrayList)sqlSession.selectList("mailMapper.mainReceiveMailList", empId);
 	}
 
+	//안읽은 메일 갯수
 	public int selectCountNoRead(SqlSessionTemplate sqlSession, String empId) {
 
 		return sqlSession.selectOne("mailMapper.selectCountNoRead", empId);
