@@ -74,7 +74,9 @@
 						<div class="modal fade" id="attmodal" tabindex="-1" role="dialog" aria-hidden="true">
 			                <div class="modal-dialog modal-dialog-centered" role="document">
 			                    <div class="modal-content">			                    
-			                        <div class="modal-body text-center font-18">			                            
+			                        <div class="modal-body text-center font-18">	
+			                        	<!-- canvas :  웹페이지에서 그래픽을 그릴 때 사용하는 컨테이너
+			                        				       자바스크립트를 통해 그림을 그리고 애니메이션과 이벤트 처리 등을 구현 -->		                            
 			                            <canvas id="canvas" width="350" height="240"></canvas><br><br>
 			                            <div class="padding-bottom-30 row" style="max-width: 170px; margin: 0 auto;">
 			                                <div class="col-6">
@@ -113,44 +115,41 @@
                         </div>
                         
 						<script>
-						
+						//navigator.mediaDevices : 카메라, 마이크, 화면 공유와 같이 현재 연결된 미디어 입력 장치에 접근할 수 있는 MediaDevices 객체를 반환
+						//navigator.mediaDevices.getUserMedia : 사용자에게 미디어 입력 장치 사용 권한을 요청하며, 사용자가 수락하면 요청한 미디어 종류의 트랙을 포함한 Stream을 반환합니다.
 						if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
 							navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
 								var video = document.getElementById('video');
-								video.srcObject = stream;
+								video.srcObject = stream;					//Stream은 새로 생성된 <video> 요소에 할당됩니다.
 								video.play();
 							});
-						}
-						
-						var canvas = document.getElementById('canvas');
-						var context = canvas.getContext('2d');
+						}						
+						var canvas = document.getElementById('canvas');					
+						var context = canvas.getContext('2d');				//2d모드의 그리기 객체 =>canvas에 그림을 그릴 수 있다.
 						var video = document.getElementById('video');
-						var msg="";
 						document.getElementById("modalbtn").addEventListener("click",function() {
 							context.drawImage(video,0,0,350,240);
 						});
 						
-						function saveImage(){
-							
+						function saveImage(){							
 						    var imgDataUrl = canvas.toDataURL('image/png');
-						    var blobBin = atob(imgDataUrl.split(',')[1]);	// base64 데이터 디코딩
+						    var blobBin = atob(imgDataUrl.split(',')[1]);						// base64 데이터 디코딩
 						    var array = [];
 						    for (var i = 0; i < blobBin.length; i++) {
 						        array.push(blobBin.charCodeAt(i));
 						    }
 						    var file = new Blob([new Uint8Array(array)], {type: 'image/png'});	// Blob 생성
-						    var formdata = new FormData();	// formData 생성 */
-						    formdata.append("file", file, 'capture.png');	// file data 추가
+						    var formdata = new FormData();										// formData 생성 
+						    formdata.append("file", file, 'capture.png');						// file data 추가
 						   
 						    //Capture된 사진은 무조건 저장
 						    $.ajax({
 						        type : 'post',
 						        url : 'attImage.att',
 						        enctype: 'multipart/form-data',
-						        data:  formdata,
-						        
-						        processData : false,	// data 파라미터 강제 string 변환 방지!!
-						        contentType : false,	// application/x-www-form-urlencoded; 방지!!
+						        data:  formdata,						        
+						        processData : false,						// data 파라미터 강제 string 변환 방지!!
+						        contentType : false,						// application/x-www-form-urlencoded; 방지!!
 						        success : function (data) {						            
 						            console.log("캡쳐 저장");
 						        }						        
@@ -158,25 +157,22 @@
 						    var result=faceRecognition(file);			//등록된 사원의 프로필사진과 캠으로 캡쳐된 사진이 동일 인물인지 결과 값을 result 변수에 담기
 						    if(result.match('true')){					//결과 값이 true이면	
 						    	var empId= result.substring(43, 52);	//해당 사원의 empId를 가져오기
-						    	console.log("empId : "+empId);
+						    	
 						    	$('#attmodal').modal('hide');
 						    	$('#success-modal').modal('show');
 						    	document.getElementById("loginBtn").addEventListener("click",function() {
 						    		location.href = "main.xnags?empId="+empId;
-								});
-						    		
+								});						    		
 						    }else{						    	 
 						    	 $('#attmodal').modal('hide');
 						    	 $('#fail-modal').modal('show');
 						    }						   					
 						}
-						//캡쳐된 사진이랑 얼굴인식 api랑 동일인물인지 비교하기
-						
+						//등록된 프로필 사진과 캡쳐된 사진이 동일인물인지 비교하기						
 						function faceRecognition(file){
 							var result=""; 
 							const form = new FormData();
-							form.append("image", file);
-							
+							form.append("image", file);							
 							const settings = {
 								"async": false,
 								"crossDomain": true,
@@ -191,16 +187,11 @@
 								"mimeType": "multipart/form-data",
 								"data": form
 							};
-
-							$.ajax(settings).done(function (response) {
-								console.log("얼굴인식 성공 : "+response);
+							$.ajax(settings).done(function (response) {								
 								result = response;								
 							}); 
 							return result;							
-						}
-						
- 
-						
+						}						
 						</script>
 					</div>
 				</div>
