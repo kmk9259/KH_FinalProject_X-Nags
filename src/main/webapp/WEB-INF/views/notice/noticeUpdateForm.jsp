@@ -47,8 +47,8 @@
      			 <input type="file" class="form-control-file border" id="upfile"  name="reUploadFile">
      			  <c:if test="${ !empty n.originFile }">
 	                                                        현재 업로드된 파일 : ${ n.originFile } <br>
-	                            <input type="hidden" name="changeName" value="${ n.changeFile }">
-	                            <input type="hidden" name="originName" value="${ n.originFile }">
+	                            <input type="hidden" name="changeFile" value="${ n.changeFile }">
+	                            <input type="hidden" name="originFile" value="${ n.originFile }">
                             </c:if>
    							 </div>  		           	           	         	
                 <table>                 

@@ -73,8 +73,7 @@ public class NoticeController {
 
 	@RequestMapping("noticeUpdate.bo")
 	public ModelAndView updateBoard(Notice n, ModelAndView mv, HttpServletRequest request,
-			@RequestParam(name = "reUploadFile", required = false) MultipartFile file) {
-		
+			@RequestParam(name = "reUploadFile", required = false) MultipartFile file) {		
 		if (!file.getOriginalFilename().equals("")) {
 			if (n.getChangeFile() != null) {
 				deleteFile(n.getChangeFile(), request);
