@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>X-Nomal Groupware Solution</title>
+<title>X-Normal GroupWare Solution</title>
 <style>
 	#contentArea{width:100%}
 	#contentArea *{margin:5px }

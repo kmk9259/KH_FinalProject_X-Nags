@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>X-Nomal Groupware Solution</title>
+<title>X-Normal GroupWare Solution</title>
 <style>
 	#contentArea{width:100%}
 	#contentArea *{margin:5px }
@@ -117,8 +117,7 @@
            <div class="card-box mb-30">
            <table id="replyArea1" class="table" >
             <thead class ="thead-dark">
-            <tr >
-            <th style = 'text-align : center' >댓글 번호</th> 
+            <tr >         
             <th  style = 'text-align : center'>작성자</th>
             <th style = 'text-align : center'>내용</th>
             <th style = 'text-align : center' >작성일</th>
@@ -206,8 +205,7 @@
  	            var value="";
  	            $.each(list, function(i, obj){
  	            	rlist.push(obj);
- 	                  value += "<tr class = 'table-warning'>"
- 	                		 +"<td style = 'text-align : center'>"  + obj.replyNo + "</td>"
+ 	                  value += "<tr class = 'table-warning'>" 	                		
  	                        +"<td style = 'text-align : center'> 익명 </td>" 
  	                         +"<td style = 'text-align : center'>" + obj.replyContent + "</td>" 
  	                        + "<td style = 'text-align : center'>" + obj.replyDate + "</td>"; 	                       
