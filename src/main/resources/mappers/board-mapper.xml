@@ -4,10 +4,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="boardMapper">
 <resultMap id="boardResultSet" type="Board">
-		<id column="board_no" property="boardNo"/>
-		<result column="emp_id" property="empId"/>
-		<result column="board_title" property="boardTitle"/>
-		<result column="board_content" property="boardContent"/>
+		<id column="BOARD_NO" property="boardNo"/>
+		<result column="EMP_ID" property="empId"/>
+		<result column="BOARD_TITLE" property="boardTitle"/>
+		<result column="BOARD_CONTENT" property="boardContent"/>
 		<result column="ORIGIN_FILE" property="originFile"/>
 		<result column="CHANGE_FILE" property="changeFile"/>
 		<result column="COUNT" property="count"/>
@@ -50,10 +50,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </delete>
 	
 <update id = "updateBoard" parameterType="Board">
-		update board
-		set board_title=#{boardTitle}, board_content=#{boardContent},
-		    change_file=#{changeFile}
-		where board_no=#{boardNo}
+		UPDATE BOARD
+		SET BOARD_TITLE=#{boardTitle}, BOARD_CONTENT=#{boardContent},
+		 ORIGIN_FILE=#{originFile}, CHANGE_FILE=#{changeFile}
+		WHERE BOARD_NO=#{boardNo}
 </update>
 	
 <select id="selectTopList" resultMap="boardResultSet">

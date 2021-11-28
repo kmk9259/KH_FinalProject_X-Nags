@@ -61,7 +61,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update notice
 		set
 		notice_title=#{noticeTitle}, notice_content=#{noticeContent},
-		origin_file=#{originFile}, change_file=#{changeFile}
+		 ORIGIN_FILE=#{originFile}, CHANGE_FILE=#{changeFile}
 		where
 		notice_no=#{noticeNo}
 </update>
