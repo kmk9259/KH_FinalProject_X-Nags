@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.kh</groupId>
 	<artifactId>spring</artifactId>
-	<name>SpringP</name>
+	<name>X-nags</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
@@ -233,7 +233,7 @@
 		</dependency>
 		
 		<!-- https://mvnrepository.com/artifact/org.json/json -->
-	<dependency>
+<!-- 	<dependency>
     <groupId>org.json</groupId>
     <artifactId>json</artifactId>
     <version>20160810</version>
@@ -249,7 +249,7 @@
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>${com.fasterxml.jackson-version}</version>
-		</dependency>
+		</dependency> -->
 		
 		<dependency>
 		    <groupId>com.fasterxml.jackson.dataformat</groupId>

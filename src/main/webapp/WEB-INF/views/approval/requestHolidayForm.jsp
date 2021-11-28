@@ -7,7 +7,7 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>X-Nomal Groupware Solution</title>
+<title>X-Normal GroupWare Solution</title>
 <style type="text/css">
 div.box{display: none;}
 label {
@@ -56,7 +56,7 @@ label {
 						<div class="col-md-6 col-sm-12">
 							<div class="title">
 								<h4 class="text-blue h4">결재선 지정</h4>
-								<input type="hidden" name="empId" value="${ sessionScope.loginUser.empId }">
+								<input type="hidden" name="empId" value="${ loginUser.empId }">
 							</div>
 							<div class="form-group">
 								<input class="form-control" type="text" required="required" readonly="readonly" name="appMidName" data-toggle="tooltip" title="주소록에서 선택해 주세요." placeholder="중간 결제자를 입력해 주세요">
