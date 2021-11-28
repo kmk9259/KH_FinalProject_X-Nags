@@ -1,6 +1,4 @@
-/* ****************
- *  일정 편집
- * ************** */
+/*일정수정,삭제*/
 var editEvent = function (event, element, view) {
 
 	console.log('scheduleNo : ' + event.scheduleNo);
@@ -36,7 +34,7 @@ var editEvent = function (event, element, view) {
     modifyBtnContainer.show();
     eventModal.modal('show');
 
-    //업데이트 버튼 클릭시
+    //수정 버튼 클릭시
     $('#updateEvent').unbind();
     $('#updateEvent').on('click', function () {
 
@@ -81,7 +79,7 @@ var editEvent = function (event, element, view) {
 
        
 
-        //일정 업데이트
+        //일정 수정
         $.ajax({
             type: "post",
             url: "updateSchedule",
@@ -137,16 +135,6 @@ var editEvent = function (event, element, view) {
     });
 };
 
-/*function goAjaxPost(url, data, callback) {
-	$.ajax({
-		url:url,
-		data:data,
-		dataType: "json",
-        contentType:'application/json; charset=utf-8',
-        success:function(response) {
-        	callback(response);
-        }
-	});
-}*/
+
 
 

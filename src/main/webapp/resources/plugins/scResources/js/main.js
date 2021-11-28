@@ -12,17 +12,17 @@ var calendar = $('#calendar').fullCalendar({
   allDaySlot                : true,
   displayEventTime          : true,
   displayEventEnd           : true,
-  firstDay                  : 1, //월요일이 먼저 오게 하려면 1
+  firstDay                  : 1, //월요일먼저 : 1, 일요일 먼저: 0
   weekNumbers               : false,
   selectable                : true,
   weekNumberCalculation     : "ISO",
   eventLimit                : true,
   views                     : { 
-                                month : { eventLimit : 12 } // 한 날짜에 최대 이벤트 12개, 나머지는 + 처리됨
+                                month : { eventLimit : 12 } 
                               },
-  eventLimitClick           : 'week', //popover
+  eventLimitClick           : 'week', 
   navLinks                  : true,
-  defaultDate               : moment(), //실제 사용시 현재 날짜로 수정
+  defaultDate               : moment(), 
   timeFormat                : 'HH:mm',
   defaultTimedEventDuration : '01:00:00',
   editable                  : true,
@@ -57,7 +57,7 @@ var calendar = $('#calendar').fullCalendar({
                                   columnFormat : ''
                                 }
                               },
-  customButtons             : { //주말 숨기기 & 보이기 버튼
+  customButtons             : { //주말  숨김 버튼
                                 viewWeekends : {
                                   text  : '주말',
                                   click : function () {
@@ -83,8 +83,7 @@ var calendar = $('#calendar').fullCalendar({
       }),
       content: $('<div />', {
           class: 'popoverInfoCalendar'
-        })//.append('<p><strong>등록자:</strong> ' + event.username + '</p>')
-       // .append('<p><strong>구분:</strong> ' + event.type + '</p>')
+        })
         .append('<p><strong>시간:</strong> ' + getDisplayEventDate(event) + '</p>')
         .append('<div class="popoverDescCalendar"><strong>설명:</strong> ' + event.description + '</div>'),
       delay: {
@@ -101,9 +100,7 @@ var calendar = $('#calendar').fullCalendar({
 
   },
 
-  /* ****************
-   *  일정 받아옴 
-   * ************** */
+ /*일정 가져오기*/
   events: function (start, end, timezone, callback) {
 	var scheduleStart = moment(start).format('YYYY-MM-DD');
 	var scheduleEnd	=  moment(end).format('YYYY-MM-DD');
@@ -115,15 +112,13 @@ var calendar = $('#calendar').fullCalendar({
       dataType:'json',
       contentType:'application/json; charset=utf-8',
       data:JSON.stringify({
-        // 화면이 바뀌면 Date 객체인 start, end 가 들어옴
     	  scheduleStart : scheduleStart,
     	  scheduleEnd : scheduleEnd
-    	  
       }),
       success: function (response) {
         var fixedDate = response.data.map(function (array) {
           if (array.allDay && array.start !== array.end) {
-            array.end = moment(array.end).add(1, 'days'); // 이틀 이상 AllDay 일정인 경우 달력에 표기시 하루를 더해야 정상출력
+            array.end = moment(array.end).add(1, 'days'); 
           }
           return array;
         });
@@ -272,25 +267,6 @@ function getDisplayEventDate(event) {
 }
 
 function filtering(event) {
-  /*var show_username = true;
-  var show_type = true;
-
-  var username = $('input:checkbox.filter:checked').map(function () {
-    return $(this).val();
-  }).get();
-  var types = $('#type_filter').val();
-
-  show_username = username.indexOf(event.username) >= 0;
-
-  if (types && types.length > 0) {
-    if (types[0] == "all") {
-      show_type = true;
-    } else {
-      show_type = types.indexOf(event.type) >= 0;
-    }
-  }
-
-  return show_username && show_type;*/
 	return true;
 }
 

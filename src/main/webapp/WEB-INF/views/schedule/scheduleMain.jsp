@@ -7,7 +7,7 @@
 <head>
 <meta charset='utf-8' />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>>X-Normal GroupWare Solution</title>
+<title>X-Normal GroupWare Solution</title>
 
 <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/css/fullcalendar.min.css" />
 <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/css/bootstrap.min.css"> 
@@ -133,23 +133,22 @@
 		                </div><!-- /.modal-content -->
 		            </div><!-- /.modal-dialog -->
 		        </div><!-- /.modal -->       
-    		
     		</div><!-- /.container -->
   		</div><!-- /.card-box -->
      	<jsp:include page="../common/footer.jsp" />
     </div><!-- /.main-container -->
    
-	    <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/bootstrap.min.js"></script> 
-	  	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/moment.min.js"></script>
-	    <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/fullcalendar.min.js"></script>
-	    <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/ko.js"></script>
-	    <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/bootstrap-datetimepicker.min.js"></script>
-	    <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/select2.min.js"></script>
+	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/bootstrap.min.js"></script> 
+	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/moment.min.js"></script>
+	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/fullcalendar.min.js"></script>
+	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/ko.js"></script>
+	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/vendor/js/select2.min.js"></script>
 	     
-	    <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/js/main.js"></script>
-	    <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/js/addEvent.js"></script>
-	    <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/js/editEvent.js"></script>
-	    <script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/js/etcSetting.js"></script>
+	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/js/main.js"></script>
+	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/js/addEvent.js"></script>
+	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/js/editEvent.js"></script>
+	<script src="${ pageContext.servletContext.contextPath }/resources/plugins/scResources/js/etcSetting.js"></script>
 	    
 </body>
 </html>
