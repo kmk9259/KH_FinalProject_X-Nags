@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>X-Nomal Groupware Solution</title>
+<title>X-Normal GroupWare Solution</title>
 <style>
 #boardList {
 	text-align: center;

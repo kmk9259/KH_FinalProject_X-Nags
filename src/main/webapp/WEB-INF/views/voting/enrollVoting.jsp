@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>X-Nomal Groupware Solution</title>
+<title>X-Normal GroupWare Solution</title>
 <style>
 #enrollForm>table {
 	width: 100%;
