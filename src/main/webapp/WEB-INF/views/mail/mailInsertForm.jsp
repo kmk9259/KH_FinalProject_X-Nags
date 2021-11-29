@@ -157,17 +157,14 @@ $(function(){
 	$("#searchEmp").click(function(){
 		
 		var deptCode = $("option:selected").val();
-		console.log(deptCode);
 		
 		if(deptCode == "부서 선택"){
 				
-			swal(
-	               {
-	                   type: 'error',
-	                   title: 'Oops...',
-	                   text: '부서를 선택해 주세요',
-	               }
-	           )
+			swal({
+                  type: 'error',
+                  title: 'Oops...',
+                  text: '부서를 선택해 주세요',
+	            })
 			return false;
 		}
 		
@@ -176,14 +173,11 @@ $(function(){
 			data:{deptCode:deptCode},
 			type:"get",
 			success:function(map){
-				console.log(map);
-				console.log(map["jrr"])
 				
 				var $tableBody = $("#eList tbody");
 				$tableBody.html("");
 				
 				$.each(map["jrr"], function(i, emp){
-					console.log("emp ~~~ "+ emp);
 					
 					var $tr = $("<tr>");
 					var $ckTd = $("<td><input type='checkBox' class='checkEmp' name='checkEmp'></td>");
@@ -201,7 +195,6 @@ $(function(){
 					$tableBody.append($tr);
 					
 				})
-
 			},
 			error:function(e){
 				console.log("사원 리스트 조회 ajax 통신 실패");
@@ -220,7 +213,6 @@ function selectReceiver(){
 	var empId = td.eq(2).text();
 	
 	var deptCode = $("option:selected").val();
-	console.log(deptCode);
 	
 	if(deptCode == "부서 선택"){
 			
@@ -243,9 +235,6 @@ function selectReceiver(){
            )
 		return false;
 	}
-	
-	console.log("userName : " + userName);
-	console.log("empId : " + empId);
 	
 	$("input[name=receiverName]").val(userName);
 	$("input[name=receiver]").val(empId);

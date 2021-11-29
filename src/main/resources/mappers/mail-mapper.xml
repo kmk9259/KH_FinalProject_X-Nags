@@ -276,6 +276,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		JOIN JOB USING (JOB_CODE)
 		JOIN RIGHT USING (RIGHT_NO)
 		WHERE DEPT_CODE=#{deptCode}
+		ORDER BY 1
 	</select>
 	
 	<!-- 메일 작성자 -->
