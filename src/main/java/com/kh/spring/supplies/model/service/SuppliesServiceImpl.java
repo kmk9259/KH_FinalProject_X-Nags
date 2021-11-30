@@ -63,15 +63,12 @@ public class SuppliesServiceImpl implements SuppliesService {
 				Supplies su = new Supplies(sCode[i], empId, sName[i], sCounts[i], startDate, endDate, status);
 				
 				suplist.add(su);
-				System.out.println("어레이리스트에 잘 넘어오는지? " + suplist);
 
 				suplist = suppliesDao.insertCode(sqlSession, suplist);
 				
 			}
 		}
-		
-		
-		
+
 		if (result < 0) {
 			throw new CommException("비품 예약 실패");
 		}

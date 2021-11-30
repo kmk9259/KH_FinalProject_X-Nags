@@ -58,7 +58,6 @@ public class MeetingRoomServiceImpl implements MeetingRoomService {
 			for(int i=0; i<Stime.length; i++) {
 				String time = mr.getTime();
 				time += Stime[i];
-				//System.out.println("나눠 들어오나? " + Stime[i]);
 				meetingRoomDao.updateStatus(sqlSession, Stime[i]);
 				
 			
@@ -106,10 +105,7 @@ public class MeetingRoomServiceImpl implements MeetingRoomService {
 			for(int i=0; i<Stime.length; i++) {
 				String time = mr.getTime();
 				time += Stime[i];
-				
 				meetingRoomDao.updateStatusC(sqlSession, Stime[i]);
-				
-			
 			}
 		}
 		
@@ -118,7 +114,6 @@ public class MeetingRoomServiceImpl implements MeetingRoomService {
 		}
 		
 	}
-
 	
 	//회의실 4
 	@Override

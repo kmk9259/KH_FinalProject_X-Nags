@@ -498,7 +498,7 @@ p {
 						  $("#money11").val('3000000');
 					  }
 					  if(salGrade == 'S5'){
-						  alert("S5 은 기본 3000000 부터 시작입니다.");
+						  alert("S5 은 기본 2000000 부터 시작입니다.");
 						  $("#money1").val('2,000,000');
 						  $("#money11").val('2000000');
 					  }
@@ -686,12 +686,7 @@ p {
 								     
 								     var jobCode = $("#jobCode").val();
 								     
-								     if( jobCode === 'S1' && num1 < 6000000){
-								    	 alert('hi');
-								    	 console.log(jobCode);
-								     }
-								     
-								     
+
 								     
 								     /*히든으로 숫자값만 가지고 있을 input*/
 								     nh1.value= num1;
@@ -905,7 +900,7 @@ p {
 		                            </div>
 		                            
 		                        </div>
-		                    </fieldset> 
+		                   </fieldset> 
 		                    
 		                </form>
 		            </div>

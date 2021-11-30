@@ -26,17 +26,17 @@ public class SuppliesDao {
 
 
 	public ArrayList<Return> updateForm(SqlSessionTemplate sqlSession, int empId) {
-		// TODO Auto-generated method stub
+		
 		return (ArrayList) sqlSession.selectList("suppliesMapper.updateForm", empId);
 	}
 
 	public ArrayList<Supplies> insertCode(SqlSessionTemplate sqlSession, ArrayList<Supplies> suplist) {
-		// TODO Auto-generated method stub
+		
 		return (ArrayList) sqlSession.selectList("suppliesMapper.insertCode", suplist);
 	}
 
 	public ArrayList<Return> selectReSuplist(SqlSessionTemplate sqlSession) {
-		// TODO Auto-generated method stub
+		
 		return (ArrayList)sqlSession.selectList("suppliesMapper.selectReSuplist");
 	}
 
