@@ -72,7 +72,7 @@ var calendar = $('#calendar').fullCalendar({
 
   eventRender: function (event, element, view) {
 
-    //일정에 hover시 요약
+    /*일정 말풍선*/
     element.popover({
       title: $('<div />', {
         class: 'popoverTitleCalendar',
@@ -324,7 +324,7 @@ function calDateWhenDragnDrop(event) {
     newDates.endDate = moment(event.end._d).subtract(1, 'days').format('YYYY-MM-DD');
   }
 
-  //all day가 아님
+  //all day가 아님 --> 헷갈림, 없애기
   else if (!event.allDay) {
     newDates.startDate = moment(event.start._d).format('YYYY-MM-DD HH:mm');
     newDates.endDate = moment(event.end._d).format('YYYY-MM-DD HH:mm');

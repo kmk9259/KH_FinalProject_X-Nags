@@ -71,7 +71,7 @@ public class ScheduleController {
 		}
 		return resultVo;
 	}
-	//날짜 컨버터
+	//이름 일치용 컨버터
 	public List<ConvertScheduleVo> convertData(List<Schedule> scheduleList, Member member) {
 		List<ConvertScheduleVo> resultList = new ArrayList<>();
 		
