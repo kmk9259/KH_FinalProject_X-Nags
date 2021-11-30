@@ -63,7 +63,8 @@ public class SuppliesController {
 	}
 	
 	@RequestMapping("insertSup.su")
-	public ModelAndView insertSupplies(int empId, ModelAndView mv, Supplies supplies, HttpServletRequest req)
+	public ModelAndView insertSupplies(int empId, ModelAndView mv, Supplies supplies)
+
    {
 		
 		suppliesService.insertSupplies(supplies);

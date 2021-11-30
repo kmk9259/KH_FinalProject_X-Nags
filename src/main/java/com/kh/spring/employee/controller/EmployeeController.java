@@ -179,7 +179,7 @@ public class EmployeeController {
 		salaryService.insertSalary(sal);
 		
 		
-		session.setAttribute("msg", "직원 등록 성공");
+		//session.setAttribute("msg", "직원 등록 성공");
 		return "employee/listEmp";
 		
 		
