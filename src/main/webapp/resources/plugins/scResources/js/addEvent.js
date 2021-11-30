@@ -84,11 +84,10 @@ var newEvent = function (start, end, eventType) {
             contentType:'application/json; charset=utf-8',
             success: function (response) {
             	console.log(response)
-                //DB연동시 중복이벤트 방지를 위한
                 $('#calendar').fullCalendar('removeEvents');
                 $('#calendar').fullCalendar('refetchEvents');
             },error:function(e){
-                console.log(" ajax 통신 실패1");
+                console.log(" ajax 통신 실패_일정저장");
                 console.log(e);
             }
         });/*ajax 새로운 일정 저장*/
