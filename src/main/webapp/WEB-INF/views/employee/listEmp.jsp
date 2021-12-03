@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>X-Normal Groupware Solution</title>
+<title>X-Nomal Groupware Solution</title>
 
 
 <style type="text/css">
