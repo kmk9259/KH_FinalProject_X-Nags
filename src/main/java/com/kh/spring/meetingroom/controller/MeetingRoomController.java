@@ -171,7 +171,7 @@ public class MeetingRoomController {
 	}
 	
 	
-	//관리자 초기화 회의시 1
+	//관리자 초기화 회의시 
 	@RequestMapping("reset.me")
 	public String resetA(TimeTable_A a, TimeTable_B b, TimeTable_C c, TimeTable_D d,
 						 MeetingRoom mroom, HttpServletRequest request, Model model) {
